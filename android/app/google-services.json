@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "791440112405",
+    "project_id": "project428app",
+    "storage_bucket": "project428app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791440112405:android:19c921152251854e68c71c",
+        "android_client_info": {
+          "package_name": "com.daltec.project428app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSkZFIRBF0_axRryzr4kzgNL6asvPG7cA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791440112405:android:3d28716b77b95ad468c71c",
+        "android_client_info": {
+          "package_name": "com.example.project428app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSkZFIRBF0_axRryzr4kzgNL6asvPG7cA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
