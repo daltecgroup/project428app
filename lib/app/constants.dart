@@ -13,6 +13,8 @@ const kAdminMenuOperator = 'Admin Menu Operator';
 const kAdminMenuStok = 'Admin Menu Stok';
 const kAdminMenuProduk = 'Admin Menu Produk';
 const kAdminMenuPromo = 'Admin Menu Promo';
+const kAdminMenuAktivitas = 'Admin Menu Aktivitas';
+const kAdminMenuPengaturan = 'Admin Menu Pengaturan';
 
 const kOperatorMenuBeranda = 'Operator Menu Beranda';
 const kOperatorMenuTransaksi = 'Operator Menu Transaksi';
@@ -28,7 +30,10 @@ const kAllUserData = 'all_user_data';
 
 const kCurrentUserDetailId = 'current_user_detail';
 
+const kTitleFailed = "Terjadi Kesalahan";
+
 // const kServerUrl = 'http://10.0.2.2:8000';
 const kServerUrl = 'http://localhost:8000';
 
-const kTitleFailed = "Terjadi Kesalahan";
+const kEnv = 'dev';
+// const kEnv = 'prod';

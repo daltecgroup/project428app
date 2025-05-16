@@ -11,6 +11,7 @@ Drawer OperatorDrawer(BuildContext context, String selectedItem) {
   Color selectedColor = Colors.redAccent;
 
   return Drawer(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
     child: ListView(
       padding: EdgeInsets.zero,
       children: [
@@ -92,17 +93,17 @@ Drawer OperatorDrawer(BuildContext context, String selectedItem) {
             Get.offNamed('/login');
           },
         ),
-        IconButton(
-          icon: Obx(
-            () =>
-                c.isDarkMode.value
-                    ? Icon(Icons.dark_mode)
-                    : Icon(Icons.light_mode),
-          ),
-          onPressed: () {
-            c.switchTheme();
-          },
-        ),
+        // IconButton(
+        //   icon: Obx(
+        //     () =>
+        //         c.isDarkMode.value
+        //             ? Icon(Icons.dark_mode)
+        //             : Icon(Icons.light_mode),
+        //   ),
+        //   onPressed: () {
+        //     c.switchTheme();
+        //   },
+        // ),
       ],
     ),
   );

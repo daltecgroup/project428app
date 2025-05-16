@@ -17,13 +17,13 @@ class PenggunaController extends GetxController {
   // variabel filter
   RxBool isAsc = true.obs;
   RxBool isNewestFirst = true.obs;
-  RxBool showActive = true.obs;
-  RxBool showInnactive = true.obs;
-  RxBool showAdmin = true.obs;
-  RxBool showFranchisee = true.obs;
-  RxBool showSpvAre = true.obs;
-  RxBool showOperator = true.obs;
-  RxBool isFilterOn = false.obs;
+  RxBool showActive = false.obs;
+  RxBool showInnactive = false.obs;
+  RxBool showAdmin = false.obs;
+  RxBool showFranchisee = false.obs;
+  RxBool showSpvAre = false.obs;
+  RxBool showOperator = false.obs;
+  RxBool isFilterOn = true.obs;
 
   @override
   void onInit() {
@@ -36,7 +36,6 @@ class PenggunaController extends GetxController {
 
   @override
   void onReady() {
-    getUsers();
     super.onReady();
   }
 
@@ -51,24 +50,24 @@ class PenggunaController extends GetxController {
   }
 
   void resetFilter() {
-    isAsc.value = true;
-    showActive.value = true;
-    showInnactive.value = true;
+    isNewestFirst.value = true;
+    showActive.value = false;
+    showInnactive.value = false;
     showAdmin.value = false;
     showFranchisee.value = false;
     showSpvAre.value = false;
     showOperator.value = false;
-    isFilterOn.value = false;
     filterUsers();
   }
 
   Future<Response> getUsers() {
     return User.getUsers().then((res) {
+      users.clear();
       print('Get users from database');
       box.write(kAllUserData, res.body);
       users.value = res.body;
       // print(GetMillisecondSinceEpoch(users[0]['createdAt']));
-      users.refresh();
+      // users.refresh();
       filterUsers();
       searchUsers();
       return res;
@@ -152,6 +151,28 @@ class PenggunaController extends GetxController {
           if (role.contains('operator')) {
             add = true;
           }
+        }
+      }
+
+      if (add) {
+        if (showActive.value) {
+          if (user['isActive']) {
+            add = true;
+          } else {
+            add = false;
+          }
+        }
+
+        if (showInnactive.value) {
+          if (!user['isActive']) {
+            add = true;
+          } else {
+            add = false;
+          }
+        }
+
+        if (showActive.value && showInnactive.value) {
+          add = true;
         }
       }
 

@@ -20,6 +20,13 @@ class UserProvider extends GetConnect {
     );
   }
 
+  Future<Response> deleteUser(String id) {
+    return delete(
+      '$kServerUrl/api/v1/users/$id',
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
+  }
+
   Future<Response> activateUser(String id) {
     return patch(
       '$kServerUrl/api/v1/users/$id/reactivate',

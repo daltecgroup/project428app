@@ -76,11 +76,11 @@ class TambahPenggunaController extends GetxController {
 
     try {
       await User.createUser(
-        idController.text,
-        nameController.text,
-        pinController.text,
+        idController.text.trim(),
+        nameController.text.trim().capitalize!,
+        pinController.text.trim(),
         status.value,
-        phoneController.text,
+        phoneController.text.trim(),
         role,
       ).then((res) async {
         print(res.statusCode);

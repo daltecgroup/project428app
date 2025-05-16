@@ -83,6 +83,31 @@ Future<dynamic> UserFilterDialog() {
                 ),
               ],
             ),
+            TextTitle(text: "Status"),
+            Row(
+              children: [
+                Checkbox(
+                  value: c.showActive.value,
+                  onChanged: (value) {
+                    c.showActive.toggle();
+                    c.filterUsers();
+                  },
+                ),
+                Text("Aktif"),
+              ],
+            ),
+            Row(
+              children: [
+                Checkbox(
+                  value: c.showInnactive.value,
+                  onChanged: (value) {
+                    c.showInnactive.toggle();
+                    c.filterUsers();
+                  },
+                ),
+                Text("Nonaktif"),
+              ],
+            ),
             TextTitle(text: "Peran"),
             Row(
               children: [
@@ -90,6 +115,7 @@ Future<dynamic> UserFilterDialog() {
                   value: c.showAdmin.value,
                   onChanged: (value) {
                     c.showAdmin.toggle();
+                    c.filterUsers();
                   },
                 ),
                 Text("Admin"),
@@ -101,6 +127,7 @@ Future<dynamic> UserFilterDialog() {
                   value: c.showFranchisee.value,
                   onChanged: (value) {
                     c.showFranchisee.toggle();
+                    c.filterUsers();
                   },
                 ),
                 Text("Franchisee"),
@@ -112,6 +139,7 @@ Future<dynamic> UserFilterDialog() {
                   value: c.showSpvAre.value,
                   onChanged: (value) {
                     c.showSpvAre.toggle();
+                    c.filterUsers();
                   },
                 ),
                 Text("SPV Area"),
@@ -123,28 +151,36 @@ Future<dynamic> UserFilterDialog() {
                   value: c.showOperator.value,
                   onChanged: (value) {
                     c.showOperator.toggle();
+                    c.filterUsers();
                   },
                 ),
                 Text("Operator"),
               ],
             ),
+            GestureDetector(
+              onTap: () {
+                c.resetFilter();
+              },
+              child: Text('Reset'),
+            ),
           ],
         ),
       ),
     ),
-    confirm: TextButton(
-      onPressed: () {
-        c.filterUsers();
-        Get.back();
-      },
-      child: Text("Terapkan"),
-    ),
+    // confirm: TextButton(
+    //   onPressed: () {
+    //     c.filterUsers();
+    //     c.isFilterOn.value = true;
+    //     Get.back();
+    //   },
+    //   child: Text("Terapkan"),
+    // ),
     cancel: TextButton(
       onPressed: () {
         c.filterUsers();
         Get.back();
       },
-      child: Text("Batal"),
+      child: Text("Tutup"),
     ),
   );
 }

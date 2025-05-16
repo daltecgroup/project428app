@@ -188,7 +188,7 @@ class TambahPenggunaView extends GetView<TambahPenggunaController> {
                               controller.checkPeran();
                             },
                           ),
-                          Text('SVP Area'),
+                          Text('SPV Area'),
                         ],
                       ),
                       Row(
@@ -218,60 +218,57 @@ class TambahPenggunaView extends GetView<TambahPenggunaController> {
           ),
           Container(
             alignment: Alignment.bottomCenter,
-
-            child: Container(
-              padding: const EdgeInsets.only(
-                top: 12,
-                left: 12,
-                right: 12,
-                bottom: 20,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
+            padding: const EdgeInsets.only(
+              top: 12,
+              left: 12,
+              right: 12,
+              bottom: 20,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: TextButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                      onPressed: () {
-                        Get.offNamed('/pengguna');
-                      },
-                      child: Text('Kembali', style: TextStyle(fontSize: 16)),
                     ),
+                    onPressed: () {
+                      Get.offNamed('/pengguna');
+                    },
+                    child: Text('Kembali', style: TextStyle(fontSize: 16)),
                   ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
                         ),
-                        backgroundColor: MaterialStateProperty.all(Colors.blue),
                       ),
-                      onPressed: () {
-                        // Get.snackbar(
-                        //   'Gagal Menyimpan Data',
-                        //   "Server tidak merespon",
-                        //   margin: EdgeInsets.all(20),
-                        //   duration: Duration(seconds: 2),
-                        // );
-                        controller.submit();
-                      },
-                      child: Text(
-                        'Simpan',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
+                      backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    ),
+                    onPressed: () {
+                      // Get.snackbar(
+                      //   'Gagal Menyimpan Data',
+                      //   "Server tidak merespon",
+                      //   margin: EdgeInsets.all(20),
+                      //   duration: Duration(seconds: 2),
+                      // );
+                      controller.submit();
+                    },
+                    child: Text(
+                      'Simpan',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],

@@ -22,6 +22,11 @@ abstract class Routes {
   static const ABSENSI_OPERATOR = _Paths.ABSENSI_OPERATOR;
   static const STOK_OPERATOR = _Paths.STOK_OPERATOR;
   static const AKTIVITAS_OPERATOR = _Paths.AKTIVITAS_OPERATOR;
+  static const UBAH_PENGGUNA = _Paths.UBAH_PENGGUNA;
+  static const AKTIVITAS_ADMIN = _Paths.AKTIVITAS_ADMIN;
+  static const PENGATURAN_ADMIN = _Paths.PENGATURAN_ADMIN;
+  static const TAMBAH_STOK = _Paths.TAMBAH_STOK;
+  static const DETAIL_STOK = _Paths.DETAIL_STOK;
 }
 
 abstract class _Paths {
@@ -45,4 +50,9 @@ abstract class _Paths {
   static const ABSENSI_OPERATOR = '/absensi-operator';
   static const STOK_OPERATOR = '/stok-operator';
   static const AKTIVITAS_OPERATOR = '/aktivitas-operator';
+  static const UBAH_PENGGUNA = '/ubah-pengguna';
+  static const AKTIVITAS_ADMIN = '/aktivitas-admin';
+  static const PENGATURAN_ADMIN = '/pengaturan-admin';
+  static const TAMBAH_STOK = '/tambah-stok';
+  static const DETAIL_STOK = '/detail-stok';
 }

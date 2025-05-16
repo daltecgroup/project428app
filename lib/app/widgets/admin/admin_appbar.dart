@@ -22,7 +22,7 @@ PreferredSizeWidget AdminAppBar(BuildContext context, String title) {
         icon: Stack(
           children: <Widget>[
             Icon(Icons.notifications),
-            Positioned(top: 0.0, right: 0.0, child: Badge(label: Text("1"))),
+            // Positioned(top: 0.0, right: 0.0, child: Badge(label: Text("1"))),
           ],
         ),
         onPressed: () {

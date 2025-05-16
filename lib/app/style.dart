@@ -11,3 +11,22 @@ ButtonStyle PrimaryButtonStyle(Color selectedColor) {
     ),
   );
 }
+
+InputDecoration MyTextFieldInputDecoration(String hint, Icon prefixIcon) {
+  return InputDecoration(
+    filled: true,
+    fillColor: Colors.white,
+    prefixIcon: prefixIcon,
+    hintText: hint,
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.transparent),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(
+        style: BorderStyle.none,
+        color: Colors.transparent,
+      ),
+    ),
+  );
+}

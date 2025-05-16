@@ -17,6 +17,10 @@ class BerandaOperatorView extends GetView<BerandaOperatorController> {
       body: const Center(
         child: Text('Beranda Kosong', style: TextStyle(fontSize: 20)),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

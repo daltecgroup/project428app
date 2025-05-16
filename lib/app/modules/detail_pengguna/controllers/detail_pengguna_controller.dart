@@ -3,11 +3,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/data/user_provider.dart';
 import 'package:project428app/app/modules/pengguna/controllers/pengguna_controller.dart';
+import 'package:project428app/app/services/personalization_service.dart';
 
 class DetailPenggunaController extends GetxController {
   PenggunaController userC = Get.find<PenggunaController>();
   GetStorage box = GetStorage();
   UserProvider userP = UserProvider();
+  Personalization p = Get.find<Personalization>();
 
   var userId = '-'.obs;
   var createdAt = '-'.obs;
@@ -15,6 +17,8 @@ class DetailPenggunaController extends GetxController {
   var status = false.obs;
   var role = ['-'].obs;
   var imgUrl = ''.obs;
+
+  RxBool myOwn = false.obs;
 
   @override
   void onInit() {
@@ -24,6 +28,7 @@ class DetailPenggunaController extends GetxController {
 
   @override
   void onReady() {
+    setUserData();
     super.onReady();
   }
 
@@ -42,11 +47,15 @@ class DetailPenggunaController extends GetxController {
       name.value = userData['name'];
       status.value = userData['isActive'];
       imgUrl.value = userData['imgUrl'];
+      createdAt.value = userData['createdAt'];
       role.clear();
       for (var i = 0; i < userData['role'].length; i++) {
         role.add(userData['role'][i].toString());
       }
       role.refresh();
+      if (userId.value == p.userdata.userId) {
+        myOwn.value = true;
+      }
     }
   }
 
@@ -63,6 +72,15 @@ class DetailPenggunaController extends GetxController {
     await userP.activateUser(userId.value).then((res) {
       print(res.body);
       userC.getUsers();
+    });
+  }
+
+  void deleteUser() async {
+    await userP.deleteUser(userId.value).then((res) {
+      print(res.body);
+      userC.getUsers();
+      Get.back();
+      Get.offNamed('/pengguna');
     });
   }
 }

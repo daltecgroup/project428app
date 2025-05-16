@@ -7,7 +7,7 @@ import 'app/routes/app_pages.dart';
 
 void main() async {
   await GetStorage.init();
-  Personalization c = Get.put(Personalization());
+  Personalization c = Get.put(Personalization(), permanent: true);
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     Container(

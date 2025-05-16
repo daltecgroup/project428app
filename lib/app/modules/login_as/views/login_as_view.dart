@@ -39,7 +39,7 @@ class LoginAsView extends GetView<LoginAsController> {
                         // Get.offNamed('/beranda-admin');
                         Get.find<Personalization>().currentRoleTheme.value =
                             'admin';
-                        Get.offNamed('/pengguna');
+                        Get.offNamed('/beranda-admin');
                       },
                       style: PrimaryButtonStyle(Colors.blueAccent),
                       child: Text("Admin"),
