@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:project428app/app/services/personalization_service.dart';
-
 import '../../../models/stock_data.dart';
 
 Widget StokItem(Stock stock) {
-  Personalization p = Get.find<Personalization>();
-
   return Card(
     color: Colors.white,
     margin: const EdgeInsets.only(bottom: 8, left: 12, right: 12),
