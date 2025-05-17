@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/modules/produk/views/view_menu_detail_view.dart';
+import 'package:project428app/app/modules/produk/views/widgets/view_menu_detail_view.dart';
 
-import '../../../widgets/status_sign.dart';
-import '../controllers/produk_controller.dart';
+import '../../../../widgets/status_sign.dart';
+import '../../controllers/produk_controller.dart';
 
 class MenuItemWidget extends StatelessWidget {
   const MenuItemWidget({super.key, required this.c});
@@ -192,7 +192,10 @@ class MenuItemWidget extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 onTap: () {
-                  Get.to(ViewMenuDetailView(c: c));
+                  Get.to(
+                    () => ViewMenuDetailView(c: c),
+                    preventDuplicates: false,
+                  );
                 },
                 onLongPress: () {
                   Get.defaultDialog();

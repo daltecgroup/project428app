@@ -32,7 +32,7 @@ class StokController extends GetxController {
     innactiveCount.value = 0;
 
     try {
-      return await StockP.getStocks().then((res) {
+      await StockP.getStocks().then((res) {
         for (var e in res.body) {
           Stock stockItem = Stock.fromJson(e);
           if (stockItem.isActive) {

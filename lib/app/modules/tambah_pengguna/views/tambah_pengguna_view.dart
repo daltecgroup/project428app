@@ -18,7 +18,7 @@ class TambahPenggunaView extends GetView<TambahPenggunaController> {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            icon: const Icon(Icons.close),
+            icon: const Icon(Icons.close_rounded),
             onPressed: () {
               // Save action
               Get.offNamed('/pengguna');

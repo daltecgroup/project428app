@@ -57,6 +57,8 @@ class DetailStokController extends GetxController {
 
     Get.defaultDialog(
       title: "Ubah Data Stok",
+      titleStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+      radius: 8,
       content: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(

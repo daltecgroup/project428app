@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/produk_controller.dart';
+import '../../controllers/produk_controller.dart';
 
 class ViewMenuDetailView extends GetView {
   const ViewMenuDetailView({super.key, required this.c});

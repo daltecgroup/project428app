@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
 import '../controllers/produk_controller.dart';
-import 'menu_item_widget.dart';
+import 'widgets/topping_item_widget.dart';
 
 class ProductToppingPage extends StatelessWidget {
   const ProductToppingPage({super.key, required this.c});
@@ -17,20 +17,20 @@ class ProductToppingPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TextTitle(text: 'Non Kategori'),
+            TextTitle(text: 'Topping Aktif'),
             TextButton(onPressed: () {}, child: Text('Refresh')),
           ],
         ),
         SizedBox(height: 5),
-        MenuItemWidget(c: c),
-        MenuItemWidget(c: c),
-        MenuItemWidget(c: c),
+        ToppingItemWidget(),
+        ToppingItemWidget(),
+        ToppingItemWidget(),
+
+        TextTitle(text: 'Topping Nonaktif'),
         SizedBox(height: 10),
-        TextTitle(text: 'Kategori 1'),
-        SizedBox(height: 10),
-        MenuItemWidget(c: c),
-        MenuItemWidget(c: c),
-        MenuItemWidget(c: c),
+        ToppingItemWidget(),
+        ToppingItemWidget(),
+        ToppingItemWidget(),
       ],
     );
   }

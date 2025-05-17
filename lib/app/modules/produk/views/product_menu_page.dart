@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
 import '../controllers/produk_controller.dart';
-import 'menu_item_widget.dart';
+import 'widgets/menu_item_widget.dart';
 
 class ProductMenuPage extends StatelessWidget {
   const ProductMenuPage({super.key, required this.c});

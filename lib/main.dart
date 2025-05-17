@@ -24,6 +24,7 @@ void main() async {
                       initialRoute: AppPages.INITIAL,
                       getPages: AppPages.routes,
                       defaultTransition: Transition.noTransition,
+                      transitionDuration: Duration(milliseconds: 150),
                       theme:
                           c.isDarkMode.value
                               ? ThemeData(
