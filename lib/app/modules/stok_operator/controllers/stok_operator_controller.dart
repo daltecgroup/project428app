@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class StokOperatorController extends GetxController {
-  //TODO: Implement StokOperatorController
-
   final count = 0.obs;
   @override
   void onInit() {

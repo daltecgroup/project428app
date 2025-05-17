@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class AktivitasOperatorController extends GetxController {
-  //TODO: Implement AktivitasOperatorController
-
   final count = 0.obs;
   @override
   void onInit() {

@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class GeraiController extends GetxController {
-  //TODO: Implement GeraiController
-
   final count = 0.obs;
   @override
   void onInit() {

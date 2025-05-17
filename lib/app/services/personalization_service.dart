@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/models/user_data.dart';
+import 'package:project428app/app/models/user.dart';
 
 class Personalization extends GetxService {
   GetStorage box = GetStorage();

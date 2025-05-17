@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class PromoController extends GetxController {
-  //TODO: Implement PromoController
-
   final count = 0.obs;
   @override
   void onInit() {

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:project428app/app/data/stock_provider.dart';
 import 'package:project428app/app/modules/stok/controllers/stok_controller.dart';
 
-import '../../../models/stock_data.dart';
+import '../../../models/stock.dart';
 
 class DetailStokController extends GetxController {
   Rx<Stock> stock = (Get.arguments as Stock).obs;

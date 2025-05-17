@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project428app/app/models/product_category_data.dart';
+import 'package:project428app/app/models/product_category.dart';
 import 'package:project428app/app/modules/produk/controllers/produk_controller.dart';
 
 class CategoryItemWidget extends StatelessWidget {

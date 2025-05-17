@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class TransaksiOperatorController extends GetxController {
-  //TODO: Implement TransaksiOperatorController
-
   final count = 0.obs;
   @override
   void onInit() {

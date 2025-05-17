@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/data/stock_provider.dart';
-import 'package:project428app/app/models/stock_data.dart';
+import 'package:project428app/app/models/stock.dart';
 
 class StokController extends GetxController {
   StockProvider StockP = StockProvider();

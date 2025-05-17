@@ -4,7 +4,6 @@ import 'package:project428app/app/widgets/text_header.dart';
 
 import '../controllers/produk_controller.dart';
 import 'widgets/category_item_widget.dart';
-import 'widgets/menu_item_widget.dart';
 
 class ProductCategoryPage extends StatelessWidget {
   const ProductCategoryPage({super.key, required this.c});

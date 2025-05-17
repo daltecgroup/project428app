@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class AktivitasAdminController extends GetxController {
-  //TODO: Implement AktivitasAdminController
-
   final count = 0.obs;
   @override
   void onInit() {

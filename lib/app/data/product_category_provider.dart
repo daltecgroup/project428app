@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
-
 import '../constants.dart';
 
 class ProductCategoryProvider extends GetConnect {

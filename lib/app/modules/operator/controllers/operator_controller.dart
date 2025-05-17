@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class OperatorController extends GetxController {
-  //TODO: Implement OperatorController
-
   final count = 0.obs;
   @override
   void onInit() {

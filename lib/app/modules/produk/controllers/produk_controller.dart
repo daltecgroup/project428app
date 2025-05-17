@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/data/product_category_provider.dart';
-import 'package:project428app/app/models/product_category_data.dart';
+import 'package:project428app/app/models/product_category.dart';
 
 class ProdukController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -19,7 +19,7 @@ class ProdukController extends GetxController
   RxInt activeCatCount = 0.obs;
   RxInt innactiveCatCount = 0.obs;
 
-  // error
+  // category error
   RxBool isCategoryNameError = false.obs;
   RxString categoryNameErrorText = 'Nama Kategori tidak boleh kosong'.obs;
 

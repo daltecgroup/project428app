@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../models/stock_data.dart';
+import '../../../models/stock.dart';
 
 Widget StokItem(Stock stock) {
   return Card(

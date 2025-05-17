@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class PengaturanAdminController extends GetxController {
-  //TODO: Implement PengaturanAdminController
-
   final count = 0.obs;
   @override
   void onInit() {

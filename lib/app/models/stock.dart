@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:project428app/app/widgets/format_waktu.dart';
 
 class Stock {
+  final String id;
   final String stockId;
   final String name;
   final String unit;
@@ -12,6 +13,7 @@ class Stock {
   final DateTime createdAt;
 
   Stock(
+    this.id,
     this.stockId,
     this.name,
     this.unit,
@@ -22,7 +24,8 @@ class Stock {
   );
 
   Stock.fromJson(Map<String, dynamic> json)
-    : stockId = json['stockId'] as String,
+    : id = json['_id'] as String,
+      stockId = json['stockId'] as String,
       name = json['name'] as String,
       unit = json['unit'] as String,
       price = json['price'] as int,

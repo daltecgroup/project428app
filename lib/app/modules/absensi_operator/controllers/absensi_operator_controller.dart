@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class AbsensiOperatorController extends GetxController {
-  //TODO: Implement AbsensiOperatorController
-
   final count = 0.obs;
   @override
   void onInit() {

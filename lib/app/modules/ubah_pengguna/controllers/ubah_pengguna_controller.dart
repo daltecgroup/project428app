@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class UbahPenggunaController extends GetxController {
-  //TODO: Implement UbahPenggunaController
-
   final count = 0.obs;
   @override
   void onInit() {

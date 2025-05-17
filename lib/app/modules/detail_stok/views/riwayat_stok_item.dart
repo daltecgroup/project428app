@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project428app/app/models/stock_data.dart';
+import 'package:project428app/app/models/stock.dart';
 
 Widget RiwayatStokItem(StockHistory stockHistory, bool last, bool first) {
   return Row(
