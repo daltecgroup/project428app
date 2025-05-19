@@ -87,10 +87,7 @@ Drawer OperatorDrawer(BuildContext context, String selectedItem) {
         ListTile(
           title: const Text('Logout'),
           onTap: () {
-            Get.find<Personalization>().currentRoleTheme.value = 'admin';
-            box.remove(kUserData);
-            box.remove(kAllUserData);
-            Get.offNamed('/login');
+            Get.find<Personalization>().logOut();
           },
         ),
         // IconButton(

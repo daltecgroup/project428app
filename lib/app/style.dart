@@ -30,3 +30,22 @@ InputDecoration MyTextFieldInputDecoration(String hint, Icon prefixIcon) {
     ),
   );
 }
+
+InputDecoration TextFieldDecoration1() {
+  return InputDecoration(
+    isDense: true,
+    filled: true,
+    fillColor: Colors.grey[50],
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(
+        style: BorderStyle.solid,
+        color: Colors.transparent,
+      ),
+    ),
+  );
+}

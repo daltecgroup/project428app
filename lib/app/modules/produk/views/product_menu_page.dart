@@ -12,25 +12,102 @@ class ProductMenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 0),
+      padding: EdgeInsets.only(top: 20, bottom: 0),
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TextTitle(text: 'Non Kategori'),
-            TextButton(onPressed: () {}, child: Text('Refresh')),
-          ],
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: List.generate(
+            c.categories.length,
+            (firstIndex) => Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.zero),
+              ),
+              margin: EdgeInsets.only(bottom: 20),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                  top: 15,
+                  bottom: 5,
+                ),
+
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextTitle(text: c.categories[firstIndex].name),
+                        Text(
+                          ' (${c.products.where((e) => e.category.id == c.categories[firstIndex].id).length} item /',
+                        ),
+                        SizedBox(width: 5),
+                        c.categories[firstIndex].isActive
+                            ? Text('Aktif)')
+                            : Text('Nonaktif)'),
+                      ],
+                    ),
+                    SizedBox(height: 12),
+
+                    Column(
+                      children: List.generate(
+                        c.products.length,
+                        (secondIndex) =>
+                            c.categories[firstIndex].id ==
+                                    c.products[secondIndex].category.id
+                                ? MenuItemWidget(
+                                  c: c,
+                                  product: c.products[secondIndex],
+                                )
+                                : SizedBox(),
+                      ),
+                    ),
+                    SizedBox(height: 0),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
-        SizedBox(height: 5),
-        MenuItemWidget(c: c),
-        MenuItemWidget(c: c),
-        MenuItemWidget(c: c),
-        SizedBox(height: 10),
-        TextTitle(text: 'Kategori 1'),
-        SizedBox(height: 10),
-        MenuItemWidget(c: c),
-        MenuItemWidget(c: c),
-        MenuItemWidget(c: c),
+
+        Card(
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.zero),
+          ),
+          margin: EdgeInsets.only(bottom: 20),
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    TextTitle(text: 'Tanpa Kategori'),
+                    Text(
+                      ' (${c.products.where((e) => e.category.id == 'none').length} item)',
+                    ),
+                  ],
+                ),
+                SizedBox(height: 12),
+                Column(
+                  children: List.generate(
+                    c.products.length,
+                    (secondIndex) =>
+                        c.products[secondIndex].category.id == 'none'
+                            ? MenuItemWidget(
+                              c: c,
+                              product: c.products[secondIndex],
+                            )
+                            : SizedBox(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 50),
+        // MenuItemWidget(c: c),
       ],
     );
   }

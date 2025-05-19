@@ -20,12 +20,12 @@ class ProductCategoryPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextTitle(text: 'Aktif'),
-              TextButton(
-                onPressed: () async {
-                  await c.getProductCategories();
-                },
-                child: Text('Refresh'),
-              ),
+              // TextButton(
+              //   onPressed: () async {
+              //     await c.getProductCategories();
+              //   },
+              //   child: Text('Refresh'),
+              // ),
             ],
           ),
           SizedBox(height: 5),
@@ -44,7 +44,7 @@ class ProductCategoryPage extends StatelessWidget {
           ),
           SizedBox(height: 10),
           TextTitle(text: 'Nonaktif'),
-          SizedBox(height: 10),
+          SizedBox(height: 5),
           Column(
             children: List.generate(
               c.categories.length,

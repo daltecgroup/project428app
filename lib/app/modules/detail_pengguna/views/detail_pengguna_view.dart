@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/widgets/format_waktu.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 import 'package:project428app/app/widgets/text_header.dart';
@@ -15,7 +16,10 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detail Pengguna'),
+        title: const Text(
+          'Detail Pengguna',
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+        ),
         centerTitle: true,
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -72,11 +76,19 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
           children: [
             SizedBox(height: 40),
             Center(
-              child: CircleAvatar(
-                radius: 40,
-                backgroundImage: NetworkImage(
-                  controller.imgUrl.value,
-                  webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+              child: Container(
+                height: Get.width * 0.2,
+                width: Get.width * 0.2,
+                child: Material(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  elevation: 1,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    child: FadeInImage.assetNetwork(
+                      placeholder: kAssetLoading,
+                      image: controller.imgUrl.value,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -94,10 +106,9 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
             Card(
               color: Colors.white,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0),
+                borderRadius: BorderRadius.circular(10),
               ),
-              margin: EdgeInsets.all(0),
-
+              margin: EdgeInsets.symmetric(horizontal: 15),
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(

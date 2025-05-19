@@ -146,10 +146,7 @@ Drawer AdminDrawer(BuildContext context, String selectedItem) {
           leading: Icon(Icons.logout_outlined, size: tileIconSize),
           title: const Text('Logout'),
           onTap: () {
-            Get.find<Personalization>().currentRoleTheme.value = 'admin';
-            box.remove(kUserData);
-            box.remove(kAllUserData);
-            Get.offNamed('/login');
+            Get.find<Personalization>().logOut();
           },
         ),
         // IconButton(

@@ -33,6 +33,14 @@ class ProdukView extends GetView<ProdukController> {
         ),
         actions: [
           IconButton(
+            onPressed: () {
+              controller.getProductCategories().then(
+                (res) => controller.getProducts(),
+              );
+            },
+            icon: Icon(Icons.refresh),
+          ),
+          IconButton(
             icon: Stack(
               children: <Widget>[
                 Icon(Icons.notifications),
@@ -75,7 +83,14 @@ class ProdukView extends GetView<ProdukController> {
         onPressed: () {
           switch (controller.tabC.index) {
             case 0:
-              Get.to(() => AddMenuPageView(), preventDuplicates: false);
+              controller.getStocks();
+              controller.getProductCategories().then((res) {
+                controller.addMenuCategoriId.value =
+                    controller.categories
+                        .firstWhere((e) => e.isActive == true)
+                        .id;
+              });
+              Get.to(() => AddMenuPageView(), preventDuplicates: true);
               break;
             case 1:
               Get.to(

@@ -17,6 +17,7 @@ class DetailStokView extends GetView<DetailStokController> {
         title: Obx(
           () => Text(
             '${controller.stock.value.stockId} - ${controller.stock.value.name}',
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
           ),
         ),
         centerTitle: true,
@@ -47,9 +48,9 @@ class DetailStokView extends GetView<DetailStokController> {
             SizedBox(height: 40),
             Card(
               color: Colors.white,
-              margin: EdgeInsets.all(0),
+              margin: EdgeInsets.symmetric(horizontal: 15),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(15),
@@ -58,21 +59,26 @@ class DetailStokView extends GetView<DetailStokController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextTitle(text: 'Harga Terkini'),
+                        TextTitle(text: 'Kode & Nama'),
                         TextTitle(text: 'Diperbaharui'),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(controller.stock.value.getPriceWithUnit()),
+                        Text(
+                          '${controller.stock.value.stockId} - ${controller.stock.value.name}',
+                        ),
                         Text(controller.stock.value.getLastUpdateTime()),
                       ],
                     ),
                     SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [TextTitle(text: 'Status')],
+                      children: [
+                        TextTitle(text: 'Status'),
+                        TextTitle(text: 'Harga Terkini'),
+                      ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,6 +87,7 @@ class DetailStokView extends GetView<DetailStokController> {
                           status: controller.stock.value.isActive,
                           size: 16,
                         ),
+                        Text(controller.stock.value.getPriceWithUnit()),
                       ],
                     ),
                     SizedBox(height: 20),
@@ -147,7 +154,7 @@ class DetailStokView extends GetView<DetailStokController> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(left: 20, right: 15),
                 child: ListView(
                   children: List.generate(controller.stockHistory.length, (
                     index,

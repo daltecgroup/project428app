@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/models/product.dart';
 import 'package:project428app/app/modules/produk/views/widgets/view_menu_detail_view.dart';
 
 import '../../../../widgets/status_sign.dart';
 import '../../controllers/produk_controller.dart';
 
 class MenuItemWidget extends StatelessWidget {
-  const MenuItemWidget({super.key, required this.c});
+  const MenuItemWidget({super.key, required this.c, required this.product});
   final ProdukController c;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class MenuItemWidget extends StatelessWidget {
           Column(
             children: [
               Card(
-                color: Colors.white,
+                color: Colors.grey[100],
                 margin: const EdgeInsets.only(bottom: 0, left: 0, right: 0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
@@ -42,7 +45,7 @@ class MenuItemWidget extends StatelessWidget {
                         ),
                         child: Image.network(
                           fit: BoxFit.cover,
-                          'https://placebear.com/250/250',
+                          '$kServerUrl/api/v1/${product.imgUrl}',
                           webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
                         ),
                       ),
@@ -60,10 +63,10 @@ class MenuItemWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Coklat Keju",
+                              product.name,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            Text("P011", style: TextStyle(fontSize: 12)),
+                            Text(product.code, style: TextStyle(fontSize: 12)),
                             SizedBox(height: 5),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,14 +82,19 @@ class MenuItemWidget extends StatelessWidget {
                                         "Diskon",
                                         style: TextStyle(fontSize: 10),
                                       ),
-                                      Text(
-                                        "10%",
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.redAccent,
-                                        ),
-                                      ),
+                                      product.discount == 0
+                                          ? Text(
+                                            "-",
+                                            style: TextStyle(fontSize: 14),
+                                          )
+                                          : Text(
+                                            "${product.discount.toString()}%",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.redAccent,
+                                            ),
+                                          ),
                                     ],
                                   ),
                                 ),
@@ -105,12 +113,11 @@ class MenuItemWidget extends StatelessWidget {
                                         text: TextSpan(
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: 'IDR 17.000',
+                                              text: product.getPriceInRupiah(),
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
-                                                decoration:
-                                                    TextDecoration.lineThrough,
+                                                decoration: TextDecoration.none,
                                               ),
                                             ),
                                           ],
@@ -134,11 +141,13 @@ class MenuItemWidget extends StatelessWidget {
                                         text: TextSpan(
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: 'IDR 15.300',
+                                              text:
+                                                  product
+                                                      .getPriceInRupiahAfterDiscount(),
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
-                                                fontWeight: FontWeight.w800,
+                                                fontWeight: FontWeight.w700,
                                               ),
                                             ),
                                           ],
@@ -157,7 +166,7 @@ class MenuItemWidget extends StatelessWidget {
                 ),
               ),
               Card(
-                color: Colors.grey[200],
+                color: Colors.grey[300],
                 margin: EdgeInsets.all(0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
@@ -175,9 +184,9 @@ class MenuItemWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      StatusSign(status: true, size: 14),
+                      StatusSign(status: product.isActive, size: 14),
                       Text(
-                        'Diperbarui pada 12 Mei 2025 15.02 WIB',
+                        'Diperbarui pada ${product.getUpdateDate()} ${product.getUpdateTime()} WIB',
                         style: TextStyle(fontSize: 10),
                       ),
                     ],

@@ -12,6 +12,7 @@ class LoginAsView extends GetView<LoginAsController> {
 
   @override
   Widget build(BuildContext context) {
+    Personalization c = Get.find<Personalization>();
     return Scaffold(
       body: Center(
         child: Container(
@@ -37,8 +38,7 @@ class LoginAsView extends GetView<LoginAsController> {
                     child: ElevatedButton(
                       onPressed: () {
                         // Get.offNamed('/beranda-admin');
-                        Get.find<Personalization>().currentRoleTheme.value =
-                            'admin';
+                        c.currentRoleTheme.value = 'admin';
                         Get.offNamed('/beranda-admin');
                       },
                       style: PrimaryButtonStyle(Colors.blueAccent),
@@ -52,8 +52,7 @@ class LoginAsView extends GetView<LoginAsController> {
                     margin: EdgeInsets.only(bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.find<Personalization>().currentRoleTheme.value =
-                            'franchisee';
+                        c.currentRoleTheme.value = 'franchisee';
                         // Get.offNamed('/beranda-admin');
                       },
                       style: PrimaryButtonStyle(Colors.amber),
@@ -67,8 +66,7 @@ class LoginAsView extends GetView<LoginAsController> {
                     margin: EdgeInsets.only(bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.find<Personalization>().currentRoleTheme.value =
-                            'spvarea';
+                        c.currentRoleTheme.value = 'spvarea';
                         // Get.offNamed('/beranda-admin');
                       },
                       style: PrimaryButtonStyle(Colors.green),
@@ -82,8 +80,7 @@ class LoginAsView extends GetView<LoginAsController> {
                     margin: EdgeInsets.only(bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.find<Personalization>().currentRoleTheme.value =
-                            'operator';
+                        c.currentRoleTheme.value = 'operator';
                         Get.offNamed('/beranda-operator');
                       },
                       style: PrimaryButtonStyle(Colors.redAccent),

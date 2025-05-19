@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/pengguna/controllers/pengguna_controller.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 
@@ -35,10 +36,12 @@ Widget PenggunaItem(
             bottom: 5,
             top: 0,
           ),
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(
-              imgUrl,
-              webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+          leading: ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+            child: FadeInImage.assetNetwork(
+              placeholder: kAssetLoading,
+              image: imgUrl,
+              // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
             ),
           ),
           title: Padding(

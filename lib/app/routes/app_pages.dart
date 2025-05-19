@@ -159,7 +159,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PENGATURAN_ADMIN,
-      page: () => const PengaturanAdminView(),
+      page: () => PengaturanAdminView(),
       binding: PengaturanAdminBinding(),
     ),
     GetPage(

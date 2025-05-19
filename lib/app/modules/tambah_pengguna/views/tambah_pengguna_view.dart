@@ -13,7 +13,10 @@ class TambahPenggunaView extends GetView<TambahPenggunaController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tambah Pengguna'),
+        title: const Text(
+          'Tambah Pengguna',
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+        ),
         centerTitle: true,
         automaticallyImplyLeading: false,
         actions: [

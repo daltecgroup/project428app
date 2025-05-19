@@ -14,8 +14,9 @@ class Personalization extends GetxService {
   Rx<ThemeData> theme = ThemeData.light().obs;
   var isDarkMode = false.obs;
   var isConnected = true.obs;
+  var isLogin = false.obs;
 
-  var currentRoleTheme = 'admin'.obs;
+  RxString currentRoleTheme = 'admin'.obs;
 
   @override
   void onInit() {
@@ -23,7 +24,24 @@ class Personalization extends GetxService {
     initializePreferences();
     if (box.read(kUserData) != null) {
       userdata = User.fromJson(box.read(kUserData));
+      isLogin.value = true;
     }
+    if (box.read('currentRole') == null) {
+      box.write('currentRole', 'admin');
+    } else {
+      currentRoleTheme.value = box.read('currentRole');
+    }
+    // box listen if kUserData is changed
+    box.listenKey(kUserData, (value) {
+      if (value == null) {
+        isLogin.value = false;
+        Get.toNamed('/login');
+      } else {
+        isLogin.value = true;
+        Get.toNamed('/login-as');
+      }
+    });
+
     connectionChecker.onStatusChange.listen((status) {
       if (status == InternetConnectionStatus.connected) {
         print('Connected to the internet');
@@ -44,6 +62,11 @@ class Personalization extends GetxService {
   void onClose() {
     super.onClose();
     connectionChecker.dispose();
+  }
+
+  void logOut() {
+    print('Logging out');
+    box.remove(kUserData);
   }
 
   Future<void> initializePreferences() async {
@@ -111,5 +134,15 @@ class Personalization extends GetxService {
         brightness: Brightness.light,
       ),
     );
+  }
+
+  void checkConnection() {
+    connectionChecker.hasConnection.then((value) {
+      if (value) {
+        isConnected.value = true;
+      } else {
+        isConnected.value = false;
+      }
+    });
   }
 }

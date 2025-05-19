@@ -38,9 +38,9 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
+    super.onClose();
     usernameC.dispose();
     passwordC.dispose();
-    super.onClose();
   }
 
   void getRememberMe() {

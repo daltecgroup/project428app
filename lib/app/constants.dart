@@ -25,6 +25,8 @@ const kOperatorMenuAktivitas = 'Operator Menu Aktivitas';
 const kAktif = 'Aktif';
 const kNonaktif = 'Nonaktif';
 
+const kAssetLoading = 'assets/loading.gif';
+
 const kUserData = 'user_data';
 const kAllUserData = 'all_user_data';
 

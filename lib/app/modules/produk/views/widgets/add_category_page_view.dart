@@ -72,6 +72,9 @@ class AddCategoryPageView extends GetView {
                             borderRadius: BorderRadius.circular(5),
                           ),
                         ),
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.grey[300],
+                        ),
                       ),
                       onPressed: () {
                         c.categoryNameC.clear();
@@ -103,6 +106,7 @@ class AddCategoryPageView extends GetView {
                 ],
               ),
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),
