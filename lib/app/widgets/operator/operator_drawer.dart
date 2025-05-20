@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/services/personalization_service.dart';
 
 Drawer OperatorDrawer(BuildContext context, String selectedItem) {
   final Personalization c = Get.find<Personalization>();
-  GetStorage box = GetStorage();
 
   Color selectedColor = Colors.redAccent;
 

@@ -49,3 +49,22 @@ InputDecoration TextFieldDecoration1() {
     ),
   );
 }
+
+InputDecoration TextFieldDecoration2(bool error) {
+  return InputDecoration(
+    filled: true,
+    isDense: true,
+    fillColor: Colors.grey[50],
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: error ? Colors.red : Colors.grey),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(
+        style: BorderStyle.solid,
+        color: error ? Colors.red : Colors.transparent,
+      ),
+    ),
+  );
+}

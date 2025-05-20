@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -9,7 +7,6 @@ import 'package:project428app/app/data/product_category_provider.dart';
 import 'package:project428app/app/data/product_provider.dart';
 import 'package:project428app/app/models/product.dart';
 import 'package:project428app/app/models/product_category.dart';
-import 'package:project428app/app/modules/produk/views/widgets/add_menu_page_view.dart';
 
 import '../../../data/stock_provider.dart';
 import '../../../models/stock.dart';
@@ -450,6 +447,29 @@ class ProdukController extends GetxController
       print(e);
       isLoading.value = false;
     }
+  }
+
+  Future<void> deleteProduct(String code, String name) async {
+    Get.defaultDialog(
+      title: "Konfirmasi",
+      content: Text("Yakin menghapus $name?"),
+      confirm: TextButton(
+        onPressed: () async {
+          await ProductP.deleteProduct(code).then((res) {
+            getProducts();
+            Get.back();
+            Get.toNamed('/produk');
+          });
+        },
+        child: Text("Yakin"),
+      ),
+      cancel: TextButton(
+        onPressed: () {
+          Get.back();
+        },
+        child: Text("Batal"),
+      ),
+    );
   }
 
   void createProductCategory() {

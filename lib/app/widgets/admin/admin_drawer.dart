@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/services/personalization_service.dart';
 
 Drawer AdminDrawer(BuildContext context, String selectedItem) {
   final Personalization c = Get.find<Personalization>();
-  GetStorage box = GetStorage();
 
   Color selectedColor = Colors.blueAccent;
   double tileIconSize = 18;
@@ -78,16 +76,16 @@ Drawer AdminDrawer(BuildContext context, String selectedItem) {
             Get.toNamed('/pengguna');
           },
         ),
-        ListTile(
-          leading: Icon(Icons.work, size: tileIconSize),
-          title: const Text('Operator'),
-          selected: selectedItem == kAdminMenuOperator ? true : false,
-          selectedColor: selectedColor,
-          selectedTileColor: selectedColor.withOpacity(0.2),
-          onTap: () {
-            Get.toNamed('/operator');
-          },
-        ),
+        // ListTile(
+        //   leading: Icon(Icons.work, size: tileIconSize),
+        //   title: const Text('Operator'),
+        //   selected: selectedItem == kAdminMenuOperator ? true : false,
+        //   selectedColor: selectedColor,
+        //   selectedTileColor: selectedColor.withOpacity(0.2),
+        //   onTap: () {
+        //     Get.toNamed('/operator');
+        //   },
+        // ),
         ListTile(
           leading: Icon(Icons.inventory_2_rounded, size: tileIconSize),
           title: const Text('Stok'),

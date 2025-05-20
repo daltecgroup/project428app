@@ -108,9 +108,6 @@ class ConnectedPage extends StatelessWidget {
     String routes = Routes.LOGIN_AS;
 
     switch (c.currentRoleTheme.value) {
-      case 'admin':
-        routes = Routes.BERANDA_ADMIN;
-        break;
       case 'franchisee':
         break;
       case 'spvarea':

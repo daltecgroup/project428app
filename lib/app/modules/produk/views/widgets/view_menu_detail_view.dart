@@ -9,10 +9,13 @@ import '../../../../constants.dart';
 import '../../../../style.dart';
 import '../../../../widgets/text_header.dart';
 import '../../controllers/produk_controller.dart';
+import 'ingredients_item.dart';
 
-class ViewMenuDetailView extends GetView {
-  const ViewMenuDetailView({super.key, required this.c});
+class MenuDetailView extends GetView {
+  const MenuDetailView({super.key, required this.c, required this.product});
+
   final ProdukController c;
+  final Product product;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +26,13 @@ class ViewMenuDetailView extends GetView {
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () {
+            // Save action
+            Get.back();
+          },
+        ),
         actions: [
           IconButton(
             onPressed: () async {
@@ -34,12 +44,18 @@ class ViewMenuDetailView extends GetView {
             icon: Icon(Icons.refresh_rounded),
           ),
           IconButton(
-            onPressed: () {
-              c.resetAddMenuField();
-              Get.back();
+            onPressed: () async {
+              c.deleteProduct(product.code, product.name);
             },
-            icon: Icon(Icons.close_rounded),
+            icon: Icon(Icons.delete, color: Colors.red[900]),
           ),
+          // IconButton(
+          //   onPressed: () {
+          //     c.resetAddMenuField();
+          //     Get.back();
+          //   },
+          //   icon: Icon(Icons.close_rounded),
+          // ),
           SizedBox(width: 10),
         ],
       ),
@@ -72,7 +88,7 @@ class ViewMenuDetailView extends GetView {
                         width: double.infinity,
                         child: Image.network(
                           fit: BoxFit.cover,
-                          '$kServerUrl/api/v1/uploads/image-1747566370092-70942.jpg',
+                          '$kServerUrl/api/v1/${product.imgUrl}',
                           webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
                         ),
                       ),
@@ -116,13 +132,18 @@ class ViewMenuDetailView extends GetView {
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [TextTitle(text: 'Kode'), Text('P01')],
+                            children: [
+                              TextTitle(text: 'Kode'),
+                              Text(product.code),
+                            ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               TextTitle(text: 'Diperbarui'),
-                              Text('15 Mei 2025 18.00 WIB'),
+                              Text(
+                                '${product.getUpdateDate()} ${product.getUpdateTime()}',
+                              ),
                             ],
                           ),
                         ],
@@ -135,14 +156,14 @@ class ViewMenuDetailView extends GetView {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               TextTitle(text: 'Nama'),
-                              Text('Coklat Keju'),
+                              Text(product.name),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               TextTitle(text: 'Harga Awal'),
-                              Text('IDR 14.000'),
+                              Text(product.getPriceInRupiah()),
                             ],
                           ),
                         ],
@@ -155,12 +176,19 @@ class ViewMenuDetailView extends GetView {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               TextTitle(text: 'Kategori'),
-                              Text('Mix Topping'),
+                              Text(product.category.name),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [TextTitle(text: 'Diskon'), Text('-')],
+                            children: [
+                              TextTitle(text: 'Diskon'),
+                              Text(
+                                product.discount > 0
+                                    ? '${product.discount.toString()}%'
+                                    : '-',
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -172,14 +200,14 @@ class ViewMenuDetailView extends GetView {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               TextTitle(text: 'Status'),
-                              StatusSign(status: true, size: 16),
+                              StatusSign(status: product.isActive, size: 16),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               TextTitle(text: 'Harga Akhir'),
-                              Text('IDR 14.000'),
+                              Text(product.getPriceInRupiahAfterDiscount()),
                             ],
                           ),
                         ],
@@ -194,7 +222,7 @@ class ViewMenuDetailView extends GetView {
                               children: [
                                 TextTitle(text: 'Deskripsi '),
                                 Text(
-                                  '🧀🍫 Perpaduan manis coklat dan gurihnya keju yang sempurna!',
+                                  product.description,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                 ),
@@ -216,7 +244,7 @@ class ViewMenuDetailView extends GetView {
                                     fontWeight: FontWeight.w500,
                                   ),
                                   content: Text(
-                                    'Semua bahan telah ditambahkan',
+                                    'Fitur ubah belum terhubung dengan server',
                                   ),
                                   radius: 10,
                                 );
@@ -258,8 +286,26 @@ class ViewMenuDetailView extends GetView {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextTitle(text: 'Komposisi Bahan'),
-                          TextButton(onPressed: () {}, child: Text('Ubah')),
+                          TextButton(onPressed: () {}, child: Text('Tambah')),
                         ],
+                      ),
+                      Column(
+                        children: List.generate(
+                          product.ingredients.length,
+                          (index) => IngredientsItem(
+                            c: c,
+                            stock:
+                                (product.ingredients[index]['stock'] as Stock)
+                                    .id,
+                            name:
+                                (product.ingredients[index]['stock'] as Stock)
+                                    .name,
+                            qty: product.ingredients[index]['qty'],
+                            unit:
+                                (product.ingredients[index]['stock'] as Stock)
+                                    .unit,
+                          ),
+                        ),
                       ),
                     ],
                   ),

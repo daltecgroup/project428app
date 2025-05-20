@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/pengguna/views/dialog_filter.dart';
 import 'package:project428app/app/modules/pengguna/views/pengguna_item.dart';
 import 'package:project428app/app/widgets/admin/admin_appbar.dart';
 import 'package:project428app/app/widgets/admin/admin_drawer.dart';
-
 import '../../../style.dart';
 import '../controllers/pengguna_controller.dart';
 
@@ -20,7 +18,7 @@ class PenggunaView extends GetView<PenggunaController> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Material(
               elevation: 1,
               borderRadius: BorderRadius.circular(8),
@@ -35,8 +33,10 @@ class PenggunaView extends GetView<PenggunaController> {
             ),
           ),
           SizedBox(height: 10),
+
+          // users qty indicator
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Obx(
               () => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,6 +58,8 @@ class PenggunaView extends GetView<PenggunaController> {
               ),
             ),
           ),
+
+          // filter indicator
           Obx(
             () =>
                 (controller.isFilterOn.value &&
@@ -193,6 +195,8 @@ class PenggunaView extends GetView<PenggunaController> {
                     : SizedBox(),
           ),
           SizedBox(height: 10),
+
+          // user list
           Expanded(
             child: RefreshIndicator(
               onRefresh: () => controller.getUsers(),
@@ -223,6 +227,9 @@ class PenggunaView extends GetView<PenggunaController> {
             () => Stack(
               children: [
                 FloatingActionButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                  ),
                   heroTag: "filter_pengguna",
                   tooltip: "Filter Pengguna",
                   onPressed: () async {
@@ -252,6 +259,9 @@ class PenggunaView extends GetView<PenggunaController> {
           ),
           SizedBox(height: 10),
           FloatingActionButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+            ),
             heroTag: "tambah_pengguna",
             tooltip: "Tambah Pengguna",
             onPressed: () {

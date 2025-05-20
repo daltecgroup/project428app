@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
+import 'package:project428app/app/data/outlet_provider.dart';
+import 'package:project428app/app/modules/gerai/models/outlet_list_item.dart';
 
 class GeraiController extends GetxController {
-  final count = 0.obs;
+  OutletProvider OutletP = OutletProvider();
+  RxList<OutletListItem> outletList = <OutletListItem>[].obs;
+
   @override
   void onInit() {
+    getOutletList();
     super.onInit();
   }
 
@@ -17,5 +22,33 @@ class GeraiController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  getOutletList() {
+    outletList.clear();
+    try {
+      OutletP.getOutlets().then((res) {
+        for (var e in res.body) {
+          outletList.add(OutletListItem.fromJson(e));
+        }
+        outletList = outletList.reversed.toList().obs;
+        outletList.refresh();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  List<String> getAllRegencyOfOutletList() {
+    List<String> regency = [];
+    for (var e in outletList) {
+      regency.add(e.regency);
+    }
+
+    return regency.toSet().toList();
+  }
+
+  List<OutletListItem> getOutletItemByRegency(String regency) {
+    return outletList.where((outlet) {
+      return outlet.regency == regency;
+    }).toList();
+  }
 }

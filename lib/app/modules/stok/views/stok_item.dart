@@ -13,26 +13,32 @@ Widget StokItem(Stock stock) {
       },
       child: Row(
         children: [
-          // Container(
-          //   padding: EdgeInsets.only(right: 12),
-          //   height: 86,
-          //   width: 90,
-          //   child: ClipRRect(
-          //     borderRadius: BorderRadius.only(
-          //       topLeft: Radius.circular(8),
-          //       bottomLeft: Radius.circular(8),
-          //     ),
-          //     child: Image.network(
-          //       fit: BoxFit.cover,
-          //       'https://placebear.com/250/250',
-          //       webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
-          //     ),
-          //   ),
-          // ),
+          Container(
+            padding: EdgeInsets.only(right: 0),
+            height: 86,
+            width: 90,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8),
+                bottomLeft: Radius.circular(8),
+              ),
+              child: Container(
+                padding: EdgeInsets.all(17),
+                child: CircleAvatar(
+                  child: Icon(Icons.shopping_basket_outlined),
+                ),
+              ),
+              // child: Image.network(
+              //   fit: BoxFit.cover,
+              //   'https://placebear.com/250/250',
+              //   webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+              // ),
+            ),
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(
-                left: 12,
+                left: 0,
                 right: 12,
                 bottom: 10,
                 top: 10,

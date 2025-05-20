@@ -80,6 +80,9 @@ class ProdukView extends GetView<ProdukController> {
                 ),
       ),
       floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(30)),
+        ),
         onPressed: () {
           switch (controller.tabC.index) {
             case 0:

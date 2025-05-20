@@ -17,6 +17,19 @@ class OperatorView extends GetView<OperatorController> {
       body: const Center(
         child: Text('OperatorView is working', style: TextStyle(fontSize: 20)),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Business',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'School'),
+        ],
+        currentIndex: 0,
+        selectedItemColor: Colors.amber[800],
+        onTap: (index) {},
+      ),
     );
   }
 }

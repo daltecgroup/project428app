@@ -72,6 +72,9 @@ class StokView extends GetView<StokController> {
                 ),
       ),
       floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(30)),
+        ),
         tooltip: "Tambah Stok",
         onPressed: () {
           Get.toNamed("/tambah-stok");

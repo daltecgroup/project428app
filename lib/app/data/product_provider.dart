@@ -20,6 +20,13 @@ class ProductProvider extends GetConnect {
     return get('$url/$code', headers: {"Authorization": "Bearer $accessToken"});
   }
 
+  Future<Response> deleteProduct(String code) {
+    return delete(
+      '$url/$code',
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
+  }
+
   Future<Response> createProduct(
     File imageFile,
     String code,

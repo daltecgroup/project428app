@@ -202,7 +202,7 @@ class MenuItemWidget extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 onTap: () {
                   Get.to(
-                    () => ViewMenuDetailView(c: c),
+                    () => MenuDetailView(c: c, product: product),
                     preventDuplicates: false,
                   );
                 },
