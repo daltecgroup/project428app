@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/gerai/models/outlet_list_item.dart';
-import 'package:project428app/app/modules/gerai/views/outlet_detail_view.dart';
+import 'package:project428app/app/modules/gerai/views/pages/outlet_detail_view.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 
 class OutletItemWidget extends StatelessWidget {
@@ -42,7 +42,8 @@ class OutletItemWidget extends StatelessWidget {
                             )
                             : FadeInImage.assetNetwork(
                               fit: BoxFit.cover,
-                              image: outlet.imgUrl,
+                              image:
+                                  '$kServerUrl/api/v1/uploads/${outlet.imgUrl}',
                               placeholder: kAssetLoadingBuffer,
                             ),
                   ),
@@ -68,7 +69,7 @@ class OutletItemWidget extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            StatusSign(status: true, size: 14),
+                            StatusSign(status: outlet.isActive, size: 14),
                           ],
                         ),
                         SizedBox(height: 8),

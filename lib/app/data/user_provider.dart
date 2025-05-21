@@ -67,6 +67,14 @@ class UserProvider extends GetConnect {
     );
   }
 
+  Future<Response> updateUser(String id, dynamic data) {
+    return put(
+      '$kServerUrl/api/v1/users/',
+      data,
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
+  }
+
   @override
   void onInit() {
     if (box.read(kUserData) != null) {

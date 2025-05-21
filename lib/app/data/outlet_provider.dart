@@ -1,7 +1,6 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:get/get.dart';
-
 import '../constants.dart';
 
 class OutletProvider extends GetConnect {
@@ -65,6 +64,21 @@ class OutletProvider extends GetConnect {
     return put(
       '$url/$outlet',
       data,
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
+  }
+
+  Future<Response> updateOutletImage(String outlet, File imageFile) {
+    final FormData formData = FormData({
+      'image': MultipartFile(
+        imageFile,
+        filename: 'img-$outlet.${imageFile.path.split('.').last}',
+      ),
+    });
+
+    return put(
+      '$url/$outlet/image',
+      formData,
       headers: {"Authorization": "Bearer $accessToken"},
     );
   }

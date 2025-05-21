@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/models/user.dart';
+import 'package:project428app/app/models/login.dart';
 
 class Personalization extends GetxService {
   GetStorage box = GetStorage();
-  late User userdata;
+  late Login userdata;
 
   final connectionChecker = InternetConnectionChecker.instance;
 
@@ -23,7 +23,7 @@ class Personalization extends GetxService {
     super.onInit();
     initializePreferences();
     if (box.read(kUserData) != null) {
-      userdata = User.fromJson(box.read(kUserData));
+      userdata = Login.fromJson(box.read(kUserData));
       isLogin.value = true;
     }
     if (box.read('currentRole') == null) {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:project428app/app/modules/gerai/views/add_outlet_view.dart';
-import 'package:project428app/app/modules/gerai/views/outlet_item.dart';
+import 'package:project428app/app/modules/gerai/views/widgets/add_outlet_view.dart';
+import 'package:project428app/app/modules/gerai/views/widgets/outlet_item.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
 import '../../../constants.dart';
