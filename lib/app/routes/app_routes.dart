@@ -27,6 +27,7 @@ abstract class Routes {
   static const PENGATURAN_ADMIN = _Paths.PENGATURAN_ADMIN;
   static const TAMBAH_STOK = _Paths.TAMBAH_STOK;
   static const DETAIL_STOK = _Paths.DETAIL_STOK;
+  static const SPLASH = _Paths.SPLASH;
 }
 
 abstract class _Paths {
@@ -55,4 +56,5 @@ abstract class _Paths {
   static const PENGATURAN_ADMIN = '/pengaturan-admin';
   static const TAMBAH_STOK = '/tambah-stok';
   static const DETAIL_STOK = '/detail-stok';
+  static const SPLASH = '/splash';
 }

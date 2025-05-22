@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/services/personalization_service.dart';
+import 'package:project428app/app/widgets/text_header.dart';
+
+import '../app_logo_title_widget.dart';
 
 Drawer AdminDrawer(BuildContext context, String selectedItem) {
   final Personalization c = Get.find<Personalization>();
@@ -12,37 +15,14 @@ Drawer AdminDrawer(BuildContext context, String selectedItem) {
   return Drawer(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
     child: ListView(
-      padding: EdgeInsets.zero,
+      padding: EdgeInsets.only(left: 0),
       children: [
-        DrawerHeader(
-          decoration: BoxDecoration(color: selectedColor),
-          child: Container(
-            alignment: Alignment.bottomLeft,
-            child: ListTile(
-              contentPadding: EdgeInsets.only(left: 0),
-              leading: CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(
-                  c.userdata.imgUrl,
-                  webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
-                ),
-              ),
-              title: FittedBox(
-                fit: BoxFit.scaleDown,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  c.userdata.name,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              subtitle: Text("Admin", style: TextStyle(color: Colors.white)),
-            ),
-          ),
+        SizedBox(height: 100),
+        Padding(
+          padding: EdgeInsets.only(left: 15),
+          child: TextTitle(text: 'Menu Admin'),
         ),
+        SizedBox(height: 10),
         ListTile(
           leading: Icon(Icons.home_filled, size: tileIconSize),
           title: const Text('Beranda'),

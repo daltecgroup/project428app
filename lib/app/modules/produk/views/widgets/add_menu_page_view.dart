@@ -42,7 +42,7 @@ class AddMenuPageView extends GetView {
           child: Obx(
             () => Column(
               children: [
-                SizedBox(height: 50),
+                SizedBox(height: 20),
                 // Data Produk
                 Card(
                   color: Colors.white,
@@ -350,7 +350,6 @@ class AddMenuPageView extends GetView {
                 SizedBox(height: 50),
                 Container(
                   alignment: Alignment.bottomCenter,
-                  height: 50,
                   padding: EdgeInsets.only(bottom: 20, left: 0, right: 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

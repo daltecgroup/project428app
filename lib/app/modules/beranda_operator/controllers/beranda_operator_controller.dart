@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 
+import '../../../services/personalization_service.dart';
+
 class BerandaOperatorController extends GetxController {
-  final count = 0.obs;
+  Personalization c = Get.find<Personalization>();
   @override
   void onInit() {
     super.onInit();
@@ -16,6 +18,4 @@ class BerandaOperatorController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

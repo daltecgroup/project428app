@@ -4,6 +4,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/data/user_provider.dart';
 import 'package:project428app/app/error_code.dart';
+import 'package:project428app/app/widgets/custom_bottom_sheet_widget.dart';
+import 'package:project428app/app/widgets/text_header.dart';
 
 class LoginController extends GetxController {
   GetStorage box = GetStorage();
@@ -16,24 +18,26 @@ class LoginController extends GetxController {
 
   var userIdError = false.obs;
   var pinError = false.obs;
-  var errorText = '';
+  var userIDErrorText = '';
+  var pinErrorText = '';
 
   var rememberMe = false.obs;
   var username = '';
 
   final count = 0.obs;
   @override
-  void onInit() {
+  Future<void> onInit() async {
     usernameC = TextEditingController();
     passwordC = TextEditingController();
     passwordC.text = '1234';
+
     super.onInit();
   }
 
   @override
   void onReady() {
-    getRememberMe();
     super.onReady();
+    getRememberMe();
   }
 
   @override
@@ -56,12 +60,13 @@ class LoginController extends GetxController {
 
   Future<dynamic> login() async {
     if (usernameC.text.isEmpty || passwordC.text.isEmpty) {
-      errorText = "Kolom tidak boleh kosong";
       if (usernameC.text.isEmpty) {
         userIdError.value = true;
+        userIDErrorText = "Kolom tidak boleh kosong";
       }
       if (passwordC.text.isEmpty) {
         pinError.value = true;
+        pinErrorText = "Kolom tidak boleh kosong";
       }
     } else {
       isLoading.value = true;
@@ -77,21 +82,39 @@ class LoginController extends GetxController {
             switch (res.body['errorCode']) {
               case ErrorCode.invalidCredential:
                 pinError.value = true;
-                errorText = res.body['message'];
+                pinErrorText = 'PIN Salah';
+                userIDErrorText = res.body['message'];
                 break;
               case ErrorCode.userNotFound:
                 userIdError.value = true;
-                errorText = res.body['message'];
+                userIDErrorText = res.body['message'];
                 break;
               case ErrorCode.innactiveUser:
                 userIdError.value = true;
-                errorText = res.body['message'];
+                userIDErrorText = res.body['message'];
                 break;
               default:
-                Get.snackbar(kTitleFailed, res.statusText.toString());
+                // Get.snackbar(kTitleFailed, res.statusText.toString());
+                Get.bottomSheet(
+                  CustomBottomSheetWidget(
+                    widget: Column(
+                      children: [
+                        TextTitle(text: 'Server Terputus'),
+                        Text(res.statusText.toString()),
+                      ],
+                    ),
+                  ),
+                  useRootNavigator: true,
+                );
             }
           } else {
-            Get.snackbar(kTitleFailed, res.statusText.toString());
+            Get.bottomSheet(
+              CustomBottomSheetWidget(
+                title: 'Server Terputus',
+                widget: Text(res.statusText.toString()),
+              ),
+              useRootNavigator: true,
+            );
           }
           isLoading.value = false;
         }

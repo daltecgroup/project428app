@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/style.dart';
+import 'package:project428app/app/widgets/app_logo_title_widget.dart';
+import 'package:project428app/app/widgets/text_header.dart';
 
 import '../controllers/login_controller.dart';
 
@@ -12,95 +13,150 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          width: kMobileWidth * 0.8,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                kMainTitle,
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Stack(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: AppLogoTitleWidget(),
               ),
-              const SizedBox(height: 100),
-              Text('Login', style: TextStyle(fontSize: 20)),
-              const SizedBox(height: 20),
-              Obx(
-                () => TextField(
-                  controller: controller.usernameC,
-                  decoration: InputDecoration(
-                    labelText: 'ID Number/Username',
-                    border: OutlineInputBorder(),
-                    errorText:
-                        controller.userIdError.value
-                            ? controller.errorText
-                            : null,
-                  ),
-                  onChanged: (value) => controller.userIdError.value = false,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Obx(
-                () => TextField(
-                  controller: controller.passwordC,
-                  obscureText: controller.isObscure.value,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [LengthLimitingTextInputFormatter(6)],
-                  decoration: InputDecoration(
-                    labelText: 'PIN',
-                    border: OutlineInputBorder(),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        controller.isObscure.value
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                      ),
-                      onPressed: () {
-                        controller.isObscure.toggle();
-                      },
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 100),
+                Hero(
+                  tag: 'login-to-select-role',
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 1,
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    errorText:
-                        controller.pinError.value ? controller.errorText : null,
-                  ),
-                  onChanged: (value) => controller.pinError.value = false,
-                ),
-              ),
-              Obx(
-                () => Row(
-                  children: [
-                    Checkbox(
-                      value: controller.rememberMe.value,
-                      onChanged: (value) {
-                        controller.rememberMe.value = value!;
-                      },
-                    ),
-                    Text('Ingat saya'),
-                  ],
-                ),
-              ),
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(18),
+                        child: Obx(
+                          () => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Login', style: TextStyle(fontSize: 20)),
+                                ],
+                              ),
+                              TextTitle(text: 'User ID'),
+                              Material(
+                                borderRadius: BorderRadius.circular(8),
+                                elevation: 2,
+                                child: TextField(
+                                  controller: controller.usernameC,
+                                  decoration: TextFieldDecoration2(
+                                    controller.userIdError.value,
+                                    'Masukkan User ID',
+                                    null,
+                                  ),
+                                  onChanged:
+                                      (value) =>
+                                          controller.userIdError.value = false,
+                                ),
+                              ),
+                              TextFieldErrorText(
+                                controller.userIdError.value,
+                                controller.userIDErrorText,
+                              ),
+                              const SizedBox(height: 15),
+                              TextTitle(text: 'PIN'),
+                              Material(
+                                borderRadius: BorderRadius.circular(8),
+                                elevation: 2,
+                                child: TextField(
+                                  controller: controller.passwordC,
+                                  obscureText: controller.isObscure.value,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(6),
+                                  ],
+                                  decoration: TextFieldDecoration2(
+                                    controller.pinError.value,
+                                    'Masukkan PIN',
+                                    IconButton(
+                                      icon: Icon(
+                                        controller.isObscure.value
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                      ),
+                                      onPressed: () {
+                                        controller.isObscure.toggle();
+                                      },
+                                    ),
+                                  ),
+                                  onChanged:
+                                      (value) =>
+                                          controller.pinError.value = false,
+                                ),
+                              ),
+                              TextFieldErrorText(
+                                controller.pinError.value,
+                                controller.pinErrorText,
+                              ),
 
-              const SizedBox(height: 20),
-              Container(
-                height: 40,
-                width: double.infinity,
-                child: Obx(
-                  () =>
-                      controller.isLoading.value
-                          ? Center(child: CircularProgressIndicator())
-                          : ElevatedButton(
-                            onPressed: () async {
-                              controller.setRememberMe();
-                              await controller.login();
-                            },
-                            style: PrimaryButtonStyle(Colors.blueAccent),
-                            child: const Text('Login'),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: controller.rememberMe.value,
+                                    onChanged: (value) {
+                                      controller.rememberMe.value = value!;
+                                    },
+                                  ),
+                                  Text('Ingat saya'),
+                                ],
+                              ),
+
+                              const SizedBox(height: 10),
+                              Container(
+                                height: 40,
+                                width: double.infinity,
+                                child:
+                                    controller.isLoading.value
+                                        ? Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                        : ElevatedButton(
+                                          onPressed: () async {
+                                            controller.setRememberMe();
+                                            await controller.login();
+                                          },
+                                          style: PrimaryButtonStyle(
+                                            Colors.blueAccent,
+                                          ),
+                                          child: const Text('Masuk'),
+                                        ),
+                              ),
+                            ],
                           ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          ),
+                // SizedBox(height: 200),
+              ],
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  Widget TextFieldErrorText(bool isError, String text) {
+    return isError
+        ? Text(text, style: TextStyle(fontSize: 12, color: Colors.red))
+        : SizedBox();
   }
 }

@@ -42,7 +42,7 @@ class AddOutletView extends GetView {
               child: Obx(
                 () => Column(
                   children: [
-                    SizedBox(height: 50),
+                    SizedBox(height: 20),
                     // outlet indentification
                     Card(
                       color: Colors.white,
@@ -90,6 +90,8 @@ class AddOutletView extends GetView {
                                           },
                                           decoration: TextFieldDecoration2(
                                             c.isCodeError.value,
+                                            null,
+                                            null,
                                           ),
                                         ),
                                       ),
@@ -115,6 +117,8 @@ class AddOutletView extends GetView {
                                           value: c.status.value,
                                           decoration: TextFieldDecoration2(
                                             false,
+                                            null,
+                                            null,
                                           ),
                                           items: [
                                             DropdownMenuItem(
@@ -148,6 +152,8 @@ class AddOutletView extends GetView {
                                 },
                                 decoration: TextFieldDecoration2(
                                   c.isNameError.value,
+                                  null,
+                                  null,
                                 ),
                               ),
                             ),
@@ -211,6 +217,8 @@ class AddOutletView extends GetView {
                                               value: null,
                                               decoration: TextFieldDecoration2(
                                                 c.isProvinceError.value,
+                                                null,
+                                                null,
                                               ),
 
                                               items: [
@@ -284,6 +292,8 @@ class AddOutletView extends GetView {
                                                   decoration:
                                                       TextFieldDecoration2(
                                                         c.isRegencyError.value,
+                                                        null,
+                                                        null,
                                                       ),
                                                   items: [
                                                     ...List.generate(
@@ -360,6 +370,8 @@ class AddOutletView extends GetView {
                                                   decoration:
                                                       TextFieldDecoration2(
                                                         c.isDistrictError.value,
+                                                        null,
+                                                        null,
                                                       ),
                                                   items: [
                                                     ...List.generate(
@@ -438,6 +450,8 @@ class AddOutletView extends GetView {
                                                   decoration:
                                                       TextFieldDecoration2(
                                                         c.isVillageError.value,
+                                                        null,
+                                                        null,
                                                       ),
                                                   items: [
                                                     ...List.generate(
@@ -498,6 +512,8 @@ class AddOutletView extends GetView {
                                             },
                                             decoration: TextFieldDecoration2(
                                               c.isStreetError.value,
+                                              null,
+                                              null,
                                             ),
                                           ),
                                         ),

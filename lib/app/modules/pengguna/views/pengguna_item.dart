@@ -20,7 +20,7 @@ Widget PenggunaItem(
 
   return Card(
     color: status ? Colors.white : Colors.grey[200],
-    margin: const EdgeInsets.only(bottom: 8, left: 12, right: 12),
+    margin: const EdgeInsets.only(bottom: 10, left: 15, right: 15),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     child: InkWell(
       onTap: () {
@@ -28,7 +28,7 @@ Widget PenggunaItem(
         Get.toNamed('/detail-pengguna');
       },
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
         child: ListTile(
           contentPadding: EdgeInsets.only(
             left: 12,

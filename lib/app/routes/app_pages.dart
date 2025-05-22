@@ -32,6 +32,8 @@ import '../modules/produk/bindings/produk_binding.dart';
 import '../modules/produk/views/produk_view.dart';
 import '../modules/promo/bindings/promo_binding.dart';
 import '../modules/promo/views/promo_view.dart';
+import '../modules/splash/bindings/splash_binding.dart';
+import '../modules/splash/views/splash_view.dart';
 import '../modules/stok/bindings/stok_binding.dart';
 import '../modules/stok/views/stok_view.dart';
 import '../modules/stok_operator/bindings/stok_operator_binding.dart';
@@ -62,13 +64,11 @@ class AppPages {
       name: _Paths.LOGIN_AS,
       page: () => const LoginAsView(),
       binding: LoginAsBinding(),
-      transition: Transition.upToDown,
     ),
     GetPage(
       name: _Paths.BERANDA_ADMIN,
       page: () => const BerandaAdminView(),
       binding: BerandaAdminBinding(),
-      transition: Transition.native,
     ),
     GetPage(
       name: _Paths.PENGGUNA,
@@ -172,6 +172,11 @@ class AppPages {
       page: () => const DetailStokView(),
       binding: DetailStokBinding(),
       transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.SPLASH,
+      page: () => const SplashView(),
+      binding: SplashBinding(),
     ),
   ];
 }
