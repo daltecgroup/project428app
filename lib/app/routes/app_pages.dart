@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../middlewares/auth_guard_middleware.dart';
 import '../modules/absensi_operator/bindings/absensi_operator_binding.dart';
 import '../modules/absensi_operator/views/absensi_operator_view.dart';
 import '../modules/aktivitas_admin/bindings/aktivitas_admin_binding.dart';
@@ -16,6 +17,10 @@ import '../modules/detail_stok/bindings/detail_stok_binding.dart';
 import '../modules/detail_stok/views/detail_stok_view.dart';
 import '../modules/gerai/bindings/gerai_binding.dart';
 import '../modules/gerai/views/gerai_view.dart';
+import '../modules/homepage_franchisee/bindings/homepage_franchisee_binding.dart';
+import '../modules/homepage_franchisee/views/homepage_franchisee_view.dart';
+import '../modules/homepage_spvarea/bindings/homepage_spvarea_binding.dart';
+import '../modules/homepage_spvarea/views/homepage_spvarea_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/login_as/bindings/login_as_binding.dart';
@@ -46,29 +51,41 @@ import '../modules/transaksi_operator/bindings/transaksi_operator_binding.dart';
 import '../modules/transaksi_operator/views/transaksi_operator_view.dart';
 import '../modules/ubah_pengguna/bindings/ubah_pengguna_binding.dart';
 import '../modules/ubah_pengguna/views/ubah_pengguna_view.dart';
+import '../modules/unauthorized/bindings/unauthorized_binding.dart';
+import '../modules/unauthorized/views/unauthorized_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
       name: _Paths.LOGIN,
       page: () => const LoginView(),
       binding: LoginBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 400),
     ),
     GetPage(
       name: _Paths.LOGIN_AS,
       page: () => const LoginAsView(),
       binding: LoginAsBinding(),
+      middlewares: [
+        AuthGuardMiddleware(), // Protects this route, requires login
+      ],
     ),
     GetPage(
       name: _Paths.BERANDA_ADMIN,
       page: () => const BerandaAdminView(),
       binding: BerandaAdminBinding(),
+      middlewares: [
+        AuthGuardMiddleware(
+          requiredRoles: ['admin'],
+        ), // Protects this route, requires login
+      ],
     ),
     GetPage(
       name: _Paths.PENGGUNA,
@@ -97,7 +114,6 @@ class AppPages {
       name: _Paths.GERAI,
       page: () => const GeraiView(),
       binding: GeraiBinding(),
-      transition: Transition.native,
     ),
     GetPage(
       name: _Paths.OPERATOR,
@@ -114,7 +130,6 @@ class AppPages {
       name: _Paths.PRODUK,
       page: () => const ProdukView(),
       binding: ProdukBinding(),
-      transition: Transition.native,
     ),
     GetPage(
       name: _Paths.PROMO,
@@ -177,6 +192,21 @@ class AppPages {
       name: _Paths.SPLASH,
       page: () => const SplashView(),
       binding: SplashBinding(),
+    ),
+    GetPage(
+      name: _Paths.UNAUTHORIZED,
+      page: () => const UnauthorizedView(),
+      binding: UnauthorizedBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOMEPAGE_FRANCHISEE,
+      page: () => const HomepageFranchiseeView(),
+      binding: HomepageFranchiseeBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOMEPAGE_SPVAREA,
+      page: () => const HomepageSpvareaView(),
+      binding: HomepageSpvareaBinding(),
     ),
   ];
 }

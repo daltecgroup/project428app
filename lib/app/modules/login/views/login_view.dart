@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project428app/app/style.dart';
 import 'package:project428app/app/widgets/app_logo_title_widget.dart';
 import 'package:project428app/app/widgets/text_header.dart';
@@ -16,6 +17,7 @@ class LoginView extends GetView<LoginController> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
+        color: Color.fromRGBO(250, 204, 4, 1),
         child: Stack(
           children: [
             Center(
@@ -47,7 +49,15 @@ class LoginView extends GetView<LoginController> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('Login', style: TextStyle(fontSize: 20)),
+                                  Text(
+                                    'Login',
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                               TextTitle(text: 'User ID'),
@@ -109,6 +119,11 @@ class LoginView extends GetView<LoginController> {
                               Row(
                                 children: [
                                   Checkbox(
+                                    checkColor: Colors.amber[900],
+                                    fillColor: WidgetStatePropertyAll(
+                                      Colors.amber[200]!,
+                                    ),
+                                    side: BorderSide(color: Colors.amber[200]!),
                                     value: controller.rememberMe.value,
                                     onChanged: (value) {
                                       controller.rememberMe.value = value!;
@@ -133,7 +148,7 @@ class LoginView extends GetView<LoginController> {
                                             await controller.login();
                                           },
                                           style: PrimaryButtonStyle(
-                                            Colors.blueAccent,
+                                            Colors.amber[700]!,
                                           ),
                                           child: const Text('Masuk'),
                                         ),

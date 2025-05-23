@@ -93,7 +93,11 @@ class ProdukView extends GetView<ProdukController> {
                         .firstWhere((e) => e.isActive == true)
                         .id;
               });
-              Get.to(() => AddMenuPageView(), preventDuplicates: true);
+              Get.to(
+                () => AddMenuPageView(),
+                preventDuplicates: true,
+                transition: Transition.rightToLeft,
+              );
               break;
             case 1:
               Get.to(

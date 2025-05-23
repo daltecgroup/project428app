@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/services/personalization_service.dart';
+import 'package:project428app/app/services/auth_service.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
-import '../app_logo_title_widget.dart';
-
 Drawer AdminDrawer(BuildContext context, String selectedItem) {
-  final Personalization c = Get.find<Personalization>();
+  final AuthService AuthS = Get.find<AuthService>();
 
   Color selectedColor = Colors.blueAccent;
   double tileIconSize = 18;
@@ -124,7 +122,7 @@ Drawer AdminDrawer(BuildContext context, String selectedItem) {
           leading: Icon(Icons.logout_outlined, size: tileIconSize),
           title: const Text('Logout'),
           onTap: () {
-            Get.find<Personalization>().logOut();
+            AuthS.logout();
           },
         ),
         // IconButton(

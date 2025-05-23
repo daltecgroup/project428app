@@ -3,13 +3,17 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/models/login.dart';
 
 class Personalization extends GetxService {
   GetStorage box = GetStorage();
-  late Login userdata;
 
-  final connectionChecker = InternetConnectionChecker.instance;
+  final connectionChecker = InternetConnectionChecker.createInstance(
+    addresses: [
+      AddressCheckOption(
+        uri: Uri.parse('https://api.aromabisnisgroup.com/api/v1/health'),
+      ),
+    ],
+  );
 
   Rx<ThemeData> theme = ThemeData.light().obs;
   var isDarkMode = false.obs;
@@ -22,10 +26,7 @@ class Personalization extends GetxService {
   void onInit() {
     super.onInit();
     initializePreferences();
-    if (box.read(kUserData) != null) {
-      userdata = Login.fromJson(box.read(kUserData));
-      isLogin.value = true;
-    }
+
     if (box.read('currentRole') == null) {
       box.write('currentRole', 'admin');
     } else {
@@ -129,6 +130,7 @@ class Personalization extends GetxService {
     }
 
     return ThemeData(
+      fontFamily: 'Poppins',
       colorScheme: ColorScheme.fromSeed(
         seedColor: selectedColor,
         brightness: Brightness.light,

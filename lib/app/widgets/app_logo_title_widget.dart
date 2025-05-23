@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project428app/app/constants.dart';
 
 class AppLogoTitleWidget extends StatelessWidget {
@@ -20,11 +21,18 @@ class AppLogoTitleWidget extends StatelessWidget {
                 ? SizedBox()
                 : Text(
                   kMainTitle,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 )
             : Text(
               kMainTitle,
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: GoogleFonts.poppins(
+                textStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
             ),
       ],
     );

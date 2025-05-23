@@ -5,6 +5,7 @@ import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/services/personalization_service.dart';
 import 'package:project428app/app/style.dart';
 import 'package:project428app/app/widgets/app_logo_title_widget.dart';
+import 'package:project428app/app/widgets/text_header.dart';
 
 import '../controllers/login_as_controller.dart';
 
@@ -55,25 +56,30 @@ class LoginAsView extends GetView<LoginAsController> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(30),
-                                ),
-                                child: FadeInImage.assetNetwork(
-                                  placeholder: kAssetLoading,
-                                  image: controller.userdata.imgUrl,
-                                  // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
-                                ),
-                              ),
+                              leading:
+                                  GetPlatform.isWeb
+                                      ? CircleAvatar()
+                                      : ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(30),
+                                        ),
+                                        child: FadeInImage.assetNetwork(
+                                          placeholder: kAssetLoading,
+                                          image:
+                                              controller.AuthS.box.read(
+                                                'userProfile',
+                                              )['imgUrl'],
+                                          // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+                                        ),
+                                      ),
                               title: Text(
-                                controller.userdata.name,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18,
-                                ),
+                                controller.AuthS.box.read(
+                                  'userProfile',
+                                )['name'],
+                                style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                               subtitle: Text(
-                                'ID ${controller.userdata.userId}',
+                                'ID ${controller.AuthS.box.read('userProfile')['userId']}',
                                 style: TextStyle(fontSize: 14),
                               ),
                               // trailing: IconButton(
@@ -95,7 +101,9 @@ class LoginAsView extends GetView<LoginAsController> {
                           ),
 
                           const SizedBox(height: 20),
-                          controller.userdata.role.contains('admin')
+                          TextTitle(text: 'Masuk sebagai:'),
+                          const SizedBox(height: 5),
+                          controller.AuthS.userRoles.contains('admin')
                               ? Container(
                                 width: double.infinity,
                                 height: 40,
@@ -111,7 +119,7 @@ class LoginAsView extends GetView<LoginAsController> {
                                 ),
                               )
                               : SizedBox(),
-                          controller.userdata.role.contains('franchisee')
+                          controller.AuthS.userRoles.contains('franchisee')
                               ? Container(
                                 width: double.infinity,
                                 height: 40,
@@ -119,14 +127,14 @@ class LoginAsView extends GetView<LoginAsController> {
                                 child: TextButton(
                                   onPressed: () {
                                     c.currentRoleTheme.value = 'franchisee';
-                                    // Get.offNamed('/beranda-admin');
+                                    Get.offNamed('/homepage-franchisee');
                                   },
                                   style: LoginAsButtonStyle(Colors.amber[800]!),
                                   child: Text("Franchisee"),
                                 ),
                               )
                               : SizedBox(),
-                          controller.userdata.role.contains('spvarea')
+                          controller.AuthS.userRoles.contains('spvarea')
                               ? Container(
                                 width: double.infinity,
                                 height: 40,
@@ -134,6 +142,7 @@ class LoginAsView extends GetView<LoginAsController> {
                                 child: TextButton(
                                   onPressed: () {
                                     c.currentRoleTheme.value = 'spvarea';
+                                    Get.offNamed('/homepage-spvarea');
                                     // Get.offNamed('/beranda-admin');
                                   },
                                   style: LoginAsButtonStyle(Colors.green),
@@ -141,7 +150,7 @@ class LoginAsView extends GetView<LoginAsController> {
                                 ),
                               )
                               : SizedBox(),
-                          controller.userdata.role.contains('operator')
+                          controller.AuthS.userRoles.contains('operator')
                               ? Container(
                                 width: double.infinity,
                                 height: 40,

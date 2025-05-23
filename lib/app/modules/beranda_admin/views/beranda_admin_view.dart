@@ -6,7 +6,6 @@ import 'package:project428app/app/widgets/admin/admin_appbar.dart';
 import 'package:project428app/app/widgets/admin/admin_drawer.dart';
 
 import '../controllers/beranda_admin_controller.dart';
-import 'package:intl/intl.dart';
 
 class BerandaAdminView extends GetView<BerandaAdminController> {
   const BerandaAdminView({super.key});
@@ -20,53 +19,69 @@ class BerandaAdminView extends GetView<BerandaAdminController> {
           // SizedBox(height: 10),
           Hero(
             tag: 'login-to-select-role',
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
-              child: Column(
-                children: [
-                  Material(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    elevation: 1,
-                    child: ListTile(
-                      selected: true,
-                      selectedTileColor: Colors.grey[50],
+            child: Card(
+              color: Colors.white,
+              elevation: 1,
+              margin: EdgeInsets.symmetric(horizontal: 15),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 15,
+                ),
+                child: Column(
+                  children: [
+                    Material(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        child: FadeInImage.assetNetwork(
-                          placeholder: kAssetLoading,
-                          image: controller.c.userdata.imgUrl,
-                          // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+                      elevation: 1,
+                      child: ListTile(
+                        selected: true,
+                        selectedTileColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                      ),
-                      title: Text(
-                        controller.c.userdata.name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
+                        leading:
+                            GetPlatform.isWeb
+                                ? CircleAvatar()
+                                : ClipRRect(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(30),
+                                  ),
+                                  child: FadeInImage.assetNetwork(
+                                    placeholder: kAssetLoading,
+                                    image:
+                                        controller.AuthS.box.read(
+                                          'userProfile',
+                                        )['imgUrl'],
+                                    // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+                                  ),
+                                ),
+                        title: Text(
+                          controller.AuthS.box.read('userProfile')['name'],
+                          style: TextStyle(fontWeight: FontWeight.w500),
                         ),
-                      ),
-                      subtitle: Text(
-                        'ID ${controller.c.userdata.userId}',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      trailing: IconButton(
-                        color: Colors.blue[700],
-                        style: ButtonStyle(
-                          padding: WidgetStatePropertyAll(EdgeInsets.all(10)),
+                        subtitle: Text(
+                          'ID ${controller.AuthS.box.read('userProfile')['userId']}',
+                          style: TextStyle(fontSize: 14),
                         ),
-                        onPressed: () {
-                          Get.offNamed('/login-as');
-                        },
-                        icon: Icon(Icons.change_circle_rounded),
+                        trailing: IconButton(
+                          color: Colors.blue[700],
+                          style: ButtonStyle(
+                            padding: WidgetStatePropertyAll(EdgeInsets.all(10)),
+                          ),
+                          onPressed: () {
+                            Get.offNamed('/login-as');
+                          },
+                          icon: Icon(Icons.change_circle_rounded),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

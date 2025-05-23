@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
-
-import '../../../services/personalization_service.dart';
+import 'package:project428app/app/services/auth_service.dart';
 
 class BerandaOperatorController extends GetxController {
-  Personalization c = Get.find<Personalization>();
+  AuthService AuthS = Get.find<AuthService>();
   @override
   void onInit() {
     super.onInit();

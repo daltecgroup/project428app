@@ -36,14 +36,17 @@ Widget PenggunaItem(
             bottom: 5,
             top: 0,
           ),
-          leading: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            child: FadeInImage.assetNetwork(
-              placeholder: kAssetLoading,
-              image: imgUrl,
-              // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
-            ),
-          ),
+          leading:
+              GetPlatform.isWeb
+                  ? CircleAvatar()
+                  : ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    child: FadeInImage.assetNetwork(
+                      placeholder: kAssetLoading,
+                      image: imgUrl,
+                      // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+                    ),
+                  ),
           title: Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: Row(

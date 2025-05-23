@@ -4,8 +4,6 @@ import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/services/personalization_service.dart';
 
 Drawer OperatorDrawer(BuildContext context, String selectedItem) {
-  final Personalization c = Get.find<Personalization>();
-
   Color selectedColor = Colors.redAccent;
 
   return Drawer(
@@ -25,10 +23,7 @@ Drawer OperatorDrawer(BuildContext context, String selectedItem) {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            subtitle: Text(
-              c.userdata.name,
-              style: TextStyle(color: Colors.white),
-            ),
+            subtitle: Text('', style: TextStyle(color: Colors.white)),
           ),
         ),
         ListTile(

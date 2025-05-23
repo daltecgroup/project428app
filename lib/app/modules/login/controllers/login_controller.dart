@@ -1,15 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/data/user_provider.dart';
-import 'package:project428app/app/error_code.dart';
-import 'package:project428app/app/widgets/custom_bottom_sheet_widget.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/services/auth_service.dart';
 
 class LoginController extends GetxController {
-  GetStorage box = GetStorage();
-  UserProvider User = UserProvider();
+  AuthService AuthS = Get.find<AuthService>();
 
   late TextEditingController usernameC;
   late TextEditingController passwordC;
@@ -30,14 +24,13 @@ class LoginController extends GetxController {
     usernameC = TextEditingController();
     passwordC = TextEditingController();
     passwordC.text = '1234';
-
+    getRememberMe();
     super.onInit();
   }
 
   @override
   void onReady() {
     super.onReady();
-    getRememberMe();
   }
 
   @override
@@ -48,9 +41,10 @@ class LoginController extends GetxController {
   }
 
   void getRememberMe() {
-    if (box.read('rememberMe') == true) {
-      usernameC.text = box.read('username');
+    if (AuthS.box.read('rememberMe') == true) {
+      usernameC.text = AuthS.box.read('username');
       rememberMe.value = true;
+      print('remember me initiated');
     } else {
       usernameC.clear();
       passwordC.clear();
@@ -69,66 +63,68 @@ class LoginController extends GetxController {
         pinErrorText = "Kolom tidak boleh kosong";
       }
     } else {
-      isLoading.value = true;
-      await User.loginUser(usernameC.text, passwordC.text).then((res) {
-        if (res.statusCode == 200) {
-          isLoading.value = false;
-          var data = res.body;
-          box.write(kUserData, data);
-          Get.offNamed('login-as');
-        } else {
-          print(res.statusText);
-          if (res.body != null) {
-            switch (res.body['errorCode']) {
-              case ErrorCode.invalidCredential:
-                pinError.value = true;
-                pinErrorText = 'PIN Salah';
-                userIDErrorText = res.body['message'];
-                break;
-              case ErrorCode.userNotFound:
-                userIdError.value = true;
-                userIDErrorText = res.body['message'];
-                break;
-              case ErrorCode.innactiveUser:
-                userIdError.value = true;
-                userIDErrorText = res.body['message'];
-                break;
-              default:
-                // Get.snackbar(kTitleFailed, res.statusText.toString());
-                Get.bottomSheet(
-                  CustomBottomSheetWidget(
-                    widget: Column(
-                      children: [
-                        TextTitle(text: 'Server Terputus'),
-                        Text(res.statusText.toString()),
-                      ],
-                    ),
-                  ),
-                  useRootNavigator: true,
-                );
-            }
-          } else {
-            Get.bottomSheet(
-              CustomBottomSheetWidget(
-                title: 'Server Terputus',
-                widget: Text(res.statusText.toString()),
-              ),
-              useRootNavigator: true,
-            );
-          }
-          isLoading.value = false;
-        }
-      });
+      AuthS.login(usernameC.text, passwordC.text);
+      // isLoading.value = true;
+      // await User.loginUser(usernameC.text, passwordC.text).then((res) {
+      //   if (res.statusCode == 200) {
+      //     isLoading.value = false;
+      //     var data = res.body;
+      //     box.write(kUserData, data);
+      //     Get.offNamed('login-as');
+      //   } else {
+      //     print(res.statusText);
+      //     if (res.body != null) {
+      //       switch (res.body['errorCode']) {
+      //         case ErrorCode.invalidCredential:
+      //           pinError.value = true;
+      //           pinErrorText = 'PIN Salah';
+      //           userIDErrorText = res.body['message'];
+      //           break;
+      //         case ErrorCode.userNotFound:
+      //           userIdError.value = true;
+      //           userIDErrorText = res.body['message'];
+      //           break;
+      //         case ErrorCode.innactiveUser:
+      //           userIdError.value = true;
+      //           userIDErrorText = res.body['message'];
+      //           break;
+      //         default:
+      //           // Get.snackbar(kTitleFailed, res.statusText.toString());
+      //           Get.bottomSheet(
+      //             CustomBottomSheetWidget(
+      //               widget: Column(
+      //                 children: [
+      //                   TextTitle(text: 'Server Terputus'),
+      //                   Text(res.statusText.toString()),
+      //                 ],
+      //               ),
+      //             ),
+      //             useRootNavigator: true,
+      //           );
+      //       }
+      //     } else {
+      //       Get.bottomSheet(
+      //         CustomBottomSheetWidget(
+      //           title: 'Server Terputus',
+      //           widget: Text(res.statusText.toString()),
+      //         ),
+      //         useRootNavigator: true,
+      //       );
+      //     }
+      //     isLoading.value = false;
+      //   }
+      // });
     }
   }
 
   void setRememberMe() {
     if (usernameC.text != '' && rememberMe.value) {
-      box.write('username', usernameC.text);
-      box.write('rememberMe', true);
+      AuthS.box.write('username', usernameC.text);
+      AuthS.box.write('rememberMe', true);
+      print('user id remembered');
     } else {
-      box.remove('username');
-      box.remove('rememberMe');
+      AuthS.box.remove('username');
+      AuthS.box.remove('rememberMe');
     }
   }
 }

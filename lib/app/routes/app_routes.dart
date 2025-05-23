@@ -28,6 +28,9 @@ abstract class Routes {
   static const TAMBAH_STOK = _Paths.TAMBAH_STOK;
   static const DETAIL_STOK = _Paths.DETAIL_STOK;
   static const SPLASH = _Paths.SPLASH;
+  static const UNAUTHORIZED = _Paths.UNAUTHORIZED;
+  static const HOMEPAGE_FRANCHISEE = _Paths.HOMEPAGE_FRANCHISEE;
+  static const HOMEPAGE_SPVAREA = _Paths.HOMEPAGE_SPVAREA;
 }
 
 abstract class _Paths {
@@ -57,4 +60,7 @@ abstract class _Paths {
   static const TAMBAH_STOK = '/tambah-stok';
   static const DETAIL_STOK = '/detail-stok';
   static const SPLASH = '/splash';
+  static const UNAUTHORIZED = '/unauthorized';
+  static const HOMEPAGE_FRANCHISEE = '/homepage-franchisee';
+  static const HOMEPAGE_SPVAREA = '/homepage-spvarea';
 }

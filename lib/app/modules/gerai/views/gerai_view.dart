@@ -93,7 +93,7 @@ class GeraiView extends GetView<GeraiController> {
         ),
         child: Icon(Icons.add),
         onPressed: () {
-          Get.to(() => AddOutletView());
+          Get.to(() => AddOutletView(), transition: Transition.rightToLeft);
         },
       ),
     );

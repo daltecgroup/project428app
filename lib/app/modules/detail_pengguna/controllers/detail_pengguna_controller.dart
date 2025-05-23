@@ -3,13 +3,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/data/user_provider.dart';
 import 'package:project428app/app/modules/pengguna/controllers/pengguna_controller.dart';
-import 'package:project428app/app/services/personalization_service.dart';
+import 'package:project428app/app/services/auth_service.dart';
 
 class DetailPenggunaController extends GetxController {
   PenggunaController userC = Get.find<PenggunaController>();
   GetStorage box = GetStorage();
   UserProvider userP = UserProvider();
-  Personalization p = Get.find<Personalization>();
+  AuthService AuthS = Get.find<AuthService>();
 
   var userId = '-'.obs;
   var createdAt = '-'.obs;
@@ -53,7 +53,7 @@ class DetailPenggunaController extends GetxController {
         role.add(userData['role'][i].toString());
       }
       role.refresh();
-      if (userId.value == p.userdata.userId) {
+      if (userId.value == AuthS.box.read('userProfile')['userId']) {
         myOwn.value = true;
       }
     }

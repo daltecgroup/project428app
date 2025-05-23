@@ -22,15 +22,12 @@ class AddOutletView extends GetView {
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(Icons.close_rounded),
-          ),
-          SizedBox(width: 10),
-        ],
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back_rounded),
+        ),
       ),
       body: Container(
         height: double.infinity,
