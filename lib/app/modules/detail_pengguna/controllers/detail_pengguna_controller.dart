@@ -62,7 +62,6 @@ class DetailPenggunaController extends GetxController {
   void deactiveUser() async {
     status.value = false;
     await userP.deactivateUser(userId.value).then((res) {
-      print(res.body);
       userC.getUsers();
     });
   }
@@ -70,14 +69,12 @@ class DetailPenggunaController extends GetxController {
   void activateUser() async {
     status.value = true;
     await userP.activateUser(userId.value).then((res) {
-      print(res.body);
       userC.getUsers();
     });
   }
 
   void deleteUser() async {
     await userP.deleteUser(userId.value).then((res) {
-      print(res.body);
       userC.getUsers();
       Get.back();
       Get.offNamed('/pengguna');

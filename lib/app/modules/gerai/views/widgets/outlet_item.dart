@@ -6,6 +6,8 @@ import 'package:project428app/app/modules/gerai/models/outlet_list_item.dart';
 import 'package:project428app/app/modules/gerai/views/pages/outlet_detail_view.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 
+import '../../../../services/auth_service.dart';
+
 class OutletItemWidget extends StatelessWidget {
   const OutletItemWidget({super.key, required this.outlet});
 
@@ -13,6 +15,7 @@ class OutletItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthService authS = Get.find<AuthService>();
     return Container(
       margin: EdgeInsets.only(bottom: 15),
       child: Stack(
@@ -27,8 +30,8 @@ class OutletItemWidget extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.only(right: 12),
-                  height: Get.width * 0.20,
-                  width: Get.width * 0.20 + 10,
+                  height: kMobileWidth * 0.20,
+                  width: kMobileWidth * 0.20 + 10,
                   child: ClipRRect(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(8),
@@ -43,7 +46,7 @@ class OutletItemWidget extends StatelessWidget {
                             : FadeInImage.assetNetwork(
                               fit: BoxFit.cover,
                               image:
-                                  '$kServerUrl/api/v1/uploads/${outlet.imgUrl}',
+                                  '${authS.mainServerUrl.value}/api/v1/uploads/${outlet.imgUrl}',
                               placeholder: kAssetLoadingBuffer,
                             ),
                   ),

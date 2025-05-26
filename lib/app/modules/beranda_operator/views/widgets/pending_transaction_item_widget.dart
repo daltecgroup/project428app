@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project428app/app/modules/beranda_operator/views/pages/new_sales_view.dart';
+import 'package:project428app/app/services/operator_service.dart';
 
 class PendingTransactionItemWidget extends StatelessWidget {
-  const PendingTransactionItemWidget({super.key});
+  const PendingTransactionItemWidget({super.key, required this.pendingSales});
+
+  final PendingSales pendingSales;
 
   @override
   Widget build(BuildContext context) {
+    OperatorService OperatorS = Get.find<OperatorService>();
     return Stack(
       children: [
         Card(
@@ -28,7 +34,7 @@ class PendingTransactionItemWidget extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              'TRX250400012',
+                              pendingSales.trxCode,
                               maxLines: 1,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -116,7 +122,8 @@ class PendingTransactionItemWidget extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               onTap: () {
-                // Get.to(() => OutletDetailView(), arguments: outlet);
+                OperatorS.currentPendingTrxCode.value = pendingSales.trxCode;
+                Get.to(() => NewSalesView());
               },
             ),
           ),

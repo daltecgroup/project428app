@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/services/auth_service.dart';
 import 'package:project428app/app/widgets/format_waktu.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 import 'package:project428app/app/widgets/text_header.dart';
@@ -14,6 +16,8 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
   const DetailPenggunaView({super.key});
   @override
   Widget build(BuildContext context) {
+    AuthService internetC = Get.find<AuthService>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -77,17 +81,25 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
             SizedBox(height: 40),
             Center(
               child: Container(
-                height: Get.width * 0.2,
-                width: Get.width * 0.2,
+                height: kMobileWidth * 0.2,
+                width: kMobileWidth * 0.2,
                 child: Material(
                   borderRadius: BorderRadius.all(Radius.circular(50)),
                   elevation: 1,
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(50)),
-                    child: FadeInImage.assetNetwork(
-                      placeholder: kAssetLoading,
-                      image: controller.imgUrl.value,
-                    ),
+                    child:
+                        internetC.isConnected.value
+                            ? FadeInImage.assetNetwork(
+                              placeholder: kAssetLoading,
+                              image: controller.imgUrl.value,
+                            )
+                            : CircleAvatar(
+                              child: SvgPicture.asset(
+                                kImgPlaceholder,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                   ),
                 ),
               ),

@@ -64,56 +64,6 @@ class LoginController extends GetxController {
       }
     } else {
       AuthS.login(usernameC.text, passwordC.text);
-      // isLoading.value = true;
-      // await User.loginUser(usernameC.text, passwordC.text).then((res) {
-      //   if (res.statusCode == 200) {
-      //     isLoading.value = false;
-      //     var data = res.body;
-      //     box.write(kUserData, data);
-      //     Get.offNamed('login-as');
-      //   } else {
-      //     print(res.statusText);
-      //     if (res.body != null) {
-      //       switch (res.body['errorCode']) {
-      //         case ErrorCode.invalidCredential:
-      //           pinError.value = true;
-      //           pinErrorText = 'PIN Salah';
-      //           userIDErrorText = res.body['message'];
-      //           break;
-      //         case ErrorCode.userNotFound:
-      //           userIdError.value = true;
-      //           userIDErrorText = res.body['message'];
-      //           break;
-      //         case ErrorCode.innactiveUser:
-      //           userIdError.value = true;
-      //           userIDErrorText = res.body['message'];
-      //           break;
-      //         default:
-      //           // Get.snackbar(kTitleFailed, res.statusText.toString());
-      //           Get.bottomSheet(
-      //             CustomBottomSheetWidget(
-      //               widget: Column(
-      //                 children: [
-      //                   TextTitle(text: 'Server Terputus'),
-      //                   Text(res.statusText.toString()),
-      //                 ],
-      //               ),
-      //             ),
-      //             useRootNavigator: true,
-      //           );
-      //       }
-      //     } else {
-      //       Get.bottomSheet(
-      //         CustomBottomSheetWidget(
-      //           title: 'Server Terputus',
-      //           widget: Text(res.statusText.toString()),
-      //         ),
-      //         useRootNavigator: true,
-      //       );
-      //     }
-      //     isLoading.value = false;
-      //   }
-      // });
     }
   }
 

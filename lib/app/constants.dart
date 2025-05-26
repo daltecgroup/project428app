@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 const kMainTitle = 'Aroma Bisnis Grup POS';
 
 const kDark = 'dark';
@@ -37,9 +39,12 @@ const kCurrentUserDetailId = 'current_user_detail';
 const kTitleFailed = "Terjadi Kesalahan";
 
 // const kServerUrl = 'http://10.0.2.2:8000';
-const kServerUrl = 'http://localhost:8000';
+// const kServerUrl = 'http://localhost:8000';
 // const kServerUrl = 'https://api.aromabisnisgroup.com';
 // const kServerUrl = 'https://46.202.163.60:8000';
 
 const kEnv = 'dev';
 // const kEnv = 'prod';
+
+// colors
+const primaryYellow = Color.fromRGBO(250, 204, 4, 1);

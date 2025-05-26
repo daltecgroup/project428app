@@ -3,12 +3,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/new_sales_view.dart';
+import 'package:project428app/app/services/auth_service.dart';
+import 'package:project428app/app/services/operator_service.dart';
 import 'package:project428app/app/widgets/text_header.dart';
+
+import '../../../../models/product.dart';
 
 class SelectMenuView extends GetView {
   const SelectMenuView({super.key});
   @override
   Widget build(BuildContext context) {
+    OperatorService OperatorS = Get.find<OperatorService>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -16,21 +21,81 @@ class SelectMenuView extends GetView {
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
         ),
         centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            if (Get.arguments == 'homepage') {
+              Get.offNamed('/beranda-operator');
+            } else {
+              Get.back();
+            }
+          },
+          icon: Icon(Icons.arrow_back_rounded),
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(left: 15, right: 15, top: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextTitle(text: 'Mix Topping'),
-            SizedBox(height: 10),
-            MenuItemWidget(),
-            MenuItemWidget(),
-            SizedBox(height: 10),
-            TextTitle(text: 'Mix Topping'),
-            SizedBox(height: 10),
-            MenuItemWidget(),
-            MenuItemWidget(),
+            ...List.generate(
+              OperatorS.CategoryP.categories
+                  .where((cat) => cat.isActive)
+                  .toList()
+                  .length,
+              (index) => Column(
+                children: [
+                  TextTitle(
+                    text:
+                        OperatorS.CategoryP.categories
+                            .where((cat) => cat.isActive)
+                            .toList()[index]
+                            .name,
+                  ),
+                  SizedBox(height: 10),
+                  ...List.generate(
+                    OperatorS.ProductP.products
+                        .where(
+                          (product) =>
+                              product.isActive &&
+                              product.category.id ==
+                                  OperatorS.CategoryP.categories
+                                      .where((cat) => cat.isActive)
+                                      .toList()[index]
+                                      .id,
+                        )
+                        .toList()
+                        .length,
+                    (secondIndex) => Column(
+                      children: [
+                        MenuItemWidget(
+                          product:
+                              OperatorS.ProductP.products
+                                  .where(
+                                    (product) =>
+                                        product.isActive &&
+                                        product.category.id ==
+                                            OperatorS.CategoryP.categories
+                                                .where((cat) => cat.isActive)
+                                                .toList()[index]
+                                                .id,
+                                  )
+                                  .toList()[secondIndex],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // TextTitle(text: 'Mix Topping'),
+            // SizedBox(height: 10),
+            // MenuItemWidget(),
+            // MenuItemWidget(),
+            // SizedBox(height: 10),
+            // TextTitle(text: 'Mix Topping'),
+            // SizedBox(height: 10),
+            // MenuItemWidget(),
+            // MenuItemWidget(),
           ],
         ),
       ),
@@ -39,10 +104,14 @@ class SelectMenuView extends GetView {
 }
 
 class MenuItemWidget extends StatelessWidget {
-  const MenuItemWidget({super.key});
+  const MenuItemWidget({super.key, required this.product});
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
+    AuthService AuthS = Get.find<AuthService>();
+    OperatorService OperatorS = Get.find<OperatorService>();
     return Container(
       margin: EdgeInsets.only(bottom: 12),
       child: Stack(
@@ -72,10 +141,18 @@ class MenuItemWidget extends StatelessWidget {
                           topLeft: Radius.circular(8),
                           bottomLeft: Radius.circular(0),
                         ),
-                        child: SvgPicture.asset(
-                          kImgPlaceholder,
-                          fit: BoxFit.cover,
-                        ),
+                        child:
+                            GetPlatform.isWeb || !AuthS.isConnected.value
+                                ? SvgPicture.asset(
+                                  kImgPlaceholder,
+                                  fit: BoxFit.cover,
+                                )
+                                : FadeInImage.assetNetwork(
+                                  fit: BoxFit.cover,
+                                  placeholder: kImgPlaceholder,
+                                  image:
+                                      '${AuthS.mainServerUrl.value}/api/v1/${product.imgUrl}',
+                                ),
                       ),
                     ),
                     Expanded(
@@ -91,11 +168,11 @@ class MenuItemWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Coklat Keju',
+                              product.name,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '🧀🍫 Perpaduan manis coklat dan gurihnya keju yang sempurna!',
+                              product.description,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(fontSize: 10),
@@ -112,7 +189,7 @@ class MenuItemWidget extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Sisa",
+                                        "Perkiraan Sisa",
                                         style: TextStyle(fontSize: 10),
                                       ),
                                       Text(
@@ -141,7 +218,8 @@ class MenuItemWidget extends StatelessWidget {
                                         text: TextSpan(
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: '5%',
+                                              text:
+                                                  '${product.discount.toString()}%',
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.red,
@@ -150,7 +228,9 @@ class MenuItemWidget extends StatelessWidget {
                                             ),
                                             TextSpan(text: ' '),
                                             TextSpan(
-                                              text: '4.500',
+                                              text: product
+                                                  .getPriceInRupiah()
+                                                  .substring(4),
                                               style: TextStyle(
                                                 decoration:
                                                     TextDecoration.lineThrough,
@@ -180,7 +260,9 @@ class MenuItemWidget extends StatelessWidget {
                                         text: TextSpan(
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: 'IDR 4.275',
+                                              text:
+                                                  product
+                                                      .getPriceInRupiahAfterDiscount(),
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
@@ -210,7 +292,27 @@ class MenuItemWidget extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 onTap: () {
-                  Get.off(() => NewSalesView());
+                  if (OperatorS.currentPendingTrxCode.isEmpty) {
+                    OperatorS.addPendingSales();
+                    OperatorS.pendingSales
+                        .firstWhere(
+                          (sales) =>
+                              sales.trxCode ==
+                              OperatorS.currentPendingTrxCode.value,
+                        )
+                        .addItem(NewSalesItem(product: product));
+                    Get.to(() => NewSalesView());
+                  } else {
+                    OperatorS.pendingSales
+                        .firstWhere(
+                          (sales) =>
+                              sales.trxCode ==
+                              OperatorS.currentPendingTrxCode.value,
+                        )
+                        .addItem(NewSalesItem(product: product));
+                    OperatorS.pendingSales.refresh();
+                    Get.back();
+                  }
                 },
               ),
             ),

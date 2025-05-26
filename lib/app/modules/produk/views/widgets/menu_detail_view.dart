@@ -6,6 +6,7 @@ import 'package:project428app/app/models/stock.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 
 import '../../../../constants.dart';
+import '../../../../services/auth_service.dart';
 import '../../../../style.dart';
 import '../../../../widgets/text_header.dart';
 import '../../controllers/produk_controller.dart';
@@ -18,6 +19,7 @@ class MenuDetailView extends GetView {
   final Product product;
   @override
   Widget build(BuildContext context) {
+    AuthService authS = Get.find<AuthService>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -84,11 +86,11 @@ class MenuDetailView extends GetView {
                     children: [
                       Container(
                         padding: EdgeInsets.only(),
-                        height: Get.width - 30,
+                        height: kMobileWidth - 30,
                         width: double.infinity,
                         child: Image.network(
                           fit: BoxFit.cover,
-                          '$kServerUrl/api/v1/${product.imgUrl}',
+                          '${authS.mainServerUrl.value}/api/v1/${product.imgUrl}',
                           webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
                         ),
                       ),

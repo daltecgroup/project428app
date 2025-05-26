@@ -31,6 +31,7 @@ abstract class Routes {
   static const UNAUTHORIZED = _Paths.UNAUTHORIZED;
   static const HOMEPAGE_FRANCHISEE = _Paths.HOMEPAGE_FRANCHISEE;
   static const HOMEPAGE_SPVAREA = _Paths.HOMEPAGE_SPVAREA;
+  static const SALES_TRANSACTION_DETAIL = _Paths.SALES_TRANSACTION_DETAIL;
 }
 
 abstract class _Paths {
@@ -63,4 +64,5 @@ abstract class _Paths {
   static const UNAUTHORIZED = '/unauthorized';
   static const HOMEPAGE_FRANCHISEE = '/homepage-franchisee';
   static const HOMEPAGE_SPVAREA = '/homepage-spvarea';
+  static const SALES_TRANSACTION_DETAIL = '/sales-transaction-detail';
 }

@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/services/personalization_service.dart';
+
+import '../../services/auth_service.dart';
+import '../text_header.dart';
 
 Drawer OperatorDrawer(BuildContext context, String selectedItem) {
   Color selectedColor = Colors.redAccent;
+  final AuthService AuthS = Get.find<AuthService>();
 
   return Drawer(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
     child: ListView(
       padding: EdgeInsets.zero,
       children: [
-        DrawerHeader(
-          decoration: BoxDecoration(color: selectedColor),
-          child: ListTile(
-            leading: CircleAvatar(radius: 30),
-            title: Text(
-              'Operator',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text('', style: TextStyle(color: Colors.white)),
-          ),
+        SizedBox(height: 100),
+        Padding(
+          padding: EdgeInsets.only(left: 15),
+          child: TextTitle(text: 'Menu Operator'),
         ),
+        SizedBox(height: 0),
         ListTile(
           title: const Text('Beranda'),
           selected: selectedItem == kOperatorMenuBeranda ? true : false,
@@ -80,7 +74,7 @@ Drawer OperatorDrawer(BuildContext context, String selectedItem) {
         ListTile(
           title: const Text('Logout'),
           onTap: () {
-            Get.find<Personalization>().logOut();
+            AuthS.logout();
           },
         ),
         // IconButton(

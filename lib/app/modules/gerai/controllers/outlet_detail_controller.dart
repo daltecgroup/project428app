@@ -109,7 +109,6 @@ class OutletDetailController extends GetxController {
         outlet.value.code,
         imagePickerC.selectedImage.value!,
       ).then((res) {
-        print(res.body);
         outlet.value = Outlet.fromJson(res.body);
         GeraiC.getOutletList();
       });

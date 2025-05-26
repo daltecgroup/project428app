@@ -1,27 +1,47 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/select_menu_view.dart';
+import 'package:project428app/app/modules/beranda_operator/views/pages/select_payment_method_view.dart';
+import 'package:project428app/app/services/auth_service.dart';
+import 'package:project428app/app/services/operator_service.dart';
 
 class NewSalesView extends GetView {
   const NewSalesView({super.key});
   @override
   Widget build(BuildContext context) {
+    OperatorService OperatorS = Get.find<OperatorService>();
+    OperatorS.pendingSales
+        .firstWhere(
+          (sales) => sales.trxCode == OperatorS.currentPendingTrxCode.value,
+        )
+        .updateIndicators();
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'TRX25040013',
+        title: Text(
+          OperatorS.currentPendingTrxCode.value,
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            OperatorS.currentPendingTrxCode.value = '';
+            Get.offNamed('/beranda-operator');
+          },
+          icon: Icon(Icons.arrow_back_rounded),
+        ),
         actions: [
           IconButton(
             onPressed: () {
-              // Get.offNamed('/beranda-operator');
+              Get.offNamed('/beranda-operator');
+
+              OperatorS.pendingSales.removeWhere(
+                (sale) => sale.trxCode == OperatorS.currentPendingTrxCode.value,
+              );
+              OperatorS.currentPendingTrxCode.value = '';
             },
             icon: Icon(Icons.delete, color: Colors.red[700]),
           ),
@@ -52,58 +72,118 @@ class NewSalesView extends GetView {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Item', style: TextStyle(fontSize: 10)),
-                              Text(
-                                '3',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Item', style: TextStyle(fontSize: 10)),
+                                Obx(() {
+                                  final salesItem = OperatorS.pendingSales
+                                      .firstWhereOrNull(
+                                        (sales) =>
+                                            sales.trxCode ==
+                                            OperatorS
+                                                .currentPendingTrxCode
+                                                .value,
+                                      );
+
+                                  // Now, salesItem can be null if no match was found
+                                  final textContent =
+                                      salesItem != null
+                                          ? salesItem.itemCount.value
+                                              .toString() // Access .value only if not null
+                                          : '0'; // Provide a default if no matching sales item is found
+
+                                  return Text(
+                                    textContent,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  );
+                                }),
+                              ],
+                            ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Promo', style: TextStyle(fontSize: 10)),
-                              Text(
-                                '1',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Promo', style: TextStyle(fontSize: 10)),
+                                Text(
+                                  '0',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
 
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Hemat', style: TextStyle(fontSize: 10)),
-                              Text(
-                                'IDR 5.100',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Hemat', style: TextStyle(fontSize: 10)),
+                                Obx(() {
+                                  final salesItem = OperatorS.pendingSales
+                                      .firstWhereOrNull(
+                                        (sales) =>
+                                            sales.trxCode ==
+                                            OperatorS
+                                                .currentPendingTrxCode
+                                                .value,
+                                      );
+
+                                  final textContent =
+                                      salesItem != null
+                                          ? salesItem.getSavingsInRupiah()
+                                          : 'IDR 0';
+
+                                  return Text(
+                                    textContent,
+                                    style: const TextStyle(
+                                      // Added const for performance if style doesn't change
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  );
+                                }),
+                              ],
+                            ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Total', style: TextStyle(fontSize: 10)),
-                              Text(
-                                'IDR 45.000',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Total', style: TextStyle(fontSize: 10)),
+                                Obx(() {
+                                  final salesItem = OperatorS.pendingSales
+                                      .firstWhereOrNull(
+                                        (sales) =>
+                                            sales.trxCode ==
+                                            OperatorS
+                                                .currentPendingTrxCode
+                                                .value,
+                                      );
+                                  final String textContent;
+                                  if (salesItem != null) {
+                                    textContent =
+                                        salesItem.getTotalInRupiah().toString();
+                                  } else {
+                                    textContent = '0';
+                                  }
+                                  return Text(
+                                    textContent,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  );
+                                }),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -112,13 +192,32 @@ class NewSalesView extends GetView {
                 ),
               ],
             ),
+
             SizedBox(height: 20),
 
             // sales item
-            SalesItemWidget(),
-            SalesItemWidget(),
-            SalesItemWidget(),
+            Obx(() {
+              final salesItem = OperatorS.pendingSales.firstWhereOrNull(
+                (sales) =>
+                    sales.trxCode == OperatorS.currentPendingTrxCode.value,
+              );
+              if (salesItem == null || salesItem.items.isEmpty) {
+                return const SizedBox.shrink();
+              }
+              return Column(
+                children: List.generate(
+                  salesItem.items.length,
+                  (index) => SalesItemWidget(
+                    item: salesItem.items[index],
+                    index: index,
+                  ),
+                ),
+              );
+            }),
+
             SizedBox(height: 5),
+
+            // add new product on this pending sales
             Row(
               children: [
                 Expanded(
@@ -133,7 +232,11 @@ class NewSalesView extends GetView {
                         ),
                       ),
                       onPressed: () {
-                        Get.off(() => SelectMenuView());
+                        Get.to(
+                          () => SelectMenuView(),
+                          transition: Transition.rightToLeft,
+                          arguments: 'new-sales',
+                        );
                       },
                       child: Text('+ Tambah Item'),
                     ),
@@ -144,10 +247,31 @@ class NewSalesView extends GetView {
             SizedBox(height: 20),
 
             // promo available
-            PromoItemWidget(available: true, title: 'Beli 2 Gratis 1'),
             PromoItemWidget(
-              available: false,
-              title: 'Belanja Minimal 50rb gratis 1 item max 15rb',
+              available:
+                  OperatorS.pendingSales
+                      .firstWhere(
+                        (sale) =>
+                            sale.trxCode ==
+                            OperatorS.currentPendingTrxCode.value,
+                      )
+                      .items
+                      .length >=
+                  2,
+              title: 'Beli 2 Gratis 1',
+            ),
+            PromoItemWidget(
+              available:
+                  OperatorS.pendingSales
+                      .firstWhere(
+                        (sale) =>
+                            sale.trxCode ==
+                            OperatorS.currentPendingTrxCode.value,
+                      )
+                      .total
+                      .value >=
+                  50000,
+              title: 'Belanja Minimal 50rb gratis 1 item',
             ),
             SizedBox(height: 20),
             Container(
@@ -157,50 +281,92 @@ class NewSalesView extends GetView {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: TextButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
+                    child: Hero(
+                      tag: 'back-button',
+                      child: TextButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                          backgroundColor: MaterialStateProperty.all(
+                            Colors.grey[300],
                           ),
                         ),
-                        backgroundColor: MaterialStateProperty.all(
-                          Colors.grey[300],
-                        ),
+                        onPressed: () {
+                          OperatorS.currentPendingTrxCode.value = '';
+                          Get.offNamed('/beranda-operator');
+                        },
+                        child: Text('Kembali', style: TextStyle(fontSize: 16)),
                       ),
-                      onPressed: () {
-                        Get.offNamed('/beranda-operator');
-                      },
-                      child: Text('Kembali', style: TextStyle(fontSize: 16)),
                     ),
                   ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
+                  OperatorS.pendingSales
+                              .firstWhere(
+                                (sales) =>
+                                    sales.trxCode ==
+                                    OperatorS.currentPendingTrxCode.value,
+                              )
+                              .itemCount
+                              .value ==
+                          0
+                      ? SizedBox()
+                      : SizedBox(width: 10),
+                  OperatorS.pendingSales
+                              .firstWhere(
+                                (sales) =>
+                                    sales.trxCode ==
+                                    OperatorS.currentPendingTrxCode.value,
+                              )
+                              .itemCount
+                              .value ==
+                          0
+                      ? SizedBox()
+                      : Expanded(
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                            ),
+                          ),
+                          onPressed: () {
+                            if (OperatorS.pendingSales
+                                    .firstWhere(
+                                      (sales) =>
+                                          sales.trxCode ==
+                                          OperatorS.currentPendingTrxCode.value,
+                                    )
+                                    .itemCount
+                                    .value ==
+                                0) {
+                              Get.defaultDialog(
+                                title: 'Peringatan',
+                                titleStyle: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                content: Text('Item yang dipilih kosong'),
+                                radius: 10,
+                              );
+                            } else {
+                              Get.to(() => SelectPaymentMethodView());
+                            }
+                          },
+                          child: Text(
+                            'Pembayaran',
+                            style: TextStyle(fontSize: 16),
                           ),
                         ),
                       ),
-                      onPressed: () {},
-                      child: Text('Pembayaran', style: TextStyle(fontSize: 16)),
-                    ),
-                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-      //   onPressed: () {
-      //     Get.off(() => SelectMenuView());
-      //   },
-      //   child: Icon(Icons.add),
-      // ),
     );
   }
 }
@@ -292,10 +458,15 @@ class PromoItemWidget extends StatelessWidget {
 }
 
 class SalesItemWidget extends StatelessWidget {
-  const SalesItemWidget({super.key});
+  const SalesItemWidget({super.key, required this.item, required this.index});
+
+  final NewSalesItem item;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+    OperatorService OperatorS = Get.find<OperatorService>();
+    AuthService AuthS = Get.find<AuthService>();
     return Row(
       children: [
         Expanded(
@@ -320,10 +491,17 @@ class SalesItemWidget extends StatelessWidget {
                         child: Container(
                           height: 45,
                           width: 45,
-                          child: SvgPicture.asset(
-                            kImgPlaceholder,
-                            fit: BoxFit.cover,
-                          ),
+                          child:
+                              GetPlatform.isWeb || !AuthS.isConnected.value
+                                  ? SvgPicture.asset(
+                                    kImgPlaceholder,
+                                    fit: BoxFit.cover,
+                                  )
+                                  : FadeInImage.assetNetwork(
+                                    placeholder: kImgPlaceholder,
+                                    image:
+                                        '${AuthS.mainServerUrl.value}/api/v1/${item.product.imgUrl}',
+                                  ),
                         ),
                       ),
                       SizedBox(width: 12),
@@ -333,13 +511,18 @@ class SalesItemWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Coklat Keju',
+                              item.product.name,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
                               ),
                             ),
-                            Text('+ Abon Ayam', style: TextStyle(fontSize: 12)),
+                            item.topping.isEmpty
+                                ? SizedBox()
+                                : Text(
+                                  '+ Abon Ayam',
+                                  style: TextStyle(fontSize: 12),
+                                ),
                           ],
                         ),
                       ),
@@ -354,7 +537,7 @@ class SalesItemWidget extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    '10%',
+                                    '${item.product.discount}%',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.red,
@@ -362,7 +545,9 @@ class SalesItemWidget extends StatelessWidget {
                                   ),
                                   SizedBox(width: 3),
                                   Text(
-                                    '4.500',
+                                    item.product.getPriceInRupiah().substring(
+                                      4,
+                                    ),
                                     style: TextStyle(
                                       decoration: TextDecoration.lineThrough,
                                     ),
@@ -370,7 +555,7 @@ class SalesItemWidget extends StatelessWidget {
                                 ],
                               ),
                               Text(
-                                '4.300',
+                                item.product.getPriceInRupiahAfterDiscount(),
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
@@ -421,9 +606,26 @@ class SalesItemWidget extends StatelessWidget {
                                 EdgeInsets.all(5),
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              OperatorS.pendingSales
+                                  .firstWhere(
+                                    (sales) =>
+                                        sales.trxCode ==
+                                        OperatorS.currentPendingTrxCode.value,
+                                  )
+                                  .items
+                                  .removeAt(index);
+                              OperatorS.pendingSales
+                                  .firstWhere(
+                                    (sales) =>
+                                        sales.trxCode ==
+                                        OperatorS.currentPendingTrxCode.value,
+                                  )
+                                  .items
+                                  .refresh();
+                            },
                             child: Text(
-                              '+ Hapus',
+                              'Hapus',
                               style: TextStyle(fontSize: 10),
                             ),
                           ),
@@ -433,15 +635,35 @@ class SalesItemWidget extends StatelessWidget {
                         children: [
                           IconButton(
                             color: Colors.red[700],
-                            onPressed: () {},
+                            onPressed: () {
+                              item.removeOne();
+                              OperatorS.pendingSales
+                                  .firstWhere(
+                                    (sales) =>
+                                        sales.trxCode ==
+                                        OperatorS.currentPendingTrxCode.value,
+                                  )
+                                  .updateIndicators();
+                              OperatorS.pendingSales.refresh();
+                            },
                             icon: Icon(Icons.remove_circle),
                           ),
                           SizedBox(width: 5),
-                          Text('2'),
+                          Obx(() => Text(item.qty.value.toString())),
                           SizedBox(width: 5),
                           IconButton(
                             color: Colors.green,
-                            onPressed: () {},
+                            onPressed: () {
+                              item.addOne();
+                              OperatorS.pendingSales
+                                  .firstWhere(
+                                    (sales) =>
+                                        sales.trxCode ==
+                                        OperatorS.currentPendingTrxCode.value,
+                                  )
+                                  .updateIndicators();
+                              OperatorS.pendingSales.refresh();
+                            },
                             icon: Icon(Icons.add_circle),
                           ),
                         ],

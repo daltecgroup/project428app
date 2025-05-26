@@ -83,7 +83,6 @@ class TambahPenggunaController extends GetxController {
         phoneController.text.trim(),
         role,
       ).then((res) async {
-        print(res.statusCode);
         switch (res.statusCode) {
           case 201:
             await Get.find<PenggunaController>().getUsers();

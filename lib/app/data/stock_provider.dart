@@ -1,44 +1,44 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-
-import '../constants.dart';
+import '../services/auth_service.dart';
 
 class StockProvider extends GetConnect {
+  AuthService authS = Get.find<AuthService>();
   String accessToken = '';
-  String url = '$kServerUrl/api/v1/stocks';
-  @override
-  void onInit() {}
 
   Future<Response> getStocks() {
-    return get('$url/', headers: {"Authorization": "Bearer $accessToken"});
+    return get(
+      '${authS.mainServerUrl.value}/api/v1/stocks/',
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
   }
 
   Future<Response> getStockById(String stockId) {
     return get(
-      '$url/$stockId',
+      '${authS.mainServerUrl.value}/api/v1/stocks/$stockId',
       headers: {"Authorization": "Bearer $accessToken"},
     );
   }
 
   Future<Response> getStockHistory(String stockId) {
     return get(
-      '$url/$stockId/history',
+      '${authS.mainServerUrl.value}/api/v1/stocks/$stockId/history',
       headers: {"Authorization": "Bearer $accessToken"},
     );
   }
 
   Future<Response> reactivateStock(String stockId) {
-    return patch(
-      '$url/$stockId/reactivate',
+    return put(
+      '${authS.mainServerUrl.value}/api/v1/stocks/$stockId/reactivate',
       {},
       headers: {"Authorization": "Bearer $accessToken"},
     );
   }
 
   Future<Response> deactivateStock(String stockId) {
-    return patch(
-      '$url/$stockId/deactivate',
+    return put(
+      '${authS.mainServerUrl.value}/api/v1/stocks/$stockId/deactivate',
       {},
       headers: {"Authorization": "Bearer $accessToken"},
     );
@@ -46,7 +46,7 @@ class StockProvider extends GetConnect {
 
   Future<Response> deleteStock(String stockId) {
     return delete(
-      '$url/$stockId',
+      '${authS.mainServerUrl.value}/api/v1/stocks/$stockId',
       headers: {"Authorization": "Bearer $accessToken"},
     );
   }
@@ -54,7 +54,7 @@ class StockProvider extends GetConnect {
   Future<Response> updateStock(String stockId, String name, int price) {
     final body = json.encode({"name": name, "price": price});
     return put(
-      '$url/$stockId',
+      '${authS.mainServerUrl.value}/api/v1/stocks/$stockId',
       body,
       headers: {"Authorization": "Bearer $accessToken"},
     );
@@ -75,7 +75,7 @@ class StockProvider extends GetConnect {
     });
 
     return post(
-      '$kServerUrl/api/v1/stocks/',
+      '${authS.mainServerUrl.value}/api/v1/stocks/api/v1/stocks/',
       body,
       headers: {"Authorization": "Bearer $accessToken"},
     );

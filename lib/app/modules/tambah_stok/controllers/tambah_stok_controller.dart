@@ -36,7 +36,6 @@ class TambahStokController extends GetxController {
           unit.value,
           price.value.toInt(),
         ).then((res) async {
-          print(res.statusCode);
           switch (res.statusCode) {
             case 201:
               Get.snackbar("Berhasil", 'Stok ${nameC.text} berhasil dibuat.');

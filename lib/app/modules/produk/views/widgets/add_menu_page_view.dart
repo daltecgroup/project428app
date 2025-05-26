@@ -10,6 +10,8 @@ import 'package:project428app/app/modules/produk/views/widgets/ingredients_item.
 import 'package:project428app/app/style.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
+import '../../../../constants.dart';
+
 class AddMenuPageView extends GetView {
   const AddMenuPageView({super.key});
   @override
@@ -425,7 +427,7 @@ class SelectedImagePanel extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            height: Get.width * 0.45,
+            height: kMobileWidth * 0.45,
             width: double.infinity,
             child: Material(
               elevation: 2,
@@ -445,8 +447,8 @@ class SelectedImagePanel extends StatelessWidget {
         SizedBox(width: 15),
         Expanded(
           child: Container(
-            height: Get.width * 0.50,
-            width: Get.width * 0.50,
+            height: kMobileWidth * 0.50,
+            width: kMobileWidth * 0.50,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,

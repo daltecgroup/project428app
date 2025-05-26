@@ -37,6 +37,8 @@ import '../modules/produk/bindings/produk_binding.dart';
 import '../modules/produk/views/produk_view.dart';
 import '../modules/promo/bindings/promo_binding.dart';
 import '../modules/promo/views/promo_view.dart';
+import '../modules/sales_transaction_detail/bindings/sales_transaction_detail_binding.dart';
+import '../modules/sales_transaction_detail/views/sales_transaction_detail_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/stok/bindings/stok_binding.dart';
@@ -207,6 +209,11 @@ class AppPages {
       name: _Paths.HOMEPAGE_SPVAREA,
       page: () => const HomepageSpvareaView(),
       binding: HomepageSpvareaBinding(),
+    ),
+    GetPage(
+      name: _Paths.SALES_TRANSACTION_DETAIL,
+      page: () => const SalesTransactionDetailView(),
+      binding: SalesTransactionDetailBinding(),
     ),
   ];
 }

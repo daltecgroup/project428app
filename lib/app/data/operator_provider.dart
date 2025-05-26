@@ -1,16 +1,15 @@
 import 'package:get/get.dart';
-
-import '../constants.dart';
+import '../services/auth_service.dart';
 
 class OperatorProvider extends GetConnect {
+  AuthService authS = Get.find<AuthService>();
   String accessToken = '';
-  String url = '$kServerUrl/api/v1/operator';
   @override
   void onInit() {}
 
   Future<Response> getOperatorOutletById(String id) {
     return get(
-      '$url/$id/outlet',
+      '${authS.mainServerUrl.value}/api/v1/operator/$id/outlet',
       headers: {"Authorization": "Bearer $accessToken"},
     );
   }

@@ -2,27 +2,32 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
-import '../constants.dart';
+import '../services/auth_service.dart';
 
 class ProductProvider extends GetConnect {
+  AuthService authS = Get.find<AuthService>();
   String accessToken = '';
-  String url = '$kServerUrl/api/v1/products';
+
   @override
-  void onInit() {
-    httpClient.baseUrl = url;
-  }
+  void onInit() {}
 
   Future<Response> getProducts() {
-    return get('$url/', headers: {"Authorization": "Bearer $accessToken"});
+    return get(
+      '${authS.mainServerUrl.value}/api/v1/products/',
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
   }
 
   Future<Response> getProductById(String code) {
-    return get('$url/$code', headers: {"Authorization": "Bearer $accessToken"});
+    return get(
+      '${authS.mainServerUrl.value}/api/v1/products/$code',
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
   }
 
   Future<Response> deleteProduct(String code) {
     return delete(
-      '$url/$code',
+      '${authS.mainServerUrl.value}/api/v1/products/$code',
       headers: {"Authorization": "Bearer $accessToken"},
     );
   }
@@ -59,7 +64,7 @@ class ProductProvider extends GetConnect {
     });
 
     return post(
-      '$url/',
+      '${authS.mainServerUrl.value}/api/v1/products/',
       formData,
       headers: {"Authorization": "Bearer $accessToken"},
     );

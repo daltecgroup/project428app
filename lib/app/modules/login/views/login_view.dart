@@ -7,6 +7,7 @@ import 'package:project428app/app/style.dart';
 import 'package:project428app/app/widgets/app_logo_title_widget.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
+import '../../../constants.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -17,7 +18,7 @@ class LoginView extends GetView<LoginController> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Color.fromRGBO(250, 204, 4, 1),
+        color: primaryYellow,
         child: Stack(
           children: [
             Center(

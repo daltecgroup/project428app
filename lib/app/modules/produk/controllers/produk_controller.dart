@@ -380,7 +380,6 @@ class ProdukController extends GetxController
           return {'stock': e['stock'], 'qty': e['qty']};
         }).toList(),
       ).then((res) {
-        print(res.statusCode);
         switch (res.statusCode) {
           case 201:
             getProducts().then((res) => Get.back());

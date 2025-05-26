@@ -1,23 +1,67 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:project428app/app/data/auth_provider.dart';
 
 class AuthService extends GetxService {
   // final _secureStorage = const FlutterSecureStorage();
   final box = GetStorage();
-  late final AuthProvider _authP; // Will be initialized in onInit
+  late final AuthProvider _authP;
+
+  List<String> serverList = [
+    'http://localhost:8000',
+    'http://10.0.2.2:8000',
+    'https://api.aromabisnisgroup.com',
+  ];
+
+  RxString mainServerUrl = 'http://localhost:8000'.obs;
+
+  final connectionChecker = InternetConnectionChecker.createInstance(
+    addresses: [
+      AddressCheckOption(
+        uri: Uri.parse('https://api.aromabisnisgroup.com/api/v1/health'),
+      ),
+    ],
+  );
 
   RxString accessToken = ''.obs;
   RxString refreshToken = ''.obs;
   RxBool isLoggedIn = false.obs;
+  RxBool isConnected = false.obs;
   RxList<String> userRoles = <String>[].obs;
+
+  RxString currentRoleTheme = 'admin'.obs;
 
   @override
   void onInit() {
     super.onInit();
-    _authP = Get.find<AuthProvider>(); // Get the ApiClient instance
+    _authP = Get.find<AuthProvider>();
+
     _initAuth();
+
+    if (box.read('currentRole') == null) {
+      box.write('currentRole', 'admin');
+    } else {
+      currentRoleTheme.value = box.read('currentRole');
+    }
+
+    getThemeByRole();
+
+    connectionChecker.onStatusChange.listen((status) async {
+      if (status == InternetConnectionStatus.connected) {
+        print('Connected to the internet');
+        isConnected.value = true;
+        mainServerUrl.value = await getFirstWorkingUrl();
+      } else {
+        print('No internet connection');
+        isConnected.value = false;
+      }
+    });
   }
 
   Future<void> _initAuth() async {
@@ -44,12 +88,10 @@ class AuthService extends GetxService {
 
   Future<void> login(String userId, String pin) async {
     try {
-      final response = await _authP.post(
+      final response = await _authP.setBaseUrl(mainServerUrl.value).post(
         '/auth/login', // Relative path to baseUrl
         {'userId': userId, 'pin': pin},
       );
-
-      print(response.statusText);
 
       if (response.statusCode == 200) {
         final data =
@@ -219,5 +261,87 @@ class AuthService extends GetxService {
 
   bool hasAnyRole(List<String> roles) {
     return roles.any((role) => userRoles.contains(role));
+  }
+
+  ThemeData getThemeByRole() {
+    var selectedColor = Colors.lightBlueAccent;
+    switch (currentRoleTheme.value) {
+      case 'admin':
+        selectedColor = Colors.lightBlueAccent;
+        break;
+      case 'franchisee':
+        selectedColor = Colors.amberAccent;
+        break;
+      case 'spvarea':
+        selectedColor = Colors.greenAccent;
+        break;
+      case 'operator':
+        selectedColor = Colors.redAccent;
+        break;
+      default:
+        selectedColor = Colors.blueAccent;
+    }
+
+    return ThemeData(
+      fontFamily: 'Poppins',
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: selectedColor,
+        brightness: Brightness.light,
+      ),
+    );
+  }
+
+  Future<bool> _isUrlLive(
+    String url, {
+    Duration timeoutDuration = const Duration(seconds: 3),
+  }) async {
+    try {
+      // Using http.head for a lighter check, as we only care about reachability
+      final response = await http
+          .head(Uri.parse('$url/api/v1/health'))
+          .timeout(timeoutDuration);
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        debugPrint('URL $url is LIVE. Status: ${response.statusCode}');
+        return true;
+      } else {
+        debugPrint('URL $url responded with status: ${response.statusCode}');
+        return false;
+      }
+    } on http.ClientException catch (e) {
+      debugPrint('Client error checking URL $url: ${e.message}');
+      return false;
+    } on Exception catch (e) {
+      debugPrint('Error checking URL $url: $e');
+      return false;
+    }
+  }
+
+  Future<String> getFirstWorkingUrl({
+    Duration timeoutPerUrl = const Duration(seconds: 3),
+  }) async {
+    bool isLive = await _isUrlLive(
+      mainServerUrl.value,
+      timeoutDuration: timeoutPerUrl,
+    );
+
+    if (isLive) return mainServerUrl.value;
+
+    if (serverList.isEmpty) {
+      debugPrint('URL list is empty. No working URL can be found.');
+      return mainServerUrl.value;
+    }
+
+    for (String url in serverList) {
+      debugPrint('Attempting to check: $url');
+      bool isLive = await _isUrlLive(url, timeoutDuration: timeoutPerUrl);
+      if (isLive) {
+        debugPrint('Found first working URL: $url');
+        return url; // Return the first working URL found
+      }
+    }
+
+    debugPrint('No working URL found in the provided list.');
+    return mainServerUrl.value; // No working URL found in the entire list
   }
 }

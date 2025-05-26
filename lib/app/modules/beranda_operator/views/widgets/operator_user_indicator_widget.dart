@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/beranda_operator/controllers/beranda_operator_controller.dart';
+import 'package:project428app/app/services/auth_service.dart';
 
 class OperatorUserIndicatorWidget extends StatelessWidget {
   const OperatorUserIndicatorWidget({super.key, required this.controller});
@@ -10,6 +12,8 @@ class OperatorUserIndicatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthService internetC = Get.find<AuthService>();
+
     return Material(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 1,
@@ -19,14 +23,26 @@ class OperatorUserIndicatorWidget extends StatelessWidget {
         contentPadding: EdgeInsets.only(left: 10),
         dense: true,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        leading: Container(
-          height: 30,
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            child: FadeInImage.assetNetwork(
-              placeholder: kAssetLoading,
-              image: controller.AuthS.box.read('userProfile')['imgUrl'],
-              // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+        leading: Obx(
+          () => Container(
+            height: 30,
+            width: 30,
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              child:
+                  internetC.isConnected.value
+                      ? FadeInImage.assetNetwork(
+                        placeholder: kAssetLoading,
+                        image:
+                            controller.AuthS.box.read('userProfile')['imgUrl'],
+                        // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+                      )
+                      : CircleAvatar(
+                        child: SvgPicture.asset(
+                          kImgPlaceholder,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ClosedTransactionItemWidget extends StatelessWidget {
   const ClosedTransactionItemWidget({super.key});
@@ -83,7 +84,7 @@ class ClosedTransactionItemWidget extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               onTap: () {
-                // Get.to(() => OutletDetailView(), arguments: outlet);
+                Get.toNamed('/sales-transaction-detail');
               },
             ),
           ),

@@ -1,44 +1,49 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-import '../constants.dart';
+import '../services/auth_service.dart';
 
 class ProductCategoryProvider extends GetConnect {
+  AuthService authS = Get.find<AuthService>();
   String accessToken = '';
-  String url = '$kServerUrl/api/v1/product-categories';
+
   @override
-  void onInit() {
-    httpClient.baseUrl = url;
-  }
+  void onInit() {}
 
   Future<Response> getProductCategories() {
-    return get('$url/', headers: {"Authorization": "Bearer $accessToken"});
+    return get(
+      '${authS.mainServerUrl.value}/api/v1/product-categories/',
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
   }
 
   Future<Response> getProductCategoryById(String id) {
-    return get('$url/$id', headers: {"Authorization": "Bearer $accessToken"});
+    return get(
+      '${authS.mainServerUrl.value}/api/v1/product-categories/$id',
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
   }
 
   Future<Response> createProductCategory(String name) {
     final body = json.encode({"name": name});
 
     return post(
-      '$url/',
+      '${authS.mainServerUrl.value}/api/v1/product-categories/',
       body,
       headers: {"Authorization": "Bearer $accessToken"},
     );
   }
 
   Future<Response> deactivateProductCategory(String id) {
-    return patch(
-      '$url/$id/deactivate',
+    return put(
+      '${authS.mainServerUrl.value}/api/v1/product-categories/$id/deactivate',
       {},
       headers: {"Authorization": "Bearer $accessToken"},
     );
   }
 
   Future<Response> reactivateProductCategory(String id) {
-    return patch(
-      '$url/$id/reactivate',
+    return put(
+      '${authS.mainServerUrl.value}/api/v1/product-categories/$id/reactivate',
       {},
       headers: {"Authorization": "Bearer $accessToken"},
     );
@@ -46,7 +51,7 @@ class ProductCategoryProvider extends GetConnect {
 
   Future<Response> deleteProductCategory(String id) {
     return delete(
-      '$url/$id',
+      '${authS.mainServerUrl.value}/api/v1/product-categories/$id',
       headers: {"Authorization": "Bearer $accessToken"},
     );
   }
@@ -54,7 +59,7 @@ class ProductCategoryProvider extends GetConnect {
   Future<Response> updateProductCategory(String id, String name) {
     final body = json.encode({"name": name});
     return put(
-      '$url/$id',
+      '${authS.mainServerUrl.value}/api/v1/product-categories/$id',
       body,
       headers: {"Authorization": "Bearer $accessToken"},
     );

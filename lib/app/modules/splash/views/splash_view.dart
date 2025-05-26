@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../constants.dart';
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
@@ -18,7 +19,7 @@ class SplashView extends GetView<SplashController> {
             curve: Curves.easeInOut, // Smooth animation curve
             child: Image.asset(
               'assets/lekerlondo_small.png', // Your logo path
-              width: Get.width * 0.7, // Adjust size as needed
+              width: kMobileWidth * 0.7, // Adjust size as needed
               fit: BoxFit.contain,
             ),
           ),

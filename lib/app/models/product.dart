@@ -76,6 +76,18 @@ class Product {
     return "IDR ${NumberFormat("#,##0", "id_ID").format(price)}";
   }
 
+  int getFinalPrice() {
+    double finalPrice = 0;
+    finalPrice = price - (price * discount / 100);
+    return finalPrice.ceil();
+  }
+
+  int getSavings() {
+    double finalPrice = 0;
+    finalPrice = price - (price * discount / 100);
+    return price - finalPrice.ceil();
+  }
+
   String getPriceInRupiahAfterDiscount() {
     double finalPrice = 0;
 

@@ -4,6 +4,7 @@ import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/models/product.dart';
 import 'package:project428app/app/modules/produk/views/widgets/menu_detail_view.dart';
 
+import '../../../../services/auth_service.dart';
 import '../../../../widgets/status_sign.dart';
 import '../../controllers/produk_controller.dart';
 
@@ -14,6 +15,7 @@ class MenuItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthService authS = Get.find<AuthService>();
     return Container(
       margin: EdgeInsets.only(bottom: 12),
       child: Stack(
@@ -45,7 +47,7 @@ class MenuItemWidget extends StatelessWidget {
                         ),
                         child: Image.network(
                           fit: BoxFit.cover,
-                          '$kServerUrl/api/v1/${product.imgUrl}',
+                          '${authS.mainServerUrl.value}/api/v1/${product.imgUrl}',
                           webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
                         ),
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
@@ -51,14 +52,22 @@ class BerandaAdminView extends GetView<BerandaAdminController> {
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(30),
                                   ),
-                                  child: FadeInImage.assetNetwork(
-                                    placeholder: kAssetLoading,
-                                    image:
-                                        controller.AuthS.box.read(
-                                          'userProfile',
-                                        )['imgUrl'],
-                                    // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
-                                  ),
+                                  child:
+                                      controller.AuthS.isConnected.value
+                                          ? FadeInImage.assetNetwork(
+                                            placeholder: kAssetLoading,
+                                            image:
+                                                controller.AuthS.box.read(
+                                                  'userProfile',
+                                                )['imgUrl'],
+                                            // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+                                          )
+                                          : CircleAvatar(
+                                            child: SvgPicture.asset(
+                                              kImgPlaceholder,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                                 ),
                         title: Text(
                           controller.AuthS.box.read('userProfile')['name'],

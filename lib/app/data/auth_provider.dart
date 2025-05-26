@@ -5,7 +5,7 @@ import '../services/auth_service.dart';
 class AuthProvider extends GetConnect {
   @override
   void onInit() {
-    httpClient.baseUrl = '$kServerUrl/api/v1'; // Set your API base URL
+    // httpClient.baseUrl = '$base/api/v1';
     httpClient.timeout = const Duration(seconds: 5); // 5 seconds
 
     // Add a request modifier to attach the access token
@@ -63,6 +63,12 @@ class AuthProvider extends GetConnect {
       }
       return response; // Return the response as is
     });
+  }
+
+  // method to set base URL dynamically
+  AuthProvider setBaseUrl(String newBase) {
+    httpClient.baseUrl = '$newBase/api/v1';
+    return this;
   }
 
   // Example of a protected endpoint

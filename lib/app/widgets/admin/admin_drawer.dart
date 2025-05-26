@@ -20,7 +20,7 @@ Drawer AdminDrawer(BuildContext context, String selectedItem) {
           padding: EdgeInsets.only(left: 15),
           child: TextTitle(text: 'Menu Admin'),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 0),
         ListTile(
           leading: Icon(Icons.home_filled, size: tileIconSize),
           title: const Text('Beranda'),

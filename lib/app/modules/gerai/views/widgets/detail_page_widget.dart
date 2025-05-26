@@ -10,6 +10,8 @@ import 'package:project428app/app/style.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
+import '../../../../services/auth_service.dart';
+
 class DetailPageWidget extends StatelessWidget {
   const DetailPageWidget({super.key, required this.c});
 
@@ -17,6 +19,7 @@ class DetailPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthService authS = Get.find<AuthService>();
     return Obx(
       () => Container(
         height: double.infinity,
@@ -43,7 +46,7 @@ class DetailPageWidget extends StatelessWidget {
                     children: [
                       Container(
                         padding: EdgeInsets.only(),
-                        height: Get.width - 30,
+                        height: kMobileWidth - 30,
                         width: double.infinity,
                         child:
                             c.outlet.value.imgUrl.isEmpty
@@ -54,7 +57,7 @@ class DetailPageWidget extends StatelessWidget {
                                 : FadeInImage.assetNetwork(
                                   fit: BoxFit.cover,
                                   image:
-                                      '$kServerUrl/api/v1/uploads/${c.outlet.value.imgUrl}',
+                                      '${authS.mainServerUrl.value}/api/v1/uploads/${c.outlet.value.imgUrl}',
                                   placeholder: kAssetLoadingBuffer,
                                 ),
 
