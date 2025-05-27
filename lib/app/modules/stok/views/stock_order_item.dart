@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project428app/app/modules/stok/views/stock_order_detail_view.dart';
 import '../../../models/stock.dart';
 
-Widget StokItem(Stock stock) {
+Widget StockOrderItem() {
   return Card(
     color: Colors.white,
     margin: const EdgeInsets.only(bottom: 8, left: 12, right: 12),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     child: InkWell(
       onTap: () {
-        Get.toNamed('/detail-stok', arguments: stock);
+        Get.to(() => StockOrderDetailView());
       },
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: EdgeInsets.only(right: 0),
@@ -23,16 +25,9 @@ Widget StokItem(Stock stock) {
                 bottomLeft: Radius.circular(8),
               ),
               child: Container(
-                padding: EdgeInsets.all(17),
-                child: CircleAvatar(
-                  child: Icon(Icons.shopping_basket_outlined),
-                ),
+                padding: EdgeInsets.all(15),
+                child: CircleAvatar(child: Icon(Icons.delivery_dining)),
               ),
-              // child: Image.network(
-              //   fit: BoxFit.cover,
-              //   'https://placebear.com/250/250',
-              //   webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
-              // ),
             ),
           ),
           Expanded(
@@ -50,43 +45,70 @@ Widget StokItem(Stock stock) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
+                        flex: 3,
                         child: Text(
-                          stock.name,
+                          'Order 124198723171',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ),
-                      // PopupMenuButton(
-                      //   icon: Icon(Icons.more_horiz),
-                      //   itemBuilder:
-                      //       (context) => [
-                      //         PopupMenuItem(
-                      //           child: const Text('Sesuaikan Harga'),
-                      //           onTap: () => print('tapOne'),
-                      //         ),
-                      //         PopupMenuItem(child: Text('Nonaktifkan')),
-                      //       ],
-                      // ),
+                      Expanded(
+                        flex: 2,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Badge(
+                            backgroundColor: Colors.blue,
+                            padding: EdgeInsets.symmetric(
+                              vertical: 2,
+                              horizontal: 6,
+                            ),
+                            label: Text(
+                              'Pesanan Baru',
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        flex: 1,
+                        child: Text(
+                          '12 Mei 2025 13.00 WIB',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 2,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Kode',
+                              'SPV Area',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
                             ),
                             Text(
-                              stock.stockId,
+                              'William Harris',
                               style: TextStyle(fontWeight: FontWeight.w500),
                             ),
                           ],
@@ -95,7 +117,51 @@ Widget StokItem(Stock stock) {
                       Expanded(
                         flex: 2,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Jumlah',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              '15 Item',
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Tujuan',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              'Gerai Klojen',
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
                               'Harga',
@@ -105,26 +171,7 @@ Widget StokItem(Stock stock) {
                               ),
                             ),
                             Text(
-                              stock.getPriceWithUnit(),
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Diperbarui',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              stock.getLastUpdateTime(),
+                              'IDR 150.000',
                               style: TextStyle(fontWeight: FontWeight.w500),
                             ),
                           ],

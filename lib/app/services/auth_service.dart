@@ -176,9 +176,10 @@ class AuthService extends GetxService {
     )) {
       print('Access token expired, attempting to refresh...');
       try {
-        final response = await _authP.post('/auth/refresh', {
-          'refreshToken': refreshToken.value,
-        });
+        final response = await _authP.setBaseUrl(mainServerUrl.value).post(
+          '/auth/refresh',
+          {'refreshToken': refreshToken.value},
+        );
 
         if (response.statusCode == 200) {
           final data = response.body;

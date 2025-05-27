@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../models/sale.dart';
+
 class ClosedTransactionItemWidget extends StatelessWidget {
-  const ClosedTransactionItemWidget({super.key});
+  const ClosedTransactionItemWidget({super.key, required this.sale});
+
+  final Sale sale;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,7 @@ class ClosedTransactionItemWidget extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              'TRX250400012',
+                              sale.code,
                               maxLines: 1,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -38,7 +42,7 @@ class ClosedTransactionItemWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '10.11 - Jeremy Harris',
+                            '${sale.getCreateTime()} - ${sale.cashier.name}',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 10),
@@ -55,7 +59,7 @@ class ClosedTransactionItemWidget extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              'IDR 17.000',
+                              sale.getTotalInRupiah(),
                               maxLines: 1,
                               style: TextStyle(
                                 fontSize: 14,
@@ -64,7 +68,7 @@ class ClosedTransactionItemWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '1 Item',
+                            '${sale.getQty()} Item',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 10),
@@ -84,7 +88,7 @@ class ClosedTransactionItemWidget extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               onTap: () {
-                Get.toNamed('/sales-transaction-detail');
+                Get.toNamed('/sales-transaction-detail', arguments: sale.code);
               },
             ),
           ),

@@ -35,209 +35,241 @@ class PaymentCashView extends GetView {
           SingleChildScrollView(
             padding: const EdgeInsets.only(left: 15, top: 15, right: 15),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Column(
                   children: [
                     // new transactions indicator
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Card(
-                            color: Colors.white,
-                            elevation: 1,
-                            margin: EdgeInsets.symmetric(horizontal: 0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                                vertical: 5,
+                    Hero(
+                      tag: 'payment-indicator',
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Card(
+                              color: Colors.white,
+                              elevation: 1,
+                              margin: EdgeInsets.symmetric(horizontal: 0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Item',
-                                          style: TextStyle(fontSize: 10),
-                                        ),
-                                        Obx(() {
-                                          final salesItem = OperatorS
-                                              .pendingSales
-                                              .firstWhereOrNull(
-                                                (sales) =>
-                                                    sales.trxCode ==
-                                                    OperatorS
-                                                        .currentPendingTrxCode
-                                                        .value,
-                                              );
-
-                                          // Now, salesItem can be null if no match was found
-                                          final textContent =
-                                              salesItem != null
-                                                  ? salesItem.itemCount.value
-                                                      .toString() // Access .value only if not null
-                                                  : '0'; // Provide a default if no matching sales item is found
-
-                                          return Text(
-                                            textContent,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                  vertical: 5,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Metode',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                          Text(
+                                            'Tunai',
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
                                             ),
-                                          );
-                                        }),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Promo',
-                                          style: TextStyle(fontSize: 10),
-                                        ),
-                                        Text(
-                                          '0',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Item',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                          Obx(() {
+                                            final salesItem = OperatorS
+                                                .pendingSales
+                                                .firstWhereOrNull(
+                                                  (sales) =>
+                                                      sales.trxCode ==
+                                                      OperatorS
+                                                          .currentPendingTrxCode
+                                                          .value,
+                                                );
 
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Hemat',
-                                          style: TextStyle(fontSize: 10),
-                                        ),
-                                        Obx(() {
-                                          final salesItem = OperatorS
-                                              .pendingSales
-                                              .firstWhereOrNull(
-                                                (sales) =>
-                                                    sales.trxCode ==
-                                                    OperatorS
-                                                        .currentPendingTrxCode
-                                                        .value,
-                                              );
+                                            // Now, salesItem can be null if no match was found
+                                            final textContent =
+                                                salesItem != null
+                                                    ? salesItem.itemCount.value
+                                                        .toString() // Access .value only if not null
+                                                    : '0'; // Provide a default if no matching sales item is found
 
-                                          final textContent =
-                                              salesItem != null
-                                                  ? salesItem
-                                                      .getSavingsInRupiah()
-                                                  : 'IDR 0';
-
-                                          return Text(
-                                            textContent,
-                                            style: const TextStyle(
-                                              // Added const for performance if style doesn't change
+                                            return Text(
+                                              textContent,
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            );
+                                          }),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Promo',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                          Text(
+                                            '0',
+                                            style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
                                             ),
-                                          );
-                                        }),
-                                      ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Total',
-                                          style: TextStyle(fontSize: 10),
-                                        ),
-                                        Obx(() {
-                                          final salesItem = OperatorS
-                                              .pendingSales
-                                              .firstWhereOrNull(
-                                                (sales) =>
-                                                    sales.trxCode ==
-                                                    OperatorS
-                                                        .currentPendingTrxCode
-                                                        .value,
-                                              );
-                                          final String textContent;
-                                          if (salesItem != null) {
-                                            textContent =
-                                                salesItem
-                                                    .getTotalInRupiah()
-                                                    .toString();
-                                          } else {
-                                            textContent = '0';
-                                          }
-                                          return Text(
-                                            textContent,
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          );
-                                        }),
-                                      ],
+
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Hemat',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                          Obx(() {
+                                            final salesItem = OperatorS
+                                                .pendingSales
+                                                .firstWhereOrNull(
+                                                  (sales) =>
+                                                      sales.trxCode ==
+                                                      OperatorS
+                                                          .currentPendingTrxCode
+                                                          .value,
+                                                );
+
+                                            final textContent =
+                                                salesItem != null
+                                                    ? salesItem
+                                                        .getSavingsInRupiah()
+                                                    : 'IDR 0';
+
+                                            return Text(
+                                              textContent,
+                                              style: const TextStyle(
+                                                // Added const for performance if style doesn't change
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            );
+                                          }),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Total',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                          Obx(() {
+                                            final salesItem = OperatorS
+                                                .pendingSales
+                                                .firstWhereOrNull(
+                                                  (sales) =>
+                                                      sales.trxCode ==
+                                                      OperatorS
+                                                          .currentPendingTrxCode
+                                                          .value,
+                                                );
+                                            final String textContent;
+                                            if (salesItem != null) {
+                                              textContent =
+                                                  salesItem
+                                                      .getTotalInRupiah()
+                                                      .toString();
+                                            } else {
+                                              textContent = '0';
+                                            }
+                                            return Text(
+                                              textContent,
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            );
+                                          }),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 20),
-                    TextTitle(text: 'Input Jumlah Bayar'),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Card(
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 5,
-                                ),
-                                child: Obx(
-                                  () => Text(
-                                    inputC.result.value != '0'
-                                        ? NumberFormat(
-                                          "#,##0",
-                                          "id_ID",
-                                        ).format(int.parse(inputC.result.value))
-                                        : '0',
-                                    style: TextStyle(
-                                      letterSpacing: 1,
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 5),
                   ],
                 ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextTitle(text: 'Input Jumlah Bayar'),
+                SizedBox(height: 5),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Card(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: Obx(
+                              () => Text(
+                                inputC.result.value != '0'
+                                    ? NumberFormat(
+                                      "#,##0",
+                                      "id_ID",
+                                    ).format(int.parse(inputC.result.value))
+                                    : '0',
+                                style: TextStyle(
+                                  letterSpacing: 1,
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
                 Column(
                   children: [
                     Row(
@@ -363,81 +395,76 @@ class PaymentCashView extends GetView {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: TextButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        backgroundColor: MaterialStateProperty.all(
-                          Colors.grey[300],
-                        ),
-                      ),
-                      onPressed: () {
-                        inputC.clear();
-                        Get.back();
-                      },
-                      child: Text('Kembali', style: TextStyle(fontSize: 16)),
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
                     child: Hero(
                       tag: 'back-button',
-                      child: ElevatedButton(
+                      child: TextButton(
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
                           ),
+                          backgroundColor: MaterialStateProperty.all(
+                            Colors.grey[300],
+                          ),
                         ),
                         onPressed: () {
-                          if (int.parse(inputC.result.value) <
-                              OperatorS.pendingSales
-                                  .firstWhere(
-                                    (sales) =>
-                                        sales.trxCode ==
-                                        OperatorS.currentPendingTrxCode.value,
-                                  )
-                                  .total
-                                  .value) {
-                            Get.defaultDialog(
-                              title: 'Peringatan',
-                              titleStyle: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              content: Text(
-                                'Nominal bayar masih kurang IDR ${NumberFormat("#,##0", "id_ID").format(OperatorS.pendingSales.firstWhere((sales) => sales.trxCode == OperatorS.currentPendingTrxCode.value).total.value - int.parse(inputC.result.value))}',
-                              ),
-                              radius: 10,
-                            );
-                          } else {
-                            OperatorS.createSale(
-                              int.parse(inputC.result.value),
-                              int.parse(inputC.result.value) -
-                                  OperatorS.pendingSales
-                                      .firstWhere(
-                                        (sales) =>
-                                            sales.trxCode ==
-                                            OperatorS
-                                                .currentPendingTrxCode
-                                                .value,
-                                      )
-                                      .total
-                                      .value,
-                              'cash',
-                            );
-                            // Get.offNamed('/sales-transaction-detail');
-                          }
+                          inputC.clear();
+                          Get.back();
                         },
-                        child: Text(
-                          'Konfirmasi',
-                          style: TextStyle(fontSize: 16),
+                        child: Text('Kembali', style: TextStyle(fontSize: 16)),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                         ),
                       ),
+                      onPressed: () {
+                        if (int.parse(inputC.result.value) <
+                            OperatorS.pendingSales
+                                .firstWhere(
+                                  (sales) =>
+                                      sales.trxCode ==
+                                      OperatorS.currentPendingTrxCode.value,
+                                )
+                                .total
+                                .value) {
+                          Get.defaultDialog(
+                            title: 'Peringatan',
+                            titleStyle: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            content: Text(
+                              'Nominal bayar masih kurang IDR ${NumberFormat("#,##0", "id_ID").format(OperatorS.pendingSales.firstWhere((sales) => sales.trxCode == OperatorS.currentPendingTrxCode.value).total.value - int.parse(inputC.result.value))}',
+                            ),
+                            radius: 10,
+                          );
+                        } else {
+                          OperatorS.createSale(
+                            int.parse(inputC.result.value),
+                            int.parse(inputC.result.value) -
+                                OperatorS.pendingSales
+                                    .firstWhere(
+                                      (sales) =>
+                                          sales.trxCode ==
+                                          OperatorS.currentPendingTrxCode.value,
+                                    )
+                                    .total
+                                    .value,
+                            'cash',
+                          );
+                          // Get.offNamed('/sales-transaction-detail');
+                        }
+                      },
+                      child: Text('Konfirmasi', style: TextStyle(fontSize: 16)),
                     ),
                   ),
                 ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project428app/app/models/pending_sales.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/new_sales_view.dart';
 import 'package:project428app/app/services/operator_service.dart';
 
@@ -43,7 +44,7 @@ class PendingTransactionItemWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '10.11 - Jeremy Harris',
+                            pendingSales.getCreateTime(),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 10),
@@ -60,7 +61,7 @@ class PendingTransactionItemWidget extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              'IDR 17.000',
+                              pendingSales.getTotalInRupiah(),
                               maxLines: 1,
                               style: TextStyle(
                                 fontSize: 14,
@@ -69,7 +70,7 @@ class PendingTransactionItemWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '1 Item',
+                            '${pendingSales.itemCount.value} Item',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 10),
@@ -90,24 +91,19 @@ class PendingTransactionItemWidget extends StatelessWidget {
                         runSpacing: 5,
                         spacing: 5,
 
-                        children: [
-                          Badge(
+                        children: List.generate(
+                          pendingSales.items.length,
+                          (index) => Badge(
                             backgroundColor: Colors.brown[500],
                             padding: EdgeInsets.symmetric(
                               horizontal: 8,
                               vertical: 3,
                             ),
-                            label: Text('Coklat Keju (2)'),
-                          ),
-                          Badge(
-                            backgroundColor: Colors.brown[500],
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 3,
+                            label: Text(
+                              '${pendingSales.items[index].product.name} (${pendingSales.items[index].qty.value})',
                             ),
-                            label: Text('Mozarella (1)'),
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ],

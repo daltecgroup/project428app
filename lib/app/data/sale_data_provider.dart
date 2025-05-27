@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:project428app/app/services/operator_service.dart';
+import 'package:project428app/app/models/new_sales_item.dart';
 
 import '../services/auth_service.dart';
 
@@ -52,7 +52,18 @@ class SaleDataProvider extends GetConnect {
       'paymentMethod': paymentMethod,
       'promoUsed': promoUsed,
     });
-
     return post('${authS.mainServerUrl.value}/api/v1/sales/', body);
+  }
+
+  Future<Response> getSales() {
+    return get('${authS.mainServerUrl.value}/api/v1/sales/');
+  }
+
+  Future<Response> getSaleById(String id) {
+    return get('${authS.mainServerUrl.value}/api/v1/sales/$id');
+  }
+
+  Future<Response> getSalesByOutlet(String outlet) {
+    return get('${authS.mainServerUrl.value}/api/v1/sales/outlet/$outlet');
   }
 }

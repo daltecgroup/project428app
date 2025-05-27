@@ -3,17 +3,29 @@ import 'package:get/get.dart';
 import 'package:project428app/app/data/stock_provider.dart';
 import 'package:project428app/app/models/stock.dart';
 
-class StokController extends GetxController {
+class StokController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   StockProvider StockP = StockProvider();
   RxList<Stock> stocks = <Stock>[].obs;
 
   RxInt activeCount = 0.obs;
   RxInt innactiveCount = 0.obs;
 
+  late TabController tabC;
+
+  RxInt currentIndex = 0.obs;
+
+  final List<Tab> productTabs = <Tab>[
+    Tab(text: 'Pesanan'),
+    Tab(text: 'Riwayat'),
+    Tab(text: 'Jenis'),
+  ];
+
   @override
   void onInit() {
     super.onInit();
     getStocks();
+    tabC = TabController(vsync: this, length: productTabs.length);
   }
 
   @override
@@ -24,6 +36,10 @@ class StokController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    tabC.removeListener(() {
+      print('listener removed');
+    });
+    tabC.dispose();
   }
 
   void getStocks() async {

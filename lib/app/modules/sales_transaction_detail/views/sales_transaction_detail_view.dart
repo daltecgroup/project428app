@@ -7,6 +7,7 @@ class SalesTransactionDetailView
   const SalesTransactionDetailView({super.key});
   @override
   Widget build(BuildContext context) {
+    controller.getInvoice(Get.arguments as String);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -40,201 +41,290 @@ class SalesTransactionDetailView
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(2),
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  customTitleText('TRX25040013', true),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  customText('25 MEI 2025 15.09 WIB', false),
-                                ],
-                              ),
-                              SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          customText('ITEM: ', false),
-                                          customText('3', true),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          customText('PROMO: ', false),
-                                          customText('1', true),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          customText('METODE: ', false),
-                                          customText('TUNAI', true),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          customText('KASIR: ', false),
-                                          customText('JOHN', true),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          customText('TOTAL: ', false),
-                                          customText('IDR 51.000', true),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          customText('SEBELUM: ', false),
-                                          customText('IDR 55.000', true),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          customText('HEMAT: ', false),
-                                          customText('IDR 4.000', true),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      customText('NOMINAL BAYAR', false),
-                                      customText('IDR 60.000', true),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      customText('KEMBALIAN', false),
-                                      customText('IDR 9.000', true),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 10),
-                              customRow('ITEM', 'QTY', 'JUMLAH', true, false),
-                              SizedBox(height: 2),
-                              customRow(
-                                'COKLAT KEJU',
-                                '2',
-                                '30.600',
-                                false,
-                                false,
-                              ),
-                              customRow(
-                                '+ ABON AYAM',
-                                '1',
-                                '5.000',
-                                false,
-                                true,
-                              ),
-                              customRow(
-                                'NOTE: LESS SUGAR',
-                                null,
-                                null,
-                                false,
-                                true,
-                              ),
-                              customRow(
-                                'DISKON 10% (-3.400)',
-                                null,
-                                null,
-                                false,
-                                true,
-                              ),
-                              SizedBox(height: 2),
-                              customRow(
-                                'SUSU COKLAT',
-                                '1',
-                                '30.600',
-                                false,
-                                false,
-                              ),
-                              customRow(
-                                '+ ABON AYAM',
-                                '1',
-                                '5.000',
-                                false,
-                                true,
-                              ),
-                              customRow(
-                                'NOTE: LESS SUGAR',
-                                null,
-                                null,
-                                false,
-                                true,
-                              ),
-                              customRow(
-                                'DISKON 10% (-3.400)',
-                                null,
-                                null,
-                                false,
-                                true,
-                              ),
-                              SizedBox(height: 30),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  customText(
-                                    'NOTE KE-1 DICETAK JOHN WILLIAM',
-                                    false,
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  customText(
-                                    'PADA 25 MEI 2025 15.09 WIB',
-                                    false,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 30),
-                            ],
+                        child: Obx(
+                          () => Padding(
+                            padding: EdgeInsets.all(10),
+                            child:
+                                controller.invoice.value == null
+                                    ? SizedBox()
+                                    : Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            customTitleText(
+                                              controller.invoice.value!.code,
+                                              true,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            customText(
+                                              controller.invoice.value!
+                                                  .getCreateTimeDate(),
+                                              false,
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    customText('ITEM: ', false),
+                                                    customText(
+                                                      controller.invoice.value!
+                                                          .getQty()
+                                                          .toString(),
+                                                      true,
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    customText(
+                                                      'PROMO: ',
+                                                      false,
+                                                    ),
+                                                    customText(
+                                                      controller
+                                                          .invoice
+                                                          .value!
+                                                          .promoUsed
+                                                          .toString(),
+                                                      true,
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    customText(
+                                                      'METODE: ',
+                                                      false,
+                                                    ),
+                                                    customText(
+                                                      controller
+                                                          .invoice
+                                                          .value!
+                                                          .paymentMethod
+                                                          .toUpperCase(),
+                                                      true,
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    customText(
+                                                      'KASIR: ',
+                                                      false,
+                                                    ),
+                                                    customText(
+                                                      controller
+                                                          .invoice
+                                                          .value!
+                                                          .cashier
+                                                          .name
+                                                          .toUpperCase(),
+                                                      true,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    customText(
+                                                      'TOTAL: ',
+                                                      false,
+                                                    ),
+                                                    customText(
+                                                      controller.invoice.value!
+                                                          .getTotalInRupiah(),
+                                                      true,
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    customText(
+                                                      'SEBELUM: ',
+                                                      false,
+                                                    ),
+                                                    customText(
+                                                      'IDR ${controller.invoice.value!.basePrice}',
+                                                      true,
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    customText(
+                                                      'HEMAT: ',
+                                                      false,
+                                                    ),
+                                                    customText(
+                                                      'IDR ${controller.invoice.value!.saving}',
+                                                      true,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                customText(
+                                                  'NOMINAL BAYAR',
+                                                  false,
+                                                ),
+                                                customText(
+                                                  'IDR ${controller.invoice.value!.paid}',
+                                                  true,
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                customText('KEMBALIAN', false),
+                                                customText(
+                                                  'IDR ${controller.invoice.value!.change}',
+                                                  true,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        customRow(
+                                          'ITEM',
+                                          'QTY',
+                                          'JUMLAH',
+                                          true,
+                                          false,
+                                        ),
+                                        SizedBox(height: 2),
+                                        ...List.generate(
+                                          controller
+                                              .invoice
+                                              .value!
+                                              .items
+                                              .length,
+                                          (index) => Column(
+                                            children: [
+                                              customRow(
+                                                controller
+                                                    .invoice
+                                                    .value!
+                                                    .items[index]['name']
+                                                    .toString()
+                                                    .toUpperCase(),
+                                                controller
+                                                    .invoice
+                                                    .value!
+                                                    .items[index]['qty']
+                                                    .toString()
+                                                    .toUpperCase(),
+                                                controller
+                                                    .invoice
+                                                    .value!
+                                                    .items[index]['totalFinalPrice']
+                                                    .toString()
+                                                    .toUpperCase(),
+                                                false,
+                                                false,
+                                              ),
+                                              // customRow(
+                                              //   '+ ABON AYAM',
+                                              //   '1',
+                                              //   '5.000',
+                                              //   false,
+                                              //   true,
+                                              // ),
+                                              // customRow(
+                                              //   'NOTE: LESS SUGAR',
+                                              //   null,
+                                              //   null,
+                                              //   false,
+                                              //   true,
+                                              // ),
+                                              customRow(
+                                                'DISKON ${controller.invoice.value!.items[index]['discount']}% (-${controller.invoice.value!.items[index]['totalSaving']})',
+                                                null,
+                                                null,
+                                                false,
+                                                true,
+                                              ),
+                                              SizedBox(height: 2),
+                                            ],
+                                          ),
+                                        ),
+
+                                        SizedBox(height: 30),
+                                        // Row(
+                                        //   mainAxisAlignment:
+                                        //       MainAxisAlignment.center,
+                                        //   children: [
+                                        //     customText(
+                                        //       'NOTE KE-1 DICETAK JOHN WILLIAM',
+                                        //       false,
+                                        //     ),
+                                        //   ],
+                                        // ),
+                                        // Row(
+                                        //   mainAxisAlignment:
+                                        //       MainAxisAlignment.center,
+                                        //   children: [
+                                        //     customText(
+                                        //       'PADA 25 MEI 2025 15.09 WIB',
+                                        //       false,
+                                        //     ),
+                                        //   ],
+                                        // ),
+                                        // SizedBox(height: 30),
+                                      ],
+                                    ),
                           ),
                         ),
                       ),

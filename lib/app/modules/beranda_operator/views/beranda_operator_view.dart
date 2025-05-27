@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/modules/beranda_operator/views/pages/new_sales_view.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/select_menu_view.dart';
 import 'package:project428app/app/modules/beranda_operator/views/widgets/closed_transaction_item_widget.dart';
 import 'package:project428app/app/modules/beranda_operator/views/widgets/indicator_oder_done_widget.dart';
@@ -11,7 +9,6 @@ import 'package:project428app/app/modules/beranda_operator/views/widgets/pending
 import 'package:project428app/app/widgets/operator/operator_appbar.dart';
 import 'package:project428app/app/widgets/operator/operator_drawer.dart';
 import 'package:project428app/app/widgets/text_header.dart';
-
 import '../controllers/beranda_operator_controller.dart';
 
 class BerandaOperatorView extends GetView<BerandaOperatorController> {
@@ -80,17 +77,23 @@ class BerandaOperatorView extends GetView<BerandaOperatorController> {
                             IndicatorOderDoneWidget(
                               position: 'left',
                               title: 'Order Selesai',
-                              number: '2',
+                              number:
+                                  controller.OperatorS.orderDone.value
+                                      .toString(),
                             ),
                             IndicatorOderDoneWidget(
                               position: 'middle',
                               title: 'Order Pending',
-                              number: '1',
+                              number:
+                                  controller.OperatorS.pendingOrder.value
+                                      .toString(),
                             ),
                             IndicatorOderDoneWidget(
                               position: 'right',
                               title: 'Item Terjual',
-                              number: '34',
+                              number:
+                                  controller.OperatorS.itemSold.value
+                                      .toString(),
                             ),
                           ],
                         ),
@@ -156,36 +159,58 @@ class BerandaOperatorView extends GetView<BerandaOperatorController> {
                 : SizedBox(height: 20),
 
             // closed transactions
-            // pending transactions
-            Card(
-              color: Colors.white,
-              elevation: 1,
-              margin: EdgeInsets.symmetric(horizontal: 15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 15,
+            controller.OperatorS.closedSales.isEmpty
+                ? SizedBox()
+                : Card(
+                  color: Colors.white,
+                  elevation: 1,
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 15,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextTitle(text: 'Selesai'),
+                        SizedBox(height: 8),
+
+                        controller.OperatorS.closedSales.isEmpty
+                            ? SizedBox()
+                            : Column(
+                              children: List.generate(
+                                controller.OperatorS.closedSales.length,
+                                (index) => Column(
+                                  children: [
+                                    ClosedTransactionItemWidget(
+                                      sale:
+                                          controller
+                                              .OperatorS
+                                              .closedSales[index],
+                                    ),
+                                    index ==
+                                            controller
+                                                    .OperatorS
+                                                    .closedSales
+                                                    .length -
+                                                1
+                                        ? SizedBox()
+                                        : SizedBox(height: 8),
+                                  ],
+                                ),
+                              ),
+                            ),
+                      ],
+                    ),
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextTitle(text: 'Selesai'),
-                    SizedBox(height: 8),
-                    ClosedTransactionItemWidget(),
-                    SizedBox(height: 8),
-                    ClosedTransactionItemWidget(),
-                  ],
-                ),
-              ),
-            ),
             TextButton(
               onPressed: () {
-                print(
-                  controller.OperatorS.pendingSales[0].items[0].product.name,
-                );
+                controller.OperatorS.getSalesByOutlet();
               },
               child: Text('check'),
             ),

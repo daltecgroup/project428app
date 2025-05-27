@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/models/new_sales_item.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/new_sales_view.dart';
 import 'package:project428app/app/services/auth_service.dart';
 import 'package:project428app/app/services/operator_service.dart';
@@ -149,7 +150,7 @@ class MenuItemWidget extends StatelessWidget {
                                 )
                                 : FadeInImage.assetNetwork(
                                   fit: BoxFit.cover,
-                                  placeholder: kImgPlaceholder,
+                                  placeholder: kAssetLoadingBuffer,
                                   image:
                                       '${AuthS.mainServerUrl.value}/api/v1/${product.imgUrl}',
                                 ),
@@ -310,6 +311,13 @@ class MenuItemWidget extends StatelessWidget {
                               OperatorS.currentPendingTrxCode.value,
                         )
                         .addItem(NewSalesItem(product: product));
+                    OperatorS.pendingSales
+                        .firstWhere(
+                          (sales) =>
+                              sales.trxCode ==
+                              OperatorS.currentPendingTrxCode.value,
+                        )
+                        .updateIndicators();
                     OperatorS.pendingSales.refresh();
                     Get.back();
                   }

@@ -6,12 +6,14 @@ import 'package:project428app/app/data/auth_provider.dart';
 import 'package:project428app/app/services/operator_service.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/auth_service.dart';
+import 'app/services/stock_service.dart';
 
 void main() async {
   await GetStorage.init();
   Get.put(AuthProvider());
   AuthService authC = Get.put(AuthService(), permanent: true);
   Get.put(OperatorService(), permanent: true);
+  Get.put(StockService(), permanent: true);
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     Container(

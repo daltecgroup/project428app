@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/models/new_sales_item.dart';
+import 'package:project428app/app/models/pending_sales.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/select_menu_view.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/select_payment_method_view.dart';
 import 'package:project428app/app/services/auth_service.dart';
@@ -13,11 +15,17 @@ class NewSalesView extends GetView {
   @override
   Widget build(BuildContext context) {
     OperatorService OperatorS = Get.find<OperatorService>();
-    OperatorS.pendingSales
-        .firstWhere(
-          (sales) => sales.trxCode == OperatorS.currentPendingTrxCode.value,
-        )
-        .updateIndicators();
+    final PendingSales foundSales = OperatorS.pendingSales.firstWhere(
+      (sales) => sales.trxCode == OperatorS.currentPendingTrxCode.value,
+      orElse: () {
+        return PendingSales(trxCode: '');
+      },
+    );
+    foundSales.updateIndicators();
+    final currentSale = OperatorS.pendingSales.firstWhereOrNull(
+      (sales) => sales.trxCode == OperatorS.currentPendingTrxCode.value,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -28,6 +36,7 @@ class NewSalesView extends GetView {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
+            OperatorS.deleteEmptyPendingSales();
             OperatorS.currentPendingTrxCode.value = '';
             Get.offNamed('/beranda-operator');
           },
@@ -254,6 +263,9 @@ class NewSalesView extends GetView {
                         (sale) =>
                             sale.trxCode ==
                             OperatorS.currentPendingTrxCode.value,
+                        orElse: () {
+                          return PendingSales(trxCode: '');
+                        },
                       )
                       .items
                       .length >=
@@ -267,6 +279,9 @@ class NewSalesView extends GetView {
                         (sale) =>
                             sale.trxCode ==
                             OperatorS.currentPendingTrxCode.value,
+                        orElse: () {
+                          return PendingSales(trxCode: '');
+                        },
                       )
                       .total
                       .value >=
@@ -295,6 +310,7 @@ class NewSalesView extends GetView {
                           ),
                         ),
                         onPressed: () {
+                          OperatorS.deleteEmptyPendingSales();
                           OperatorS.currentPendingTrxCode.value = '';
                           Get.offNamed('/beranda-operator');
                         },
@@ -302,26 +318,10 @@ class NewSalesView extends GetView {
                       ),
                     ),
                   ),
-                  OperatorS.pendingSales
-                              .firstWhere(
-                                (sales) =>
-                                    sales.trxCode ==
-                                    OperatorS.currentPendingTrxCode.value,
-                              )
-                              .itemCount
-                              .value ==
-                          0
+                  (currentSale?.itemCount?.value ?? 0) == 0
                       ? SizedBox()
                       : SizedBox(width: 10),
-                  OperatorS.pendingSales
-                              .firstWhere(
-                                (sales) =>
-                                    sales.trxCode ==
-                                    OperatorS.currentPendingTrxCode.value,
-                              )
-                              .itemCount
-                              .value ==
-                          0
+                  (currentSale?.itemCount?.value ?? 0) == 0
                       ? SizedBox()
                       : Expanded(
                         child: ElevatedButton(
@@ -498,7 +498,7 @@ class SalesItemWidget extends StatelessWidget {
                                     fit: BoxFit.cover,
                                   )
                                   : FadeInImage.assetNetwork(
-                                    placeholder: kImgPlaceholder,
+                                    placeholder: kAssetLoadingBuffer,
                                     image:
                                         '${AuthS.mainServerUrl.value}/api/v1/${item.product.imgUrl}',
                                   ),
@@ -621,8 +621,7 @@ class SalesItemWidget extends StatelessWidget {
                                         sales.trxCode ==
                                         OperatorS.currentPendingTrxCode.value,
                                   )
-                                  .items
-                                  .refresh();
+                                  .updateIndicators();
                             },
                             child: Text(
                               'Hapus',
