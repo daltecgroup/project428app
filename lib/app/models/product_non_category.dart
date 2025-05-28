@@ -1,9 +1,6 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:project428app/app/models/product_category.dart';
 import 'package:project428app/app/widgets/format_waktu.dart';
-
-import 'stock.dart';
 
 class ProductNonCategory {
   final String id;

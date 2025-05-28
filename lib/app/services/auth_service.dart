@@ -15,17 +15,24 @@ class AuthService extends GetxService {
 
   List<String> serverList = [
     'http://localhost:8000',
-    'http://10.0.2.2:8000',
+    'http://46.202.163.60:8000',
     'https://api.aromabisnisgroup.com',
+    'http://10.0.2.2:8000',
   ];
 
-  RxString mainServerUrl = 'http://localhost:8000'.obs;
+  RxString mainServerUrl = 'http://46.202.163.60:8000'.obs;
+  // RxString mainServerUrl = 'http://localhost:8000'.obs;
+  // RxString mainServerUrl = 'http://10.0.2.2:8000'.obs;
 
   final connectionChecker = InternetConnectionChecker.createInstance(
     addresses: [
       AddressCheckOption(
         uri: Uri.parse('https://api.aromabisnisgroup.com/api/v1/health'),
       ),
+      AddressCheckOption(
+        uri: Uri.parse('https://46.202.163.60:8000/api/v1/health'),
+      ),
+      AddressCheckOption(uri: Uri.parse('https://google.com')),
     ],
   );
 
@@ -52,6 +59,8 @@ class AuthService extends GetxService {
 
     getThemeByRole();
 
+    checkInternetConnection();
+
     connectionChecker.onStatusChange.listen((status) async {
       if (status == InternetConnectionStatus.connected) {
         print('Connected to the internet');
@@ -60,8 +69,32 @@ class AuthService extends GetxService {
       } else {
         print('No internet connection');
         isConnected.value = false;
+        // show bottom sheet with message and retry button
+        Get.snackbar(
+          'No Internet Connection',
+          'Please check your internet connection.',
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 5),
+          mainButton: TextButton(
+            onPressed: () async {
+              if (await checkInternetConnection()) {
+                Get.back(); // Close the snackbar
+              }
+            },
+            child: const Text('Retry'),
+          ),
+        );
       }
     });
+  }
+
+  // fuction to check internet connection
+  Future<bool> checkInternetConnection() async {
+    isConnected.value = await connectionChecker.hasConnection;
+    if (isConnected.value) {
+      mainServerUrl.value = await getFirstWorkingUrl();
+    }
+    return isConnected.value;
   }
 
   Future<void> _initAuth() async {
@@ -92,6 +125,7 @@ class AuthService extends GetxService {
         '/auth/login', // Relative path to baseUrl
         {'userId': userId, 'pin': pin},
       );
+      print(response.statusText);
 
       if (response.statusCode == 200) {
         final data =

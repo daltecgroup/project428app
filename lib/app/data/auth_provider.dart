@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
 import '../services/auth_service.dart';
 
 class AuthProvider extends GetConnect {

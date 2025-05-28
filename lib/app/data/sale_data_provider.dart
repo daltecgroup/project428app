@@ -8,9 +8,7 @@ import '../services/auth_service.dart';
 class SaleDataProvider extends GetConnect {
   AuthService authS = Get.find<AuthService>();
   @override
-  void onInit() {
-    httpClient.baseUrl = 'YOUR-API-URL';
-  }
+  void onInit() {}
 
   Future<Response> createSale(
     String code,
@@ -65,5 +63,11 @@ class SaleDataProvider extends GetConnect {
 
   Future<Response> getSalesByOutlet(String outlet) {
     return get('${authS.mainServerUrl.value}/api/v1/sales/outlet/$outlet');
+  }
+
+  Future<Response> getTodaySalesByOutlet(String outlet) {
+    return get(
+      '${authS.mainServerUrl.value}/api/v1/sales/outlet/$outlet/today',
+    );
   }
 }

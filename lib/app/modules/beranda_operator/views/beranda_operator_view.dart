@@ -15,6 +15,7 @@ class BerandaOperatorView extends GetView<BerandaOperatorController> {
   const BerandaOperatorView({super.key});
   @override
   Widget build(BuildContext context) {
+    controller.OperatorS.getTodaySalesByOutlet();
     return Obx(
       () => Scaffold(
         appBar: OperatorAppBar(
@@ -24,93 +25,15 @@ class BerandaOperatorView extends GetView<BerandaOperatorController> {
               : controller.OperatorS.currentOutletName.value,
         ),
         drawer: OperatorDrawer(context, kOperatorMenuBeranda),
-        body: ListView(
-          children: [
-            Hero(
-              tag: 'login-to-select-role',
-              child: Card(
-                color: Colors.white,
-                elevation: 1,
-                margin: EdgeInsets.symmetric(horizontal: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 15,
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                'IDR 88.000',
-                                maxLines: 1,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              'Omzet Hari Ini',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 9),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        alignment: Alignment.center,
-                        height: 65,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            IndicatorOderDoneWidget(
-                              position: 'left',
-                              title: 'Order Selesai',
-                              number:
-                                  controller.OperatorS.orderDone.value
-                                      .toString(),
-                            ),
-                            IndicatorOderDoneWidget(
-                              position: 'middle',
-                              title: 'Order Pending',
-                              number:
-                                  controller.OperatorS.pendingOrder.value
-                                      .toString(),
-                            ),
-                            IndicatorOderDoneWidget(
-                              position: 'right',
-                              title: 'Item Terjual',
-                              number:
-                                  controller.OperatorS.itemSold.value
-                                      .toString(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      OperatorUserIndicatorWidget(controller: controller),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-
-            // pending transactions
-            controller.OperatorS.pendingSales.isEmpty
-                ? SizedBox()
-                : Card(
+        body: RefreshIndicator(
+          onRefresh: () {
+            return controller.OperatorS.getTodaySalesByOutlet();
+          },
+          child: ListView(
+            children: [
+              Hero(
+                tag: 'login-to-select-role',
+                child: Card(
                   color: Colors.white,
                   elevation: 1,
                   margin: EdgeInsets.symmetric(horizontal: 15),
@@ -123,99 +46,176 @@ class BerandaOperatorView extends GetView<BerandaOperatorController> {
                       vertical: 15,
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextTitle(text: 'Pending'),
-                        SizedBox(height: 8),
-                        ...List.generate(
-                          controller.OperatorS.pendingSales.length,
-                          (index) => Column(
+                        Container(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              PendingTransactionItemWidget(
-                                pendingSales:
-                                    controller.OperatorS.pendingSales[index],
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  'IDR 88.000',
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                               ),
-                              SizedBox(
-                                height:
-                                    index ==
-                                            controller
-                                                    .OperatorS
-                                                    .pendingSales
-                                                    .length -
-                                                1
-                                        ? 0
-                                        : 8,
+                              Text(
+                                'Omzet Hari Ini',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 9),
                               ),
                             ],
                           ),
                         ),
-                        // PendingTransactionItemWidget(),
+                        SizedBox(height: 10),
+                        Container(
+                          alignment: Alignment.center,
+                          height: 65,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              IndicatorOderDoneWidget(
+                                position: 'left',
+                                title: 'Order Pending',
+                                number:
+                                    controller.OperatorS.pendingOrder.value
+                                        .toString(),
+                              ),
+                              IndicatorOderDoneWidget(
+                                position: 'middle',
+                                title: 'Order Selesai',
+                                number:
+                                    controller.OperatorS.orderDone.value
+                                        .toString(),
+                              ),
+                              IndicatorOderDoneWidget(
+                                position: 'right',
+                                title: 'Item Terjual',
+                                number:
+                                    controller.OperatorS.itemSold.value
+                                        .toString(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        OperatorUserIndicatorWidget(controller: controller),
                       ],
                     ),
                   ),
                 ),
-            controller.OperatorS.pendingSales.isEmpty
-                ? SizedBox()
-                : SizedBox(height: 20),
+              ),
+              SizedBox(height: 20),
 
-            // closed transactions
-            controller.OperatorS.closedSales.isEmpty
-                ? SizedBox()
-                : Card(
-                  color: Colors.white,
-                  elevation: 1,
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 15,
+              // pending transactions
+              controller.OperatorS.pendingSales.isEmpty
+                  ? SizedBox()
+                  : Card(
+                    color: Colors.white,
+                    elevation: 1,
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextTitle(text: 'Selesai'),
-                        SizedBox(height: 8),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: 15,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextTitle(text: 'Pending'),
+                          SizedBox(height: 8),
+                          ...List.generate(
+                            controller.OperatorS.pendingSales.length,
+                            (index) => Column(
+                              children: [
+                                PendingTransactionItemWidget(
+                                  pendingSales:
+                                      controller.OperatorS.pendingSales[index],
+                                ),
+                                SizedBox(
+                                  height:
+                                      index ==
+                                              controller
+                                                      .OperatorS
+                                                      .pendingSales
+                                                      .length -
+                                                  1
+                                          ? 0
+                                          : 8,
+                                ),
+                              ],
+                            ),
+                          ),
+                          // PendingTransactionItemWidget(),
+                        ],
+                      ),
+                    ),
+                  ),
+              controller.OperatorS.pendingSales.isEmpty
+                  ? SizedBox()
+                  : SizedBox(height: 20),
 
-                        controller.OperatorS.closedSales.isEmpty
-                            ? SizedBox()
-                            : Column(
-                              children: List.generate(
-                                controller.OperatorS.closedSales.length,
-                                (index) => Column(
-                                  children: [
-                                    ClosedTransactionItemWidget(
-                                      sale:
-                                          controller
-                                              .OperatorS
-                                              .closedSales[index],
-                                    ),
-                                    index ==
+              // closed transactions
+              controller.OperatorS.closedSales.isEmpty
+                  ? SizedBox()
+                  : Card(
+                    color: Colors.white,
+                    elevation: 1,
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: 15,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextTitle(text: 'Selesai'),
+                          SizedBox(height: 8),
+
+                          controller.OperatorS.closedSales.isEmpty
+                              ? SizedBox()
+                              : Column(
+                                children: List.generate(
+                                  controller.OperatorS.closedSales.length,
+                                  (index) => Column(
+                                    children: [
+                                      ClosedTransactionItemWidget(
+                                        sale:
                                             controller
-                                                    .OperatorS
-                                                    .closedSales
-                                                    .length -
-                                                1
-                                        ? SizedBox()
-                                        : SizedBox(height: 8),
-                                  ],
+                                                .OperatorS
+                                                .closedSales[index],
+                                      ),
+                                      index ==
+                                              controller
+                                                      .OperatorS
+                                                      .closedSales
+                                                      .length -
+                                                  1
+                                          ? SizedBox()
+                                          : SizedBox(height: 8),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-            TextButton(
-              onPressed: () {
-                controller.OperatorS.getSalesByOutlet();
-              },
-              child: Text('check'),
-            ),
-            SizedBox(height: 50),
-          ],
+              SizedBox(height: 50),
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           shape: RoundedRectangleBorder(

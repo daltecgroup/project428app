@@ -29,6 +29,7 @@ class OperatorService extends GetxService {
 
   RxList<PendingSales> pendingSales = <PendingSales>[].obs;
   RxList<Sale> closedSales = <Sale>[].obs;
+  RxList<Sale> allSales = <Sale>[].obs;
 
   RxString currentPendingTrxCode = ''.obs;
 
@@ -41,8 +42,9 @@ class OperatorService extends GetxService {
   @override
   Future<void> onReady() async {
     super.onReady();
-    Future.delayed(Duration(seconds: 3)).then((_) async {
+    Future.delayed(Duration(seconds: 5)).then((_) async {
       await getSalesByOutlet();
+      await getTodaySalesByOutlet();
     });
   }
 
@@ -156,8 +158,11 @@ class OperatorService extends GetxService {
           currentPendingTrxCode.value = '';
           pendingSales.removeWhere((sale) => sale.trxCode == arg);
           pendingSales.refresh();
-          await getSalesByOutlet().then(
-            (_) => Get.offNamed('/sales-transaction-detail', arguments: arg),
+          await getTodaySalesByOutlet().then(
+            (_) => Get.offNamed(
+              '/sales-transaction-detail',
+              arguments: {'trxCode': arg, 'from': 'transaction'},
+            ),
           );
 
           break;
@@ -175,10 +180,40 @@ class OperatorService extends GetxService {
   Future<void> getSalesByOutlet() async {
     SaleP.getSalesByOutlet(currentOutletId.value).then((res) {
       if (res.statusCode == 200) {
+        allSales.clear();
+        if (res.body != null) {
+          for (var e in res.body) {
+            Sale saleItem = Sale.fromJson(e);
+            allSales.add(saleItem);
+          }
+        }
+        allSales.refresh();
+        refreshSalesIndicator();
+      } else {
+        Get.snackbar(
+          'Peringatan',
+          'Gagal memuat data penjualan terbaru',
+          duration: Duration(seconds: 1),
+        );
+      }
+      // reorder list to show the latest sales first
+      allSales.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      allSales.refresh();
+      if (pendingSales.isNotEmpty) {
+        deleteEmptyPendingSales();
+      }
+    });
+  }
+
+  Future<void> getTodaySalesByOutlet() async {
+    SaleP.getTodaySalesByOutlet(currentOutletId.value).then((res) {
+      if (res.statusCode == 200) {
         closedSales.clear();
-        for (var e in res.body) {
-          Sale saleItem = Sale.fromJson(e);
-          closedSales.add(saleItem);
+        if (res.body != null) {
+          for (var e in res.body) {
+            Sale saleItem = Sale.fromJson(e);
+            closedSales.add(saleItem);
+          }
         }
         closedSales.refresh();
         refreshSalesIndicator();

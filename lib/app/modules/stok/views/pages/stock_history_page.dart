@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/stok/controllers/stok_controller.dart';
-import 'package:project428app/app/modules/stok/views/stok_item.dart';
+import 'package:project428app/app/modules/stok/views/widgets/stok_item.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
-class StockTypePage extends StatelessWidget {
-  const StockTypePage({super.key, required this.controller});
+class StockHistoryPage extends StatelessWidget {
+  const StockHistoryPage({super.key, required this.controller});
 
   final StokController controller;
 

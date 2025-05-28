@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 import 'package:file_picker/file_picker.dart';
-import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/services/auth_service.dart'; // For desktop file picking
 
 class ImagePickerController extends GetxController {

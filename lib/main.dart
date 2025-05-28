@@ -1,9 +1,15 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/data/auth_provider.dart';
+import 'package:project428app/app/services/attendance_service.dart';
 import 'package:project428app/app/services/operator_service.dart';
+import 'package:project428app/app/services/order_service.dart';
+import 'package:project428app/app/services/outlet_service.dart';
+import 'package:window_manager/window_manager.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/auth_service.dart';
 import 'app/services/stock_service.dart';
@@ -14,7 +20,33 @@ void main() async {
   AuthService authC = Get.put(AuthService(), permanent: true);
   Get.put(OperatorService(), permanent: true);
   Get.put(StockService(), permanent: true);
+  Get.put(OutletService(), permanent: true);
+  Get.put(OrderService(), permanent: true);
+  Get.put(AttendanceService(), permanent: true);
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    await windowManager.ensureInitialized();
+    WindowOptions windowOptions = WindowOptions(
+      size: Size(kMobileWidth, 800), // Initial window size
+      minimumSize: Size(
+        kMobileWidth,
+        800,
+      ), // Set your desired minimum width and height
+      maximumSize: Size(kMobileWidth, 800),
+      center: true,
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      titleBarStyle:
+          TitleBarStyle
+              .normal, // Or TitleBarStyle.hidden for a custom title bar
+    );
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
+
   runApp(
     Container(
       color: Colors.black,

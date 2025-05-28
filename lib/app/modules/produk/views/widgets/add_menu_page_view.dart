@@ -8,6 +8,7 @@ import 'package:project428app/app/controllers/image_picker_controller.dart';
 import 'package:project428app/app/modules/produk/controllers/produk_controller.dart';
 import 'package:project428app/app/modules/produk/views/widgets/ingredients_item.dart';
 import 'package:project428app/app/style.dart';
+import 'package:project428app/app/widgets/field_error_widget.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
 import '../../../../constants.dart';
@@ -79,9 +80,9 @@ class AddMenuPageView extends GetView {
                                   ),
 
                                   // code field error text
-                                  TextFieldErrorText(
-                                    c.isAddMenuCodeError.value,
-                                    c.addMenuCodeErrorText.value,
+                                  FieldErrorWidget(
+                                    isError: c.isAddMenuCodeError.value,
+                                    text: c.addMenuCodeErrorText.value,
                                   ),
                                 ],
                               ),
@@ -136,9 +137,9 @@ class AddMenuPageView extends GetView {
                             decoration: TextFieldDecoration1(),
                           ),
                         ),
-                        TextFieldErrorText(
-                          c.isAddMenuNameError.value,
-                          'Nama tidak boleh kosong',
+                        FieldErrorWidget(
+                          isError: c.isAddMenuNameError.value,
+                          text: 'Nama tidak boleh kosong',
                         ),
                         SizedBox(height: 10),
 
@@ -200,9 +201,9 @@ class AddMenuPageView extends GetView {
                                       decoration: TextFieldDecoration1(),
                                     ),
                                   ),
-                                  TextFieldErrorText(
-                                    c.isAddMenuPriceError.value,
-                                    'Harga tidak boleh kosong',
+                                  FieldErrorWidget(
+                                    isError: c.isAddMenuPriceError.value,
+                                    text: 'Harga tidak boleh kosong',
                                   ),
                                 ],
                               ),
@@ -281,9 +282,9 @@ class AddMenuPageView extends GetView {
                             : SelectedImagePanel(c: c.imagePickerC),
                         SizedBox(height: 5),
                         c.imagePickerC.selectedImage.value == null
-                            ? TextFieldErrorText(
-                              c.isAddMenuImageError.value,
-                              'Gambar tidak boleh kosong',
+                            ? FieldErrorWidget(
+                              isError: c.isAddMenuImageError.value,
+                              text: 'Gambar tidak boleh kosong',
                             )
                             : SizedBox(),
                         SizedBox(height: 10),
@@ -337,9 +338,9 @@ class AddMenuPageView extends GetView {
                                   ),
                                 ),
                               ),
-                          TextFieldErrorText(
-                            c.isAddMenuIngredientsError.value,
-                            'Bahan tidak boleh kosong',
+                          FieldErrorWidget(
+                            isError: c.isAddMenuIngredientsError.value,
+                            text: 'Bahan tidak boleh kosong',
                           ),
                         ],
                       ),
@@ -407,12 +408,6 @@ class AddMenuPageView extends GetView {
         ),
       ),
     );
-  }
-
-  Widget TextFieldErrorText(bool isError, String text) {
-    return isError
-        ? Text(text, style: TextStyle(fontSize: 12, color: Colors.red))
-        : SizedBox();
   }
 }
 

@@ -318,10 +318,10 @@ class NewSalesView extends GetView {
                       ),
                     ),
                   ),
-                  (currentSale?.itemCount?.value ?? 0) == 0
+                  (currentSale?.itemCount.value ?? 0) == 0
                       ? SizedBox()
                       : SizedBox(width: 10),
-                  (currentSale?.itemCount?.value ?? 0) == 0
+                  (currentSale?.itemCount.value ?? 0) == 0
                       ? SizedBox()
                       : Expanded(
                         child: ElevatedButton(

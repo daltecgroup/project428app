@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/modules/stok/views/stock_history_page.dart';
-import 'package:project428app/app/modules/stok/views/stock_order_page.dart';
-import 'package:project428app/app/modules/stok/views/stock_type_page.dart';
+import 'package:project428app/app/modules/stok/views/new_stock_order_view.dart';
+import 'package:project428app/app/modules/stok/views/pages/stock_history_page.dart';
+import 'package:project428app/app/modules/stok/views/pages/stock_order_page.dart';
+import 'package:project428app/app/modules/stok/views/pages/stock_type_page.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 import '../../../constants.dart';
 import '../../../widgets/admin/admin_drawer.dart';
@@ -15,7 +16,7 @@ class StokView extends GetView<StokController> {
     return Obx(
       () => Scaffold(
         appBar: AppBar(
-          title: TextHeader(text: 'Produk'),
+          title: TextHeader(text: 'Stok'),
           centerTitle: true,
           leading: Builder(
             builder: (context) {
@@ -28,7 +29,12 @@ class StokView extends GetView<StokController> {
             },
           ),
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.refresh)),
+            IconButton(
+              onPressed: () {
+                controller.OrderS.getOrders();
+              },
+              icon: Icon(Icons.refresh),
+            ),
             IconButton(
               icon: Stack(
                 children: <Widget>[
@@ -78,7 +84,9 @@ class StokView extends GetView<StokController> {
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                   ),
                   tooltip: "Tambah Pesanan",
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => NewStockOrderView());
+                  },
                   child: const Icon(Icons.add),
                 )
                 : null,

@@ -7,7 +7,6 @@ import 'package:project428app/app/style.dart';
 import 'package:project428app/app/widgets/app_logo_title_widget.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
-import '../../../services/auth_service.dart';
 import '../controllers/login_as_controller.dart';
 
 class LoginAsView extends GetView<LoginAsController> {

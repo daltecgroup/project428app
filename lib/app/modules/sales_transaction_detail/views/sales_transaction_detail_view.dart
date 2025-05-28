@@ -7,7 +7,7 @@ class SalesTransactionDetailView
   const SalesTransactionDetailView({super.key});
   @override
   Widget build(BuildContext context) {
-    controller.getInvoice(Get.arguments as String);
+    controller.getInvoice(Get.arguments['trxCode'] as String);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -19,7 +19,8 @@ class SalesTransactionDetailView
         actions: [
           IconButton(
             onPressed: () {
-              Get.offNamed('/beranda-operator');
+              // Get.offNamed('/beranda-operator');
+              Get.back();
             },
             icon: Icon(Icons.close_rounded),
           ),
@@ -43,7 +44,7 @@ class SalesTransactionDetailView
                         ),
                         child: Obx(
                           () => Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(20),
                             child:
                                 controller.invoice.value == null
                                     ? SizedBox()
@@ -356,7 +357,8 @@ class SalesTransactionDetailView
                         ),
                       ),
                       onPressed: () {
-                        Get.offNamed('/beranda-operator');
+                        // Get.offNamed('/beranda-operator');
+                        Get.back();
                       },
                       child: Text('Kembali', style: TextStyle(fontSize: 16)),
                     ),

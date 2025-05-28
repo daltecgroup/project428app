@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:project428app/app/models/product.dart';
 import 'package:project428app/app/models/product_non_category.dart';
 
 import '../widgets/format_waktu.dart';

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/stok/controllers/stok_controller.dart';
-import 'package:project428app/app/modules/stok/views/stock_order_item.dart';
-import 'package:project428app/app/modules/stok/views/stok_item.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
-class StockOrderPage extends StatelessWidget {
-  const StockOrderPage({super.key, required this.controller});
+import '../widgets/stok_item.dart';
+
+class StockTypePage extends StatelessWidget {
+  const StockTypePage({super.key, required this.controller});
 
   final StokController controller;
 
@@ -20,7 +20,7 @@ class StockOrderPage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextTitle(text: "Pesanan Aktif"),
+              TextTitle(text: "Stok Aktif (${controller.activeCount} item)"),
               kEnv == 'dev'
                   ? TextButton(
                     onPressed: () {
@@ -33,8 +33,23 @@ class StockOrderPage extends StatelessWidget {
           ),
         ),
         Column(
-          children: List.generate(3, (index) {
-            return StockOrderItem();
+          children: List.generate(controller.stocks.length, (index) {
+            return controller.stocks[index].isActive
+                ? StokItem(controller.stocks[index])
+                : SizedBox();
+          }),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 12, bottom: 10, top: 20),
+          child: TextTitle(
+            text: "Stok Nonaktif (${controller.innactiveCount} item)",
+          ),
+        ),
+        Column(
+          children: List.generate(controller.stocks.length, (index) {
+            return !controller.stocks[index].isActive
+                ? StokItem(controller.stocks[index])
+                : SizedBox();
           }),
         ),
         SizedBox(height: 100),

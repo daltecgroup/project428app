@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../../models/sale.dart';
 
-class ClosedTransactionItemWidget extends StatelessWidget {
-  const ClosedTransactionItemWidget({super.key, required this.sale});
+class TransactionItemWidget extends StatelessWidget {
+  const TransactionItemWidget({super.key, required this.sale});
 
   final Sale sale;
 
@@ -42,7 +42,7 @@ class ClosedTransactionItemWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '${sale.getCreateTime()} - ${sale.cashier.name}',
+                            '${sale.getCreateTimeDate()} - ${sale.cashier.name}',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 10),
@@ -90,7 +90,7 @@ class ClosedTransactionItemWidget extends StatelessWidget {
               onTap: () {
                 Get.toNamed(
                   '/sales-transaction-detail',
-                  arguments: {'trxCode': sale.code, 'from': 'homepage'},
+                  arguments: {'trxCode': sale.code, 'from': 'transaction-page'},
                 );
               },
             ),
