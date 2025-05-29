@@ -115,8 +115,8 @@ class TambahStokView extends GetView<TambahStokController> {
                                       child: Text('Volume (ml)'),
                                     ),
                                     DropdownMenuItem(
-                                      value: 'Pcs (satuan)',
-                                      child: Text('Pcs'),
+                                      value: 'pcs',
+                                      child: Text('Pcs (Satuan)'),
                                     ),
                                   ],
                                   onChanged: (value) {

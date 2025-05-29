@@ -25,6 +25,7 @@ class OutletDetailController extends GetxController {
       Outlet(
         '-',
         '-',
+        '-',
         false,
         '',
         {

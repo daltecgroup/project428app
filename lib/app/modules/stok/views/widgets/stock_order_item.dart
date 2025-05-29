@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/modules/stok/views/stock_order_detail_view.dart';
+import 'package:project428app/app/services/order_service.dart';
 import 'package:project428app/app/widgets/order_item_status_widget.dart';
-
 import '../../../../models/order.dart';
 
-Widget StockOrderItem(Order order) {
+Widget StockOrderItem(Order order, int index) {
+  OrderService OrderS = Get.find<OrderService>();
   return Card(
     color: Colors.white,
     margin: const EdgeInsets.only(bottom: 8, left: 12, right: 12),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     child: InkWell(
       onTap: () {
+        OrderS.currentOrder.value = order;
         Get.to(() => StockOrderDetailView());
       },
       child: Row(
@@ -58,7 +60,10 @@ Widget StockOrderItem(Order order) {
                         flex: 2,
                         child: Align(
                           alignment: Alignment.centerRight,
-                          child: OrderItemStatusWidget(order.status),
+                          child:
+                              OrderS.orders.isEmpty
+                                  ? SizedBox()
+                                  : OrderItemStatusWidget(order.status, true),
                         ),
                       ),
                     ],
@@ -147,7 +152,7 @@ Widget StockOrderItem(Order order) {
                         ),
                       ),
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [

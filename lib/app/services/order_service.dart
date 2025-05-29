@@ -1,16 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/models/order.dart';
+import 'package:project428app/app/widgets/confirmation_dialog.dart';
 
 import '../data/order_provider.dart';
 
 class OrderService extends GetxController {
   OrderProvider OrderP = OrderProvider();
   RxList<Order> orders = <Order>[].obs;
+  Rx<Order?> currentOrder = Rx<Order?>(null);
 
   @override
   void onInit() {
     super.onInit();
-    getOrders();
+    Future.delayed(Duration(seconds: 5)).then((_) async {
+      getOrders();
+    });
   }
 
   @override
@@ -34,6 +39,21 @@ class OrderService extends GetxController {
                 .toList();
         orders.value = orders.reversed.toList();
       }
+    });
+  }
+
+  Future<void> deleteOrder(String code, String name) async {
+    ConfirmationDialog('Konfirmasi', 'Yakin menghapus \n$name ?', () async {
+      await OrderP.deleteOrderById(code).then((res) {
+        if (res.statusCode == 200) {
+          getOrders();
+          Get.back();
+          Get.toNamed('/stok');
+        } else {
+          Get.back();
+          Get.snackbar('Gagal Menghapus $name', '${res.body['message']}');
+        }
+      });
     });
   }
 }

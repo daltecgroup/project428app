@@ -75,20 +75,13 @@ Widget PenggunaItem(
               ],
             ),
           ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              UserRoles(
-                role: role,
-                status: status,
-                alignment: MainAxisAlignment.start,
-              ),
-              // SizedBox(height: 5),
-              // Text(
-              //   '$userId ${FormatToUsableDate(createdAt)}',
-              //   style: TextStyle(fontSize: 12),
-              // ),
-            ],
+          subtitle: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: UserRoles(
+              role: role,
+              status: status,
+              alignment: MainAxisAlignment.start,
+            ),
           ),
         ),
       ),

@@ -19,8 +19,11 @@ class SalesTransactionDetailView
         actions: [
           IconButton(
             onPressed: () {
-              // Get.offNamed('/beranda-operator');
-              Get.back();
+              if (Get.arguments['from'] == 'transaction') {
+                Get.offNamed('/beranda-operator');
+              } else {
+                Get.back();
+              }
             },
             icon: Icon(Icons.close_rounded),
           ),
@@ -357,8 +360,11 @@ class SalesTransactionDetailView
                         ),
                       ),
                       onPressed: () {
-                        // Get.offNamed('/beranda-operator');
-                        Get.back();
+                        if (Get.arguments['from'] == 'transaction') {
+                          Get.offNamed('/beranda-operator');
+                        } else {
+                          Get.back();
+                        }
                       },
                       child: Text('Kembali', style: TextStyle(fontSize: 16)),
                     ),

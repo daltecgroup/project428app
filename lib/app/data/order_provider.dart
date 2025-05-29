@@ -41,4 +41,12 @@ class OrderProvider extends GetConnect {
       '${authS.mainServerUrl.value}/api/v1/orders/outlet/$outlet/today',
     );
   }
+
+  Future<Response> updateOrderById(String code, dynamic body) {
+    return put('${authS.mainServerUrl.value}/api/v1/orders/$code', body);
+  }
+
+  Future<Response> deleteOrderById(String code) {
+    return delete('${authS.mainServerUrl.value}/api/v1/orders/$code');
+  }
 }

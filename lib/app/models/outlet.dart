@@ -4,18 +4,14 @@ import 'package:intl/intl.dart';
 import '../widgets/format_waktu.dart';
 
 class Outlet {
-  final String name;
-  final String code;
+  final String id, name, code, imgUrl;
   final bool isActive;
-  final String imgUrl;
   final Map address;
-  final List owner;
-  final List operator;
-  final DateTime foundedAt;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final List owner, operator;
+  final DateTime foundedAt, createdAt, updatedAt;
 
   Outlet(
+    this.id,
     this.name,
     this.code,
     this.isActive,
@@ -29,7 +25,8 @@ class Outlet {
   );
 
   Outlet.fromJson(Map<String, dynamic> json)
-    : code = json['code'] as String,
+    : id = json['_id'] as String,
+      code = json['code'] as String,
       name = json['name'] as String,
       isActive = json['isActive'] as bool,
       imgUrl = json['imgUrl'] as String,

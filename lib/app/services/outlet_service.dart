@@ -9,7 +9,9 @@ class OutletService extends GetxService {
   @override
   void onInit() {
     super.onInit();
-    getOutlets();
+    Future.delayed(Duration(seconds: 5)).then((_) async {
+      getOutlets();
+    });
   }
 
   @override

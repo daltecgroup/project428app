@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/select_menu_view.dart';
 import 'package:project428app/app/modules/beranda_operator/views/widgets/closed_transaction_item_widget.dart';
@@ -16,6 +17,7 @@ class BerandaOperatorView extends GetView<BerandaOperatorController> {
   @override
   Widget build(BuildContext context) {
     controller.OperatorS.getTodaySalesByOutlet();
+    controller.OperatorS.refreshSalesIndicator();
     return Obx(
       () => Scaffold(
         appBar: OperatorAppBar(
@@ -55,7 +57,9 @@ class BerandaOperatorView extends GetView<BerandaOperatorController> {
                               FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
-                                  'IDR 88.000',
+                                  controller.OperatorS.todayIncome.value == 0
+                                      ? "IDR 0"
+                                      : "IDR ${NumberFormat("#,##0", "id_ID").format(controller.OperatorS.todayIncome.value)}",
                                   maxLines: 1,
                                   style: TextStyle(
                                     fontSize: 20,

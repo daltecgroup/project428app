@@ -51,13 +51,6 @@ class MenuDetailView extends GetView {
             },
             icon: Icon(Icons.delete, color: Colors.red[900]),
           ),
-          // IconButton(
-          //   onPressed: () {
-          //     c.resetAddMenuField();
-          //     Get.back();
-          //   },
-          //   icon: Icon(Icons.close_rounded),
-          // ),
           SizedBox(width: 10),
         ],
       ),

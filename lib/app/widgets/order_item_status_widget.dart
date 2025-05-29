@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Badge OrderItemStatusWidget(String status) {
+Widget OrderItemStatusWidget(String status, bool badge) {
   String title = status;
   Color color = Colors.blue;
 
@@ -33,13 +33,27 @@ Badge OrderItemStatusWidget(String status) {
     default:
   }
 
-  return Badge(
-    backgroundColor: color,
-    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-    label: Text(
-      title,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 10),
-    ),
-  );
+  return badge
+      ? Badge(
+        backgroundColor: color,
+        padding: EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+        label: Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 10),
+        ),
+      )
+      : Wrap(
+        children: [
+          Badge(
+            backgroundColor: color,
+            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+            label: Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+            ),
+          ),
+        ],
+      );
 }

@@ -27,6 +27,8 @@ class OperatorService extends GetxService {
   RxInt pendingOrder = 0.obs;
   RxInt itemSold = 0.obs;
 
+  RxInt todayIncome = 0.obs;
+
   RxList<PendingSales> pendingSales = <PendingSales>[].obs;
   RxList<Sale> closedSales = <Sale>[].obs;
   RxList<Sale> allSales = <Sale>[].obs;
@@ -63,8 +65,13 @@ class OperatorService extends GetxService {
           qty = qty + item['qty'] as int;
         }
       }
-
       itemSold.value = qty;
+
+      var income = 0;
+      for (var sale in closedSales) {
+        income = income + sale.finalPrice;
+      }
+      todayIncome.value = income;
     } else {
       orderDone.value = 0;
     }

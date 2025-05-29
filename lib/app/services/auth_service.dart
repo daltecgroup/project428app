@@ -14,15 +14,15 @@ class AuthService extends GetxService {
   late final AuthProvider _authP;
 
   List<String> serverList = [
-    'http://localhost:8000',
     'http://46.202.163.60:8000',
-    'https://api.aromabisnisgroup.com',
     'http://10.0.2.2:8000',
+    'http://localhost:8000',
+    'https://api.aromabisnisgroup.com',
   ];
 
-  RxString mainServerUrl = 'http://46.202.163.60:8000'.obs;
+  // RxString mainServerUrl = 'http://46.202.163.60:8000'.obs;
   // RxString mainServerUrl = 'http://localhost:8000'.obs;
-  // RxString mainServerUrl = 'http://10.0.2.2:8000'.obs;
+  RxString mainServerUrl = 'http://10.0.2.2:8000'.obs;
 
   final connectionChecker = InternetConnectionChecker.createInstance(
     addresses: [

@@ -11,25 +11,37 @@ class StockOrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.OrderS.getOrders();
-    return ListView(
+    return SingleChildScrollView(
       padding: EdgeInsets.only(top: 20),
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 12, bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [TextTitle(text: "Pesanan Aktif")],
-          ),
+      child: Obx(
+        () => Column(
+          children: [
+            controller.OrderS.orders.isEmpty
+                ? SizedBox()
+                : Padding(
+                  padding: EdgeInsets.only(left: 12, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [TextTitle(text: "Pesanan Aktif")],
+                  ),
+                ),
+            controller.OrderS.orders.isEmpty
+                ? SizedBox()
+                : Column(
+                  children: List.generate(controller.OrderS.orders.length, (
+                    index,
+                  ) {
+                    return StockOrderItem(
+                      controller.OrderS.orders[index],
+                      index,
+                    );
+                  }),
+                ),
+
+            SizedBox(height: 100),
+          ],
         ),
-        Obx(
-          () => Column(
-            children: List.generate(controller.OrderS.orders.length, (index) {
-              return StockOrderItem(controller.OrderS.orders[index]);
-            }),
-          ),
-        ),
-        SizedBox(height: 100),
-      ],
+      ),
     );
   }
 }

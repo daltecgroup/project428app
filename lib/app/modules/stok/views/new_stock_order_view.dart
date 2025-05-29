@@ -19,7 +19,9 @@ class NewStockOrderView extends GetView {
     OperatorService OperatorS = Get.find<OperatorService>();
     OutletService OutletS = Get.find<OutletService>();
     StockService StockS = Get.find<StockService>();
+
     StockS.getStocks();
+    OutletS.getOutlets();
 
     RxBool isOutletError = false.obs;
     RxBool isItemsError = false.obs;
@@ -88,7 +90,11 @@ class NewStockOrderView extends GetView {
                                   borderRadius: BorderRadius.circular(8),
                                   child:
                                       OutletS.outlets.isEmpty
-                                          ? Text('Data Gerai gagal dimuat')
+                                          ? Row(
+                                            children: [
+                                              Text('Data Gerai gagal dimuat'),
+                                            ],
+                                          )
                                           : DropdownButtonFormField<Outlet>(
                                             value: null,
                                             decoration: TextFieldDecoration1(),
@@ -270,7 +276,7 @@ class NewStockOrderView extends GetView {
 
                         if (!isItemsError.value && !isOutletError.value) {
                           StockS.createStockOrder(
-                            OperatorS.currentOutletId.value,
+                            selectedOutlet!.id,
                             StockS.orderList
                                 .toList()
                                 .cast<Map<String, dynamic>>(),

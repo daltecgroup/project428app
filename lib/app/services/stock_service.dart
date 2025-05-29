@@ -25,7 +25,9 @@ class StockService extends GetxService {
   void onInit() {
     super.onInit();
     qtyC = TextEditingController();
-    getStocks();
+    Future.delayed(Duration(seconds: 5)).then((_) {
+      getStocks();
+    });
   }
 
   @override

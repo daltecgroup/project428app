@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/stok/controllers/stok_controller.dart';
 import 'package:project428app/app/modules/stok/views/widgets/stok_item.dart';
 import 'package:project428app/app/widgets/text_header.dart';
+
+import '../widgets/stock_order_item.dart';
 
 class StockHistoryPage extends StatelessWidget {
   const StockHistoryPage({super.key, required this.controller});
@@ -11,48 +14,60 @@ class StockHistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return SingleChildScrollView(
       padding: EdgeInsets.only(top: 20),
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 12, bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextTitle(text: "Stok Aktif (${controller.activeCount} item)"),
-              kEnv == 'dev'
-                  ? TextButton(
-                    onPressed: () {
-                      controller.getStocks();
+      child: Obx(
+        () => Column(
+          children: [
+            controller.OrderS.orders.isEmpty
+                ? SizedBox()
+                : Padding(
+                  padding: EdgeInsets.only(left: 12, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [TextTitle(text: "Pesanan Aktif")],
+                  ),
+                ),
+            controller.OrderS.orders.isEmpty
+                ? SizedBox()
+                : controller.OrderS.orders
+                    .where(
+                      (order) =>
+                          order.status == 'accepted' ||
+                          order.status == 'failed',
+                    )
+                    .toList()
+                    .isEmpty
+                ? Center(child: Text('Kosong'))
+                : Column(
+                  children: List.generate(
+                    controller.OrderS.orders
+                        .where(
+                          (order) =>
+                              order.status == 'accepted' ||
+                              order.status == 'failed',
+                        )
+                        .toList()
+                        .length,
+                    (index) {
+                      return StockOrderItem(
+                        controller.OrderS.orders
+                            .where(
+                              (order) =>
+                                  order.status == 'accepted' ||
+                                  order.status == 'failed',
+                            )
+                            .toList()[index],
+                        index,
+                      );
                     },
-                    child: Text("Refresh"),
-                  )
-                  : SizedBox(),
-            ],
-          ),
+                  ),
+                ),
+
+            SizedBox(height: 100),
+          ],
         ),
-        Column(
-          children: List.generate(controller.stocks.length, (index) {
-            return controller.stocks[index].isActive
-                ? StokItem(controller.stocks[index])
-                : SizedBox();
-          }),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 12, bottom: 10, top: 20),
-          child: TextTitle(
-            text: "Stok Nonaktif (${controller.innactiveCount} item)",
-          ),
-        ),
-        Column(
-          children: List.generate(controller.stocks.length, (index) {
-            return !controller.stocks[index].isActive
-                ? StokItem(controller.stocks[index])
-                : SizedBox();
-          }),
-        ),
-        SizedBox(height: 100),
-      ],
+      ),
     );
   }
 }
