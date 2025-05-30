@@ -6,6 +6,7 @@ import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/gerai/controllers/outlet_detail_controller.dart';
 import 'package:project428app/app/modules/gerai/views/widgets/operator_panel_widget.dart';
 import 'package:project428app/app/modules/gerai/views/widgets/owner_panel_widget.dart';
+import 'package:project428app/app/modules/gerai/views/widgets/supervisor_panel_widget.dart';
 import 'package:project428app/app/style.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 import 'package:project428app/app/widgets/text_header.dart';
@@ -218,12 +219,19 @@ class DetailPageWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
+
               // Owners
               OwnerPanelWidget(c: c),
               SizedBox(height: 20),
+
               // Owners
               OperatorPanelWidget(c: c),
               SizedBox(height: 20),
+
+              // Owners
+              SupervisorPanelWidget(c: c),
+              SizedBox(height: 20),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

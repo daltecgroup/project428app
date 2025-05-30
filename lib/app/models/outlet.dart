@@ -7,7 +7,7 @@ class Outlet {
   final String id, name, code, imgUrl;
   final bool isActive;
   final Map address;
-  final List owner, operator;
+  final List owner, operator, spvarea;
   final DateTime foundedAt, createdAt, updatedAt;
 
   Outlet(
@@ -19,6 +19,7 @@ class Outlet {
     this.address,
     this.owner,
     this.operator,
+    this.spvarea,
     this.foundedAt,
     this.createdAt,
     this.updatedAt,
@@ -39,6 +40,7 @@ class Outlet {
       },
       owner = json['owner'] as List,
       operator = json['operator'] as List,
+      spvarea = json['spvarea'] as List,
       foundedAt = MakeLocalDateTime(json['foundedAt']),
       createdAt = MakeLocalDateTime(json['createdAt']),
       updatedAt = MakeLocalDateTime(json['updatedAt']);

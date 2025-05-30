@@ -42,4 +42,7 @@ class OutletService extends GetxService {
       print(e);
     }
   }
+
+  // delete outlet
+  void deleteOutlet() {}
 }

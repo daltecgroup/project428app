@@ -5,6 +5,7 @@ import 'package:project428app/app/controllers/user_data_controller.dart';
 import 'package:project428app/app/data/outlet_provider.dart';
 import 'package:project428app/app/modules/gerai/controllers/gerai_controller.dart';
 import 'package:project428app/app/modules/gerai/models/outlet_list_item.dart';
+import 'package:project428app/app/widgets/alert_dialog.dart';
 
 import '../../../models/outlet.dart';
 import '../../../models/user.dart';
@@ -20,6 +21,7 @@ class OutletDetailController extends GetxController {
 
   RxBool isOwnerEditable = false.obs;
   RxBool isOperatorEditable = false.obs;
+  RxBool isSpvareaEditable = false.obs;
 
   Rx<Outlet> outlet =
       Outlet(
@@ -35,6 +37,7 @@ class OutletDetailController extends GetxController {
           'regency': '',
           'province': '',
         },
+        [],
         [],
         [],
         DateTime.now(),
@@ -104,6 +107,18 @@ class OutletDetailController extends GetxController {
     });
   }
 
+  Future<void> updateSpvarea(List newSpvarea, bool back) async {
+    print(newSpvarea);
+    await OutletP.updateOutlet(outlet.value.code, {'spvarea': newSpvarea}).then(
+      (res) {
+        outlet.value = Outlet.fromJson(res.body);
+        if (back) {
+          Get.back();
+        }
+      },
+    );
+  }
+
   Future<void> updateImage() async {
     if (imagePickerC.selectedImage.value != null) {
       await OutletP.updateOutletImage(
@@ -136,6 +151,14 @@ class OutletDetailController extends GetxController {
         }
         updateOwnership(newList, false);
         break;
+      case 'spvarea':
+        for (var e in outlet.value.spvarea) {
+          if (e['_id'] != id) {
+            newList.add(e['_id']);
+          }
+        }
+        updateSpvarea(newList, false);
+        break;
       default:
         for (var e in outlet.value.operator) {
           if (e['_id'] != id) {
@@ -156,6 +179,12 @@ class OutletDetailController extends GetxController {
           exceptions.add(e['_id'].toString());
         }
         title = 'Tambah Pemilik';
+        break;
+      case 'spvarea':
+        for (var e in outlet.value.spvarea) {
+          exceptions.add(e['_id'].toString());
+        }
+        title = 'Tambah SPV Area';
         break;
       default:
         for (var e in outlet.value.operator) {
@@ -223,6 +252,10 @@ class OutletDetailController extends GetxController {
                 await updateOwnership(exceptions, true);
 
                 break;
+              case 'spvarea':
+                await updateSpvarea(exceptions, true);
+
+                break;
               default:
                 await updateOperator(exceptions, true);
             }
@@ -237,14 +270,9 @@ class OutletDetailController extends GetxController {
         ),
       );
     } else {
-      Get.defaultDialog(
-        backgroundColor: Colors.white,
-        title: "Peringatan",
-        titleStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-        radius: 8,
-        content: Text(
-          '${role == 'spvarea' ? 'SPV Area' : role.capitalize!} lain tidak ditemukan',
-        ),
+      CustomAlertDialog(
+        'Peringatan',
+        '${role == 'spvarea' ? 'SPV Area' : role.capitalize!} lain tidak ditemukan',
       );
     }
   }
