@@ -136,6 +136,7 @@ class ProdukController extends GetxController
 
     try {
       await ProductP.getProducts().then((res) {
+        print(res.body[0]);
         for (var e in res.body) {
           Product productItem = Product.fromJson(e);
           if (productItem.isActive) {

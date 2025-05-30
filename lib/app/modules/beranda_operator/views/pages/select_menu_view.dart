@@ -58,7 +58,7 @@ class SelectMenuView extends GetView {
                         .where(
                           (product) =>
                               product.isActive &&
-                              product.category.id ==
+                              product.category?.id ==
                                   OperatorS.CategoryP.categories
                                       .where((cat) => cat.isActive)
                                       .toList()[index]
@@ -74,7 +74,7 @@ class SelectMenuView extends GetView {
                                   .where(
                                     (product) =>
                                         product.isActive &&
-                                        product.category.id ==
+                                        product.category?.id ==
                                             OperatorS.CategoryP.categories
                                                 .where((cat) => cat.isActive)
                                                 .toList()[index]

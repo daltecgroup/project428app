@@ -36,15 +36,7 @@ class MenuDetailView extends GetView {
           },
         ),
         actions: [
-          IconButton(
-            onPressed: () async {
-              await c.ProductP.getProductById('P01').then((res) {
-                Product product = Product.fromJson(res.body);
-                print((product.ingredients[0]['stock'] as Stock).name);
-              });
-            },
-            icon: Icon(Icons.refresh_rounded),
-          ),
+          IconButton(onPressed: () async {}, icon: Icon(Icons.refresh_rounded)),
           IconButton(
             onPressed: () async {
               c.deleteProduct(product.code, product.name);
@@ -171,7 +163,9 @@ class MenuDetailView extends GetView {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               TextTitle(text: 'Kategori'),
-                              Text(product.category.name),
+                              product.category == null
+                                  ? Text('-')
+                                  : Text(product.category!.name),
                             ],
                           ),
                           Column(
@@ -285,22 +279,23 @@ class MenuDetailView extends GetView {
                         ],
                       ),
                       Column(
-                        children: List.generate(
-                          product.ingredients.length,
-                          (index) => IngredientsItem(
-                            c: c,
-                            stock:
-                                (product.ingredients[index]['stock'] as Stock)
-                                    .id,
-                            name:
-                                (product.ingredients[index]['stock'] as Stock)
-                                    .name,
-                            qty: product.ingredients[index]['qty'],
-                            unit:
-                                (product.ingredients[index]['stock'] as Stock)
-                                    .unit,
-                          ),
-                        ),
+                        children: List.generate(product.ingredients.length, (
+                          index,
+                        ) {
+                          if (product.ingredients[index].stock != null) {
+                            return IngredientsItem(
+                              c: c,
+                              stock: product.ingredients[index].id,
+                              name: product.ingredients[index].stock!.name,
+                              qty: product.ingredients[index].qty,
+                              unit: product.ingredients[index].stock!.unit,
+                            );
+                          }
+                          return Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('Stock Terhapus dari Sistem'),
+                          );
+                        }),
                       ),
                     ],
                   ),

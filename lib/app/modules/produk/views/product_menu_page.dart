@@ -40,7 +40,7 @@ class ProductMenuPage extends StatelessWidget {
                       children: [
                         TextTitle(text: c.categories[firstIndex].name),
                         Text(
-                          ' (${c.products.where((e) => e.category.id == c.categories[firstIndex].id).length} item /',
+                          ' (${c.products.where((e) => e.category?.id == c.categories[firstIndex].id).length} item /',
                         ),
                         SizedBox(width: 5),
                         c.categories[firstIndex].isActive
@@ -55,7 +55,7 @@ class ProductMenuPage extends StatelessWidget {
                         c.products.length,
                         (secondIndex) =>
                             c.categories[firstIndex].id ==
-                                    c.products[secondIndex].category.id
+                                    c.products[secondIndex].category?.id
                                 ? MenuItemWidget(
                                   c: c,
                                   product: c.products[secondIndex],
@@ -85,7 +85,7 @@ class ProductMenuPage extends StatelessWidget {
                   children: [
                     TextTitle(text: 'Tanpa Kategori'),
                     Text(
-                      ' (${c.products.where((e) => e.category.id == 'none').length} item)',
+                      ' (${c.products.where((e) => e.category?.id == null).length} item)',
                     ),
                   ],
                 ),
@@ -94,7 +94,7 @@ class ProductMenuPage extends StatelessWidget {
                   children: List.generate(
                     c.products.length,
                     (secondIndex) =>
-                        c.products[secondIndex].category.id == 'none'
+                        c.products[secondIndex].category?.id == null
                             ? MenuItemWidget(
                               c: c,
                               product: c.products[secondIndex],

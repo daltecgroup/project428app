@@ -5,6 +5,22 @@ import 'package:project428app/app/widgets/format_waktu.dart';
 
 import 'stock.dart';
 
+class Ingredient {
+  Stock? stock;
+  int qty;
+  final String id;
+
+  Ingredient({required this.qty, required this.stock, required this.id});
+
+  Ingredient.fromJson(Map<String, dynamic> json)
+    : stock =
+          json['stock'] == null
+              ? null as Stock?
+              : Stock.fromJson(json['stock']),
+      qty = json['qty'] as int,
+      id = json['_id'];
+}
+
 class Product {
   final String id;
   final String code;
@@ -13,8 +29,8 @@ class Product {
   final int discount;
   final String description;
   final String imgUrl;
-  final ProductCategory category;
-  final List<Map<String, dynamic>> ingredients;
+  final ProductCategory? category;
+  final List<Ingredient> ingredients;
   final bool isActive;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -44,17 +60,11 @@ class Product {
       imgUrl = json['imgUrl'] as String,
       category =
           json['category'] == null
-              ? ProductCategory('none', 'none', false, DateTime.now())
+              ? null as ProductCategory?
               : ProductCategory.fromJson(json['category']),
       ingredients =
           (json['ingredients'] as List)
-              .map<Map<String, dynamic>>(
-                (e) => {
-                  "stock": Stock.fromJson(e['stock']),
-                  "qty": e['qty'],
-                  "_id": e['_id'],
-                },
-              )
+              .map((e) => Ingredient.fromJson(e))
               .toList(),
       isActive = json['isActive'] as bool,
       updatedAt = MakeLocalDateTime(json['updatedAt']),
