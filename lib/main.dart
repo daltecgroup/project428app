@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project428app/app/constants.dart';
@@ -9,6 +10,7 @@ import 'package:project428app/app/services/attendance_service.dart';
 import 'package:project428app/app/services/operator_service.dart';
 import 'package:project428app/app/services/order_service.dart';
 import 'package:project428app/app/services/outlet_service.dart';
+import 'package:project428app/app/services/user_service.dart';
 import 'package:window_manager/window_manager.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/auth_service.dart';
@@ -18,10 +20,11 @@ void main() async {
   await GetStorage.init();
   Get.put(AuthProvider());
   AuthService authC = Get.put(AuthService(), permanent: true);
-  Get.put(OperatorService(), permanent: true);
   Get.put(StockService(), permanent: true);
+  Get.put(UserService(), permanent: true);
   Get.put(OutletService(), permanent: true);
   Get.put(OrderService(), permanent: true);
+  Get.put(OperatorService(), permanent: true);
   Get.put(AttendanceService(), permanent: true);
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -62,6 +65,17 @@ void main() async {
               defaultTransition: Transition.noTransition,
               transitionDuration: Duration(milliseconds: 300),
               theme: authC.getThemeByRole(),
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations
+                    .delegate, // If you're using Cupertino widgets
+                // Add your own app-specific localization delegate if you have custom localized strings
+              ],
+              supportedLocales: const [
+                Locale('en', ''), // English (default fallback)
+                Locale('id', ''), // Indonesian
+              ],
             ),
           ),
         ),

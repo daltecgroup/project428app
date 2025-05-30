@@ -28,11 +28,15 @@ class OutletService extends GetxService {
     outlets.clear();
     try {
       OutletP.getOutlets().then((res) {
-        for (var e in res.body) {
-          outlets.add(Outlet.fromJson(e));
+        if (res.statusCode == 200) {
+          for (var e in res.body) {
+            outlets.add(Outlet.fromJson(e));
+          }
+          outlets = outlets.reversed.toList().obs;
+          outlets.refresh();
+        } else {
+          print('Failed: Getting outlets data from database');
         }
-        outlets = outlets.reversed.toList().obs;
-        outlets.refresh();
       });
     } catch (e) {
       print(e);

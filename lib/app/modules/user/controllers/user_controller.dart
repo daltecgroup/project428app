@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/data/user_provider.dart';
-import 'package:project428app/app/widgets/format_waktu.dart';
+import '../../../models/user.dart';
+import '../../../services/user_service.dart';
 
-class PenggunaController extends GetxController {
-  UserProvider User = UserProvider();
-  GetStorage box = GetStorage();
+class UserController extends GetxController {
+  UserService UserS = Get.find<UserService>();
   late TextEditingController searchc;
-
-  var users = [].obs;
-  var filteredUser = [].obs;
-  var searchedUser = [].obs;
+  RxList<User> filteredUser = <User>[].obs;
+  RxList<User> searchedUser = <User>[].obs;
 
   // variabel filter
   RxBool isAsc = true.obs;
@@ -26,9 +21,9 @@ class PenggunaController extends GetxController {
   RxBool isFilterOn = true.obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     searchc = TextEditingController();
-    showUsers();
+    await UserS.getUsers();
     filterUsers();
     searchUsers();
     super.onInit();
@@ -45,8 +40,10 @@ class PenggunaController extends GetxController {
     super.onClose();
   }
 
-  void setCurrentUserDetail(String userId) {
-    box.write(kCurrentUserDetailId, userId);
+  Future<void> getUsers() async {
+    await UserS.getUsers();
+    filterUsers();
+    searchUsers();
   }
 
   void resetFilter() {
@@ -60,42 +57,15 @@ class PenggunaController extends GetxController {
     filterUsers();
   }
 
-  Future<Response> getUsers() {
-    return User.getUsers().then((res) {
-      users.clear();
-      print('Get users from database');
-      box.write(kAllUserData, res.body);
-      users.value = res.body;
-      // print(GetMillisecondSinceEpoch(users[0]['createdAt']));
-      // users.refresh();
-      filterUsers();
-      searchUsers();
-      return res;
-    });
-  }
-
-  void showUsers() async {
-    // if (box.read(kAllUserData) != null) {
-    //   print('Set users from storage');
-    //   users.value = box.read(kAllUserData);
-    //   users.refresh();
-    //   filterUsers();
-    //   searchUsers();
-    // } else {
-    //   await getUsers();
-    // }
-    await getUsers();
-  }
-
   void searchUsers() {
     searchedUser.clear();
-    RxList newList = [].obs;
+    RxList<User> newList = <User>[].obs;
 
     for (var user in filteredUser) {
-      if (user['name'].toString().toLowerCase().contains(
+      if (user.name.toString().toLowerCase().contains(
             searchc.text.toLowerCase(),
           ) ||
-          user['userId'].toString().toLowerCase().contains(
+          user.userId.toString().toLowerCase().contains(
             searchc.text.toLowerCase(),
           )) {
         newList.add(user);
@@ -105,25 +75,25 @@ class PenggunaController extends GetxController {
 
     if (isNewestFirst.isTrue) {
       searchedUser.sort((a, b) {
-        return GetMillisecondSinceEpoch(
-          b['createdAt'],
-        ).compareTo(GetMillisecondSinceEpoch(a['createdAt']));
+        return b.createdAt.millisecondsSinceEpoch.compareTo(
+          a.createdAt.millisecondsSinceEpoch,
+        );
       });
     } else {
       searchedUser.sort((a, b) {
-        return GetMillisecondSinceEpoch(
-          a['createdAt'],
-        ).compareTo(GetMillisecondSinceEpoch(b['createdAt']));
+        return a.createdAt.millisecondsSinceEpoch.compareTo(
+          b.createdAt.millisecondsSinceEpoch,
+        );
       });
     }
   }
 
   void filterUsers() {
     filteredUser.clear();
-    RxList newList = [].obs;
+    RxList<User> newList = <User>[].obs;
 
-    for (var user in users) {
-      List role = user['role'];
+    for (User user in UserS.users) {
+      List role = user.role;
       bool add = false;
 
       if (!showAdmin.value &&
@@ -156,7 +126,7 @@ class PenggunaController extends GetxController {
 
       if (add) {
         if (showActive.value) {
-          if (user['isActive']) {
+          if (user.isActive) {
             add = true;
           } else {
             add = false;
@@ -164,7 +134,7 @@ class PenggunaController extends GetxController {
         }
 
         if (showInnactive.value) {
-          if (!user['isActive']) {
+          if (!user.isActive) {
             add = true;
           } else {
             add = false;
@@ -184,11 +154,11 @@ class PenggunaController extends GetxController {
 
     if (isAsc.value) {
       newList.sort(
-        (a, b) => a['name'].toLowerCase().compareTo(b['name'].toLowerCase()),
+        (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
       );
     } else {
       newList.sort(
-        (a, b) => b['name'].toLowerCase().compareTo(a['name'].toLowerCase()),
+        (a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()),
       );
     }
     filteredUser = newList;

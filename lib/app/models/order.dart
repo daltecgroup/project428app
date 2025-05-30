@@ -112,6 +112,10 @@ class Order {
     return "${createdAt.day} ${DateFormat(DateFormat.MONTH).format(createdAt)} ${createdAt.year} ${createdAt.hour}:${createdAt.minute.isLowerThan(10) ? '0${createdAt.minute}' : createdAt.minute} WIB";
   }
 
+  String getCreateTime() {
+    return "${createdAt.hour}:${createdAt.minute.isLowerThan(10) ? '0${createdAt.minute}' : createdAt.minute} WIB";
+  }
+
   String getTotalInIDR() {
     return "IDR ${NumberFormat("#,##0", "id_ID").format(total)}";
   }

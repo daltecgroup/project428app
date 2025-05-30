@@ -51,7 +51,7 @@ Drawer AdminDrawer(BuildContext context, String selectedItem) {
           selectedTileColor: selectedColor.withOpacity(0.2),
           onTap: () {
             // Handle item tap
-            Get.toNamed('/pengguna');
+            Get.toNamed('/user');
           },
         ),
         // ListTile(

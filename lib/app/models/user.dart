@@ -1,19 +1,19 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:project428app/app/data/user_provider.dart';
+import 'package:project428app/app/widgets/alert_dialog.dart';
 
 import '../widgets/format_waktu.dart';
 
 class User {
-  final String id;
-  final String userId;
-  final String name;
-  final List role;
-  final String imgUrl;
-  final bool isActive;
-  final String phone;
+  UserProvider UserP = UserProvider();
+  String id, userId, name, imgUrl, phone;
+  List role;
+  bool isActive;
   final DateTime createdAt;
-  final DateTime updatedAt;
-  final DateTime lastSeen;
+  DateTime updatedAt, lastSeen;
 
   User(
     this.id,
@@ -50,5 +50,31 @@ class User {
 
   String getLastSeen() {
     return "${lastSeen.day} ${DateFormat(DateFormat.MONTH).format(lastSeen)} ${lastSeen.year} ${lastSeen.hour}:${lastSeen.minute.isLowerThan(10) ? '0${lastSeen.minute}' : lastSeen.minute} WIB";
+  }
+
+  void updateRoles(List<String> role) {
+    this.role = role;
+  }
+
+  void setName(String newName) {
+    name = newName;
+  }
+
+  Future<bool> changeStatus() async {
+    return await UserP.updateUser(
+      userId,
+      json.encode({'isActive': !isActive}),
+    ).then((res) {
+      if (res.statusCode == 200) {
+        isActive = !isActive;
+        return true;
+      } else {
+        CustomAlertDialog(
+          'Gagal Mengubah Status',
+          res.body['message'].toString(),
+        );
+        return false;
+      }
+    });
   }
 }

@@ -75,7 +75,7 @@ class StockProvider extends GetConnect {
     });
 
     return post(
-      '${authS.mainServerUrl.value}/api/v1/stocks/api/v1/stocks/',
+      '${authS.mainServerUrl.value}/api/v1/stocks/',
       body,
       headers: {"Authorization": "Bearer $accessToken"},
     );

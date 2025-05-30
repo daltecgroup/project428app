@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
+import 'package:intl/intl.dart';
 import 'package:project428app/app/modules/stok/controllers/stok_controller.dart';
-import 'package:project428app/app/modules/stok/views/widgets/stok_item.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
+import '../../../../models/order.dart';
 import '../widgets/stock_order_item.dart';
 
 class StockHistoryPage extends StatelessWidget {
@@ -14,60 +14,38 @@ class StockHistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.only(top: 20),
-      child: Obx(
-        () => Column(
-          children: [
-            controller.OrderS.orders.isEmpty
-                ? SizedBox()
-                : Padding(
-                  padding: EdgeInsets.only(left: 12, bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [TextTitle(text: "Pesanan Aktif")],
-                  ),
-                ),
-            controller.OrderS.orders.isEmpty
-                ? SizedBox()
-                : controller.OrderS.orders
-                    .where(
-                      (order) =>
-                          order.status == 'accepted' ||
-                          order.status == 'failed',
-                    )
-                    .toList()
-                    .isEmpty
-                ? Center(child: Text('Kosong'))
-                : Column(
-                  children: List.generate(
-                    controller.OrderS.orders
-                        .where(
-                          (order) =>
-                              order.status == 'accepted' ||
-                              order.status == 'failed',
-                        )
-                        .toList()
-                        .length,
-                    (index) {
-                      return StockOrderItem(
-                        controller.OrderS.orders
-                            .where(
-                              (order) =>
-                                  order.status == 'accepted' ||
-                                  order.status == 'failed',
-                            )
-                            .toList()[index],
-                        index,
-                      );
-                    },
-                  ),
-                ),
+    return ListView.builder(
+      itemCount: controller.OrderS.groupedOrders().keys.length,
+      itemBuilder: (context, index) {
+        String dateHeader = controller.OrderS.groupedOrders().keys.elementAt(
+          index,
+        );
+        List<Order> itemsForDate =
+            controller.OrderS.groupedOrders()[dateHeader]!;
 
-            SizedBox(height: 100),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: TextTitle(text: dateHeader),
+            ),
+
+            SizedBox(height: 5),
+            ListView.builder(
+              shrinkWrap: true, // Important to prevent unbounded height
+              physics:
+                  const NeverScrollableScrollPhysics(), // Important for nested list views
+              itemCount: itemsForDate.length,
+              itemBuilder: (context, itemIndex) {
+                final item = itemsForDate[itemIndex];
+                return StockOrderItem(item, index);
+              },
+            ),
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

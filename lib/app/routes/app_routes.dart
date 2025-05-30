@@ -8,7 +8,7 @@ abstract class Routes {
   static const LOGIN = _Paths.LOGIN;
   static const LOGIN_AS = _Paths.LOGIN_AS;
   static const BERANDA_ADMIN = _Paths.BERANDA_ADMIN;
-  static const PENGGUNA = _Paths.PENGGUNA;
+  static const USER = _Paths.USER;
   static const TAMBAH_PENGGUNA = _Paths.TAMBAH_PENGGUNA;
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
   static const DETAIL_PENGGUNA = _Paths.DETAIL_PENGGUNA;
@@ -41,7 +41,7 @@ abstract class _Paths {
   static const LOGIN = '/login';
   static const LOGIN_AS = '/login-as';
   static const BERANDA_ADMIN = '/beranda-admin';
-  static const PENGGUNA = '/pengguna';
+  static const USER = '/user';
   static const TAMBAH_PENGGUNA = '/tambah-pengguna';
   static const NOTIFICATIONS = '/notifications';
   static const DETAIL_PENGGUNA = '/detail-pengguna';

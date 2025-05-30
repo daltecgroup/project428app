@@ -24,7 +24,7 @@ class TambahPenggunaView extends GetView<TambahPenggunaController> {
             icon: const Icon(Icons.close_rounded),
             onPressed: () {
               // Save action
-              Get.offNamed('/pengguna');
+              Get.offNamed('/user');
             },
           ),
           SizedBox(width: 10),
@@ -240,7 +240,7 @@ class TambahPenggunaView extends GetView<TambahPenggunaController> {
                       ),
                     ),
                     onPressed: () {
-                      Get.offNamed('/pengguna');
+                      Get.offNamed('/user');
                     },
                     child: Text('Kembali', style: TextStyle(fontSize: 16)),
                   ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/modules/pengguna/controllers/pengguna_controller.dart';
+import 'package:project428app/app/modules/user/controllers/user_controller.dart';
 
 import '../../../widgets/text_header.dart';
 
 Future<dynamic> UserFilterDialog() {
-  PenggunaController c = Get.find<PenggunaController>();
+  UserController c = Get.find<UserController>();
   return Get.defaultDialog(
     title: "Filter Pengguna",
     content: Padding(

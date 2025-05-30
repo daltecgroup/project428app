@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/modules/pengguna/controllers/pengguna_controller.dart';
+import 'package:project428app/app/modules/user/controllers/user_controller.dart';
 import 'package:random_name_generator/random_name_generator.dart';
 
 import '../../../data/user_provider.dart';
@@ -14,7 +14,8 @@ class TambahPenggunaController extends GetxController {
   late TextEditingController nameController;
   late TextEditingController phoneController;
 
-  UserProvider User = UserProvider();
+  UserProvider UserP = UserProvider();
+  UserController UserC = Get.find<UserController>();
 
   var randomNames = RandomNames(Zone.us);
 
@@ -75,7 +76,7 @@ class TambahPenggunaController extends GetxController {
     }
 
     try {
-      await User.createUser(
+      await UserP.createUser(
         idController.text.trim(),
         nameController.text.trim().capitalize!,
         pinController.text.trim(),
@@ -85,8 +86,8 @@ class TambahPenggunaController extends GetxController {
       ).then((res) async {
         switch (res.statusCode) {
           case 201:
-            await Get.find<PenggunaController>().getUsers();
-            Get.offNamed('/pengguna');
+            await UserC.getUsers();
+            Get.back();
             break;
           case 400:
             Get.snackbar(kTitleFailed, res.body['message']);

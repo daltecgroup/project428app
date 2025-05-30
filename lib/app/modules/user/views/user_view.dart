@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/modules/pengguna/views/dialog_filter.dart';
-import 'package:project428app/app/modules/pengguna/views/pengguna_item.dart';
+import 'package:project428app/app/modules/user/views/dialog_filter.dart';
+import 'package:project428app/app/modules/user/views/pengguna_item.dart';
 import 'package:project428app/app/widgets/admin/admin_appbar.dart';
 import 'package:project428app/app/widgets/admin/admin_drawer.dart';
 import '../../../style.dart';
-import '../controllers/pengguna_controller.dart';
+import '../controllers/user_controller.dart';
 
-class PenggunaView extends GetView<PenggunaController> {
-  const PenggunaView({super.key});
+class UserView extends GetView<UserController> {
+  const UserView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,12 +41,12 @@ class PenggunaView extends GetView<PenggunaController> {
               () => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Pengguna: ${controller.users.length}"),
+                  Text("Pengguna: ${controller.UserS.users.length}"),
                   Text(
-                    "Aktif: ${controller.users.where((user) => user['isActive']).length}",
+                    "Aktif: ${controller.UserS.users.where((user) => user.isActive).length}",
                   ),
                   Text(
-                    "Nonaktif: ${controller.users.where((user) => user['isActive'] == false).length}",
+                    "Nonaktif: ${controller.UserS.users.where((user) => user.isActive == false).length}",
                   ),
                   GestureDetector(
                     onTap: () {
@@ -199,20 +199,12 @@ class PenggunaView extends GetView<PenggunaController> {
           // user list
           Expanded(
             child: RefreshIndicator(
-              onRefresh: () => controller.getUsers(),
+              onRefresh: () => controller.UserS.getUsers(),
               child: Obx(
                 () => ListView(
                   children: List.generate(
                     controller.searchedUser.length,
-                    (index) => PenggunaItem(
-                      controller.searchedUser[index]['userId'],
-                      controller.searchedUser[index]['name'],
-                      controller.searchedUser[index]['role'],
-                      controller.searchedUser[index]['isActive'],
-                      controller.searchedUser[index]['imgUrl'],
-                      index,
-                      controller.searchedUser[index]['createdAt'],
-                    ),
+                    (index) => UserItem(controller.searchedUser[index]),
                   ),
                 ),
               ),

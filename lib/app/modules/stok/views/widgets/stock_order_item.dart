@@ -73,7 +73,7 @@ Widget StockOrderItem(Order order, int index) {
                     children: [
                       Expanded(
                         child: Text(
-                          order.getCreateTimeDate(),
+                          order.getCreateTime(),
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontWeight: FontWeight.w400,

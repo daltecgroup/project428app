@@ -62,7 +62,7 @@ class UserProvider extends GetConnect {
 
   Future<Response> updateUser(String id, dynamic data) {
     return put(
-      '${authS.mainServerUrl.value}/api/v1/users/',
+      '${authS.mainServerUrl.value}/api/v1/users/$id',
       data,
       headers: {"Authorization": "Bearer $accessToken"},
     );

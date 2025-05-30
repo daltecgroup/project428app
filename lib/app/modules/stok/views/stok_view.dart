@@ -31,6 +31,8 @@ class StokView extends GetView<StokController> {
           IconButton(
             onPressed: () {
               controller.OrderS.getOrders();
+              print(controller.OrderS.orders.length);
+              print(controller.OrderS.groupedOrders());
             },
             icon: Icon(Icons.refresh),
           ),

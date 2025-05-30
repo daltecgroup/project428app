@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/services/auth_service.dart';
-import 'package:project428app/app/widgets/format_waktu.dart';
+import 'package:project428app/app/services/user_service.dart';
+import 'package:project428app/app/widgets/alert_dialog.dart';
+import 'package:project428app/app/widgets/confirmation_dialog.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 import 'package:project428app/app/widgets/user_roles.dart';
 
 import '../../../style.dart';
-import '../controllers/detail_pengguna_controller.dart';
+import '../controllers/user_detail_controller.dart';
 
-class DetailPenggunaView extends GetView<DetailPenggunaController> {
-  const DetailPenggunaView({super.key});
+class UserDetailView extends GetView<DetailPenggunaController> {
+  const UserDetailView({super.key});
   @override
   Widget build(BuildContext context) {
     AuthService internetC = Get.find<AuthService>();
+    UserService UserS = Get.find<UserService>();
+    GetStorage box = GetStorage();
 
     return Scaffold(
       appBar: AppBar(
@@ -30,13 +35,14 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
           icon: const Icon(Icons.arrow_back_rounded),
           onPressed: () {
             // Save action
-            Get.offNamed('/pengguna');
+            Get.offNamed('/user');
           },
         ),
         actions: [
           IconButton(
             onPressed: () {
-              controller.myOwn.value
+              box.read('userProfile')['userId'] ==
+                      UserS.currentUser.value!.userId
                   ? Get.defaultDialog(
                     title: "Peringatan",
                     content: Text("Tidak dapat menghapus diri sendiri"),
@@ -48,27 +54,38 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
                       child: Text("Batal"),
                     ),
                   )
-                  : Get.defaultDialog(
-                    title: "Konfirmasi",
-                    content: Text("Yakin menghapus pengguna?"),
-                    confirm: TextButton(
-                      onPressed: () {
-                        controller.deleteUser();
-                      },
-                      child: Text("Yakin"),
-                    ),
-                    cancel: TextButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: Text("Batal"),
-                    ),
+                  : ConfirmationDialog(
+                    'Konfirmasi',
+                    'Yakin menghapus pengguna ${UserS.currentUser.value!.name}',
+                    () {
+                      UserS.deleteUser(
+                        UserS.currentUser.value!.userId,
+                        UserS.currentUser.value!.name,
+                      ).then((success) {
+                        if (success) {
+                          controller.UserC.getUsers();
+                          UserS.users.refresh();
+                          Get.back();
+                          Get.toNamed('/user');
+                        } else {
+                          Get.back();
+                          CustomAlertDialog(
+                            'Gagal',
+                            'Pengguna ${UserS.currentUser.value!.name} gagal dihapus.',
+                          );
+                        }
+                      });
+                    },
                   );
             },
             icon: Obx(
               () => Icon(
                 Icons.delete,
-                color: controller.myOwn.value ? Colors.grey : Colors.red[900],
+                color:
+                    box.read('userProfile')['userId'] ==
+                            UserS.currentUser.value!.userId
+                        ? Colors.grey
+                        : Colors.red[900],
               ),
             ),
           ),
@@ -92,7 +109,7 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
                         internetC.isConnected.value
                             ? FadeInImage.assetNetwork(
                               placeholder: kAssetLoading,
-                              image: controller.imgUrl.value,
+                              image: UserS.currentUser.value!.imgUrl,
                             )
                             : CircleAvatar(
                               child: SvgPicture.asset(
@@ -109,7 +126,7 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
               width: double.infinity,
               alignment: Alignment.center,
               child: UserRoles(
-                role: controller.role,
+                role: UserS.currentUser.value!.role,
                 status: true,
                 alignment: MainAxisAlignment.center,
               ),
@@ -137,9 +154,9 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SelectableText(
-                          '${controller.userId.value} ${controller.myOwn.value ? '(Saya Sendiri)' : ''}',
+                          '${UserS.currentUser.value!.userId} ${box.read('userProfile')['userId'] == UserS.currentUser.value!.userId ? '(Saya Sendiri)' : ''}',
                         ),
-                        Text(FormatToLocalDate(controller.createdAt.value)),
+                        Text(UserS.currentUser.value!.getCreateTime()),
                       ],
                     ),
                     SizedBox(height: 10),
@@ -153,8 +170,11 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(controller.name.value),
-                        StatusSign(status: controller.status.value, size: 16),
+                        Text(UserS.currentUser.value!.name),
+                        StatusSign(
+                          status: UserS.currentUser.value!.isActive,
+                          size: 16,
+                        ),
                       ],
                     ),
                     SizedBox(height: 20),
@@ -173,7 +193,8 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
                         Expanded(
                           child: TextButton(
                             onPressed: () {
-                              if (controller.myOwn.value) {
+                              if (box.read('userProfile')['userId'] ==
+                                  UserS.currentUser.value!.userId) {
                                 Get.defaultDialog(
                                   title: "Peringatan",
                                   content: Text(
@@ -188,22 +209,28 @@ class DetailPenggunaView extends GetView<DetailPenggunaController> {
                                   ),
                                 );
                               } else {
-                                if (controller.status.value) {
-                                  controller.deactiveUser();
-                                } else {
-                                  controller.activateUser();
+                                if (UserS.currentUser.value != null) {
+                                  UserS.currentUser.value!.changeStatus().then((
+                                    success,
+                                  ) {
+                                    if (success) {
+                                      UserS.currentUser.refresh();
+                                      UserS.getUsers();
+                                    }
+                                  });
                                 }
                               }
                             },
                             style: PrimaryButtonStyle(
-                              controller.status.value
-                                  ? controller.myOwn.value
+                              UserS.currentUser.value!.isActive
+                                  ? box.read('userProfile')['userId'] ==
+                                          UserS.currentUser.value!.userId
                                       ? Colors.grey
                                       : Colors.red[400]!
                                   : Colors.blue,
                             ),
                             child:
-                                controller.status.value
+                                UserS.currentUser.value!.isActive
                                     ? Text('Nonaktifkan')
                                     : Text('Aktifkan'),
                           ),

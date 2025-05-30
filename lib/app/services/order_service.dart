@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:project428app/app/models/order.dart';
 import 'package:project428app/app/widgets/confirmation_dialog.dart';
 
@@ -55,5 +56,56 @@ class OrderService extends GetxController {
         }
       });
     });
+  }
+
+  List<Order> getFilteredList(List orderList, List status) {
+    List<Order> result = <Order>[];
+    if (orderList.isNotEmpty) {
+      for (var order in orderList) {
+        for (var e in status) {
+          if (order.status == e) {
+            result.add(order);
+          }
+        }
+      }
+    }
+    return result;
+  }
+
+  Map<String, List<Order>> groupedOrders() {
+    Map<String, List<Order>> groupedItems = {};
+
+    if (orders.isEmpty) {
+      return {};
+    }
+
+    String _getDateHeader(DateTime date) {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final yesterday = DateTime(
+        now.year,
+        now.month,
+        now.day,
+      ).subtract(const Duration(days: 1));
+      final itemDate = DateTime(date.year, date.month, date.day);
+
+      if (itemDate == today) {
+        return 'Hari Ini';
+      } else if (itemDate == yesterday) {
+        return 'Kemarin';
+      } else {
+        return DateFormat('EEEE, d MMM yyyy', 'id').format(date);
+      }
+    }
+
+    for (var order in orders) {
+      String dateHeader = _getDateHeader(order.createdAt);
+      if (!groupedItems.containsKey(dateHeader)) {
+        groupedItems[dateHeader] = [];
+      }
+      groupedItems[dateHeader]!.add(order);
+    }
+
+    return groupedItems;
   }
 }

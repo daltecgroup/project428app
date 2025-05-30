@@ -11,8 +11,8 @@ import '../modules/beranda_admin/bindings/beranda_admin_binding.dart';
 import '../modules/beranda_admin/views/beranda_admin_view.dart';
 import '../modules/beranda_operator/bindings/beranda_operator_binding.dart';
 import '../modules/beranda_operator/views/beranda_operator_view.dart';
-import '../modules/detail_pengguna/bindings/detail_pengguna_binding.dart';
-import '../modules/detail_pengguna/views/detail_pengguna_view.dart';
+import '../modules/user_detail/bindings/user_detail_binding.dart';
+import '../modules/user_detail/views/user_detail_view.dart';
 import '../modules/detail_stok/bindings/detail_stok_binding.dart';
 import '../modules/detail_stok/views/detail_stok_view.dart';
 import '../modules/gerai/bindings/gerai_binding.dart';
@@ -31,8 +31,8 @@ import '../modules/operator/bindings/operator_binding.dart';
 import '../modules/operator/views/operator_view.dart';
 import '../modules/pengaturan_admin/bindings/pengaturan_admin_binding.dart';
 import '../modules/pengaturan_admin/views/pengaturan_admin_view.dart';
-import '../modules/pengguna/bindings/pengguna_binding.dart';
-import '../modules/pengguna/views/pengguna_view.dart';
+import '../modules/user/bindings/user_binding.dart';
+import '../modules/user/views/user_view.dart';
 import '../modules/produk/bindings/produk_binding.dart';
 import '../modules/produk/views/produk_view.dart';
 import '../modules/promo/bindings/promo_binding.dart';
@@ -90,9 +90,9 @@ class AppPages {
       ],
     ),
     GetPage(
-      name: _Paths.PENGGUNA,
-      page: () => const PenggunaView(),
-      binding: PenggunaBinding(),
+      name: _Paths.USER,
+      page: () => const UserView(),
+      binding: UserBinding(),
       transition: Transition.native,
     ),
     GetPage(
@@ -108,8 +108,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DETAIL_PENGGUNA,
-      page: () => const DetailPenggunaView(),
-      binding: DetailPenggunaBinding(),
+      page: () => const UserDetailView(),
+      binding: UserDetailBinding(),
       transition: Transition.rightToLeft,
     ),
     GetPage(
