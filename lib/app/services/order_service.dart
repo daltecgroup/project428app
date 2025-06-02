@@ -79,7 +79,7 @@ class OrderService extends GetxController {
       return {};
     }
 
-    String _getDateHeader(DateTime date) {
+    String getDateHeader(DateTime date) {
       final now = DateTime.now();
       final today = DateTime(now.year, now.month, now.day);
       final yesterday = DateTime(
@@ -99,7 +99,7 @@ class OrderService extends GetxController {
     }
 
     for (var order in orders) {
-      String dateHeader = _getDateHeader(order.createdAt);
+      String dateHeader = getDateHeader(order.createdAt);
       if (!groupedItems.containsKey(dateHeader)) {
         groupedItems[dateHeader] = [];
       }

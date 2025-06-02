@@ -45,7 +45,7 @@ class UserView extends GetView<UserController> {
               () => Card(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(10),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 margin: EdgeInsets.all(0),
                 child: Padding(

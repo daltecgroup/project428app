@@ -5,7 +5,6 @@ import 'package:project428app/app/services/order_service.dart';
 import 'package:project428app/app/widgets/order_item_status_widget.dart';
 import 'package:project428app/app/widgets/stocks/order_detail_item.dart';
 
-import '../../../models/order.dart';
 import '../../../style.dart';
 import '../../../widgets/text_header.dart';
 

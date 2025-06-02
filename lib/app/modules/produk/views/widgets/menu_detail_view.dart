@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:project428app/app/models/product.dart';
-import 'package:project428app/app/models/stock.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 
 import '../../../../constants.dart';

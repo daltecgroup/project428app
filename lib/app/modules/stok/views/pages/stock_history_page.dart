@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:project428app/app/modules/stok/controllers/stok_controller.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
