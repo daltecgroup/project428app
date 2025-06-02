@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/modules/user/controllers/user_controller.dart';
 import 'package:project428app/app/services/auth_service.dart';
 import 'package:project428app/app/services/user_service.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
@@ -11,8 +10,6 @@ import '../../../models/user.dart';
 import '../../../widgets/user_roles.dart';
 
 Widget UserItem(User user) {
-  // imgUrl = "https://i.pravatar.cc/150?img=${index + 1}";
-  UserController userC = Get.find<UserController>();
   UserService UserS = Get.find<UserService>();
   AuthService internetC = Get.find<AuthService>();
 
@@ -41,10 +38,16 @@ Widget UserItem(User user) {
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     child:
                         internetC.isConnected.value
-                            ? FadeInImage.assetNetwork(
+                            ? user.imgUrl != null?  FadeInImage.assetNetwork(
                               placeholder: kAssetLoading,
-                              image: user.imgUrl,
+                              image: user.imgUrl!,
                               // '${AuthS.mainServerUrl.value}/api/v1/${user.imgUrl}',
+                            ):
+                            CircleAvatar(
+                              child: SvgPicture.asset(
+                                kImgPlaceholder,
+                                fit: BoxFit.cover,
+                              ),
                             )
                             : CircleAvatar(
                               child: SvgPicture.asset(

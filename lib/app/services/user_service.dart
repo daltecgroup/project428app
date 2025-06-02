@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import '../data/user_provider.dart';
 import '../models/user.dart';
-import '../widgets/confirmation_dialog.dart';
 
 class UserService extends GetxService {
   UserProvider UserP = UserProvider();
@@ -29,14 +28,14 @@ class UserService extends GetxService {
 
     if (res.statusCode == 200) {
       users.clear();
-      print('Success: Getting all user data from database');
+      print('Success: Getting all user data from database. Count: ${res.body.length}');
       List<dynamic> body = res.body as List<dynamic>;
       if (body.isNotEmpty) {
         for (var user in body) {
           users.add(User.fromJson(user));
         }
+        users.refresh();
       }
-      print('Users: ${users.length}');
     } else {
       print('Failed: Getting all user data from database');
     }

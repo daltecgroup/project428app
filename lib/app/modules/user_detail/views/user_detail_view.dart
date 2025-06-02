@@ -106,17 +106,21 @@ class UserDetailView extends GetView<DetailPenggunaController> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(50)),
                     child:
-                        internetC.isConnected.value
-                            ? FadeInImage.assetNetwork(
+                        internetC.isConnected.value? UserS.currentUser.value!.imgUrl != null? 
+                             FadeInImage.assetNetwork(
                               placeholder: kAssetLoading,
-                              image: UserS.currentUser.value!.imgUrl,
+                              image: UserS.currentUser.value!.imgUrl!,
                             )
                             : CircleAvatar(
                               child: SvgPicture.asset(
                                 kImgPlaceholder,
                                 fit: BoxFit.cover,
                               ),
-                            ),
+                            ): CircleAvatar(
+                              child: SvgPicture.asset(
+                                kImgPlaceholder,
+                                fit: BoxFit.cover,
+                              ),)
                   ),
                 ),
               ),
@@ -152,11 +156,17 @@ class UserDetailView extends GetView<DetailPenggunaController> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SelectableText(
-                          '${UserS.currentUser.value!.userId} ${box.read('userProfile')['userId'] == UserS.currentUser.value!.userId ? '(Saya Sendiri)' : ''}',
+                        Expanded(
+                          flex: 3,
+                          child: SelectableText(
+                            '${UserS.currentUser.value!.userId} ${box.read('userProfile')['userId'] == UserS.currentUser.value!.userId ? '(Saya Sendiri)' : ''}',
+                          ),
                         ),
-                        Text(UserS.currentUser.value!.getCreateTime()),
+                        Expanded(
+                          flex: 2,
+                          child: Text(UserS.currentUser.value!.getCreateTime(), overflow: TextOverflow.ellipsis, maxLines: 2, textAlign: TextAlign.end,)),
                       ],
                     ),
                     SizedBox(height: 10),

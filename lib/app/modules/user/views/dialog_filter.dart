@@ -1,183 +1,144 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/modules/user/controllers/user_controller.dart';
-
 import '../../../widgets/text_header.dart';
 
 Future<dynamic> UserFilterDialog() {
   UserController c = Get.find<UserController>();
   return Get.defaultDialog(
     title: "Filter Pengguna",
+    titleStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+    radius: 10,
     content: Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Obx(
-        () => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextTitle(text: "Urutan"),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: [
-            //     Row(
-            //       mainAxisAlignment: MainAxisAlignment.start,
-            //       children: [
-            //         Radio(
-            //           value: true,
-            //           groupValue: c.isAsc.value,
-            //           onChanged: (value) {
-            //             c.isAsc.value = true;
-            //             c.filterUsers();
-            //           },
-            //         ),
-            //         TextTitle(text: "A-Z"),
-            //       ],
-            //     ),
-            //     SizedBox(width: 20),
-            //     Row(
-            //       mainAxisAlignment: MainAxisAlignment.start,
-            //       children: [
-            //         Radio(
-            //           value: false,
-            //           groupValue: c.isAsc.value,
-            //           onChanged: (value) {
-            //             c.isAsc.value = false;
-            //             c.filterUsers();
-            //           },
-            //         ),
-            //         TextTitle(text: "Z-A"),
-            //       ],
-            //     ),
-            //   ],
-            // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Radio(
-                      value: true,
-                      groupValue: c.isNewestFirst.value,
-                      onChanged: (value) {
-                        c.isNewestFirst.value = true;
-                        c.filterUsers();
-                      },
-                    ),
-                    TextTitle(text: "Baru - Lama"),
-                  ],
-                ),
-                SizedBox(width: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Radio(
-                      value: false,
-                      groupValue: c.isNewestFirst.value,
-                      onChanged: (value) {
-                        c.isNewestFirst.value = false;
-                        c.filterUsers();
-                      },
-                    ),
-                    TextTitle(text: "Lama - Baru"),
-                  ],
-                ),
-              ],
-            ),
-            TextTitle(text: "Status"),
-            Row(
-              children: [
-                Checkbox(
-                  value: c.showActive.value,
-                  onChanged: (value) {
-                    c.showActive.toggle();
-                    c.filterUsers();
-                  },
-                ),
-                Text("Aktif"),
-              ],
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  value: c.showInnactive.value,
-                  onChanged: (value) {
-                    c.showInnactive.toggle();
-                    c.filterUsers();
-                  },
-                ),
-                Text("Nonaktif"),
-              ],
-            ),
-            TextTitle(text: "Peran"),
-            Row(
-              children: [
-                Checkbox(
-                  value: c.showAdmin.value,
-                  onChanged: (value) {
-                    c.showAdmin.toggle();
-                    c.filterUsers();
-                  },
-                ),
-                Text("Admin"),
-              ],
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  value: c.showFranchisee.value,
-                  onChanged: (value) {
-                    c.showFranchisee.toggle();
-                    c.filterUsers();
-                  },
-                ),
-                Text("Franchisee"),
-              ],
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  value: c.showSpvAre.value,
-                  onChanged: (value) {
-                    c.showSpvAre.toggle();
-                    c.filterUsers();
-                  },
-                ),
-                Text("SPV Area"),
-              ],
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  value: c.showOperator.value,
-                  onChanged: (value) {
-                    c.showOperator.toggle();
-                    c.filterUsers();
-                  },
-                ),
-                Text("Operator"),
-              ],
-            ),
-            GestureDetector(
-              onTap: () {
-                c.resetFilter();
-              },
-              child: Text('Reset'),
-            ),
-          ],
+        () => SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextTitle(text: "Urutan"),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Radio(
+                        value: true,
+                        groupValue: c.filter.value.newestFirst,
+                        onChanged: (value) {
+                          c.filter.value.setNewestFirst(value!);
+                          c.filter.refresh();
+                        },
+                      ),
+                      TextTitle(text: "Baru - Lama"),
+                    ],
+                  ),
+                  SizedBox(width: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Radio(
+                        value: false,
+                        groupValue: c.filter.value.newestFirst,
+                        onChanged: (value) {
+                          c.filter.value.setNewestFirst(value!);
+                          c.filter.refresh();
+                        },
+                      ),
+                      TextTitle(text: "Lama - Baru"),
+                    ],
+                  ),
+                ],
+              ),
+              TextTitle(text: "Status"),
+              Row(
+                children: [
+                  Checkbox(
+                    value: c.filter.value.showActive,
+                    onChanged: (value) {
+                      c.filter.value.setShowActive(value!);
+                      c.filter.refresh();
+                    },
+                  ),
+                  Text("Aktif"),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: c.filter.value.showDeactive,
+                    onChanged: (value) {
+                       c.filter.value.setShowDeactive(value!);
+                      c.filter.refresh();
+                    },
+                  ),
+                  Text("Nonaktif"),
+                ],
+              ),
+              TextTitle(text: "Peran"),
+              Row(
+                children: [
+                  Checkbox(
+                    value: c.filter.value.showAdmin,
+                    onChanged: (value) {
+                      c.filter.value.setShowAdmin(value!);
+                      c.filter.refresh();
+                    },
+                  ),
+                  Text("Admin"),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: c.filter.value.showFranchisee,
+                    onChanged: (value) {
+                      c.filter.value.setShowFranchisee(value!);
+                      c.filter.refresh();
+                    },
+                  ),
+                  Text("Franchisee"),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: c.filter.value.showSpvarea,
+                    onChanged: (value) {
+                      c.filter.value.setShowSpvarea(value!);
+                      c.filter.refresh();
+                    },
+                  ),
+                  Text("SPV Area"),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: c.filter.value.showOperator,
+                    onChanged: (value) {
+                      c.filter.value.setShowOperator(value!);
+                      c.filter.refresh();
+                    },
+                  ),
+                  Text("Operator"),
+                ],
+              ),
+              GestureDetector(
+                onTap: () {
+                  c.filter.value.resetFilters();
+                  c.filter.refresh();
+                },
+                child: Text('Reset'),
+              ),
+            ],
+          ),
         ),
       ),
     ),
-    // confirm: TextButton(
-    //   onPressed: () {
-    //     c.filterUsers();
-    //     c.isFilterOn.value = true;
-    //     Get.back();
-    //   },
-    //   child: Text("Terapkan"),
-    // ),
     cancel: TextButton(
       onPressed: () {
-        c.filterUsers();
         Get.back();
       },
       child: Text("Tutup"),

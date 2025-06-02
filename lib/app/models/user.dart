@@ -9,11 +9,12 @@ import '../widgets/format_waktu.dart';
 
 class User {
   UserProvider UserP = UserProvider();
-  String id, userId, name, imgUrl, phone;
+  String id, userId, name;
+  String? imgUrl, phone;
   List role;
   bool isActive;
-  final DateTime createdAt;
   DateTime updatedAt, lastSeen;
+  final DateTime createdAt;
 
   User(
     this.id,
@@ -40,6 +41,15 @@ class User {
       updatedAt = MakeLocalDateTime(json['updatedAt']),
       lastSeen = MakeLocalDateTime(json['lastSeen']);
 
+
+  void updateRoles(List<String> role) {
+    this.role = role;
+  }
+
+  void setName(String newName) {
+    name = newName;
+  }
+
   String getUpdatedTime() {
     return "${updatedAt.day} ${DateFormat(DateFormat.MONTH).format(updatedAt)} ${updatedAt.year} ${updatedAt.hour}:${updatedAt.minute.isLowerThan(10) ? '0${updatedAt.minute}' : updatedAt.minute} WIB";
   }
@@ -52,20 +62,14 @@ class User {
     return "${lastSeen.day} ${DateFormat(DateFormat.MONTH).format(lastSeen)} ${lastSeen.year} ${lastSeen.hour}:${lastSeen.minute.isLowerThan(10) ? '0${lastSeen.minute}' : lastSeen.minute} WIB";
   }
 
-  void updateRoles(List<String> role) {
-    this.role = role;
-  }
-
-  void setName(String newName) {
-    name = newName;
-  }
-
   Future<bool> changeStatus() async {
+    print('User: Start to change status');
     return await UserP.updateUser(
       userId,
       json.encode({'isActive': !isActive}),
     ).then((res) {
       if (res.statusCode == 200) {
+        print('User: Changing status in database success');
         isActive = !isActive;
         return true;
       } else {

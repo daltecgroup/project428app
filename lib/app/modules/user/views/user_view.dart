@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/user/views/dialog_filter.dart';
-import 'package:project428app/app/modules/user/views/pengguna_item.dart';
+import 'package:project428app/app/modules/user/views/user_item.dart';
 import 'package:project428app/app/widgets/admin/admin_appbar.dart';
 import 'package:project428app/app/widgets/admin/admin_drawer.dart';
 import '../../../style.dart';
@@ -12,6 +12,7 @@ class UserView extends GetView<UserController> {
   const UserView({super.key});
   @override
   Widget build(BuildContext context) {
+    controller.UserS.getUsers();
     return Scaffold(
       appBar: AdminAppBar(context, "Pengguna"),
       drawer: AdminDrawer(context, kAdminMenuPengguna),
@@ -28,7 +29,10 @@ class UserView extends GetView<UserController> {
                   'Cari Pengguna',
                   Icon(Icons.search),
                 ),
-                onChanged: (value) => controller.searchUsers(),
+                onChanged: (value) {
+                  controller.filter.value.setKeyword(value);
+                  controller.filter.refresh();
+                },
               ),
             ),
           ),
@@ -38,23 +42,27 @@ class UserView extends GetView<UserController> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Obx(
-              () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Pengguna: ${controller.UserS.users.length}"),
-                  Text(
-                    "Aktif: ${controller.UserS.users.where((user) => user.isActive).length}",
+              () => Card(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(10),
+                ),
+                margin: EdgeInsets.all(0),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Pengguna: ${controller.UserS.users.length}"),
+                      Text(
+                        "Aktif: ${controller.UserS.users.where((user) => user.isActive).length}",
+                      ),
+                      Text(
+                        "Nonaktif: ${controller.UserS.users.where((user) => user.isActive == false).length}",
+                      ),
+                    ],
                   ),
-                  Text(
-                    "Nonaktif: ${controller.UserS.users.where((user) => user.isActive == false).length}",
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      controller.getUsers();
-                    },
-                    child: Text('Refresh'),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
@@ -62,34 +70,20 @@ class UserView extends GetView<UserController> {
           // filter indicator
           Obx(
             () =>
-                (controller.isFilterOn.value &&
-                            !(!controller.showAdmin.value &&
-                                !controller.showFranchisee.value &&
-                                !controller.showSpvAre.value &&
-                                !controller.showOperator.value)) ||
-                        (controller.showActive.value &&
-                            !controller.showInnactive.value) ||
-                        (!controller.showActive.value &&
-                            controller.showInnactive.value)
+                controller.filter.value.isFilterActive()
                     ? Column(
                       children: [
+                        SizedBox(height: 10),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
-                          ),
-                          child: Divider(height: 0.1, color: Colors.black26),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                 children: [
                                   Text("Filter: "),
-                                  controller.showActive.value &&
-                                          !controller.showInnactive.value
+                                  controller.filter.value.showActive &&
+                                          !controller.filter.value.showDeactive
                                       ? Padding(
                                         padding: const EdgeInsets.only(
                                           right: 3,
@@ -104,8 +98,8 @@ class UserView extends GetView<UserController> {
                                         ),
                                       )
                                       : SizedBox(),
-                                  controller.showInnactive.value &&
-                                          !controller.showActive.value
+                                  !controller.filter.value.showActive &&
+                                          controller.filter.value.showDeactive
                                       ? Padding(
                                         padding: const EdgeInsets.only(
                                           right: 3,
@@ -120,7 +114,7 @@ class UserView extends GetView<UserController> {
                                         ),
                                       )
                                       : SizedBox(),
-                                  controller.showAdmin.value
+                                  controller.filter.value.showAdmin
                                       ? Padding(
                                         padding: const EdgeInsets.only(
                                           right: 3,
@@ -135,7 +129,7 @@ class UserView extends GetView<UserController> {
                                         ),
                                       )
                                       : SizedBox(),
-                                  controller.showFranchisee.value
+                                  controller.filter.value.showFranchisee
                                       ? Padding(
                                         padding: const EdgeInsets.only(
                                           right: 3,
@@ -150,7 +144,7 @@ class UserView extends GetView<UserController> {
                                         ),
                                       )
                                       : SizedBox(),
-                                  controller.showSpvAre.value
+                                  controller.filter.value.showSpvarea
                                       ? Padding(
                                         padding: const EdgeInsets.only(
                                           right: 3,
@@ -165,7 +159,7 @@ class UserView extends GetView<UserController> {
                                         ),
                                       )
                                       : SizedBox(),
-                                  controller.showOperator.value
+                                  controller.filter.value.showOperator
                                       ? Badge(
                                         label: Text("Operator"),
                                         padding: EdgeInsets.symmetric(
@@ -179,7 +173,8 @@ class UserView extends GetView<UserController> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  controller.resetFilter();
+                                  controller.filter.value.resetFilters();
+                                  controller.filter.refresh();
                                 },
                                 child: Row(
                                   children: [
@@ -203,8 +198,14 @@ class UserView extends GetView<UserController> {
               child: Obx(
                 () => ListView(
                   children: List.generate(
-                    controller.searchedUser.length,
-                    (index) => UserItem(controller.searchedUser[index]),
+                    controller.filter.value
+                        .getFilteredUsers(controller.UserS.users)
+                        .length,
+                    (index) => UserItem(
+                      controller.filter.value.getFilteredUsers(
+                        controller.UserS.users,
+                      )[index],
+                    ),
                   ),
                 ),
               ),
@@ -229,20 +230,17 @@ class UserView extends GetView<UserController> {
                   },
                   child: const Icon(Icons.filter_list),
                 ),
-                (controller.isFilterOn.value &&
-                            !(!controller.showAdmin.value &&
-                                !controller.showFranchisee.value &&
-                                !controller.showSpvAre.value &&
-                                !controller.showOperator.value)) ||
-                        (controller.showActive.value &&
-                            !controller.showInnactive.value) ||
-                        (!controller.showActive.value &&
-                            controller.showInnactive.value)
+                controller.filter.value.isFilterActive()
                     ? Positioned(
                       right: 0,
                       top: 0,
                       child: Badge(
-                        label: Text(controller.searchedUser.length.toString()),
+                        label: Text(
+                          controller.filter.value
+                              .getFilteredUsers(controller.UserS.users)
+                              .length
+                              .toString(),
+                        ),
                       ),
                     )
                     : SizedBox(),

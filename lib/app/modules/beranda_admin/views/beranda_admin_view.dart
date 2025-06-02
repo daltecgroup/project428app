@@ -52,9 +52,18 @@ class BerandaAdminView extends GetView<BerandaAdminController> {
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(30),
                                   ),
-                                  child:
+                                  child:controller.AuthS.box.read(
+                                                  'userProfile',
+                                                )['imgUrl'] != null?
+
                                       controller.AuthS.isConnected.value
-                                          ? FadeInImage.assetNetwork(
+                                          ? CircleAvatar(
+                                            child: SvgPicture.asset(
+                                              kImgPlaceholder,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )
+                                          : FadeInImage.assetNetwork(
                                             placeholder: kAssetLoading,
                                             image:
                                                 controller.AuthS.box.read(

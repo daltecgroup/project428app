@@ -4,10 +4,13 @@ import 'package:project428app/app/data/stock_provider.dart';
 import 'package:project428app/app/models/stock.dart';
 import 'package:project428app/app/services/order_service.dart';
 
+import '../../../services/stock_service.dart';
+
 class StokController extends GetxController
     with GetSingleTickerProviderStateMixin {
   StockProvider StockP = StockProvider();
-  OrderService OrderS = OrderService();
+  StockService StockS = Get.find<StockService>();
+  OrderService OrderS = Get.find<OrderService>();
   RxList<Stock> stocks = <Stock>[].obs;
 
   RxInt activeCount = 0.obs;

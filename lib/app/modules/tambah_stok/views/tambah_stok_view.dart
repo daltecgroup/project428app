@@ -48,131 +48,110 @@ class TambahStokView extends GetView<TambahStokController> {
                 child: Padding(
                   padding: const EdgeInsets.all(15),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextField(
-                            controller: controller.stockIdC,
-                            decoration: InputDecoration(
-                              labelText: 'Kode Stok',
-                              border: OutlineInputBorder(),
-                              error:
-                                  controller.isStockIdError.value
-                                      ? Text(
-                                        controller.stockIdErrorText.value,
-                                        style: TextStyle(color: Colors.red),
-                                      )
-                                      : null,
-                            ),
-                            onChanged: (value) {
-                              controller.isStockIdError.value = false;
-                              if (value.length > 1 && value[0] == '0') {
-                                controller.stockIdC.text = controller
-                                    .stockIdC
-                                    .text
-                                    .substring(1);
-                              }
-                            },
-                          ),
-                          SizedBox(height: 20),
-                          TextField(
-                            controller: controller.nameC,
-                            decoration: InputDecoration(
-                              labelText: 'Nama',
-                              border: OutlineInputBorder(),
-                              error:
-                                  controller.isNameError.value
-                                      ? Text(
-                                        'Nama tidak boleh kosong',
-                                        style: TextStyle(color: Colors.red),
-                                      )
-                                      : null,
-                            ),
-                            onChanged: (value) {
-                              controller.isNameError.value = false;
-                            },
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: DropdownButtonFormField<String>(
-                                  value: controller.unit.value,
-                                  alignment: AlignmentDirectional.centerStart,
-                                  decoration: InputDecoration(
-                                    labelText: 'Satuan Ukur',
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  items: [
-                                    DropdownMenuItem(
-                                      value: 'weight',
-                                      child: Text('Berat (gram)'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 'volume',
-                                      child: Text('Volume (ml)'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 'pcs',
-                                      child: Text('Pcs (Satuan)'),
-                                    ),
-                                  ],
-                                  onChanged: (value) {
-                                    controller.unit.value = value!;
-                                  },
-                                ),
-                              ),
-                              SizedBox(width: 10),
-                              Expanded(
-                                child: TextField(
-                                  controller: controller.priceC,
-                                  inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp("[0-9]"),
-                                    ),
-                                  ],
-                                  decoration: InputDecoration(
-                                    labelText:
-                                        controller.unit.value == 'weight'
-                                            ? 'Harga 1000g/1kg'
-                                            : controller.unit.value == 'volume'
-                                            ? 'Harga 1000ml/1 Liter'
-                                            : 'Harga satuan',
-                                    border: OutlineInputBorder(),
-                                    error:
-                                        controller.isPriceError.value
-                                            ? Text(
-                                              'Harga harus diisi',
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                              ),
-                                            )
-                                            : null,
-                                  ),
-                                  onChanged: (value) {
-                                    controller.isPriceError.value = false;
-                                    if (value.isNotEmpty) {
-                                      controller.price.value = double.parse(
-                                        value,
-                                      );
-                                    } else {
-                                      controller.price.value = 0.0;
-                                    }
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          controller.unit.value == 'weight'
-                              ? PriceInfoWeight(controller: controller)
-                              : controller.unit.value == 'volume'
-                              ? PriceInfoVolume(controller: controller)
-                              : PriceInfoPcs(controller: controller),
-                        ],
+                      TextField(
+                        controller: controller.stockIdC,
+                        decoration: InputDecoration(
+                          labelText: 'Kode Stok',
+                          border: OutlineInputBorder(),
+                          error:
+                              controller.isStockIdError.value
+                                  ? Text(
+                                    controller.stockIdErrorText.value,
+                                    style: TextStyle(color: Colors.red),
+                                  )
+                                  : null,
+                        ),
+                        onChanged: (value) {
+                          controller.isStockIdError.value = false;
+                          if (value.length > 1 && value[0] == '0') {
+                            controller.stockIdC.text = controller.stockIdC.text
+                                .substring(1);
+                          }
+                        },
                       ),
+                      SizedBox(height: 20),
+                      TextField(
+                        controller: controller.nameC,
+                        decoration: InputDecoration(
+                          labelText: 'Nama',
+                          border: OutlineInputBorder(),
+                          error:
+                              controller.isNameError.value
+                                  ? Text(
+                                    'Nama tidak boleh kosong',
+                                    style: TextStyle(color: Colors.red),
+                                  )
+                                  : null,
+                        ),
+                        onChanged: (value) {
+                          controller.isNameError.value = false;
+                        },
+                      ),
+                      SizedBox(height: 20),
+                      DropdownButtonFormField<String>(
+                        value: controller.unit.value,
+                        alignment: AlignmentDirectional.centerStart,
+                        decoration: InputDecoration(
+                          labelText: 'Satuan Ukur',
+                          border: OutlineInputBorder(),
+                        ),
+                        items: [
+                          DropdownMenuItem(
+                            value: 'weight',
+                            child: Text('Berat (gram)'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'volume',
+                            child: Text('Volume (ml)'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'pcs',
+                            child: Text('Pcs (Satuan)'),
+                          ),
+                        ],
+                        onChanged: (value) {
+                          controller.unit.value = value!;
+                        },
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        controller: controller.priceC,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                        ],
+                        decoration: InputDecoration(
+                          labelText:
+                              controller.unit.value == 'weight'
+                                  ? 'Harga 1000g/1kg'
+                                  : controller.unit.value == 'volume'
+                                  ? 'Harga 1000ml/1 Liter'
+                                  : 'Harga satuan',
+                          border: OutlineInputBorder(),
+                          error:
+                              controller.isPriceError.value
+                                  ? Text(
+                                    'Harga harus diisi',
+                                    style: TextStyle(color: Colors.red),
+                                  )
+                                  : null,
+                        ),
+                        onChanged: (value) {
+                          controller.isPriceError.value = false;
+                          if (value.isNotEmpty) {
+                            controller.price.value = double.parse(value);
+                          } else {
+                            controller.price.value = 0.0;
+                          }
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      controller.unit.value == 'weight'
+                          ? PriceInfoWeight(controller: controller)
+                          : controller.unit.value == 'volume'
+                          ? PriceInfoVolume(controller: controller)
+                          : PriceInfoPcs(controller: controller),
                     ],
                   ),
                 ),
@@ -181,8 +160,7 @@ class TambahStokView extends GetView<TambahStokController> {
                 children: [
                   Container(
                     alignment: Alignment.bottomCenter,
-                    height: 50,
-                    padding: EdgeInsets.only(bottom: 20, left: 15, right: 15),
+                    height: 100,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
