@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:get/get.dart';
 import '../services/auth_service.dart';
 
@@ -64,6 +65,21 @@ class UserProvider extends GetConnect {
     return put(
       '${authS.mainServerUrl.value}/api/v1/users/$id',
       data,
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
+  }
+
+  Future<Response> updateUserImage(String id, File imageFile) async {
+    final FormData formData = FormData({
+      'image': MultipartFile(
+        imageFile,
+        filename: 'img-$id.${imageFile.path.split('.').last}',
+      ),
+    });
+
+    return put(
+      '${authS.mainServerUrl.value}/api/v1/users/$id/image',
+      formData,
       headers: {"Authorization": "Bearer $accessToken"},
     );
   }

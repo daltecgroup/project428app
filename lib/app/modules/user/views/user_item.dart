@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/services/auth_service.dart';
 import 'package:project428app/app/services/user_service.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
+import 'package:project428app/app/widgets/users/user_profile_avatar_widget.dart';
 
 import '../../../models/user.dart';
 import '../../../widgets/users/user_roles.dart';
 
 Widget UserItem(User user) {
   UserService UserS = Get.find<UserService>();
-  AuthService internetC = Get.find<AuthService>();
 
   return Card(
     color: user.isActive ? Colors.white : Colors.grey[200],
@@ -20,7 +17,7 @@ Widget UserItem(User user) {
     child: InkWell(
       onTap: () {
         UserS.currentUser.value = user;
-        Get.toNamed('/detail-pengguna');
+        Get.toNamed('/user-detail');
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
@@ -34,29 +31,7 @@ Widget UserItem(User user) {
           leading:
               GetPlatform.isWeb
                   ? CircleAvatar()
-                  : ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    child:
-                        internetC.isConnected.value
-                            ? user.imgUrl != null
-                                ? FadeInImage.assetNetwork(
-                                  placeholder: kAssetLoading,
-                                  image: user.imgUrl!,
-                                  // '${AuthS.mainServerUrl.value}/api/v1/${user.imgUrl}',
-                                )
-                                : CircleAvatar(
-                                  child: SvgPicture.asset(
-                                    kImgPlaceholder,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                            : CircleAvatar(
-                              child: SvgPicture.asset(
-                                kImgPlaceholder,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                  ),
+                  : UserProfileAvatarWidget(user: user),
           title: Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: Row(

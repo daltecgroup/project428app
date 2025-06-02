@@ -8,10 +8,14 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:project428app/app/data/auth_provider.dart';
 
+import '../models/user.dart';
+
 class AuthService extends GetxService {
   // final _secureStorage = const FlutterSecureStorage();
   final box = GetStorage();
   late final AuthProvider _authP;
+
+  Rx<User?> loggedInUser = (null as User?).obs;
 
   List<String> serverList = [
     'http://192.168.1.15:8000',
@@ -74,20 +78,20 @@ class AuthService extends GetxService {
         print('No internet connection');
         isConnected.value = false;
         // show bottom sheet with message and retry button
-        Get.snackbar(
-          'No Internet Connection',
-          'Please check your internet connection.',
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 5),
-          mainButton: TextButton(
-            onPressed: () async {
-              if (await checkInternetConnection()) {
-                Get.back(); // Close the snackbar
-              }
-            },
-            child: const Text('Retry'),
-          ),
-        );
+        // Get.snackbar(
+        //   'No Internet Connection',
+        //   'Please check your internet connection.',
+        //   snackPosition: SnackPosition.BOTTOM,
+        //   duration: const Duration(seconds: 5),
+        //   mainButton: TextButton(
+        //     onPressed: () async {
+        //       if (await checkInternetConnection()) {
+        //         Get.back(); // Close the snackbar
+        //       }
+        //     },
+        //     child: const Text('Retry'),
+        //   ),
+        // );
       }
     });
   }
@@ -129,11 +133,10 @@ class AuthService extends GetxService {
         '/auth/login', // Relative path to baseUrl
         {'userId': userId, 'pin': pin},
       );
-      print(response.body);
 
       if (response.statusCode == 200) {
-        final data =
-            response.body; // GetConnect response.body is already parsed
+        final data = response.body;
+
         final newAccessToken = data['accessToken'];
         final newRefreshToken = data['refreshToken'];
         final userProfile = data['user'];
@@ -144,6 +147,9 @@ class AuthService extends GetxService {
 
         accessToken.value = newAccessToken;
         refreshToken.value = newRefreshToken;
+
+        // assign userData to loggedInUser
+        loggedInUser.value = User.fromJson(data['userData']);
 
         // Immediately update ApiClient's headers with the new token
         _authP.httpClient.addRequestModifier<dynamic>((request) async {
@@ -195,6 +201,7 @@ class AuthService extends GetxService {
     accessToken.value = '';
     refreshToken.value = '';
     userRoles.clear();
+    loggedInUser.value = null as User?;
     isLoggedIn.value = false;
     Get.offAllNamed('/login');
   }

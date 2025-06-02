@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:project428app/app/models/outlet.dart';
-import 'package:project428app/app/services/operator_service.dart';
 import 'package:project428app/app/services/outlet_service.dart';
 import 'package:project428app/app/services/stock_service.dart';
 import 'package:project428app/app/widgets/stocks/ingredients_item.dart';
@@ -16,7 +15,6 @@ class NewStockOrderView extends GetView {
   const NewStockOrderView({super.key});
   @override
   Widget build(BuildContext context) {
-    OperatorService OperatorS = Get.find<OperatorService>();
     OutletService OutletS = Get.find<OutletService>();
     StockService StockS = Get.find<StockService>();
 

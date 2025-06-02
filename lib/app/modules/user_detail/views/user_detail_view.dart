@@ -63,7 +63,6 @@ class UserDetailView extends GetView<DetailPenggunaController> {
                         UserS.currentUser.value!.name,
                       ).then((success) {
                         if (success) {
-                          controller.UserC.getUsers();
                           UserS.users.refresh();
                           Get.back();
                           Get.toNamed('/user');
@@ -100,31 +99,58 @@ class UserDetailView extends GetView<DetailPenggunaController> {
               child: Container(
                 height: kMobileWidth * 0.2,
                 width: kMobileWidth * 0.2,
-                child: Material(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  elevation: 1,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    child:
-                        internetC.isConnected.value
-                            ? UserS.currentUser.value!.imgUrl != null
-                                ? FadeInImage.assetNetwork(
-                                  placeholder: kAssetLoading,
-                                  image: UserS.currentUser.value!.imgUrl!,
-                                )
-                                : CircleAvatar(
+                child: Stack(
+                  children: [
+                    Material(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      elevation: 1,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        child:
+                            internetC.isConnected.value
+                                ? UserS.currentUser.value!.imgUrl != null
+                                    ? Container(
+                                      height: kMobileWidth * 0.2,
+                                      width: kMobileWidth * 0.2,
+                                      child: FadeInImage.assetNetwork(
+                                        fit: BoxFit.cover,
+                                        placeholder: kAssetLoading,
+                                        image:
+                                            '${internetC.mainServerUrl.value}/api/v1/uploads/${UserS.currentUser.value!.imgUrl!}',
+                                      ),
+                                    )
+                                    : Container(
+                                      height: kMobileWidth * 0.2,
+                                      width: kMobileWidth * 0.2,
+                                      child: SvgPicture.asset(
+                                        kImgPlaceholder,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                : Container(
+                                  height: kMobileWidth * 0.2,
+                                  width: kMobileWidth * 0.2,
                                   child: SvgPicture.asset(
                                     kImgPlaceholder,
                                     fit: BoxFit.cover,
                                   ),
-                                )
-                            : CircleAvatar(
-                              child: SvgPicture.asset(
-                                kImgPlaceholder,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                  ),
+                                ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          UserS.updateUserImage();
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: Colors.blue[50],
+                          radius: 12,
+                          child: Icon(Icons.camera_alt, size: 14),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -162,17 +188,17 @@ class UserDetailView extends GetView<DetailPenggunaController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          flex: 3,
+                          flex: 2,
                           child: SelectableText(
                             '${UserS.currentUser.value!.userId} ${box.read('userProfile')['userId'] == UserS.currentUser.value!.userId ? '(Saya Sendiri)' : ''}',
                           ),
                         ),
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: Text(
                             UserS.currentUser.value!.getCreateTime(),
                             overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
+                            maxLines: 1,
                             textAlign: TextAlign.end,
                           ),
                         ),
@@ -193,6 +219,23 @@ class UserDetailView extends GetView<DetailPenggunaController> {
                         StatusSign(
                           status: UserS.currentUser.value!.isActive,
                           size: 16,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [TextTitle(text: 'No. Telepon')],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          UserS.currentUser.value!.phone == null
+                              ? '-'
+                              : UserS.currentUser.value!.phone!.isNotEmpty
+                              ? UserS.currentUser.value!.phone!
+                              : '-',
                         ),
                       ],
                     ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/widgets/alert_dialog.dart';
 import 'package:project428app/app/widgets/alert_dialog_with_widget.dart';
 
 import '../../../services/user_service.dart';
@@ -10,6 +9,7 @@ class UserUpdateController extends GetxController {
   late TextEditingController idController;
   late TextEditingController nameController;
   late TextEditingController phoneController;
+  late TextEditingController pinController;
 
   RxBool status = true.obs;
   RxBool isAdmin = false.obs;
@@ -26,6 +26,7 @@ class UserUpdateController extends GetxController {
     idController = TextEditingController();
     nameController = TextEditingController();
     phoneController = TextEditingController();
+    pinController = TextEditingController();
   }
 
   @override
@@ -39,6 +40,7 @@ class UserUpdateController extends GetxController {
     idController.dispose();
     nameController.dispose();
     phoneController.dispose();
+    pinController.dispose();
   }
 
   void submitUpdates() {
@@ -56,6 +58,7 @@ class UserUpdateController extends GetxController {
         nameController.text.trim().toLowerCase().capitalize,
         phoneController.text,
         roles,
+        pinController.text.isEmpty ? null : pinController.text,
       ).then((success) {
         if (success) {
           Get.back();
@@ -102,6 +105,9 @@ class UserUpdateController extends GetxController {
     if (UserS.currentUser.value != null) {
       idController.text = UserS.currentUser.value!.userId;
       nameController.text = UserS.currentUser.value!.name;
+      if (UserS.currentUser.value!.phone != null) {
+        phoneController.text = UserS.currentUser.value!.phone!;
+      }
 
       for (var role in UserS.currentUser.value!.role) {
         switch (role) {

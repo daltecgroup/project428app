@@ -1,13 +1,17 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:project428app/app/controllers/image_picker_controller.dart';
 import 'package:project428app/app/widgets/alert_dialog.dart';
 import '../data/user_provider.dart';
 import '../models/user.dart';
 
 class UserService extends GetxService {
   UserProvider UserP = UserProvider();
+  ImagePickerController ImageC = Get.put(
+    ImagePickerController(),
+    tag: 'user-service',
+  );
   RxList<User> users = <User>[].obs;
   Rx<User?> currentUser = (null as User?).obs;
 
@@ -64,23 +68,21 @@ class UserService extends GetxService {
     String? name,
     String? phone,
     List role,
+    String? pin,
   ) async {
     var data = json.encode({
       'userId': userId ?? currentUser.value!.userId,
       'name': name ?? currentUser.value!.name,
       'phone': phone ?? '',
       'role': role,
+      'pin': pin,
     });
 
     return await UserP.updateUser(id, data).then((res) {
       if (res.statusCode == 200) {
-        if (userId != null) {
-          currentUser.value!.setUserId(userId);
-        }
-
-        if (name != null) {
-          currentUser.value!.setName(name);
-        }
+        if (userId != null) currentUser.value!.setUserId(userId);
+        if (name != null) currentUser.value!.setName(name);
+        if (phone != null) currentUser.value!.setPhone(phone);
         currentUser.value!.setRoles(role);
         currentUser.refresh();
         users.refresh();
@@ -88,6 +90,26 @@ class UserService extends GetxService {
       } else {
         CustomAlertDialog('Peringatan', res.body['message']);
         return false;
+      }
+    });
+  }
+
+  Future<void> updateUserImage() async {
+    await ImageC.pickImage(ImageSource.camera).then((_) {
+      if (ImageC.selectedImage.value != null) {
+        UserP.updateUserImage(
+          currentUser.value!.id,
+          ImageC.selectedImage.value!,
+        ).then((res) {
+          if (res.statusCode == 200) {
+            User updatedUser = User.fromJson(res.body);
+            currentUser.value!.imgUrl = updatedUser.imgUrl;
+            currentUser.refresh();
+            users.refresh();
+          } else {
+            CustomAlertDialog('Gagal Ubah Gambar', res.body['message']);
+          }
+        });
       }
     });
   }

@@ -11,7 +11,7 @@ abstract class Routes {
   static const USER = _Paths.USER;
   static const USER_ADD = _Paths.USER_ADD;
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
-  static const DETAIL_PENGGUNA = _Paths.DETAIL_PENGGUNA;
+  static const USER_DETAIL = _Paths.USER_DETAIL;
   static const GERAI = _Paths.GERAI;
   static const OPERATOR = _Paths.OPERATOR;
   static const STOK = _Paths.STOK;
@@ -45,7 +45,7 @@ abstract class _Paths {
   static const USER = '/user';
   static const USER_ADD = '/user-add';
   static const NOTIFICATIONS = '/notifications';
-  static const DETAIL_PENGGUNA = '/detail-pengguna';
+  static const USER_DETAIL = '/user-detail';
   static const GERAI = '/gerai';
   static const OPERATOR = '/operator';
   static const STOK = '/stok';

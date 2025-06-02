@@ -78,6 +78,18 @@ class UserUpdateView extends GetView<UserUpdateController> {
                             LengthLimitingTextInputFormatter(15),
                           ],
                         ),
+                        SizedBox(height: 10),
+                        CustomTextfieldWithError(
+                          controller: controller.pinController,
+                          title: 'PIN Baru',
+                          error: false,
+                          errorText: '',
+                          inputType: TextInputType.number,
+                          inputFormatter: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                            LengthLimitingTextInputFormatter(4),
+                          ],
+                        ),
                         SizedBox(height: 20),
                         TextTitle(text: 'Peran'),
                         Row(

@@ -109,7 +109,7 @@ class AppPages {
       binding: NotificationsBinding(),
     ),
     GetPage(
-      name: _Paths.DETAIL_PENGGUNA,
+      name: _Paths.USER_DETAIL,
       page: () => const UserDetailView(),
       binding: UserDetailBinding(),
       transition: Transition.rightToLeft,

@@ -53,6 +53,10 @@ class User {
     name = newName;
   }
 
+  void setPhone(String newPhone) {
+    phone = newPhone;
+  }
+
   String getUpdatedTime() {
     return "${updatedAt.day} ${DateFormat(DateFormat.MONTH).format(updatedAt)} ${updatedAt.year} ${updatedAt.hour}:${updatedAt.minute.isLowerThan(10) ? '0${updatedAt.minute}' : updatedAt.minute} WIB";
   }
