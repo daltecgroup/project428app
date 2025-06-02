@@ -255,7 +255,7 @@ class UserView extends GetView<UserController> {
             heroTag: "tambah_pengguna",
             tooltip: "Tambah Pengguna",
             onPressed: () {
-              Get.toNamed("/tambah-pengguna");
+              Get.toNamed("/user-add");
             },
             child: const Icon(Icons.add),
           ),

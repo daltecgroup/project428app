@@ -9,7 +9,7 @@ abstract class Routes {
   static const LOGIN_AS = _Paths.LOGIN_AS;
   static const BERANDA_ADMIN = _Paths.BERANDA_ADMIN;
   static const USER = _Paths.USER;
-  static const TAMBAH_PENGGUNA = _Paths.TAMBAH_PENGGUNA;
+  static const USER_ADD = _Paths.USER_ADD;
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
   static const DETAIL_PENGGUNA = _Paths.DETAIL_PENGGUNA;
   static const GERAI = _Paths.GERAI;
@@ -32,6 +32,7 @@ abstract class Routes {
   static const HOMEPAGE_FRANCHISEE = _Paths.HOMEPAGE_FRANCHISEE;
   static const HOMEPAGE_SPVAREA = _Paths.HOMEPAGE_SPVAREA;
   static const SALES_TRANSACTION_DETAIL = _Paths.SALES_TRANSACTION_DETAIL;
+  static const USER_UPDATE = _Paths.USER_UPDATE;
 }
 
 abstract class _Paths {
@@ -42,7 +43,7 @@ abstract class _Paths {
   static const LOGIN_AS = '/login-as';
   static const BERANDA_ADMIN = '/beranda-admin';
   static const USER = '/user';
-  static const TAMBAH_PENGGUNA = '/tambah-pengguna';
+  static const USER_ADD = '/user-add';
   static const NOTIFICATIONS = '/notifications';
   static const DETAIL_PENGGUNA = '/detail-pengguna';
   static const GERAI = '/gerai';
@@ -65,4 +66,5 @@ abstract class _Paths {
   static const HOMEPAGE_FRANCHISEE = '/homepage-franchisee';
   static const HOMEPAGE_SPVAREA = '/homepage-spvarea';
   static const SALES_TRANSACTION_DETAIL = '/sales-transaction-detail';
+  static const USER_UPDATE = '/user-update';
 }

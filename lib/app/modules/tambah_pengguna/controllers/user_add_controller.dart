@@ -8,7 +8,7 @@ import 'package:random_name_generator/random_name_generator.dart';
 
 import '../../../data/user_provider.dart';
 
-class TambahPenggunaController extends GetxController {
+class UserAddController extends GetxController {
   late TextEditingController idController;
   late TextEditingController pinController;
   late TextEditingController nameController;
@@ -20,15 +20,14 @@ class TambahPenggunaController extends GetxController {
   var randomNames = RandomNames(Zone.us);
 
   RxBool status = true.obs;
-
   RxBool isAdmin = false.obs;
   RxBool isFranchisee = false.obs;
   RxBool isSVPArea = false.obs;
   RxBool isOperator = false.obs;
-
+  RxBool errUserId = false.obs;
   RxBool errName = false.obs;
+  RxBool errPin = false.obs;
   RxBool errPeran = false.obs;
-
   RxBool isLoading = true.obs;
 
   @override
@@ -136,10 +135,31 @@ class TambahPenggunaController extends GetxController {
     }
   }
 
+  void checkId() {
+    if (idController.text.isEmpty) {
+      errUserId.value = true;
+    } else {
+      errUserId.value = false;
+    }
+  }
+
+  void checkPin() {
+    if (pinController.text.isEmpty) {
+      errPin.value = true;
+    } else {
+      errPin.value = false;
+    }
+  }
+
   void submit() {
     checkName();
+    checkId();
+    checkPin();
     checkPeran();
-    if (errName.isFalse && errPeran.isFalse) {
+    if (errName.isFalse &&
+        errPeran.isFalse &&
+        errUserId.isFalse &&
+        errPin.isFalse) {
       print('ready to send');
       createUser();
     }

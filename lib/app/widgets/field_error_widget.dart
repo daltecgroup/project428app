@@ -13,7 +13,12 @@ class FieldErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isError
-        ? Text(text, style: TextStyle(fontSize: 12, color: Colors.red))
+        ? Column(
+          children: [
+            SizedBox(height: 5),
+            Text(text, style: TextStyle(fontSize: 12, color: Colors.red)),
+          ],
+        )
         : SizedBox();
   }
 }

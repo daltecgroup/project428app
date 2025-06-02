@@ -10,7 +10,7 @@ import 'package:project428app/app/widgets/alert_dialog.dart';
 import 'package:project428app/app/widgets/confirmation_dialog.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 import 'package:project428app/app/widgets/text_header.dart';
-import 'package:project428app/app/widgets/user_roles.dart';
+import 'package:project428app/app/widgets/users/user_roles.dart';
 
 import '../../../style.dart';
 import '../controllers/user_detail_controller.dart';
@@ -106,21 +106,24 @@ class UserDetailView extends GetView<DetailPenggunaController> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(50)),
                     child:
-                        internetC.isConnected.value? UserS.currentUser.value!.imgUrl != null? 
-                             FadeInImage.assetNetwork(
-                              placeholder: kAssetLoading,
-                              image: UserS.currentUser.value!.imgUrl!,
-                            )
+                        internetC.isConnected.value
+                            ? UserS.currentUser.value!.imgUrl != null
+                                ? FadeInImage.assetNetwork(
+                                  placeholder: kAssetLoading,
+                                  image: UserS.currentUser.value!.imgUrl!,
+                                )
+                                : CircleAvatar(
+                                  child: SvgPicture.asset(
+                                    kImgPlaceholder,
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
                             : CircleAvatar(
                               child: SvgPicture.asset(
                                 kImgPlaceholder,
                                 fit: BoxFit.cover,
                               ),
-                            ): CircleAvatar(
-                              child: SvgPicture.asset(
-                                kImgPlaceholder,
-                                fit: BoxFit.cover,
-                              ),)
+                            ),
                   ),
                 ),
               ),
@@ -166,7 +169,13 @@ class UserDetailView extends GetView<DetailPenggunaController> {
                         ),
                         Expanded(
                           flex: 2,
-                          child: Text(UserS.currentUser.value!.getCreateTime(), overflow: TextOverflow.ellipsis, maxLines: 2, textAlign: TextAlign.end,)),
+                          child: Text(
+                            UserS.currentUser.value!.getCreateTime(),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 10),
@@ -193,7 +202,7 @@ class UserDetailView extends GetView<DetailPenggunaController> {
                         Expanded(
                           child: TextButton(
                             onPressed: () {
-                              Get.toNamed('/ubah-pengguna');
+                              Get.toNamed('/user-update');
                             },
                             style: PrimaryButtonStyle(Colors.blue),
                             child: Text('Ubah Data'),

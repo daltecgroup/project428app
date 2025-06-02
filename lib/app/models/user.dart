@@ -41,9 +41,12 @@ class User {
       updatedAt = MakeLocalDateTime(json['updatedAt']),
       lastSeen = MakeLocalDateTime(json['lastSeen']);
 
+  void setRoles(List newRole) {
+    role = newRole;
+  }
 
-  void updateRoles(List<String> role) {
-    this.role = role;
+  void setUserId(String newUserId) {
+    userId = newUserId;
   }
 
   void setName(String newName) {

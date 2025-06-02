@@ -11,8 +11,6 @@ import '../modules/beranda_admin/bindings/beranda_admin_binding.dart';
 import '../modules/beranda_admin/views/beranda_admin_view.dart';
 import '../modules/beranda_operator/bindings/beranda_operator_binding.dart';
 import '../modules/beranda_operator/views/beranda_operator_view.dart';
-import '../modules/user_detail/bindings/user_detail_binding.dart';
-import '../modules/user_detail/views/user_detail_view.dart';
 import '../modules/detail_stok/bindings/detail_stok_binding.dart';
 import '../modules/detail_stok/views/detail_stok_view.dart';
 import '../modules/gerai/bindings/gerai_binding.dart';
@@ -31,8 +29,6 @@ import '../modules/operator/bindings/operator_binding.dart';
 import '../modules/operator/views/operator_view.dart';
 import '../modules/pengaturan_admin/bindings/pengaturan_admin_binding.dart';
 import '../modules/pengaturan_admin/views/pengaturan_admin_view.dart';
-import '../modules/user/bindings/user_binding.dart';
-import '../modules/user/views/user_view.dart';
 import '../modules/produk/bindings/produk_binding.dart';
 import '../modules/produk/views/produk_view.dart';
 import '../modules/promo/bindings/promo_binding.dart';
@@ -45,8 +41,8 @@ import '../modules/stok/bindings/stok_binding.dart';
 import '../modules/stok/views/stok_view.dart';
 import '../modules/stok_operator/bindings/stok_operator_binding.dart';
 import '../modules/stok_operator/views/stok_operator_view.dart';
-import '../modules/tambah_pengguna/bindings/tambah_pengguna_binding.dart';
-import '../modules/tambah_pengguna/views/tambah_pengguna_view.dart';
+import '../modules/tambah_pengguna/bindings/user_add_binding.dart';
+import '../modules/tambah_pengguna/views/user_add_view.dart';
 import '../modules/tambah_stok/bindings/tambah_stok_binding.dart';
 import '../modules/tambah_stok/views/tambah_stok_view.dart';
 import '../modules/transaksi_operator/bindings/transaksi_operator_binding.dart';
@@ -55,6 +51,12 @@ import '../modules/ubah_pengguna/bindings/ubah_pengguna_binding.dart';
 import '../modules/ubah_pengguna/views/ubah_pengguna_view.dart';
 import '../modules/unauthorized/bindings/unauthorized_binding.dart';
 import '../modules/unauthorized/views/unauthorized_view.dart';
+import '../modules/user/bindings/user_binding.dart';
+import '../modules/user/views/user_view.dart';
+import '../modules/user_detail/bindings/user_detail_binding.dart';
+import '../modules/user_detail/views/user_detail_view.dart';
+import '../modules/user_update/bindings/user_update_binding.dart';
+import '../modules/user_update/views/user_update_view.dart';
 
 part 'app_routes.dart';
 
@@ -96,8 +98,8 @@ class AppPages {
       transition: Transition.native,
     ),
     GetPage(
-      name: _Paths.TAMBAH_PENGGUNA,
-      page: () => const TambahPenggunaView(),
+      name: _Paths.USER_ADD,
+      page: () => const UserAddView(),
       binding: TambahPenggunaBinding(),
       transition: Transition.rightToLeft,
     ),
@@ -214,6 +216,11 @@ class AppPages {
       name: _Paths.SALES_TRANSACTION_DETAIL,
       page: () => const SalesTransactionDetailView(),
       binding: SalesTransactionDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.USER_UPDATE,
+      page: () => const UserUpdateView(),
+      binding: UserUpdateBinding(),
     ),
   ];
 }

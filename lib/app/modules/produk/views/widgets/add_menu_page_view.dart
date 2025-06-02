@@ -78,7 +78,6 @@ class AddMenuPageView extends GetView {
                                       decoration: TextFieldDecoration1(),
                                     ),
                                   ),
-
                                   // code field error text
                                   FieldErrorWidget(
                                     isError: c.isAddMenuCodeError.value,
@@ -88,7 +87,6 @@ class AddMenuPageView extends GetView {
                               ),
                             ),
                             SizedBox(width: 10),
-
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

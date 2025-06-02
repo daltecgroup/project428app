@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/gerai/controllers/outlet_detail_controller.dart';
 import 'package:project428app/app/widgets/text_header.dart';
-import 'package:project428app/app/widgets/user_roles.dart';
+import 'package:project428app/app/widgets/users/user_roles.dart';
 
 class OwnerPanelWidget extends StatelessWidget {
   const OwnerPanelWidget({super.key, required this.c});

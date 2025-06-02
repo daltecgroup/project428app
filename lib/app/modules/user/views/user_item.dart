@@ -7,7 +7,7 @@ import 'package:project428app/app/services/user_service.dart';
 import 'package:project428app/app/widgets/status_sign.dart';
 
 import '../../../models/user.dart';
-import '../../../widgets/user_roles.dart';
+import '../../../widgets/users/user_roles.dart';
 
 Widget UserItem(User user) {
   UserService UserS = Get.find<UserService>();
@@ -38,17 +38,18 @@ Widget UserItem(User user) {
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     child:
                         internetC.isConnected.value
-                            ? user.imgUrl != null?  FadeInImage.assetNetwork(
-                              placeholder: kAssetLoading,
-                              image: user.imgUrl!,
-                              // '${AuthS.mainServerUrl.value}/api/v1/${user.imgUrl}',
-                            ):
-                            CircleAvatar(
-                              child: SvgPicture.asset(
-                                kImgPlaceholder,
-                                fit: BoxFit.cover,
-                              ),
-                            )
+                            ? user.imgUrl != null
+                                ? FadeInImage.assetNetwork(
+                                  placeholder: kAssetLoading,
+                                  image: user.imgUrl!,
+                                  // '${AuthS.mainServerUrl.value}/api/v1/${user.imgUrl}',
+                                )
+                                : CircleAvatar(
+                                  child: SvgPicture.asset(
+                                    kImgPlaceholder,
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
                             : CircleAvatar(
                               child: SvgPicture.asset(
                                 kImgPlaceholder,
