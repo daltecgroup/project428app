@@ -37,7 +37,6 @@ void main() async {
         800,
       ), // Set your desired minimum width and height
       maximumSize: Size(kMobileWidth, 800),
-      center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
       titleBarStyle:

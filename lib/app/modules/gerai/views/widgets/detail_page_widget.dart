@@ -61,13 +61,6 @@ class DetailPageWidget extends StatelessWidget {
                                       '${authS.mainServerUrl.value}/api/v1/uploads/${c.outlet.value.imgUrl}',
                                   placeholder: kAssetLoadingBuffer,
                                 ),
-
-                        // : Image.network(
-                        //   fit: BoxFit.cover,
-                        //   '$kServerUrl/api/v1/uploads/${c.outlet.value.imgUrl}',
-                        //   webHtmlElementStrategy:
-                        //       WebHtmlElementStrategy.prefer,
-                        // ),
                       ),
                       Positioned(
                         right: 5,

@@ -43,16 +43,9 @@ class UserDetailView extends GetView<DetailPenggunaController> {
             onPressed: () {
               box.read('userProfile')['userId'] ==
                       UserS.currentUser.value!.userId
-                  ? Get.defaultDialog(
-                    title: "Peringatan",
-                    content: Text("Tidak dapat menghapus diri sendiri"),
-
-                    cancel: TextButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: Text("Batal"),
-                    ),
+                  ? CustomAlertDialog(
+                    'Peringatan',
+                    'Tidak dapat menghapus diri sendiri',
                   )
                   : ConfirmationDialog(
                     'Konfirmasi',
@@ -94,7 +87,7 @@ class UserDetailView extends GetView<DetailPenggunaController> {
         () => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 40),
+            SizedBox(height: 20),
             Center(
               child: Container(
                 height: kMobileWidth * 0.2,

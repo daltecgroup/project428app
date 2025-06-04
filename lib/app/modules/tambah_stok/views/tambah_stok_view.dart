@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:project428app/app/widgets/custom_textfield_with_error.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 
 import '../controllers/tambah_stok_controller.dart';
@@ -19,17 +20,13 @@ class TambahStokView extends GetView<TambahStokController> {
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              // Save action
-              controller.resetField();
-              Get.offNamed('/stok');
-            },
-          ),
-          SizedBox(width: 10),
-        ],
+        leading: IconButton(
+          onPressed: () {
+            controller.resetField();
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back_rounded),
+        ),
       ),
       body: Container(
         padding: EdgeInsets.only(top: 50, left: 15, right: 15),
@@ -50,19 +47,11 @@ class TambahStokView extends GetView<TambahStokController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextField(
+                      CustomTextfieldWithError(
                         controller: controller.stockIdC,
-                        decoration: InputDecoration(
-                          labelText: 'Kode Stok',
-                          border: OutlineInputBorder(),
-                          error:
-                              controller.isStockIdError.value
-                                  ? Text(
-                                    controller.stockIdErrorText.value,
-                                    style: TextStyle(color: Colors.red),
-                                  )
-                                  : null,
-                        ),
+                        title: 'Kode Stok',
+                        error: controller.isStockIdError.value,
+                        errorText: controller.stockIdErrorText.value,
                         onChanged: (value) {
                           controller.isStockIdError.value = false;
                           if (value.length > 1 && value[0] == '0') {
@@ -71,72 +60,73 @@ class TambahStokView extends GetView<TambahStokController> {
                           }
                         },
                       ),
-                      SizedBox(height: 20),
-                      TextField(
+                      SizedBox(height: 10),
+                      CustomTextfieldWithError(
                         controller: controller.nameC,
-                        decoration: InputDecoration(
-                          labelText: 'Nama',
-                          border: OutlineInputBorder(),
-                          error:
-                              controller.isNameError.value
-                                  ? Text(
-                                    'Nama tidak boleh kosong',
-                                    style: TextStyle(color: Colors.red),
-                                  )
-                                  : null,
-                        ),
+                        title: 'Nama',
+                        error: controller.isNameError.value,
+                        errorText: 'Nama tidak boleh kosong',
                         onChanged: (value) {
                           controller.isNameError.value = false;
                         },
                       ),
-                      SizedBox(height: 20),
-                      DropdownButtonFormField<String>(
-                        value: controller.unit.value,
-                        alignment: AlignmentDirectional.centerStart,
-                        decoration: InputDecoration(
-                          labelText: 'Satuan Ukur',
-                          border: OutlineInputBorder(),
+                      SizedBox(height: 10),
+                      TextTitle(text: 'Satuan Ukur'),
+                      SizedBox(height: 5),
+                      Material(
+                        elevation: 1,
+                        borderRadius: BorderRadius.circular(8),
+                        child: DropdownButtonFormField<String>(
+                          value: controller.unit.value,
+                          alignment: AlignmentDirectional.centerStart,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            filled: true,
+                            fillColor: Colors.grey[50],
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                style: BorderStyle.solid,
+                                color: Colors.transparent,
+                              ),
+                            ),
+                          ),
+                          items: [
+                            DropdownMenuItem(
+                              value: 'weight',
+                              child: Text('Berat (gram)'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'volume',
+                              child: Text('Volume (ml)'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'pcs',
+                              child: Text('Pcs (Satuan)'),
+                            ),
+                          ],
+                          onChanged: (value) {
+                            controller.unit.value = value!;
+                          },
                         ),
-                        items: [
-                          DropdownMenuItem(
-                            value: 'weight',
-                            child: Text('Berat (gram)'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'volume',
-                            child: Text('Volume (ml)'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'pcs',
-                            child: Text('Pcs (Satuan)'),
-                          ),
-                        ],
-                        onChanged: (value) {
-                          controller.unit.value = value!;
-                        },
                       ),
-                      SizedBox(height: 20),
-                      TextField(
-                        controller: controller.priceC,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp("[0-9]")),
-                        ],
-                        decoration: InputDecoration(
-                          labelText:
-                              controller.unit.value == 'weight'
+                      SizedBox(height: 10),
+                      CustomTextfieldWithError(
+                        controller: controller.priceC, 
+                        title: controller.unit.value == 'weight'
                                   ? 'Harga 1000g/1kg'
                                   : controller.unit.value == 'volume'
                                   ? 'Harga 1000ml/1 Liter'
-                                  : 'Harga satuan',
-                          border: OutlineInputBorder(),
-                          error:
-                              controller.isPriceError.value
-                                  ? Text(
-                                    'Harga harus diisi',
-                                    style: TextStyle(color: Colors.red),
-                                  )
-                                  : null,
-                        ),
+                                  : 'Harga satuan', 
+                        error: controller.isPriceError.value, 
+                        errorText: 'Harga harus diisi',
+                        inputFormatter: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                        ],
                         onChanged: (value) {
                           controller.isPriceError.value = false;
                           if (value.isNotEmpty) {
@@ -145,7 +135,7 @@ class TambahStokView extends GetView<TambahStokController> {
                             controller.price.value = 0.0;
                           }
                         },
-                      ),
+                        ),
                       SizedBox(height: 10),
                       controller.unit.value == 'weight'
                           ? PriceInfoWeight(controller: controller)

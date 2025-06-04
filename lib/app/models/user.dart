@@ -70,14 +70,14 @@ class User {
   }
 
   Future<bool> changeStatus() async {
+    bool status = !isActive;
     print('User: Start to change status');
-    return await UserP.updateUser(
-      userId,
-      json.encode({'isActive': !isActive}),
-    ).then((res) {
+    return await UserP.updateUser(id, json.encode({'isActive': status})).then((
+      res,
+    ) {
       if (res.statusCode == 200) {
         print('User: Changing status in database success');
-        isActive = !isActive;
+        isActive = status;
         return true;
       } else {
         CustomAlertDialog(

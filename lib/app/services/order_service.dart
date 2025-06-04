@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:project428app/app/models/order.dart';
 import 'package:project428app/app/widgets/confirmation_dialog.dart';
@@ -9,6 +10,7 @@ class OrderService extends GetxController {
   OrderProvider OrderP = OrderProvider();
   RxList<Order> orders = <Order>[].obs;
   Rx<Order?> currentOrder = Rx<Order?>(null);
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
@@ -28,26 +30,35 @@ class OrderService extends GetxController {
     super.onClose();
   }
 
-  void getOrders() {
-    OrderP.getOrders().then((response) {
-      if (response.status.hasError) {
-        Get.snackbar('Error', 'Failed to fetch orders');
+  Future<void> getOrders() async {
+    isLoading.value = true;
+    await OrderP.getOrders().then((res) {
+      if (res.statusCode == 200) {
+        if ((res.body as List).isNotEmpty) {
+          orders.clear();
+          orders.value =
+              (res.body as List)
+                  .map((e) => Order.fromJson(e as Map<String, dynamic>))
+                  .toList();
+          orders.value = orders.reversed.toList();
+        }
       } else {
-        orders.value =
-            (response.body as List)
-                .map((e) => Order.fromJson(e as Map<String, dynamic>))
-                .toList();
-        orders.value = orders.reversed.toList();
+        print('Gagal memperoleh data order');
       }
     });
+    Future.delayed(
+      Duration(milliseconds: 500),
+    ).then((_) => isLoading.value = false);
   }
 
   Future<void> deleteOrder(String code, String name) async {
     ConfirmationDialog('Konfirmasi', 'Yakin menghapus \n$name ?', () async {
       await OrderP.deleteOrderById(code).then((res) {
         if (res.statusCode == 200) {
-          getOrders();
+          orders.remove(currentOrder.value);
+          orders.refresh();
           Get.back();
+          getOrders();
           Get.toNamed('/stok');
         } else {
           Get.back();

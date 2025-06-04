@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/constants.dart';
 import 'package:project428app/app/modules/gerai/controllers/outlet_detail_controller.dart';
+import 'package:project428app/app/services/auth_service.dart';
 import 'package:project428app/app/widgets/text_header.dart';
 import 'package:project428app/app/widgets/users/user_roles.dart';
 
@@ -12,6 +13,7 @@ class OperatorPanelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthService AuthS = Get.find<AuthService>();
     return Obx(
       () => Card(
         color: Colors.white,
@@ -57,12 +59,16 @@ class OperatorPanelWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: ListTile(
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: FadeInImage.assetNetwork(
-                                  placeholder: kAssetLoading,
-                                  image:
-                                      c.outlet.value.operator[index]['imgUrl'],
+                              leading: Container(
+                                height: 50,
+                                width: 50,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(25),
+                                  child: FadeInImage.assetNetwork(
+                                    placeholder: kAssetLoading,
+                                    image:
+                                        '${AuthS.mainServerUrl.value}/api/v1/uploads/${c.outlet.value.operator[index]['imgUrl']}',
+                                  ),
                                 ),
                               ),
                               contentPadding: EdgeInsets.symmetric(

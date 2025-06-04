@@ -51,8 +51,13 @@ class StockProvider extends GetConnect {
     );
   }
 
-  Future<Response> updateStock(String stockId, String name, int price) {
-    final body = json.encode({"name": name, "price": price});
+  Future<Response> updateStock(
+    String userId,
+    String stockId,
+    String name,
+    int price,
+  ) {
+    final body = json.encode({"userId": userId, "name": name, "price": price});
     return put(
       '${authS.mainServerUrl.value}/api/v1/stocks/$stockId',
       body,
@@ -61,12 +66,14 @@ class StockProvider extends GetConnect {
   }
 
   Future<Response> createStock(
+    String userId,
     String stockId,
     String name,
     String unit,
     int price,
   ) {
     final body = json.encode({
+      "userId": userId,
       "stockId": stockId,
       "name": name,
       "unit": unit,

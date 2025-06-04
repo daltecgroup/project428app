@@ -18,19 +18,19 @@ class AuthService extends GetxService {
   Rx<User?> loggedInUser = (null as User?).obs;
 
   List<String> serverList = [
-    'http://192.168.1.15:8000',
-    'http://46.202.163.60:8000',
-    'http://192.168.0.106:8000',
-    'http://10.0.2.2:8000',
     'http://localhost:8000',
-    'https://api.aromabisnisgroup.com',
+    // 'http://192.168.1.15:8000',
+    // 'http://46.202.163.60:8000',
+    // 'http://192.168.0.106:8000',
+    // 'http://10.0.2.2:8000',
+    // 'https://api.aromabisnisgroup.com',
   ];
 
   // RxString mainServerUrl = 'http://46.202.163.60:8000'.obs;
-  // RxString mainServerUrl = 'http://localhost:8000'.obs;
+  RxString mainServerUrl = 'http://localhost:8000'.obs;
   // RxString mainServerUrl = 'http://10.0.2.2:8000'.obs;
   // RxString mainServerUrl = 'http://192.168.0.106:8000'.obs;
-  RxString mainServerUrl = 'http://192.168.1.15:8000'.obs;
+  // RxString mainServerUrl = 'http://192.168.1.15:8000'.obs;
 
   final connectionChecker = InternetConnectionChecker.createInstance(
     addresses: [
@@ -133,6 +133,8 @@ class AuthService extends GetxService {
         '/auth/login', // Relative path to baseUrl
         {'userId': userId, 'pin': pin},
       );
+
+      print(response.body);
 
       if (response.statusCode == 200) {
         final data = response.body;

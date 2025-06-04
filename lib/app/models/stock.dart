@@ -1,16 +1,14 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:project428app/app/data/stock_provider.dart';
 import 'package:project428app/app/widgets/format_waktu.dart';
 
 class Stock {
-  final String id;
-  final String stockId;
-  final String name;
-  final String unit;
+  StockProvider StockP = StockProvider();
+  final String id, stockId, name, unit;
   final int price;
-  final bool isActive;
-  final DateTime updatedAt;
-  final DateTime createdAt;
+  bool isActive;
+  final DateTime updatedAt, createdAt;
 
   Stock(
     this.id,
@@ -41,30 +39,30 @@ class Stock {
         : 'Pcs'}";
   }
 
-  String getLastUpdateTime() {
-    return "${updatedAt.day}/${updatedAt.month}/${updatedAt.year} ${updatedAt.hour}:${updatedAt.minute.isLowerThan(10) ? '0${updatedAt.minute}' : updatedAt.minute}";
+  Future<bool> changeStatus() async {
+    print('Stock: Start to change status');
+    Response? response = null as Response?;
+
+    try {
+      if (isActive == true) response = await StockP.deactivateStock(id);
+      if (isActive == false) response = await StockP.reactivateStock(id);
+    } catch (e) {
+      print(e);
+    }
+
+    if (response!.statusCode == 200) {
+      isActive = !isActive;
+      return true;
+    } else {
+      return false;
+    }
   }
-}
 
-class StockHistory {
-  final String id;
-  final String stock;
-  final String content;
-  final DateTime createdAt;
-
-  StockHistory(this.id, this.stock, this.content, this.createdAt);
-
-  StockHistory.fromJson(Map<String, dynamic> json)
-    : id = json['_id'] as String,
-      stock = json['stock'] as String,
-      content = json['content'] as String,
-      createdAt = MakeLocalDateTime(json['createdAt']);
-
-  String getUpdateTimeText() {
-    return DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY).format(createdAt);
+  String getLastUpdateTime() {
+    return "${updatedAt.day} ${DateFormat(DateFormat.MONTH, 'id').format(updatedAt)} ${updatedAt.year} ${updatedAt.hour}:${updatedAt.minute.isLowerThan(10) ? '0${updatedAt.minute}' : updatedAt.minute} WIB";
   }
 
   String getCreateTime() {
-    return "${createdAt.day} ${DateFormat(DateFormat.MONTH).format(createdAt)} ${createdAt.year} ${createdAt.hour}:${createdAt.minute.isLowerThan(10) ? '0${createdAt.minute}' : createdAt.minute} WIB";
+    return "${createdAt.day} ${DateFormat(DateFormat.MONTH, 'id').format(createdAt)} ${createdAt.year} ${createdAt.hour}:${createdAt.minute.isLowerThan(10) ? '0${createdAt.minute}' : createdAt.minute} WIB";
   }
 }

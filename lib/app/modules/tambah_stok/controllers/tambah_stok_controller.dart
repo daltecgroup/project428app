@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:project428app/app/data/stock_provider.dart';
 import 'package:project428app/app/error_code.dart';
-import 'package:project428app/app/modules/stok/controllers/stok_controller.dart';
 
 import '../../../constants.dart';
+import '../../../services/stock_service.dart';
 
 class TambahStokController extends GetxController {
+  StockService StockS = Get.find<StockService>();
+  GetStorage box = GetStorage();
   late TextEditingController stockIdC;
   late TextEditingController nameC;
   late TextEditingController priceC;
@@ -31,6 +34,7 @@ class TambahStokController extends GetxController {
     if (isStockIdError.isFalse && isNameError.isFalse && isPriceError.isFalse) {
       try {
         await Stock.createStock(
+          box.read('userProfile')['id'],
           stockIdC.text.trim().toUpperCase(),
           nameC.text.trim().capitalize!,
           unit.value,
@@ -40,7 +44,7 @@ class TambahStokController extends GetxController {
           switch (res.statusCode) {
             case 201:
               Get.snackbar("Berhasil", 'Stok ${nameC.text} berhasil dibuat.');
-              Get.find<StokController>().getStocks();
+              StockS.getStocks();
               Get.offNamed('/stok');
               break;
             case 400:

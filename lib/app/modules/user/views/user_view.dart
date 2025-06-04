@@ -30,7 +30,11 @@ class UserView extends GetView<UserController> {
                   Icon(Icons.search),
                 ),
                 onChanged: (value) {
-                  controller.filter.value.setKeyword(value);
+                  if (value.isEmpty) {
+                    controller.filter.value.setKeyword(null);
+                  } else {
+                    controller.filter.value.setKeyword(value);
+                  }
                   controller.filter.refresh();
                 },
               ),

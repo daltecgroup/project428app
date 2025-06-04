@@ -10,52 +10,62 @@ class StockOrderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.OrderS.getOrders();
     List filter = ['ordered', 'processed', 'delivered', 'returned'];
-    return SingleChildScrollView(
-      padding: EdgeInsets.only(top: 20),
-      child: Obx(
-        () => Column(
-          children: [
-            controller.OrderS.getFilteredList(
-                  controller.OrderS.orders,
-                  filter,
-                ).isEmpty
-                ? SizedBox()
-                : Padding(
-                  padding: EdgeInsets.only(left: 12, bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [TextTitle(text: "Pesanan Aktif")],
-                  ),
+    return Obx(
+      () =>
+          controller.OrderS.isLoading.value
+              ? Center(child: CircularProgressIndicator())
+              : controller.OrderS.getFilteredList(
+                controller.OrderS.orders,
+                filter,
+              ).isEmpty
+              ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextTitle(text: 'Tidak Ada Pesanan Aktif'),
+                    SizedBox(height: 10),
+                    Text(
+                      textAlign: TextAlign.center,
+                      'Tekan tombol "+" untuk menambahkan\npesanan baru',
+                    ),
+                  ],
                 ),
-            controller.OrderS.getFilteredList(
-                  controller.OrderS.orders,
-                  filter,
-                ).isEmpty
-                ? SizedBox()
-                : Column(
-                  children: List.generate(
-                    controller.OrderS.getFilteredList(
-                      controller.OrderS.orders,
-                      filter,
-                    ).length,
-                    (index) {
-                      return StockOrderItem(
+              )
+              : SingleChildScrollView(
+                padding: EdgeInsets.only(top: 20),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 12, bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [TextTitle(text: "Pesanan Aktif")],
+                      ),
+                    ),
+                    Column(
+                      children: List.generate(
                         controller.OrderS.getFilteredList(
                           controller.OrderS.orders,
                           filter,
-                        )[index],
-                        index,
-                      );
-                    },
-                  ),
-                ),
+                        ).length,
+                        (index) {
+                          return StockOrderItem(
+                            controller.OrderS.getFilteredList(
+                              controller.OrderS.orders,
+                              filter,
+                            )[index],
+                            index,
+                          );
+                        },
+                      ),
+                    ),
 
-            SizedBox(height: 100),
-          ],
-        ),
-      ),
+                    SizedBox(height: 100),
+                  ],
+                ),
+              ),
     );
   }
 }

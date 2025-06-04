@@ -19,73 +19,77 @@ class GeraiView extends GetView<GeraiController> {
       appBar: AdminAppBar(context, "Gerai"),
       drawer: AdminDrawer(context, kAdminMenuGerai),
       body: Obx(
-        () => Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Material(
-                elevation: 1,
-                borderRadius: BorderRadius.circular(8),
-                child: TextField(
-                  decoration: MyTextFieldInputDecoration(
-                    'Cari Gerai',
-                    Icon(Icons.search),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        () =>
+            controller.outletList.isEmpty
+                ? Center(child: TextTitle(text: 'Gerai Kosong'))
+                : Column(
                   children: [
-                    ...List.generate(
-                      controller.getAllRegencyOfOutletList().length,
-                      (index) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextTitle(
-                            text:
-                                controller
-                                    .getAllRegencyOfOutletList()[index]
-                                    .toLowerCase()
-                                    .capitalize!,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Material(
+                        elevation: 1,
+                        borderRadius: BorderRadius.circular(8),
+                        child: TextField(
+                          decoration: MyTextFieldInputDecoration(
+                            'Cari Gerai',
+                            Icon(Icons.search),
                           ),
-                          SizedBox(height: 8),
-                          ...List.generate(
-                            controller
-                                .getOutletItemByRegency(
-                                  controller.getAllRegencyOfOutletList()[index],
-                                )
-                                .length,
-                            (secondIndex) => OutletItemWidget(
-                              outlet:
-                                  controller.getOutletItemByRegency(
-                                    controller
-                                        .getAllRegencyOfOutletList()[index],
-                                  )[secondIndex],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        controller.getOutletList();
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [Text('Refresh')],
+                    SizedBox(height: 20),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ...List.generate(
+                              controller.getAllRegencyOfOutletList().length,
+                              (index) => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextTitle(
+                                    text:
+                                        controller
+                                            .getAllRegencyOfOutletList()[index]
+                                            .toLowerCase()
+                                            .capitalize!,
+                                  ),
+                                  SizedBox(height: 8),
+                                  ...List.generate(
+                                    controller
+                                        .getOutletItemByRegency(
+                                          controller
+                                              .getAllRegencyOfOutletList()[index],
+                                        )
+                                        .length,
+                                    (secondIndex) => OutletItemWidget(
+                                      outlet:
+                                          controller.getOutletItemByRegency(
+                                            controller
+                                                .getAllRegencyOfOutletList()[index],
+                                          )[secondIndex],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                controller.getOutletList();
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [Text('Refresh')],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
-          ],
-        ),
       ),
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(

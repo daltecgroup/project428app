@@ -31,8 +31,8 @@ class OrderDetailItemWidget extends StatelessWidget {
         child: InkWell(
           onTap:
               () => ConfirmationDialog(
-                'Konfirmasi',
-                'Yakin jumlah yang tertera sudah sesuai?',
+                'Konfirmasi Pesanan',
+                'Yakin kuantitas pesanan yang tertera sudah sesuai?',
                 () async {
                   if (order.items[index].accepted == false) {
                     await order.changeItemStatus(index, true).then((success) {

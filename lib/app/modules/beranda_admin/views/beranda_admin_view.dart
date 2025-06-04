@@ -15,8 +15,7 @@ class BerandaAdminView extends GetView<BerandaAdminController> {
     return Scaffold(
       appBar: AdminAppBar(context, "Admin"),
       drawer: AdminDrawer(context, kAdminMenuBeranda),
-      body: Obx(
-        () => ListView(
+      body: ListView(
           children: [
             // SizedBox(height: 10),
             Hero(
@@ -339,7 +338,7 @@ class BerandaAdminView extends GetView<BerandaAdminController> {
             //   ),
             // ),
           ],
-        ),
+        
       ),
     );
   }

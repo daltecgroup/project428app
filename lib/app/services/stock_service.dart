@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:project428app/app/data/order_provider.dart';
 import 'package:project428app/app/services/order_service.dart';
+import 'package:project428app/app/widgets/alert_dialog.dart';
 
 import '../data/stock_provider.dart';
 import '../models/stock.dart';
+import '../models/stock_history.dart';
 import '../style.dart';
 import '../widgets/text_header.dart';
 
 class StockService extends GetxService {
+  GetStorage box = GetStorage();
   StockProvider StockP = StockProvider();
   OrderProvider OrderP = OrderProvider();
   OrderService OrderS = OrderService();
-  RxList<Stock> stocks = <Stock>[].obs;
+
   late TextEditingController qtyC;
 
-  RxInt activeCount = 0.obs;
-  RxInt innactiveCount = 0.obs;
-
+  RxList<Stock> stocks = <Stock>[].obs;
+  RxList<StockHistory> stockHistories = <StockHistory>[].obs;
   RxList orderList = [].obs;
 
+  Rx<Stock?> selectedStock = (null as Stock?).obs;
+
+  RxInt innactiveCount = 0.obs;
+  RxInt activeCount = 0.obs;
+  RxBool isLoading = false.obs;
   @override
   void onInit() {
     super.onInit();
@@ -46,12 +54,13 @@ class StockService extends GetxService {
   }
 
   void getStocks() async {
+    isLoading.value = true;
     stocks.clear();
     activeCount.value = 0;
     innactiveCount.value = 0;
 
     try {
-      await StockP.getStocks().then((res) {
+      await StockP.getStocks().then((res) async {
         for (var e in res.body) {
           Stock stockItem = Stock.fromJson(e);
           if (stockItem.isActive) {
@@ -61,10 +70,138 @@ class StockService extends GetxService {
           }
           stocks.add(stockItem);
         }
+        await Future.delayed(Duration(milliseconds: 500)).then((_) {
+          isLoading.value = false;
+        });
+        // isLoading.value = false;
       });
     } catch (e) {
       print(e);
+      isLoading.value = false;
     }
+  }
+
+  void changeStatus() {
+    selectedStock.value!.changeStatus().then((success) {
+      if (success) {
+        selectedStock.refresh();
+        getStocks();
+      } else {
+        CustomAlertDialog('Peringatan', 'Gagal mengubah status');
+      }
+    });
+  }
+
+  void updateStock() {
+    TextEditingController newNameC = TextEditingController();
+    TextEditingController newPriceC = TextEditingController();
+
+    Get.defaultDialog(
+      title: "Ubah Data Stok",
+      titleStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+      radius: 8,
+      content: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: newNameC,
+              textCapitalization: TextCapitalization.characters,
+              decoration: InputDecoration(
+                label: Text('Nama Baru'),
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: newPriceC,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+              ],
+              decoration: InputDecoration(
+                label: Text('Harga Baru'),
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
+      ),
+      confirm: TextButton(
+        onPressed: () async {
+          if (newNameC.text.isNotEmpty || newPriceC.text.isNotEmpty) {
+            await StockP.updateStock(
+              box.read('userProfile')['id'],
+              selectedStock.value!.id,
+              newNameC.text.isEmpty
+                  ? selectedStock.value!.name
+                  : newNameC.text.trim().capitalize!,
+              newPriceC.text.isEmpty
+                  ? selectedStock.value!.price
+                  : int.parse(newPriceC.text),
+            ).then((res) {
+              stockHistories.clear();
+              getStockHistories();
+              stockHistories.refresh();
+            });
+          }
+          Get.back();
+          newNameC.dispose();
+          newPriceC.dispose();
+        },
+        child: Text("Simpan"),
+      ),
+      cancel: TextButton(
+        onPressed: () {
+          Get.back();
+        },
+        child: Text("Batal"),
+      ),
+    );
+  }
+
+  void deleteStock() {}
+
+  Future<void> getStockHistories() async {
+    if (selectedStock.value == null) {
+      CustomAlertDialog('Peringatan', 'Stok belum terpilih');
+      isLoading.value = false;
+    } else {
+      try {
+        await StockP.getStockHistory(selectedStock.value!.id).then((res) {
+          if (res.statusCode == 200) {
+            print(res.body);
+            if (res.body.length > 0) {
+              stockHistories.clear();
+              for (var e in res.body) {
+                stockHistories.add(StockHistory.fromJson(e));
+              }
+              // order from earliest to oldest
+              stockHistories.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+              stockHistories = stockHistories.reversed.toList().obs;
+              stockHistories.refresh();
+            }
+          } else {
+            CustomAlertDialog('Peringatan', res.body['message']);
+          }
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
+  List<Stock> getStockList(bool status) {
+    List<Stock> list = <Stock>[];
+
+    if (stocks.isNotEmpty) {
+      for (var stock in stocks) {
+        if (stock.isActive == status) {
+          list.add(stock);
+        }
+      }
+    }
+
+    return list;
   }
 
   Future<void> createStockOrder(
