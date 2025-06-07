@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/core/constants/constants.dart';
 import 'package:project428app/app/modules/gerai/models/outlet_list_item.dart';
 import 'package:project428app/app/modules/gerai/views/pages/outlet_detail_view.dart';
-import 'package:project428app/app/widgets/status_sign.dart';
+import 'package:project428app/app/shared/widgets/status_sign.dart';
 
 import '../../../../services/auth_service.dart';
 

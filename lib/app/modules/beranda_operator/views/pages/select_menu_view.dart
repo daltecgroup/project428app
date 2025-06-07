@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/models/new_sales_item.dart';
+import 'package:project428app/app/core/constants/constants.dart';
+import 'package:project428app/app/data/models/new_sales_item.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/new_sales_view.dart';
 import 'package:project428app/app/services/auth_service.dart';
 import 'package:project428app/app/services/operator_service.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 
-import '../../../../models/product.dart';
+import '../../../../data/models/product.dart';
 
 class SelectMenuView extends GetView {
   const SelectMenuView({super.key});

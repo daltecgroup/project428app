@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/data/stock_provider.dart';
-import 'package:project428app/app/models/stock.dart';
+import 'package:project428app/app/data/providers/stock_provider.dart';
+import 'package:project428app/app/data/models/stock.dart';
 import 'package:project428app/app/services/order_service.dart';
 import '../../../services/stock_service.dart';
 

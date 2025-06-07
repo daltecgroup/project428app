@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/core/constants/constants.dart';
 import 'package:project428app/app/modules/gerai/controllers/outlet_detail_controller.dart';
 import 'package:project428app/app/modules/gerai/views/widgets/operator_panel_widget.dart';
 import 'package:project428app/app/modules/gerai/views/widgets/owner_panel_widget.dart';
 import 'package:project428app/app/modules/gerai/views/widgets/supervisor_panel_widget.dart';
 import 'package:project428app/app/style.dart';
-import 'package:project428app/app/widgets/status_sign.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/status_sign.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 
 import '../../../../services/auth_service.dart';
 

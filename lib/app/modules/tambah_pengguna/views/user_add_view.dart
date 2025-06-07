@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/widgets/custom_textfield_with_error.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/custom_textfield_with_error.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 import '../controllers/user_add_controller.dart';
 
 class UserAddView extends GetView<UserAddController> {

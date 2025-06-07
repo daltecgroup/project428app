@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:project428app/app/models/outlet.dart';
+import 'package:project428app/app/data/models/outlet.dart';
 
-import '../data/outlet_provider.dart';
+import '../data/providers/outlet_provider.dart';
 
 class OutletService extends GetxService {
   OutletProvider OutletP = OutletProvider();

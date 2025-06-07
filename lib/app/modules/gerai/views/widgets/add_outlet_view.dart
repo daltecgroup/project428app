@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:project428app/app/controllers/address_data_controller.dart';
 import 'package:project428app/app/modules/gerai/controllers/add_outlet_controller.dart';
 import '../../../../style.dart';
-import '../../../../widgets/text_header.dart';
+import '../../../../shared/widgets/text_header.dart';
 
 class AddOutletView extends GetView {
   const AddOutletView({super.key});

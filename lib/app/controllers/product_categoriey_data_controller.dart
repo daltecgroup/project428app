@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:project428app/app/data/product_category_provider.dart';
+import 'package:project428app/app/data/providers/product_category_provider.dart';
 
-import '../models/product_category.dart';
+import '../data/models/product_category.dart';
 
 class ProductCategorieyDataController extends GetxController {
   ProductCategoryProvider CategoryP = ProductCategoryProvider();

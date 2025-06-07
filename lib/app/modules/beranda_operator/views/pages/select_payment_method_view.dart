@@ -5,7 +5,7 @@ import 'package:project428app/app/modules/beranda_operator/views/pages/new_sales
 import 'package:project428app/app/modules/beranda_operator/views/pages/payment_cash_view.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/payment_qris_view.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/payment_transfer_view.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 
 import '../../../../services/operator_service.dart';
 

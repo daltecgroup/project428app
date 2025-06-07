@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/modules/user/controllers/user_controller.dart';
-import '../../../widgets/text_header.dart';
+import '../../../shared/widgets/text_header.dart';
 
 Future<dynamic> UserFilterDialog() {
   UserController c = Get.find<UserController>();

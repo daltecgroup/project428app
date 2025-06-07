@@ -8,10 +8,10 @@ import 'package:project428app/app/controllers/image_picker_controller.dart';
 import 'package:project428app/app/modules/produk/controllers/produk_controller.dart';
 import 'package:project428app/app/modules/produk/views/widgets/ingredients_item.dart';
 import 'package:project428app/app/style.dart';
-import 'package:project428app/app/widgets/field_error_widget.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/field_error_widget.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 
-import '../../../../constants.dart';
+import '../../../../core/constants/constants.dart';
 
 class AddMenuPageView extends GetView {
   const AddMenuPageView({super.key});

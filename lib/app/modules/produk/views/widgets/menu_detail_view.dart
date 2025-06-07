@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:project428app/app/models/product.dart';
-import 'package:project428app/app/widgets/status_sign.dart';
+import 'package:project428app/app/data/models/product.dart';
+import 'package:project428app/app/shared/widgets/status_sign.dart';
 
-import '../../../../constants.dart';
+import '../../../../core/constants/constants.dart';
 import '../../../../services/auth_service.dart';
 import '../../../../style.dart';
-import '../../../../widgets/text_header.dart';
+import '../../../../shared/widgets/text_header.dart';
 import '../../controllers/produk_controller.dart';
 import 'ingredients_item.dart';
 

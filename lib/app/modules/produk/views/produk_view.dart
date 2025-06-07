@@ -5,9 +5,9 @@ import 'package:project428app/app/modules/produk/views/widgets/add_category_page
 import 'package:project428app/app/modules/produk/views/widgets/add_menu_page_view.dart';
 import 'package:project428app/app/modules/produk/views/widgets/add_topping_page_view.dart';
 
-import '../../../constants.dart';
-import '../../../widgets/admin/admin_drawer.dart';
-import '../../../widgets/text_header.dart';
+import '../../../core/constants/constants.dart';
+import '../../../shared/widgets/admin/admin_drawer.dart';
+import '../../../shared/widgets/text_header.dart';
 import '../controllers/produk_controller.dart';
 import 'product_category_page.dart';
 import 'product_menu_page.dart';

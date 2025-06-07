@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:project428app/app/data/outlet_provider.dart';
+import 'package:project428app/app/data/providers/outlet_provider.dart';
 import 'package:project428app/app/modules/gerai/models/outlet_list_item.dart';
 import 'package:project428app/app/services/outlet_service.dart';
 

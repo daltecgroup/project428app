@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../services/operator_service.dart';
-import '../../../../widgets/text_header.dart';
+import '../../../../shared/widgets/text_header.dart';
 import 'select_payment_method_view.dart';
 
 class PaymentTransferView extends GetView {

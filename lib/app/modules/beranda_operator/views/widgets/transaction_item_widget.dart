@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../models/sale.dart';
+import '../../../../data/models/sale.dart';
 
 class TransactionItemWidget extends StatelessWidget {
   const TransactionItemWidget({super.key, required this.sale});

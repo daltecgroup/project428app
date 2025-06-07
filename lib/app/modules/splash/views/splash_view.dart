@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../constants.dart';
+import '../../../core/constants/constants.dart';
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {

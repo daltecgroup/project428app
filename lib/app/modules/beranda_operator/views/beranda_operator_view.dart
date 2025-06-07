@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/core/constants/constants.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/select_menu_view.dart';
 import 'package:project428app/app/modules/beranda_operator/views/widgets/closed_transaction_item_widget.dart';
 import 'package:project428app/app/modules/beranda_operator/views/widgets/indicator_oder_done_widget.dart';
 import 'package:project428app/app/modules/beranda_operator/views/widgets/operator_user_indicator_widget.dart';
 import 'package:project428app/app/modules/beranda_operator/views/widgets/pending_transaction_item_widget.dart';
-import 'package:project428app/app/widgets/operator/operator_appbar.dart';
-import 'package:project428app/app/widgets/operator/operator_drawer.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/operator/operator_appbar.dart';
+import 'package:project428app/app/shared/widgets/operator/operator_drawer.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 import '../controllers/beranda_operator_controller.dart';
 
 class BerandaOperatorView extends GetView<BerandaOperatorController> {

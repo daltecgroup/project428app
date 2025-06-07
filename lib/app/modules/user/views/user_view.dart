@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/core/constants/constants.dart';
 import 'package:project428app/app/modules/user/views/dialog_filter.dart';
 import 'package:project428app/app/modules/user/views/user_item.dart';
-import 'package:project428app/app/widgets/admin/admin_appbar.dart';
-import 'package:project428app/app/widgets/admin/admin_drawer.dart';
+import 'package:project428app/app/shared/widgets/admin/admin_appbar.dart';
+import 'package:project428app/app/shared/widgets/admin/admin_drawer.dart';
 import '../../../style.dart';
 import '../controllers/user_controller.dart';
 
@@ -14,7 +14,7 @@ class UserView extends GetView<UserController> {
   Widget build(BuildContext context) {
     controller.UserS.getUsers();
     return Scaffold(
-      appBar: AdminAppBar(context, "Pengguna"),
+      appBar: AdminAppBar(context, "Pengguna", null),
       drawer: AdminDrawer(context, kAdminMenuPengguna),
       body: Column(
         children: [

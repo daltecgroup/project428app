@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../models/user_filter.dart';
+import '../../../data/models/user_filter.dart';
 import '../../../services/user_service.dart';
 
 class UserController extends GetxController {

@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:project428app/app/models/order.dart';
-import 'package:project428app/app/widgets/confirmation_dialog.dart';
+import 'package:project428app/app/data/models/order.dart';
+import 'package:project428app/app/shared/widgets/confirmation_dialog.dart';
 
-import '../data/order_provider.dart';
+import '../data/providers/order_provider.dart';
 
 class OrderService extends GetxController {
   OrderProvider OrderP = OrderProvider();

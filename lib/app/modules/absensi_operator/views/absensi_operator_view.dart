@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-import '../../../constants.dart';
-import '../../../widgets/operator/operator_appbar.dart';
-import '../../../widgets/operator/operator_drawer.dart';
+import '../../../core/constants/constants.dart';
+import '../../../shared/widgets/operator/operator_appbar.dart';
+import '../../../shared/widgets/operator/operator_drawer.dart';
 import '../controllers/absensi_operator_controller.dart';
 
 class AbsensiOperatorView extends GetView<AbsensiOperatorController> {

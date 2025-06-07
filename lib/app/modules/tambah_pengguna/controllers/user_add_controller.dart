@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/core/constants/constants.dart';
 import 'package:project428app/app/modules/user/controllers/user_controller.dart';
 import 'package:random_name_generator/random_name_generator.dart';
 
-import '../../../data/user_provider.dart';
+import '../../../data/providers/user_provider.dart';
 
 class UserAddController extends GetxController {
   late TextEditingController idController;

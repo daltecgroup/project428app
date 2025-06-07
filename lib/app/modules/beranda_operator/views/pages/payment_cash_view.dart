@@ -6,7 +6,7 @@ import 'package:project428app/app/controllers/input_number_controller.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/select_payment_method_view.dart';
 
 import '../../../../services/operator_service.dart';
-import '../../../../widgets/text_header.dart';
+import '../../../../shared/widgets/text_header.dart';
 
 class PaymentCashView extends GetView {
   const PaymentCashView({super.key});

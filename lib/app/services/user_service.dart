@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project428app/app/controllers/image_picker_controller.dart';
-import 'package:project428app/app/widgets/alert_dialog.dart';
-import '../data/user_provider.dart';
-import '../models/user.dart';
+import 'package:project428app/app/shared/widgets/alert_dialog.dart';
+import '../data/providers/user_provider.dart';
+import '../data/models/user.dart';
 
 class UserService extends GetxService {
   GetStorage box = GetStorage();
@@ -33,9 +33,10 @@ class UserService extends GetxService {
     super.onClose();
   }
 
-  Future<void> getAllUsersData() async {
+  Future<void> syncUsersData() async {
     users.clear();
     if (box.read('all_user_data') == null) {
+      //get data from database
       print('getting users data from online');
       int n = 0;
       while (n < 6 && users.isEmpty) {
@@ -56,9 +57,10 @@ class UserService extends GetxService {
         });
       }
     } else {
+      // get data from local storage
       print('getting users data from local storage');
-      var data = box.read('all_user_data');
-      print(data[0]['createdAt']);
+      var data = json.decode(box.read('all_user_data'));
+      print(data[data.length - 1]['createdAt']);
       DateTime latest = DateTime.now().subtract(Duration(days: 360));
       for (var user in data) {
         User newUser = User.fromJson(user);
@@ -67,7 +69,9 @@ class UserService extends GetxService {
         }
         users.add(newUser);
       }
-      print(latest.toUtc().toIso8601String());
+      print(
+        '${latest.year.toString()}-${latest.month.toString().padLeft(2, '0')}-${latest.day.toString().padLeft(2, '0')}',
+      );
 
       users.refresh();
     }

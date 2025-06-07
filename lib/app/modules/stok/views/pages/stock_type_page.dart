@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/modules/stok/controllers/stok_controller.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 
 import '../widgets/stock_item_widget.dart';
 

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:project428app/app/data/attendance_provider.dart';
-import 'package:project428app/app/models/attendance.dart';
+import 'package:project428app/app/data/providers/attendance_provider.dart';
+import 'package:project428app/app/data/models/attendance.dart';
 
 class AttendanceService extends GetxService {
   AttendanceProvider AttendanceP = AttendanceProvider();

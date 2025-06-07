@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/models/product.dart';
+import 'package:project428app/app/data/models/product.dart';
 import 'package:project428app/app/modules/produk/views/widgets/menu_detail_view.dart';
 
 import '../../../../services/auth_service.dart';
-import '../../../../widgets/status_sign.dart';
+import '../../../../shared/widgets/status_sign.dart';
 import '../../controllers/produk_controller.dart';
 
 class MenuItemWidget extends StatelessWidget {

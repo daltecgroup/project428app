@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/modules/gerai/views/widgets/add_outlet_view.dart';
 import 'package:project428app/app/modules/gerai/views/widgets/outlet_item.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 
-import '../../../constants.dart';
+import '../../../core/constants/constants.dart';
 import '../../../style.dart';
-import '../../../widgets/admin/admin_appbar.dart';
-import '../../../widgets/admin/admin_drawer.dart';
+import '../../../shared/widgets/admin/admin_appbar.dart';
+import '../../../shared/widgets/admin/admin_drawer.dart';
 import '../controllers/gerai_controller.dart';
 
 class GeraiView extends GetView<GeraiController> {
@@ -16,7 +16,7 @@ class GeraiView extends GetView<GeraiController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AdminAppBar(context, "Gerai"),
+      appBar: AdminAppBar(context, "Gerai", null),
       drawer: AdminDrawer(context, kAdminMenuGerai),
       body: Obx(
         () =>

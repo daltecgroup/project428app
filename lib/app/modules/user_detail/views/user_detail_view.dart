@@ -3,14 +3,14 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/core/constants/constants.dart';
 import 'package:project428app/app/services/auth_service.dart';
 import 'package:project428app/app/services/user_service.dart';
-import 'package:project428app/app/widgets/alert_dialog.dart';
-import 'package:project428app/app/widgets/confirmation_dialog.dart';
-import 'package:project428app/app/widgets/status_sign.dart';
-import 'package:project428app/app/widgets/text_header.dart';
-import 'package:project428app/app/widgets/users/user_roles.dart';
+import 'package:project428app/app/shared/widgets/alert_dialog.dart';
+import 'package:project428app/app/shared/widgets/confirmation_dialog.dart';
+import 'package:project428app/app/shared/widgets/status_sign.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/users/user_roles.dart';
 
 import '../../../style.dart';
 import '../controllers/user_detail_controller.dart';

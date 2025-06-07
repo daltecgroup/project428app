@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/core/constants/constants.dart';
 import 'package:project428app/app/style.dart';
-import 'package:project428app/app/widgets/app_logo_title_widget.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/app_logo_title_widget.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 
 import '../controllers/login_as_controller.dart';
 

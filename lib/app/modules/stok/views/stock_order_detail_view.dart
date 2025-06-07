@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/services/auth_service.dart';
 import 'package:project428app/app/services/order_service.dart';
-import 'package:project428app/app/widgets/order_item_status_widget.dart';
-import 'package:project428app/app/widgets/stocks/order_detail_item.dart';
+import 'package:project428app/app/shared/widgets/order_item_status_widget.dart';
+import 'package:project428app/app/shared/widgets/stocks/order_detail_item.dart';
 
 import '../../../style.dart';
-import '../../../widgets/text_header.dart';
+import '../../../shared/widgets/text_header.dart';
 
 class StockOrderDetailView extends GetView {
   const StockOrderDetailView({super.key});

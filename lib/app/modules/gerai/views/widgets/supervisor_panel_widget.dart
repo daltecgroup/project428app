@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/core/constants/constants.dart';
 import 'package:project428app/app/modules/gerai/controllers/outlet_detail_controller.dart';
 import 'package:project428app/app/services/auth_service.dart';
-import 'package:project428app/app/widgets/text_header.dart';
-import 'package:project428app/app/widgets/users/user_roles.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/users/user_roles.dart';
 
 class SupervisorPanelWidget extends StatelessWidget {
   const SupervisorPanelWidget({super.key, required this.c});

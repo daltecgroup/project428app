@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/controllers/address_data_controller.dart';
-import 'package:project428app/app/data/outlet_provider.dart';
+import 'package:project428app/app/data/providers/outlet_provider.dart';
 import 'package:project428app/app/modules/gerai/controllers/gerai_controller.dart';
 
 class AddOutletController extends GetxController {

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../constants.dart';
-import '../../../widgets/operator/operator_appbar.dart';
-import '../../../widgets/operator/operator_drawer.dart';
+import '../../../core/constants/constants.dart';
+import '../../../shared/widgets/operator/operator_appbar.dart';
+import '../../../shared/widgets/operator/operator_drawer.dart';
 import '../controllers/aktivitas_operator_controller.dart';
 
 class AktivitasOperatorView extends GetView<AktivitasOperatorController> {

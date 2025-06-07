@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import '../data/user_provider.dart';
-import '../models/user.dart';
+import '../data/providers/user_provider.dart';
+import '../data/models/user.dart';
 
 class UserDataController extends GetxController {
   UserProvider UserP = UserProvider();

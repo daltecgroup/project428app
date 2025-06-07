@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/modules/stok/views/stock_order_detail_view.dart';
 import 'package:project428app/app/services/order_service.dart';
-import 'package:project428app/app/widgets/order_item_status_widget.dart';
-import '../../../../models/order.dart';
+import 'package:project428app/app/shared/widgets/order_item_status_widget.dart';
+import '../../../../data/models/order.dart';
 
 Widget StockOrderItem(Order order, int index) {
   OrderService OrderS = Get.find<OrderService>();

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:project428app/app/data/order_provider.dart';
+import 'package:project428app/app/data/providers/order_provider.dart';
 import 'package:project428app/app/services/order_service.dart';
-import 'package:project428app/app/widgets/alert_dialog.dart';
+import 'package:project428app/app/shared/widgets/alert_dialog.dart';
 
-import '../data/stock_provider.dart';
-import '../models/stock.dart';
-import '../models/stock_history.dart';
+import '../data/providers/stock_provider.dart';
+import '../data/models/stock.dart';
+import '../data/models/stock_history.dart';
 import '../style.dart';
-import '../widgets/text_header.dart';
+import '../shared/widgets/text_header.dart';
 
 class StockService extends GetxService {
   GetStorage box = GetStorage();

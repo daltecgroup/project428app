@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/modules/stok/controllers/stok_controller.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 
-import '../../../../models/order.dart';
+import '../../../../data/models/order.dart';
 import '../widgets/stock_order_item.dart';
 
 class StockHistoryPage extends StatelessWidget {
@@ -22,7 +22,11 @@ class StockHistoryPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [TextTitle(text: 'Tidak Ada Pesanan')],
+                  children: [TextTitle(text: 'Tidak Ada Riwayat Pesanan'),SizedBox(height: 10),
+                    Text(
+                      textAlign: TextAlign.center,
+                      'Tekan tombol "+" untuk menambahkan\npesanan baru di tab Pesanan',
+                    ),],
                 ),
               )
               : ListView.builder(

@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 
-import '../../../widgets/custom_textfield_with_error.dart';
-import '../../../widgets/text_header.dart';
+import '../../../shared/widgets/custom_textfield_with_error.dart';
+import '../../../shared/widgets/text_header.dart';
 import '../controllers/user_update_controller.dart';
 
 class UserUpdateView extends GetView<UserUpdateController> {

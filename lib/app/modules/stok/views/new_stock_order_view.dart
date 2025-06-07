@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:project428app/app/models/outlet.dart';
+import 'package:project428app/app/data/models/outlet.dart';
 import 'package:project428app/app/services/outlet_service.dart';
 import 'package:project428app/app/services/stock_service.dart';
-import 'package:project428app/app/widgets/stocks/ingredients_item.dart';
+import 'package:project428app/app/shared/widgets/stocks/ingredients_item.dart';
 
 import '../../../style.dart';
-import '../../../widgets/field_error_widget.dart';
-import '../../../widgets/text_header.dart';
+import '../../../shared/widgets/field_error_widget.dart';
+import '../../../shared/widgets/text_header.dart';
 
 class NewStockOrderView extends GetView {
   const NewStockOrderView({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:project428app/app/data/stock_provider.dart';
-import 'package:project428app/app/error_code.dart';
+import 'package:project428app/app/data/providers/stock_provider.dart';
+import 'package:project428app/app/core/constants/error_code.dart';
 
-import '../../../constants.dart';
+import '../../../core/constants/constants.dart';
 import '../../../services/stock_service.dart';
 
 class TambahStokController extends GetxController {

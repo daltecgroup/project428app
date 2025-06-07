@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:project428app/app/controllers/image_picker_controller.dart';
-import 'package:project428app/app/data/attendance_provider.dart';
+import 'package:project428app/app/data/providers/attendance_provider.dart';
 import 'package:project428app/app/services/attendance_service.dart';
 import 'package:project428app/app/services/auth_service.dart';
 

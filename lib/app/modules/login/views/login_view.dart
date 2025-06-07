@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project428app/app/style.dart';
-import 'package:project428app/app/widgets/app_logo_title_widget.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/app_logo_title_widget.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 
-import '../../../constants.dart';
+import '../../../core/constants/constants.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {

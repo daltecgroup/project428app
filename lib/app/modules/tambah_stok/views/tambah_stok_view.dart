@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:project428app/app/widgets/custom_textfield_with_error.dart';
-import 'package:project428app/app/widgets/text_header.dart';
+import 'package:project428app/app/shared/widgets/custom_textfield_with_error.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
 
 import '../controllers/tambah_stok_controller.dart';
 

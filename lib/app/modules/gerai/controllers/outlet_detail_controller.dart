@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/controllers/image_picker_controller.dart';
 import 'package:project428app/app/controllers/user_data_controller.dart';
-import 'package:project428app/app/data/outlet_provider.dart';
+import 'package:project428app/app/data/providers/outlet_provider.dart';
 import 'package:project428app/app/modules/gerai/controllers/gerai_controller.dart';
 import 'package:project428app/app/modules/gerai/models/outlet_list_item.dart';
-import 'package:project428app/app/widgets/alert_dialog.dart';
+import 'package:project428app/app/shared/widgets/alert_dialog.dart';
 
-import '../../../models/outlet.dart';
-import '../../../models/user.dart';
+import '../../../data/models/outlet.dart';
+import '../../../data/models/user.dart';
 import '../../../style.dart';
-import '../../../widgets/text_header.dart';
+import '../../../shared/widgets/text_header.dart';
 
 class OutletDetailController extends GetxController {
   OutletProvider OutletP = OutletProvider();

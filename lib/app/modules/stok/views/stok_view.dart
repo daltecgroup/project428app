@@ -4,9 +4,9 @@ import 'package:project428app/app/modules/stok/views/new_stock_order_view.dart';
 import 'package:project428app/app/modules/stok/views/pages/stock_history_page.dart';
 import 'package:project428app/app/modules/stok/views/pages/stock_order_page.dart';
 import 'package:project428app/app/modules/stok/views/pages/stock_type_page.dart';
-import 'package:project428app/app/widgets/text_header.dart';
-import '../../../constants.dart';
-import '../../../widgets/admin/admin_drawer.dart';
+import 'package:project428app/app/shared/widgets/text_header.dart';
+import '../../../core/constants/constants.dart';
+import '../../../shared/widgets/admin/admin_drawer.dart';
 import '../controllers/stok_controller.dart';
 
 class StokView extends GetView<StokController> {

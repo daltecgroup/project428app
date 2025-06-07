@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
+import 'package:project428app/app/core/constants/constants.dart';
 import 'package:project428app/app/controllers/image_picker_controller.dart';
-import 'package:project428app/app/data/product_category_provider.dart';
-import 'package:project428app/app/data/product_provider.dart';
-import 'package:project428app/app/models/product.dart';
-import 'package:project428app/app/models/product_category.dart';
+import 'package:project428app/app/data/providers/product_category_provider.dart';
+import 'package:project428app/app/data/providers/product_provider.dart';
+import 'package:project428app/app/data/models/product.dart';
+import 'package:project428app/app/data/models/product_category.dart';
 
-import '../../../data/stock_provider.dart';
-import '../../../models/stock.dart';
+import '../../../data/providers/stock_provider.dart';
+import '../../../data/models/stock.dart';
 import '../../../style.dart';
-import '../../../widgets/text_header.dart';
+import '../../../shared/widgets/text_header.dart';
 
 class ProdukController extends GetxController
     with GetSingleTickerProviderStateMixin {

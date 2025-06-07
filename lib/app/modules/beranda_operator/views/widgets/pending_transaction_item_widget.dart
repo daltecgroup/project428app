@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/models/pending_sales.dart';
+import 'package:project428app/app/data/models/pending_sales.dart';
 import 'package:project428app/app/modules/beranda_operator/views/pages/new_sales_view.dart';
 import 'package:project428app/app/services/operator_service.dart';
 

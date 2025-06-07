@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:project428app/app/controllers/product_categoriey_data_controller.dart';
 import 'package:project428app/app/controllers/product_data_controller.dart';
-import 'package:project428app/app/data/operator_provider.dart';
-import 'package:project428app/app/data/sale_data_provider.dart';
-import 'package:project428app/app/models/pending_sales.dart';
-import 'package:project428app/app/models/sale.dart';
+import 'package:project428app/app/data/providers/operator_provider.dart';
+import 'package:project428app/app/data/providers/sale_data_provider.dart';
+import 'package:project428app/app/data/models/pending_sales.dart';
+import 'package:project428app/app/data/models/sale.dart';
 import 'package:project428app/app/services/auth_service.dart';
 
 class OperatorService extends GetxService {

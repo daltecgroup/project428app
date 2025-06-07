@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/data/auth_provider.dart';
+import 'package:project428app/app/core/constants/constants.dart';
+import 'package:project428app/app/data/providers/auth_provider.dart';
 import 'package:project428app/app/services/attendance_service.dart';
 import 'package:project428app/app/services/operator_service.dart';
 import 'package:project428app/app/services/order_service.dart';
@@ -15,7 +15,6 @@ import 'package:window_manager/window_manager.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/auth_service.dart';
 import 'app/services/stock_service.dart';
-
 void main() async {
   await GetStorage.init();
   Get.put(AuthProvider());

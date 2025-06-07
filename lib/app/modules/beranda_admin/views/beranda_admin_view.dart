@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:project428app/app/constants.dart';
-import 'package:project428app/app/widgets/admin/admin_appbar.dart';
-import 'package:project428app/app/widgets/admin/admin_drawer.dart';
+import 'package:project428app/app/core/constants/constants.dart';
+import 'package:project428app/app/shared/widgets/admin/admin_appbar.dart';
+import 'package:project428app/app/shared/widgets/admin/admin_drawer.dart';
 
 import '../controllers/beranda_admin_controller.dart';
 
@@ -13,7 +13,7 @@ class BerandaAdminView extends GetView<BerandaAdminController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AdminAppBar(context, "Admin"),
+      appBar: AdminAppBar(context, "Admin", null),
       drawer: AdminDrawer(context, kAdminMenuBeranda),
       body: ListView(
           children: [

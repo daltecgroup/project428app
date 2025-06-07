@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:project428app/app/data/address_data_provider.dart';
+import 'package:project428app/app/data/providers/address_data_provider.dart';
 
 class AddressDataController extends GetxController {
   AddressDataProvider AddressP = AddressDataProvider();

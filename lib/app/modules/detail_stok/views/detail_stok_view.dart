@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project428app/app/modules/detail_stok/views/riwayat_stok_item.dart';
 import 'package:project428app/app/style.dart';
-import 'package:project428app/app/widgets/status_sign.dart';
+import 'package:project428app/app/shared/widgets/status_sign.dart';
 
-import '../../../widgets/text_header.dart';
+import '../../../shared/widgets/text_header.dart';
 import '../controllers/detail_stok_controller.dart';
 
 class DetailStokView extends GetView<DetailStokController> {

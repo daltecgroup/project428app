@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project428app/app/widgets/alert_dialog_with_widget.dart';
+import 'package:project428app/app/shared/widgets/alert_dialog_with_widget.dart';
 
 import '../../../services/user_service.dart';
 

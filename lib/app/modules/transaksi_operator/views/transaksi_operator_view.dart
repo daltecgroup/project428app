@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../constants.dart';
-import '../../../widgets/operator/operator_appbar.dart';
-import '../../../widgets/operator/operator_drawer.dart';
-import '../../../widgets/text_header.dart';
+import '../../../core/constants/constants.dart';
+import '../../../shared/widgets/operator/operator_appbar.dart';
+import '../../../shared/widgets/operator/operator_drawer.dart';
+import '../../../shared/widgets/text_header.dart';
 import '../../beranda_operator/views/widgets/transaction_item_widget.dart';
 import '../controllers/transaksi_operator_controller.dart';
 

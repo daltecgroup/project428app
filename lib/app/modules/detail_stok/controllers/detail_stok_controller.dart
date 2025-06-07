@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:project428app/app/data/stock_provider.dart';
-import '../../../models/stock_history.dart';
+import 'package:project428app/app/data/providers/stock_provider.dart';
+import '../../../data/models/stock_history.dart';
 import '../../../services/stock_service.dart';
 
 class DetailStokController extends GetxController {

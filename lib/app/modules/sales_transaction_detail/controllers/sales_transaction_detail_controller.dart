@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:project428app/app/data/sale_data_provider.dart';
+import 'package:project428app/app/data/providers/sale_data_provider.dart';
 import 'package:project428app/app/services/operator_service.dart';
 
-import '../../../models/sale.dart';
+import '../../../data/models/sale.dart';
 
 class SalesTransactionDetailController extends GetxController {
   OperatorService OperatorS = Get.find<OperatorService>();
