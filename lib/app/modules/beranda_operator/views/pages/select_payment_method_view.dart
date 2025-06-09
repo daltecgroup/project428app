@@ -258,9 +258,7 @@ class SelectPaymentMethodView extends GetView {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text('QRIS'),
-                                    false
-                                        ? Icon(Icons.check_circle, size: 24)
-                                        : SizedBox(),
+                                    
                                   ],
                                 ),
                               ),
@@ -293,9 +291,6 @@ class SelectPaymentMethodView extends GetView {
                                       'Transfer Bank',
                                       // style: TextStyle(fontWeight: FontWeight.w700),
                                     ),
-                                    false
-                                        ? Icon(Icons.check_circle, size: 24)
-                                        : SizedBox(),
                                   ],
                                 ),
                               ),

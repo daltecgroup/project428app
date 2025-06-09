@@ -24,7 +24,7 @@ class OutletService extends GetxService {
     super.onClose();
   }
 
-  getOutlets() {
+  void getOutlets() {
     outlets.clear();
     try {
       OutletP.getOutlets().then((res) {

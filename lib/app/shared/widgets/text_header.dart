@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-TextHeader({
+Text TextHeader({
   required String text,
   double fontSize = 20,
   FontWeight fontWeight = FontWeight.w600,
@@ -11,7 +11,7 @@ TextHeader({
   );
 }
 
-TextTitle({
+Text TextTitle({
   required String text,
   double fontSize = 14,
   FontWeight fontWeight = FontWeight.w600,

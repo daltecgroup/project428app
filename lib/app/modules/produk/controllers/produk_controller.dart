@@ -523,7 +523,7 @@ class ProdukController extends GetxController
     }
   }
 
-  updateProductCategoryName(String id, String name) {
+  void updateProductCategoryName(String id, String name) {
     TextEditingController newCategoryNameC = TextEditingController();
     newCategoryNameC.text = name;
     Get.defaultDialog(

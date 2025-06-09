@@ -15,6 +15,7 @@ import 'package:window_manager/window_manager.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/auth_service.dart';
 import 'app/services/stock_service.dart';
+
 void main() async {
   await GetStorage.init();
   Get.put(AuthProvider());
@@ -28,7 +29,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    await windowManager.ensureInitialized();
     WindowOptions windowOptions = WindowOptions(
       size: Size(kMobileWidth, 800), // Initial window size
       minimumSize: Size(
@@ -45,6 +45,7 @@ void main() async {
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
       await windowManager.focus();
+    await windowManager.ensureInitialized();
     });
   }
 
@@ -66,13 +67,11 @@ void main() async {
               localizationsDelegates: const [
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations
-                    .delegate, // If you're using Cupertino widgets
-                // Add your own app-specific localization delegate if you have custom localized strings
+                GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: const [
-                Locale('en', ''), // English (default fallback)
-                Locale('id', ''), // Indonesian
+                Locale('en', ''),
+                Locale('id', ''),
               ],
             ),
           ),

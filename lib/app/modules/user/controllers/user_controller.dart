@@ -16,17 +16,6 @@ class UserController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    searchc.dispose();
-    super.onClose();
-  }
-
   Future<void> getUsers() async {
     await UserS.getUsers();
   }

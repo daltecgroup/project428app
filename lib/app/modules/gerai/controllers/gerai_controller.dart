@@ -24,7 +24,7 @@ class GeraiController extends GetxController {
     super.onClose();
   }
 
-  getOutletList() {
+  void getOutletList() {
     outletList.clear();
     try {
       OutletP.getOutlets().then((res) {
