@@ -14,6 +14,14 @@ class UserProvider extends GetConnect {
     );
   }
 
+  Future<Response> getLatestUsers(dynamic data) {
+    return post(
+      '${authS.mainServerUrl.value}/api/v1/users/latest',
+      data,
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
+  }
+
   Future<Response> deleteUser(String id) {
     return delete(
       '${authS.mainServerUrl.value}/api/v1/users/$id',

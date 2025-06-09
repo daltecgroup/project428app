@@ -20,8 +20,8 @@ class PengaturanAdminView extends GetView<PengaturanAdminController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextButton(
-              onPressed: () {
-                UserS.syncUsersData();
+              onPressed: () async {
+                UserS.syncData();
               },
               child: Text('TEST'),
             ),

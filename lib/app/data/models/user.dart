@@ -10,7 +10,8 @@ import '../../shared/widgets/format_waktu.dart';
 class User {
   UserProvider UserP = UserProvider();
   String id, userId, name;
-  String? imgUrl, phone;
+  String? imgUrl;
+  String? phone;
   List role;
   bool isActive;
   DateTime updatedAt, lastSeen;
@@ -34,12 +35,27 @@ class User {
       userId = json['userId'] as String,
       name = json['name'] as String,
       role = json['role'],
-      imgUrl = json['imgUrl'],
-      isActive = json['isActive'],
-      phone = json['phone'],
+      imgUrl = json['imgUrl'] as String?,
+      isActive = json['isActive'] as bool,
+      phone = json['phone'] as String?,
       createdAt = MakeLocalDateTime(json['createdAt']),
       updatedAt = MakeLocalDateTime(json['updatedAt']),
       lastSeen = MakeLocalDateTime(json['lastSeen']);
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'userId': userId,
+      'name': name,
+      'role': role,
+      'imgUrl': imgUrl,
+      'isActive': isActive,
+      'phone': phone,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
+      'lastSeen': lastSeen.toIso8601String(),
+    };
+  }
 
   void setRoles(List newRole) {
     role = newRole;

@@ -44,11 +44,6 @@ class SplashController extends GetxController {
     });
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   void _startAnimation() async {
     // Animate larger
     await Future.delayed(

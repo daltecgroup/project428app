@@ -4,6 +4,8 @@ import 'package:project428app/app/modules/stok/views/new_stock_order_view.dart';
 import 'package:project428app/app/modules/stok/views/pages/stock_history_page.dart';
 import 'package:project428app/app/modules/stok/views/pages/stock_order_page.dart';
 import 'package:project428app/app/modules/stok/views/pages/stock_type_page.dart';
+import 'package:project428app/app/services/outlet_service.dart';
+import 'package:project428app/app/shared/widgets/alert_dialog.dart';
 import 'package:project428app/app/shared/widgets/text_header.dart';
 import '../../../core/constants/constants.dart';
 import '../../../shared/widgets/admin/admin_drawer.dart';
@@ -13,6 +15,7 @@ class StokView extends GetView<StokController> {
   const StokView({super.key});
   @override
   Widget build(BuildContext context) {
+    OutletService OutletS = Get.find<OutletService>();
     return Scaffold(
       appBar: AppBar(
         title: TextHeader(text: 'Stok'),
@@ -32,7 +35,6 @@ class StokView extends GetView<StokController> {
             onPressed: () {
               controller.OrderS.getOrders();
               controller.StockS.getStocks();
-
             },
             icon: Icon(Icons.refresh),
           ),
@@ -75,7 +77,9 @@ class StokView extends GetView<StokController> {
                 borderRadius: BorderRadius.circular(30),
               ),
               onPressed: () {
-                Get.to(() => NewStockOrderView());
+                OutletS.outlets.isEmpty
+                    ? CustomAlertDialog('Peringatan', 'Gerai tidak ditemukan')
+                    : Get.to(() => NewStockOrderView());
               },
               child: Icon(Icons.add),
             );
