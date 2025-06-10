@@ -90,9 +90,6 @@ class ProdukController extends GetxController
 
   @override
   void onReady() {
-    tabC.addListener(() {
-      print(tabC.index);
-    });
     super.onReady();
   }
 

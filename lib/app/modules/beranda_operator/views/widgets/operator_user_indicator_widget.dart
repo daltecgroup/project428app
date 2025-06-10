@@ -31,12 +31,22 @@ class OperatorUserIndicatorWidget extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child:
                   internetC.isConnected.value
-                      ? FadeInImage.assetNetwork(
-                        placeholder: kAssetLoading,
-                        image:
-                            controller.AuthS.box.read('userProfile')['imgUrl'],
-                        // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
-                      )
+                      ? controller.AuthS.box.read('userProfile')['imgUrl'] !=
+                              null
+                          ? FadeInImage.assetNetwork(
+                            placeholder: kAssetLoading,
+                            image:
+                                controller.AuthS.box.read(
+                                  'userProfile',
+                                )['imgUrl'],
+                            // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+                          )
+                          : CircleAvatar(
+                            child: SvgPicture.asset(
+                              kImgPlaceholder,
+                              fit: BoxFit.cover,
+                            ),
+                          )
                       : CircleAvatar(
                         child: SvgPicture.asset(
                           kImgPlaceholder,

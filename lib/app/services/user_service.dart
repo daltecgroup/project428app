@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -49,7 +48,7 @@ class UserService extends GetxService {
   Future<void> syncData() async {
     try {
       final file = await getLocalFile(userDataFileName);
-      // if (await file.exists()) await file.delete();
+      if (await file.exists()) await file.delete();
       if (await file.exists()) {
         print('get data from file');
         List<dynamic> userData =

@@ -328,7 +328,7 @@ class AddMenuPageView extends GetView {
                                 children: List.generate(
                                   c.addMenuIngredients.length,
                                   (index) => IngredientsItem(
-                                    c: c,
+                                    list: c.addMenuIngredients,
                                     stock: c.addMenuIngredients[index]['stock'],
                                     name: c.addMenuIngredients[index]['name'],
                                     qty: c.addMenuIngredients[index]['qty'],

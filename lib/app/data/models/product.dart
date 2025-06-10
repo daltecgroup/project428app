@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:project428app/app/data/models/product_category.dart';
 import 'package:project428app/app/shared/widgets/format_waktu.dart';
-
 import 'stock.dart';
 
 class Ingredient {

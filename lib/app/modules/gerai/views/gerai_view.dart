@@ -15,12 +15,13 @@ class GeraiView extends GetView<GeraiController> {
   const GeraiView({super.key});
   @override
   Widget build(BuildContext context) {
+    controller.OutletS.getOutletList();
     return Scaffold(
       appBar: AdminAppBar(context, "Gerai", null),
       drawer: AdminDrawer(context, kAdminMenuGerai),
       body: Obx(
         () =>
-            controller.outletList.isEmpty
+            controller.OutletS.outletList.isEmpty
                 ? Center(child: TextTitle(text: 'Gerai Kosong'))
                 : Column(
                   children: [
@@ -45,30 +46,30 @@ class GeraiView extends GetView<GeraiController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ...List.generate(
-                              controller.getAllRegencyOfOutletList().length,
+                              controller.OutletS.getAllRegencyOfOutletList()
+                                  .length,
                               (index) => Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   TextTitle(
                                     text:
                                         controller
-                                            .getAllRegencyOfOutletList()[index]
+                                                .OutletS.getAllRegencyOfOutletList()[index]
                                             .toLowerCase()
                                             .capitalize!,
                                   ),
                                   SizedBox(height: 8),
                                   ...List.generate(
-                                    controller
-                                        .getOutletItemByRegency(
-                                          controller
-                                              .getAllRegencyOfOutletList()[index],
-                                        )
-                                        .length,
+                                    controller.OutletS.getOutletItemByRegency(
+                                      controller
+                                          .OutletS.getAllRegencyOfOutletList()[index],
+                                    ).length,
                                     (secondIndex) => OutletItemWidget(
                                       outlet:
-                                          controller.getOutletItemByRegency(
+                                          controller
+                                              .OutletS.getOutletItemByRegency(
                                             controller
-                                                .getAllRegencyOfOutletList()[index],
+                                                .OutletS.getAllRegencyOfOutletList()[index],
                                           )[secondIndex],
                                     ),
                                   ),
@@ -77,7 +78,7 @@ class GeraiView extends GetView<GeraiController> {
                             ),
                             TextButton(
                               onPressed: () {
-                                controller.getOutletList();
+                                controller.OutletS.getOutlets();
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

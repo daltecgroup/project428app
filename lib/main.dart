@@ -10,6 +10,7 @@ import 'package:project428app/app/services/attendance_service.dart';
 import 'package:project428app/app/services/operator_service.dart';
 import 'package:project428app/app/services/order_service.dart';
 import 'package:project428app/app/services/outlet_service.dart';
+import 'package:project428app/app/services/topping_service.dart';
 import 'package:project428app/app/services/user_service.dart';
 import 'package:window_manager/window_manager.dart';
 import 'app/routes/app_pages.dart';
@@ -21,6 +22,7 @@ void main() async {
   Get.put(AuthProvider());
   AuthService authC = Get.put(AuthService(), permanent: true);
   Get.put(StockService(), permanent: true);
+  Get.put(ToppingService(), permanent: true);
   Get.put(UserService(), permanent: true);
   Get.put(OutletService(), permanent: true);
   Get.put(OrderService(), permanent: true);
@@ -45,7 +47,7 @@ void main() async {
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
       await windowManager.focus();
-    await windowManager.ensureInitialized();
+      await windowManager.ensureInitialized();
     });
   }
 
@@ -69,10 +71,7 @@ void main() async {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              supportedLocales: const [
-                Locale('en', ''),
-                Locale('id', ''),
-              ],
+              supportedLocales: const [Locale('en', ''), Locale('id', '')],
             ),
           ),
         ),

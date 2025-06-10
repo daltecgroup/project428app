@@ -1,28 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:project428app/app/data/models/product.dart';
-import 'package:project428app/app/shared/widgets/status_sign.dart';
+import 'package:project428app/app/core/constants/constants.dart';
+import 'package:project428app/app/modules/produk/controllers/topping_detail_controller.dart';
 
-import '../../../../core/constants/constants.dart';
-import '../../../../services/auth_service.dart';
-import '../../../../style.dart';
+import '../../../../shared/widgets/status_sign.dart';
 import '../../../../shared/widgets/text_header.dart';
-import '../../controllers/produk_controller.dart';
-import 'ingredients_item.dart';
+import '../../../../style.dart';
 
-class MenuDetailView extends GetView {
-  const MenuDetailView({super.key, required this.c, required this.product});
-
-  final ProdukController c;
-  final Product product;
+class ToppingDetailView extends GetView<ToppingDetailController> {
+  const ToppingDetailView({super.key});
   @override
   Widget build(BuildContext context) {
-    AuthService authS = Get.find<AuthService>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Detail Produk',
+          'Detail Topping',
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
         ),
         centerTitle: true,
@@ -34,26 +28,15 @@ class MenuDetailView extends GetView {
             Get.back();
           },
         ),
-        actions: [
-          IconButton(onPressed: () async {}, icon: Icon(Icons.refresh_rounded)),
-          IconButton(
-            onPressed: () async {
-              c.deleteProduct(product.code, product.name);
-            },
-            icon: Icon(Icons.delete, color: Colors.red[900]),
-          ),
-          SizedBox(width: 10),
-        ],
       ),
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        child: SingleChildScrollView(
+      body: Obx(
+        () => SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
               SizedBox(height: 20),
-              // product image
+
+              // topping image
               Material(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(10),
@@ -71,11 +54,19 @@ class MenuDetailView extends GetView {
                         padding: EdgeInsets.only(),
                         height: kMobileWidth - 30,
                         width: double.infinity,
-                        child: Image.network(
-                          fit: BoxFit.cover,
-                          '${authS.mainServerUrl.value}/api/v1/${product.imgUrl}',
-                          webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
-                        ),
+                        child:
+                            controller.ToppingC.selectedTopping.value!.imgUrl ==
+                                    null
+                                ? SvgPicture.asset(
+                                  fit: BoxFit.cover,
+                                  kImgPlaceholder,
+                                )
+                                : Image.network(
+                                  fit: BoxFit.cover,
+                                  '${controller.AuthS.mainServerUrl.value}/api/v1/${controller.ToppingC.selectedTopping.value!.imgUrl}',
+                                  webHtmlElementStrategy:
+                                      WebHtmlElementStrategy.prefer,
+                                ),
                       ),
                       Positioned(
                         right: 5,
@@ -92,6 +83,8 @@ class MenuDetailView extends GetView {
                           icon: Icon(Icons.edit),
                         ),
                       ),
+
+                      SizedBox(height: 20),
                     ],
                   ),
                 ),
@@ -119,15 +112,17 @@ class MenuDetailView extends GetView {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               TextTitle(text: 'Kode'),
-                              Text(product.code),
+                              Text(
+                                controller.ToppingC.selectedTopping.value!.code,
+                              ),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              TextTitle(text: 'Diperbarui'),
+                              TextTitle(text: 'Dibuat'),
                               Text(
-                                '${product.getUpdateDate()} ${product.getUpdateTime()}',
+                                '${controller.ToppingC.selectedTopping.value!.getCreateDate()} ${controller.ToppingC.selectedTopping.value!.getCreateTime()}',
                               ),
                             ],
                           ),
@@ -141,44 +136,23 @@ class MenuDetailView extends GetView {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               TextTitle(text: 'Nama'),
-                              Text(product.name),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              TextTitle(text: 'Harga Awal'),
-                              Text(product.getPriceInRupiah()),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextTitle(text: 'Kategori'),
-                              product.category == null
-                                  ? Text('-')
-                                  : Text(product.category!.name),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              TextTitle(text: 'Diskon'),
                               Text(
-                                product.discount > 0
-                                    ? '${product.discount.toString()}%'
-                                    : '-',
+                                controller.ToppingC.selectedTopping.value!.name,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              TextTitle(text: 'Diperbarui'),
+                              Text(
+                                '${controller.ToppingC.selectedTopping.value!.getUpdateDate()} ${controller.ToppingC.selectedTopping.value!.getUpdateTime()}',
                               ),
                             ],
                           ),
                         ],
                       ),
+
                       SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -187,34 +161,26 @@ class MenuDetailView extends GetView {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               TextTitle(text: 'Status'),
-                              StatusSign(status: product.isActive, size: 16),
+                              StatusSign(
+                                status:
+                                    controller
+                                        .ToppingC
+                                        .selectedTopping
+                                        .value!
+                                        .isActive,
+                                size: 16,
+                              ),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              TextTitle(text: 'Harga Akhir'),
-                              Text(product.getPriceInRupiahAfterDiscount()),
+                              TextTitle(text: 'Harga'),
+                              Text(
+                                controller.ToppingC.selectedTopping.value!
+                                    .getPriceInRupiah(),
+                              ),
                             ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextTitle(text: 'Deskripsi '),
-                                Text(
-                                  product.description,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                ),
-                              ],
-                            ),
                           ),
                         ],
                       ),
@@ -243,9 +209,35 @@ class MenuDetailView extends GetView {
                           SizedBox(width: 10),
                           Expanded(
                             child: TextButton(
-                              onPressed: () {},
-                              style: PrimaryButtonStyle(Colors.red[400]!),
-                              child: Text('Nonaktifkan'),
+                              onPressed: () {
+                                controller.ToppingC.selectedTopping.value!
+                                    .toggleStatus()
+                                    .then((success) {
+                                      if (success) {
+                                        controller.ToppingC.selectedTopping
+                                            .refresh();
+                                        controller.ToppingS.toppings.refresh();
+                                      }
+                                    });
+                              },
+                              style: PrimaryButtonStyle(
+                                controller
+                                        .ToppingC
+                                        .selectedTopping
+                                        .value!
+                                        .isActive
+                                    ? Colors.red[400]!
+                                    : Colors.blue,
+                              ),
+                              child: Text(
+                                controller
+                                        .ToppingC
+                                        .selectedTopping
+                                        .value!
+                                        .isActive
+                                    ? 'Nonaktifkan'
+                                    : 'Aktifkan',
+                              ),
                             ),
                           ),
                         ],
@@ -254,52 +246,6 @@ class MenuDetailView extends GetView {
                   ),
                 ),
               ),
-
-              SizedBox(height: 20),
-
-              // product ingredients
-              Card(
-                color: Colors.white,
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                margin: EdgeInsets.all(0),
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextTitle(text: 'Komposisi Bahan'),
-                          TextButton(onPressed: () {}, child: Text('Tambah')),
-                        ],
-                      ),
-                      Column(
-                        children: List.generate(product.ingredients.length, (
-                          index,
-                        ) {
-                          if (product.ingredients[index].stock != null) {
-                            return IngredientsItem(
-                              list: product.ingredients,
-                              stock: product.ingredients[index].id,
-                              name: product.ingredients[index].stock!.name,
-                              qty: product.ingredients[index].qty,
-                              unit: product.ingredients[index].stock!.unit,
-                            );
-                          }
-                          return Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('Stock Terhapus dari Sistem'),
-                          );
-                        }),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 50),
             ],
           ),
         ),

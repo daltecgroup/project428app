@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:project428app/app/controllers/address_data_controller.dart';
 import 'package:project428app/app/data/providers/outlet_provider.dart';
 import 'package:project428app/app/modules/gerai/controllers/gerai_controller.dart';
+import 'package:project428app/app/services/outlet_service.dart';
 
 class AddOutletController extends GetxController {
   AddressDataController addressC = Get.find<AddressDataController>(
@@ -11,6 +12,7 @@ class AddOutletController extends GetxController {
   GeraiController geraiC = Get.find<GeraiController>();
 
   OutletProvider OutletP = OutletProvider();
+  OutletService OutletS = OutletService();
   RxBool isLoading = false.obs;
 
   late TextEditingController codeC;
@@ -78,7 +80,7 @@ class AddOutletController extends GetxController {
         Get.back();
         switch (res.statusCode) {
           case 201:
-            geraiC.getOutletList();
+            OutletS.getOutlets();
             Get.back();
             break;
           case 400:

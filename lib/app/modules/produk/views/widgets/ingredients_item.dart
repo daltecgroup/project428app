@@ -5,14 +5,14 @@ import 'package:project428app/app/modules/produk/controllers/produk_controller.d
 class IngredientsItem extends StatelessWidget {
   const IngredientsItem({
     super.key,
-    required this.c,
+    required this.list,
     required this.stock,
     required this.name,
     required this.unit,
     required this.qty,
   });
 
-  final ProdukController c;
+  final List list;
   final String stock;
   final String name;
   final String unit;
@@ -55,7 +55,7 @@ class IngredientsItem extends StatelessWidget {
               IconButton(
                 padding: EdgeInsets.all(0),
                 onPressed: () {
-                  c.addMenuIngredients.removeWhere((e) => e['stock'] == stock);
+                  list.removeWhere((e) => e['stock'] == stock);
                 },
                 icon: Icon(
                   Icons.close_rounded,

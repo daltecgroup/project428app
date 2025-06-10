@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:project428app/app/modules/produk/bindings/produk_binding.dart';
 import 'package:project428app/app/modules/produk/views/widgets/add_category_page_view.dart';
 import 'package:project428app/app/modules/produk/views/widgets/add_menu_page_view.dart';
 import 'package:project428app/app/modules/produk/views/widgets/add_topping_page_view.dart';
@@ -106,7 +107,11 @@ class ProdukView extends GetView<ProdukController> {
               );
               break;
             case 2:
-              Get.to(() => AddToppingPageView(), preventDuplicates: false);
+              Get.to(
+                () => AddToppingPageView(),
+                binding: ProdukBinding(),
+                preventDuplicates: false,
+              );
               break;
             default:
           }

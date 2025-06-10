@@ -5,6 +5,7 @@ import 'package:project428app/app/controllers/user_data_controller.dart';
 import 'package:project428app/app/data/providers/outlet_provider.dart';
 import 'package:project428app/app/modules/gerai/controllers/gerai_controller.dart';
 import 'package:project428app/app/modules/gerai/models/outlet_list_item.dart';
+import 'package:project428app/app/services/outlet_service.dart';
 import 'package:project428app/app/shared/widgets/alert_dialog.dart';
 
 import '../../../data/models/outlet.dart';
@@ -17,6 +18,7 @@ class OutletDetailController extends GetxController {
   ImagePickerController imagePickerC = Get.put(ImagePickerController());
   UserDataController UserDataC = Get.put(UserDataController());
   GeraiController GeraiC = Get.find<GeraiController>();
+  OutletService OutletS = Get.find<OutletService>();
   RxInt selectedIndex = 0.obs;
 
   RxBool isOwnerEditable = false.obs;
@@ -75,12 +77,12 @@ class OutletDetailController extends GetxController {
     if (outlet.value.isActive) {
       OutletP.deactivateOutlet(outlet.value.code).then((res) {
         getOutlet();
-        GeraiC.getOutletList();
+        OutletS.getOutlets();
       });
     } else {
       OutletP.reactivateOutlet(outlet.value.code).then((res) {
         getOutlet();
-        GeraiC.getOutletList();
+        OutletS.getOutlets();
       });
     }
   }
@@ -126,7 +128,7 @@ class OutletDetailController extends GetxController {
         imagePickerC.selectedImage.value!,
       ).then((res) {
         outlet.value = Outlet.fromJson(res.body);
-        GeraiC.getOutletList();
+        OutletS.getOutlets();
       });
     } else {
       Get.defaultDialog(
@@ -284,7 +286,7 @@ class OutletDetailController extends GetxController {
       confirm: TextButton(
         onPressed: () async {
           await OutletP.deleteOutlet(outlet.value.code).then((res) {
-            GeraiC.getOutletList();
+            OutletS.getOutlets();
             Get.back();
             Get.offNamed('/gerai');
           });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project428app/app/data/providers/topping_provider.dart';
 import '../../../services/user_service.dart';
 import '../../../shared/widgets/admin/admin_appbar.dart';
 import '../../../shared/widgets/admin/admin_drawer.dart';
@@ -12,22 +13,11 @@ class PengaturanAdminView extends GetView<PengaturanAdminController> {
   @override
   Widget build(BuildContext context) {
     final UserService UserS = Get.find<UserService>();
+    final ToppingProvider ToppingP = ToppingProvider();
     return Scaffold(
       appBar: AdminAppBar(context, "Pengaturan", null),
       drawer: AdminDrawer(context, kAdminMenuPengaturan),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextButton(
-              onPressed: () async {
-                UserS.syncData();
-              },
-              child: Text('TEST'),
-            ),
-          ],
-        ),
-      ),
+      body: Center(child: Text('data')),
     );
   }
 }

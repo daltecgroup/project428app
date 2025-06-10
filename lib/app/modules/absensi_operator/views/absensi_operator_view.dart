@@ -52,14 +52,24 @@ class AbsensiOperatorView extends GetView<AbsensiOperatorController> {
                                   ),
                                   child:
                                       controller.AuthS.isConnected.value
-                                          ? FadeInImage.assetNetwork(
-                                            placeholder: kAssetLoading,
-                                            image:
-                                                controller.AuthS.box.read(
-                                                  'userProfile',
-                                                )['imgUrl'],
-                                            // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
-                                          )
+                                          ? controller.AuthS.box.read(
+                                                    'userProfile',
+                                                  )['imgUrl'] !=
+                                                  null
+                                              ? FadeInImage.assetNetwork(
+                                                placeholder: kAssetLoading,
+                                                image:
+                                                    controller.AuthS.box.read(
+                                                      'userProfile',
+                                                    )['imgUrl'],
+                                                // webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+                                              )
+                                              : CircleAvatar(
+                                                child: SvgPicture.asset(
+                                                  kImgPlaceholder,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              )
                                           : CircleAvatar(
                                             child: SvgPicture.asset(
                                               kImgPlaceholder,
