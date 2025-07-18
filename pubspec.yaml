@@ -1,125 +1,54 @@
-name: project428app
-description: "POS System for Aroma Business Group"
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+name: abg_pos_app
+description: "A point of sale system for Aroma business group."
+publish_to: 'none'
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-# In Windows, build-name is used as the major, minor, and patch parts
-# of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.0+5
 
 environment:
-  sdk: ^3.7.2
+  sdk: ^3.8.1
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-
   cupertino_icons: ^1.0.8
-  firebase_core: ^3.13.0
-  cloud_firestore: ^5.6.7
   get: ^4.7.2
-  get_storage: ^2.1.1
-  shared_preferences: ^2.5.3
-  intl: ^0.20.2
   internet_connection_checker: ^3.0.1
-  random_name_generator: ^1.5.0
-  image_picker: ^1.1.2
-  http: ^1.4.0
-  path: ^1.9.1
-  file_picker: ^10.1.9
-  flutter_svg: ^2.1.0
-  google_fonts: ^6.2.1
+  get_storage: ^2.1.1
+  logger: ^2.5.0
   jwt_decoder: ^2.0.1
-  dotted_border: ^3.0.1
-  window_manager: ^0.5.0
   path_provider: ^2.1.5
-  image: ^4.5.4
-  bluetooth_thermal_printer: ^0.0.6
-  permission_handler: ^12.0.0+1
+  flutter_svg: ^2.2.0
+  intl: ^0.20.2
+  flutter_svg_provider: ^1.0.7
+  collection: ^1.19.1
+  dotted_border: ^3.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
+
+  flutter_lints: ^5.0.0
+
 
 flutter:
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/
-    - pubspec.yaml
-  #   - images/a_dot_ham.jpeg
+    - assets/images/logo_small.png
+    - assets/png/profile-placeholder.png
+    - assets/svg/img-placeholder.svg
+    - assets/svg/profile-placeholder.svg
 
   fonts:
     - family: Poppins
       fonts:
-        # Thin (100)
-        - asset: assets/fonts/poppins/Poppins-Thin.ttf
-          weight: 100
-        - asset: assets/fonts/poppins/Poppins-ThinItalic.ttf
-          weight: 100
-          style: italic
-        # ExtraLight (200)
-        - asset: assets/fonts/poppins/Poppins-ExtraLight.ttf
-          weight: 200
-        - asset: assets/fonts/poppins/Poppins-ExtraLightItalic.ttf
-          weight: 200
-          style: italic
-        # Light (300)
-        - asset: assets/fonts/poppins/Poppins-Light.ttf
-          weight: 300
-        - asset: assets/fonts/poppins/Poppins-LightItalic.ttf
-          weight: 300
-          style: italic
-        # Regular (400)
         - asset: assets/fonts/poppins/Poppins-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/poppins/Poppins-Italic.ttf
-          weight: 400
-          style: italic
-        # Medium (500)
-        - asset: assets/fonts/poppins/Poppins-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/poppins/Poppins-MediumItalic.ttf
-          weight: 500
-          style: italic
-        # SemiBold (600)
-        - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/poppins/Poppins-SemiBoldItalic.ttf
-          weight: 600
-          style: italic
-        # Bold (700)
         - asset: assets/fonts/poppins/Poppins-Bold.ttf
           weight: 700
-        - asset: assets/fonts/poppins/Poppins-BoldItalic.ttf
-          weight: 700
+        - asset: assets/fonts/poppins/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/poppins/Poppins-Italic.ttf
           style: italic
-        # ExtraBold (800)
-        - asset: assets/fonts/poppins/Poppins-ExtraBold.ttf
-          weight: 800
-        - asset: assets/fonts/poppins/Poppins-ExtraBoldItalic.ttf
-          weight: 800
-          style: italic
-        # Black (900)
-        - asset: assets/fonts/poppins/Poppins-Black.ttf
-          weight: 900
-        - asset: assets/fonts/poppins/Poppins-BlackItalic.ttf
-          weight: 900
-          style: italic
-
 

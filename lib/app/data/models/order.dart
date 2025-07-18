@@ -1,150 +1,90 @@
-import 'dart:convert';
+import 'package:abg_pos_app/app/data/models/OrderItem.dart';
 
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:project428app/app/data/providers/order_provider.dart';
-import 'package:project428app/app/data/models/stock.dart';
+import 'Address.dart';
 
-import '../../shared/widgets/format_waktu.dart';
-import 'outlet.dart';
+class OrderOutlet {
+  final String outletId, name;
+  final Address address;
 
-class Order {
-  OrderProvider OrderP = OrderProvider();
+  OrderOutlet({
+    required this.outletId,
+    required this.name,
+    required this.address,
+  });
 
-  final String id, code;
-  final Outlet outlet;
-  List<OrderItem> items;
-  final int total;
-  final DateTime createdAt;
-  String status;
-
-  Order(
-    this.id,
-    this.code,
-    this.outlet,
-    this.status,
-    this.items,
-    this.total,
-    this.createdAt,
-  );
-
-  Order.fromJson(Map<String, dynamic> json)
-    : id = json['_id'] as String,
-      code = json['code'] as String,
-      outlet = Outlet.fromJson(json['outlet']),
-      items =
-          (json['items'] as List).map((e) => OrderItem.fromJson(e)).toList(),
-      total = json['total'] as int,
-      status = json['status'] as String,
-      createdAt = MakeLocalDateTime(json['createdAt']);
-
-  Future<bool> setStatus(String newStatus) async {
-    return OrderP.updateOrderById(
-      code,
-      json.encode({'status': newStatus}),
-    ).then((res) {
-      if (res.statusCode != null && res.statusCode == 200) {
-        status = newStatus;
-        return true;
-      } else {
-        Get.snackbar('Gagal Mengubah Status', res.body['error']);
-        return false;
-      }
-    });
+  factory OrderOutlet.fromJson(Map<String, dynamic> json) {
+    return OrderOutlet(
+      outletId: json['outletId'],
+      name: json['name'],
+      address: Address.fromJson(json['address']),
+    );
   }
-
-  void statusCheck() {
-    int acceptCount = 0;
-    for (var item in items) {
-      if (item.accepted) {
-        acceptCount++;
-      }
-    }
-
-    if (acceptCount == items.length) {
-      status = 'accepted';
-    } else {
-      status = 'returned';
-    }
-  }
-
-  Future<bool> changeItemStatus(int index, bool status) async {
-    var initialItems = items;
-    var initialStatus = this.status;
-
-    items[index].changeStatus(status);
-    statusCheck();
-
-    await OrderP.updateOrderById(
-          code,
-          json.encode({
-            'status': this.status,
-            'items':
-                items
-                    .map(
-                      (item) => {
-                        'stock': item.stock.id,
-                        'name': item.name,
-                        'qty': item.qty,
-                        'price': item.price,
-                        'accepted': item.accepted,
-                      },
-                    )
-                    .toList(),
-          }),
-        )
-        .then((res) {
-          if (res.statusCode == 200) {
-            return true;
-          } else {
-            this.status = initialStatus;
-            items = initialItems;
-            return false;
-          }
-        })
-        .onError((_, __) {
-          return false;
-        });
-    return false;
-  }
-
-  String getCreateTimeDate() {
-    return "${createdAt.day} ${DateFormat(DateFormat.MONTH).format(createdAt)} ${createdAt.year} ${createdAt.hour}:${createdAt.minute.isLowerThan(10) ? '0${createdAt.minute}' : createdAt.minute} WIB";
-  }
-
-  String getCreateTime() {
-    return "${createdAt.hour}:${createdAt.minute.isLowerThan(10) ? '0${createdAt.minute}' : createdAt.minute} WIB";
-  }
-
-  String getTotalInIDR() {
-    return "IDR ${NumberFormat("#,##0", "id_ID").format(total)}";
+  Map<String, dynamic> toJson() {
+    return {'outletId': outletId, 'name': name, 'address': address.toJson()};
   }
 }
 
-class OrderItem {
-  final String name;
-  final Stock stock;
-  final int qty, price;
-  bool accepted;
+class CreatedBy {
+  final String userId, name;
 
-  OrderItem(this.name, this.stock, this.qty, this.price, this.accepted);
+  CreatedBy({required this.userId, required this.name});
 
-  OrderItem.fromJson(Map<String, dynamic> json)
-    : stock = Stock.fromJson(json['stock']),
-      name = json['name'] as String,
-      qty = json['qty'] as int,
-      price = json['price'] as int,
-      accepted = json['accepted'] as bool;
-
-  String getPriceInIDR() {
-    return "IDR ${NumberFormat("#,##0", "id_ID").format(price)}";
+  factory CreatedBy.fromJson(Map<String, dynamic> json) {
+    return CreatedBy(userId: json['userId'], name: json['name']);
   }
 
-  String getTotalInIDR() {
-    return "IDR ${NumberFormat("#,##0", "id_ID").format(qty * price)}";
+  Map<String, dynamic> toJson() {
+    return {'userId': userId, 'name': name};
+  }
+}
+
+class Order {
+  final String id, code, status;
+  final double totalPrice;
+  final OrderOutlet outlet;
+  final CreatedBy createdBy;
+  final List<OrderItem> items;
+  final DateTime createdAt, updatedAt;
+
+  Order({
+    required this.id,
+    required this.code,
+    required this.status,
+    required this.totalPrice,
+    required this.outlet,
+    required this.createdBy,
+    required this.items,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory Order.fromJson(Map<String, dynamic> json) {
+    return Order(
+      id: json['id'],
+      code: json['code'],
+      status: json['status'],
+      totalPrice: double.parse(json['totalPrice'].toString()),
+      outlet: OrderOutlet.fromJson(json['outlet']),
+      createdBy: CreatedBy.fromJson(json['createdBy']),
+      items: (json['items'] as List<dynamic>)
+          .map((e) => OrderItem.fromJson(e))
+          .toList(),
+      createdAt: DateTime.parse(json['createdAt']),
+      updatedAt: DateTime.parse(json['updatedAt']),
+    );
   }
 
-  void changeStatus(bool status) {
-    accepted = status;
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'code': code,
+      'status': status,
+      'totalPrice': totalPrice,
+      'outlet': outlet.toJson(),
+      'createdBy': createdBy.toJson(),
+      'items': items.map((e) => e.toJson()).toList(),
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
+    };
   }
 }

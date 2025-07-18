@@ -1,107 +1,49 @@
-import 'dart:convert';
-
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:project428app/app/data/providers/user_provider.dart';
-import 'package:project428app/app/shared/widgets/alert_dialog.dart';
-
-import '../../shared/widgets/format_waktu.dart';
-
 class User {
-  UserProvider UserP = UserProvider();
-  String id, userId, name;
-  String? imgUrl;
-  String? phone;
-  List role;
+  final String id, userId, name;
+  final String? imgUrl, phone;
+  final List roles;
+  final DateTime createdAt, updatedAt;
   bool isActive;
-  DateTime updatedAt, lastSeen;
-  final DateTime createdAt;
 
-  User(
-    this.id,
-    this.userId,
-    this.name,
-    this.role,
+  User({
+    required this.id,
+    required this.userId,
+    required this.name,
     this.imgUrl,
-    this.isActive,
     this.phone,
-    this.createdAt,
-    this.updatedAt,
-    this.lastSeen,
-  );
+    this.roles = const ['operator'],
+    required this.isActive,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
-  User.fromJson(Map<String, dynamic> json)
-    : id = json['_id'] as String,
-      userId = json['userId'] as String,
-      name = json['name'] as String,
-      role = json['role'],
-      imgUrl = json['imgUrl'] as String?,
-      isActive = json['isActive'] as bool,
-      phone = json['phone'] as String?,
-      createdAt = MakeLocalDateTime(json['createdAt']),
-      updatedAt = MakeLocalDateTime(json['updatedAt']),
-      lastSeen = MakeLocalDateTime(json['lastSeen']);
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['_id'],
+      userId: json['userId'],
+      name: json['name'],
+      imgUrl: json['imgUrl'],
+      phone: json['phone'],
+      roles: json['roles'],
+      isActive: json['isActive'],
+      createdAt: DateTime.parse(json['createdAt']),
+      updatedAt: DateTime.parse(json['updatedAt']),
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {
       '_id': id,
       'userId': userId,
       'name': name,
-      'role': role,
       'imgUrl': imgUrl,
-      'isActive': isActive,
       'phone': phone,
+      'roles': roles,
+      'isActive': isActive,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
-      'lastSeen': lastSeen.toIso8601String(),
     };
   }
 
-  void setRoles(List newRole) {
-    role = newRole;
-  }
-
-  void setUserId(String newUserId) {
-    userId = newUserId;
-  }
-
-  void setName(String newName) {
-    name = newName;
-  }
-
-  void setPhone(String newPhone) {
-    phone = newPhone;
-  }
-
-  String getUpdatedTime() {
-    return "${updatedAt.day} ${DateFormat(DateFormat.MONTH).format(updatedAt)} ${updatedAt.year} ${updatedAt.hour}:${updatedAt.minute.isLowerThan(10) ? '0${updatedAt.minute}' : updatedAt.minute} WIB";
-  }
-
-  String getCreateTime() {
-    return "${createdAt.day} ${DateFormat(DateFormat.MONTH).format(createdAt)} ${createdAt.year} ${createdAt.hour}:${createdAt.minute.isLowerThan(10) ? '0${createdAt.minute}' : createdAt.minute} WIB";
-  }
-
-  String getLastSeen() {
-    return "${lastSeen.day} ${DateFormat(DateFormat.MONTH).format(lastSeen)} ${lastSeen.year} ${lastSeen.hour}:${lastSeen.minute.isLowerThan(10) ? '0${lastSeen.minute}' : lastSeen.minute} WIB";
-  }
-
-  Future<bool> changeStatus() async {
-    bool status = !isActive;
-    print('User: Start to change status');
-    return await UserP.updateUser(id, json.encode({'isActive': status})).then((
-      res,
-    ) {
-      if (res.statusCode == 200) {
-        print('User: Changing status in database success');
-        isActive = status;
-        return true;
-      } else {
-        CustomAlertDialog(
-          'Gagal Mengubah Status',
-          res.body['message'].toString(),
-        );
-        return false;
-      }
-    });
-  }
+  void toggleStatus() => isActive = !isActive;
 }

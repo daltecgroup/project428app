@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:project428app/app/data/providers/address_data_provider.dart';
+import '../data/providers/address_data_provider.dart';
 
 class AddressDataController extends GetxController {
-  AddressDataProvider AddressP = AddressDataProvider();
+  AddressDataProvider provider = Get.put(AddressDataProvider());
   RxList provinces = [].obs;
   RxList regencies = [].obs;
   RxList districts = [].obs;
@@ -13,50 +13,71 @@ class AddressDataController extends GetxController {
   RxString selectedDistrict = ''.obs;
   RxString selectedVillage = ''.obs;
 
+  RxMap addressMap = {}.obs;
+
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
-    AddressP.fetchProvinces().then((res) {
+    await initProvinceData();
+  }
+
+  void setProvince(String id) {
+    addressMap['province'] = provinces.firstWhere((e) => e['id'] == id)['nama'];
+  }
+
+  void setRegency(String id) {
+    addressMap['regency'] = regencies.firstWhere((e) => e['id'] == id)['nama'];
+  }
+
+  void setDistrict(String id) {
+    addressMap['district'] = districts.firstWhere((e) => e['id'] == id)['nama'];
+  }
+
+  void setVillage(String id) {
+    addressMap['village'] = villages.firstWhere((e) => e['id'] == id)['nama'];
+  }
+
+  Future<void> initProvinceData() async {
+    provinces.clear();
+    await provider.fetchProvinces().then((res) {
       for (var e in res.body) {
         provinces.add(e);
       }
     });
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
+    selectedProvince.value = provinces.first['id'];
+    addressMap['province'] = provinces.first['nama'];
   }
 
   Future<void> fetchRegency(String id) async {
     regencies.clear();
-    await AddressP.fetchRegencies(id).then((res) {
+    await provider.fetchRegencies(id).then((res) {
       for (var e in res.body) {
         regencies.add(e);
       }
     });
+    selectedRegency.value = regencies.first['id'];
+    addressMap['regency'] = provinces.first['nama'];
   }
 
   Future<void> fetchDistrict(String id) async {
     districts.clear();
-    await AddressP.fetchDistricts(id).then((res) {
+    await provider.fetchDistricts(id).then((res) {
       for (var e in res.body) {
         districts.add(e);
       }
     });
+    selectedDistrict.value = districts.first['id'];
+    addressMap['district'] = provinces.first['nama'];
   }
 
   Future<void> fetchVillage(String id) async {
     villages.clear();
-    await AddressP.fetchVillages(id).then((res) {
+    await provider.fetchVillages(id).then((res) {
       for (var e in res.body) {
         villages.add(e);
       }
     });
+    selectedVillage.value = villages.first['id'];
+    addressMap['village'] = provinces.first['nama'];
   }
 }

@@ -1,62 +1,96 @@
+import 'package:flutter/widgets.dart';
+
 import 'package:get/get.dart';
 
-import '../middlewares/auth_guard_middleware.dart';
-import '../modules/absensi_operator/bindings/absensi_operator_binding.dart';
-import '../modules/absensi_operator/views/absensi_operator_view.dart';
-import '../modules/aktivitas_admin/bindings/aktivitas_admin_binding.dart';
-import '../modules/aktivitas_admin/views/aktivitas_admin_view.dart';
-import '../modules/aktivitas_operator/bindings/aktivitas_operator_binding.dart';
-import '../modules/aktivitas_operator/views/aktivitas_operator_view.dart';
-import '../modules/beranda_admin/bindings/beranda_admin_binding.dart';
-import '../modules/beranda_admin/views/beranda_admin_view.dart';
-import '../modules/beranda_operator/bindings/beranda_operator_binding.dart';
-import '../modules/beranda_operator/views/beranda_operator_view.dart';
-import '../modules/detail_stok/bindings/detail_stok_binding.dart';
-import '../modules/detail_stok/views/detail_stok_view.dart';
-import '../modules/gerai/bindings/gerai_binding.dart';
-import '../modules/gerai/views/gerai_view.dart';
-import '../modules/homepage_franchisee/bindings/homepage_franchisee_binding.dart';
-import '../modules/homepage_franchisee/views/homepage_franchisee_view.dart';
-import '../modules/homepage_spvarea/bindings/homepage_spvarea_binding.dart';
-import '../modules/homepage_spvarea/views/homepage_spvarea_view.dart';
-import '../modules/login/bindings/login_binding.dart';
-import '../modules/login/views/login_view.dart';
-import '../modules/login_as/bindings/login_as_binding.dart';
-import '../modules/login_as/views/login_as_view.dart';
-import '../modules/notifications/bindings/notifications_binding.dart';
-import '../modules/notifications/views/notifications_view.dart';
-import '../modules/operator/bindings/operator_binding.dart';
-import '../modules/operator/views/operator_view.dart';
-import '../modules/pengaturan_admin/bindings/pengaturan_admin_binding.dart';
-import '../modules/pengaturan_admin/views/pengaturan_admin_view.dart';
-import '../modules/produk/bindings/produk_binding.dart';
-import '../modules/produk/views/produk_view.dart';
-import '../modules/promo/bindings/promo_binding.dart';
-import '../modules/promo/views/promo_view.dart';
-import '../modules/sales_transaction_detail/bindings/sales_transaction_detail_binding.dart';
-import '../modules/sales_transaction_detail/views/sales_transaction_detail_view.dart';
-import '../modules/splash/bindings/splash_binding.dart';
-import '../modules/splash/views/splash_view.dart';
-import '../modules/stok/bindings/stok_binding.dart';
-import '../modules/stok/views/stok_view.dart';
-import '../modules/stok_operator/bindings/stok_operator_binding.dart';
-import '../modules/stok_operator/views/stok_operator_view.dart';
-import '../modules/tambah_pengguna/bindings/user_add_binding.dart';
-import '../modules/tambah_pengguna/views/user_add_view.dart';
-import '../modules/tambah_stok/bindings/tambah_stok_binding.dart';
-import '../modules/tambah_stok/views/tambah_stok_view.dart';
-import '../modules/transaksi_operator/bindings/transaksi_operator_binding.dart';
-import '../modules/transaksi_operator/views/transaksi_operator_view.dart';
-import '../modules/ubah_pengguna/bindings/ubah_pengguna_binding.dart';
-import '../modules/ubah_pengguna/views/ubah_pengguna_view.dart';
-import '../modules/unauthorized/bindings/unauthorized_binding.dart';
-import '../modules/unauthorized/views/unauthorized_view.dart';
-import '../modules/user/bindings/user_binding.dart';
-import '../modules/user/views/user_view.dart';
-import '../modules/user_detail/bindings/user_detail_binding.dart';
-import '../modules/user_detail/views/user_detail_view.dart';
-import '../modules/user_update/bindings/user_update_binding.dart';
-import '../modules/user_update/views/user_update_view.dart';
+import '../middlewares/auth_middleware.dart';
+import '../modules/_core/auth/bindings/auth_binding.dart';
+import '../modules/_core/auth/views/auth_view.dart';
+import '../modules/_core/select_ingredient/bindings/select_ingredient_binding.dart';
+import '../modules/_core/select_ingredient/views/select_ingredient_view.dart';
+import '../modules/_core/select_menu_category/bindings/select_menu_category_binding.dart';
+import '../modules/_core/select_menu_category/views/select_menu_category_view.dart';
+import '../modules/_core/select_outlet/bindings/select_outlet_binding.dart';
+import '../modules/_core/select_outlet/views/select_outlet_view.dart';
+import '../modules/_core/select_role/bindings/select_role_binding.dart';
+import '../modules/_core/select_role/views/select_role_view.dart';
+import '../modules/_core/setting/bindings/setting_binding.dart';
+import '../modules/_core/setting/views/setting_view.dart';
+import '../modules/_core/splash/bindings/splash_binding.dart';
+import '../modules/_core/splash/views/splash_view.dart';
+import '../modules/_features/attendance/bindings/attendance_binding.dart';
+import '../modules/_features/attendance/views/attendance_view.dart';
+import '../modules/_features/notification/bindings/notification_binding.dart';
+import '../modules/_features/notification/views/notification_view.dart';
+import '../modules/_features/order/bindings/order_binding.dart';
+import '../modules/_features/order/views/order_detail_view.dart';
+import '../modules/_features/order/views/order_input_view.dart';
+import '../modules/_features/order/views/order_list_view.dart';
+import '../modules/_features/outlet/bindings/outlet_binding.dart';
+import '../modules/_features/outlet/views/outlet_detail_view.dart';
+import '../modules/_features/outlet/views/outlet_input_view.dart';
+import '../modules/_features/outlet/views/outlet_list_view.dart';
+import '../modules/_features/outlet_order_list/bindings/outlet_order_list_binding.dart';
+import '../modules/_features/outlet_order_list/views/outlet_order_list_view.dart';
+import '../modules/_features/report/bindings/report_binding.dart';
+import '../modules/_features/report/views/report_view.dart';
+import '../modules/_features/sale_input/bindings/sale_input_binding.dart';
+import '../modules/_features/sale_input/views/sale_input_view.dart';
+import '../modules/_features/select_menu/bindings/select_menu_binding.dart';
+import '../modules/_features/select_menu/views/select_menu_view.dart';
+import '../modules/_features/select_sale_item/bindings/select_sale_item_binding.dart';
+import '../modules/_features/select_sale_item/views/select_sale_item_view.dart';
+import '../modules/admin/addon/bindings/addon_binding.dart';
+import '../modules/admin/addon/views/addon_detail_view.dart';
+import '../modules/admin/addon/views/addon_input_view.dart';
+import '../modules/admin/addon/views/addon_list_view.dart';
+import '../modules/admin/admin_dashboard/bindings/admin_dashboard_binding.dart';
+import '../modules/admin/admin_dashboard/views/admin_dashboard_view.dart';
+import '../modules/admin/ingredients/bindings/ingredients_binding.dart';
+import '../modules/admin/ingredients/views/ingredient_detail_view.dart';
+import '../modules/admin/ingredients/views/ingredient_input_view.dart';
+import '../modules/admin/ingredients/views/ingredient_list_view.dart';
+import '../modules/admin/menu/bindings/menu_binding.dart';
+import '../modules/admin/menu/views/menu_detail_view.dart';
+import '../modules/admin/menu/views/menu_input_view.dart';
+import '../modules/admin/menu/views/menu_list_view.dart';
+import '../modules/admin/menu_category/bindings/menu_category_binding.dart';
+import '../modules/admin/menu_category/views/menu_category_input_view.dart';
+import '../modules/admin/menu_category/views/menu_category_list_view.dart';
+import '../modules/admin/product/bindings/product_binding.dart';
+import '../modules/admin/product/views/product_view.dart';
+import '../modules/admin/profile/bindings/profile_binding.dart';
+import '../modules/admin/profile/views/profile_view.dart';
+import '../modules/admin/promo/bindings/promo_binding.dart';
+import '../modules/admin/promo/views/bundle_detail_view.dart';
+import '../modules/admin/promo/views/bundle_input_view.dart';
+import '../modules/admin/promo/views/bundle_list_view.dart';
+import '../modules/admin/promo/views/buy_get_promo_view.dart';
+import '../modules/admin/promo/views/promo_view.dart';
+import '../modules/admin/promo/views/spend_get_promo_view.dart';
+import '../modules/admin/user/bindings/add_user_binding.dart';
+import '../modules/admin/user/bindings/edit_user_binding.dart';
+import '../modules/admin/user/bindings/user_detail_binding.dart';
+import '../modules/admin/user/bindings/user_list_binding.dart';
+import '../modules/admin/user/views/add_user_view.dart';
+import '../modules/admin/user/views/edit_user_view.dart';
+import '../modules/admin/user/views/user_detail_view.dart';
+import '../modules/admin/user/views/user_list_view.dart';
+import '../modules/franchisee/franchisee_dashboard/bindings/franchisee_dashboard_binding.dart';
+import '../modules/franchisee/franchisee_dashboard/views/franchisee_dashboard_view.dart';
+import '../modules/operator/operator_attendance/bindings/operator_attendance_binding.dart';
+import '../modules/operator/operator_attendance/views/operator_attendance_view.dart';
+import '../modules/operator/operator_dashboard/bindings/operator_dashboard_binding.dart';
+import '../modules/operator/operator_dashboard/views/operator_dashboard_view.dart';
+import '../modules/operator/operator_order_list/bindings/operator_order_list_binding.dart';
+import '../modules/operator/operator_order_list/views/operator_order_list_view.dart';
+import '../modules/operator/operator_sale/bindings/operator_sale_binding.dart';
+import '../modules/operator/operator_sale/views/operator_sale_view.dart';
+import '../modules/operator/sale/bindings/sale_binding.dart';
+import '../modules/operator/sale/views/sale_view.dart';
+import '../modules/_features/select_bundle/bindings/select_bundle_binding.dart';
+import '../modules/_features/select_bundle/views/select_bundle_view.dart';
+import '../modules/spvarea/spvarea_dashboard/bindings/spvarea_dashboard_binding.dart';
+import '../modules/spvarea/spvarea_dashboard/views/spvarea_dashboard_view.dart';
 
 part 'app_routes.dart';
 
@@ -67,130 +101,9 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: _Paths.LOGIN,
-      page: () => const LoginView(),
-      binding: LoginBinding(),
-      transition: Transition.fadeIn,
-      transitionDuration: Duration(milliseconds: 400),
-    ),
-    GetPage(
-      name: _Paths.LOGIN_AS,
-      page: () => const LoginAsView(),
-      binding: LoginAsBinding(),
-      middlewares: [
-        AuthGuardMiddleware(), // Protects this route, requires login
-      ],
-    ),
-    GetPage(
-      name: _Paths.BERANDA_ADMIN,
-      page: () => const BerandaAdminView(),
-      binding: BerandaAdminBinding(),
-      middlewares: [
-        AuthGuardMiddleware(
-          requiredRoles: ['admin'],
-        ), // Protects this route, requires login
-      ],
-    ),
-    GetPage(
-      name: _Paths.USER,
-      page: () => const UserView(),
-      binding: UserBinding(),
-      transition: Transition.native,
-    ),
-    GetPage(
-      name: _Paths.USER_ADD,
-      page: () => const UserAddView(),
-      binding: TambahPenggunaBinding(),
-      transition: Transition.rightToLeft,
-    ),
-    GetPage(
-      name: _Paths.NOTIFICATIONS,
-      page: () => const NotificationsView(),
-      binding: NotificationsBinding(),
-    ),
-    GetPage(
-      name: _Paths.USER_DETAIL,
-      page: () => const UserDetailView(),
-      binding: UserDetailBinding(),
-      transition: Transition.rightToLeft,
-    ),
-    GetPage(
-      name: _Paths.GERAI,
-      page: () => const GeraiView(),
-      binding: GeraiBinding(),
-    ),
-    GetPage(
-      name: _Paths.OPERATOR,
-      page: () => const OperatorView(),
-      binding: OperatorBinding(),
-    ),
-    GetPage(
-      name: _Paths.STOK,
-      page: () => const StokView(),
-      binding: StokBinding(),
-      transition: Transition.native,
-    ),
-    GetPage(
-      name: _Paths.PRODUK,
-      page: () => const ProdukView(),
-      binding: ProdukBinding(),
-    ),
-    GetPage(
-      name: _Paths.PROMO,
-      page: () => const PromoView(),
-      binding: PromoBinding(),
-      transition: Transition.native,
-    ),
-    GetPage(
-      name: _Paths.BERANDA_OPERATOR,
-      page: () => const BerandaOperatorView(),
-      binding: BerandaOperatorBinding(),
-    ),
-    GetPage(
-      name: _Paths.TRANSAKSI_OPERATOR,
-      page: () => const TransaksiOperatorView(),
-      binding: TransaksiOperatorBinding(),
-    ),
-    GetPage(
-      name: _Paths.ABSENSI_OPERATOR,
-      page: () => const AbsensiOperatorView(),
-      binding: AbsensiOperatorBinding(),
-    ),
-    GetPage(
-      name: _Paths.STOK_OPERATOR,
-      page: () => const StokOperatorView(),
-      binding: StokOperatorBinding(),
-    ),
-    GetPage(
-      name: _Paths.AKTIVITAS_OPERATOR,
-      page: () => const AktivitasOperatorView(),
-      binding: AktivitasOperatorBinding(),
-    ),
-    GetPage(
-      name: _Paths.UBAH_PENGGUNA,
-      page: () => const UbahPenggunaView(),
-      binding: UbahPenggunaBinding(),
-    ),
-    GetPage(
-      name: _Paths.AKTIVITAS_ADMIN,
-      page: () => const AktivitasAdminView(),
-      binding: AktivitasAdminBinding(),
-    ),
-    GetPage(
-      name: _Paths.PENGATURAN_ADMIN,
-      page: () => PengaturanAdminView(),
-      binding: PengaturanAdminBinding(),
-    ),
-    GetPage(
-      name: _Paths.TAMBAH_STOK,
-      page: () => const TambahStokView(),
-      binding: TambahStokBinding(),
-    ),
-    GetPage(
-      name: _Paths.DETAIL_STOK,
-      page: () => const DetailStokView(),
-      binding: DetailStokBinding(),
-      transition: Transition.rightToLeft,
+      name: _Paths.PROFILE,
+      page: () => SafeArea(child: const ProfileView()),
+      binding: ProfileBinding(),
     ),
     GetPage(
       name: _Paths.SPLASH,
@@ -198,29 +111,266 @@ class AppPages {
       binding: SplashBinding(),
     ),
     GetPage(
-      name: _Paths.UNAUTHORIZED,
-      page: () => const UnauthorizedView(),
-      binding: UnauthorizedBinding(),
+      name: _Paths.AUTH,
+      page: () => const AuthView(),
+      binding: AuthBinding(),
     ),
     GetPage(
-      name: _Paths.HOMEPAGE_FRANCHISEE,
-      page: () => const HomepageFranchiseeView(),
-      binding: HomepageFranchiseeBinding(),
+      name: _Paths.SELECT_ROLE,
+      page: () => const SelectRoleView(),
+      binding: SelectRoleBinding(),
     ),
     GetPage(
-      name: _Paths.HOMEPAGE_SPVAREA,
-      page: () => const HomepageSpvareaView(),
-      binding: HomepageSpvareaBinding(),
+      name: _Paths.ADMIN_DASHBOARD,
+      page: () => const AdminDashboardView(),
+      binding: AdminDashboardBinding(),
+      middlewares: [AuthMiddleware()],
     ),
     GetPage(
-      name: _Paths.SALES_TRANSACTION_DETAIL,
-      page: () => const SalesTransactionDetailView(),
-      binding: SalesTransactionDetailBinding(),
+      name: _Paths.FRANCHISEE_DASHBOARD,
+      page: () => const FranchiseeDashboardView(),
+      binding: FranchiseeDashboardBinding(),
+      middlewares: [AuthMiddleware()],
     ),
     GetPage(
-      name: _Paths.USER_UPDATE,
-      page: () => const UserUpdateView(),
-      binding: UserUpdateBinding(),
+      name: _Paths.SPVAREA_DASHBOARD,
+      page: () => const SpvareaDashboardView(),
+      binding: SpvareaDashboardBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: _Paths.OPERATOR_DASHBOARD,
+      page: () => const OperatorDashboardView(),
+      binding: OperatorDashboardBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION,
+      page: () => const NotificationView(),
+      binding: NotificationBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: _Paths.OUTLET_LIST,
+      page: () => const OutletListView(),
+      binding: OutletBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: _Paths.OUTLET_DETAIL,
+      page: () => const OutletDetailView(),
+      binding: OutletBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: _Paths.OUTLET_INPUT,
+      page: () => const OutletInputView(),
+      binding: OutletBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: _Paths.USER_LIST,
+      page: () => const UserListView(),
+      binding: UserListBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: _Paths.USER_DETAIL,
+      page: () => const UserDetailView(),
+      binding: UserDetailBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: _Paths.ADD_USER,
+      page: () => const AddUserView(),
+      binding: AddUserBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: _Paths.EDIT_USER,
+      page: () => const EditUserView(),
+      binding: EditUserBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: _Paths.SETTING,
+      page: () => const SettingView(),
+      binding: SettingBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUCT,
+      page: () => const ProductView(),
+      binding: ProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_LIST,
+      page: () => const OrderListView(),
+      binding: OrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_INPUT,
+      page: () => const OrderInputView(),
+      binding: OrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_DETAIL,
+      page: () => const OrderDetailView(),
+      binding: OrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.REPORT,
+      page: () => const ReportView(),
+      binding: ReportBinding(),
+    ),
+    GetPage(
+      name: _Paths.ATTENDANCE,
+      page: () => const AttendanceView(),
+      binding: AttendanceBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENU_LIST,
+      page: () => const MenuListView(),
+      binding: MenuBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENU_DETAIL,
+      page: () => const MenuDetailView(),
+      binding: MenuBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENU_INPUT,
+      page: () => const MenuInputView(),
+      binding: MenuBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENU_CATEGORY_LIST,
+      page: () => const MenuCategoryListView(),
+      binding: MenuCategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENU_CATEGORY_INPUT,
+      page: () => const MenuCategoryInputView(),
+      binding: MenuCategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.INGREDIENT_LIST,
+      page: () => const IngredientsListView(),
+      binding: IngredientsBinding(),
+    ),
+    GetPage(
+      name: _Paths.INGREDIENT_DETAIL,
+      page: () => const IngredientDetailView(),
+      binding: IngredientsBinding(),
+    ),
+    GetPage(
+      name: _Paths.INGREDIENT_INPUT,
+      page: () => const IngredientInputView(),
+      binding: IngredientsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDON_LIST,
+      page: () => const AddonListView(),
+      binding: AddonBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDON_DETAIL,
+      page: () => const AddonDetailView(),
+      binding: AddonBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDON_INPUT,
+      page: () => const AddonInputView(),
+      binding: AddonBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROMO,
+      page: () => const PromoView(),
+      binding: PromoBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUNDLE_LIST,
+      page: () => const BundleListView(),
+      binding: PromoBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUNDLE_INPUT,
+      page: () => const BundleInputView(),
+      binding: PromoBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUNDLE_DETAIL,
+      page: () => const BundleDetailView(),
+      binding: PromoBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUY_GET_PROMO,
+      page: () => const BuyGetPromoView(),
+      binding: PromoBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPEND_GET_PROMO,
+      page: () => const SpendGetPromoView(),
+      binding: PromoBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_INGREDIENT,
+      page: () => const SelectIngredientView(),
+      binding: SelectIngredientBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_OUTLET,
+      page: () => const SelectOutletView(),
+      binding: SelectOutletBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_MENU_CATEGORY,
+      page: () => const SelectMenuCategoryView(),
+      binding: SelectMenuCategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.SALE,
+      page: () => const SaleView(),
+      binding: SaleBinding(),
+    ),
+    GetPage(
+      name: _Paths.OPERATOR_SALE,
+      page: () => const OperatorSaleView(),
+      binding: OperatorSaleBinding(),
+    ),
+    GetPage(
+      name: _Paths.OUTLET_ORDER_LIST,
+      page: () => const OutletOrderListView(),
+      binding: OutletOrderListBinding(),
+    ),
+    GetPage(
+      name: _Paths.OPERATOR_ORDER_LIST,
+      page: () => const OperatorOrderListView(),
+      binding: OperatorOrderListBinding(),
+    ),
+    GetPage(
+      name: _Paths.OPERATOR_ATTENDANCE,
+      page: () => const OperatorAttendanceView(),
+      binding: OperatorAttendanceBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_SALE_ITEM,
+      page: () => const SelectSaleItemView(),
+      binding: SelectSaleItemBinding(),
+    ),
+    GetPage(
+      name: _Paths.SALE_INPUT,
+      page: () => const SaleInputView(),
+      binding: SaleInputBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_MENU,
+      page: () => const SelectMenuView(),
+      binding: SelectMenuBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_BUNDLE,
+      page: () => const SelectBundleView(),
+      binding: SelectBundleBinding(),
     ),
   ];
 }

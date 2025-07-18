@@ -1,63 +1,62 @@
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-
-import '../../shared/widgets/format_waktu.dart';
+import 'package:abg_pos_app/app/data/models/Address.dart';
 
 class Outlet {
-  final String id, name, code, imgUrl;
+  final String id, code, name;
+  final List franchisees, spvAreas, operators;
   final bool isActive;
-  final Map address;
-  final List owner, operator, spvarea;
-  final DateTime foundedAt, createdAt, updatedAt;
+  final String? imgUrl;
+  final DateTime createdAt, updatedAt;
+  final DateTime? foundedAt;
+  final Address address;
 
-  Outlet(
-    this.id,
-    this.name,
-    this.code,
-    this.isActive,
-    this.imgUrl,
-    this.address,
-    this.owner,
-    this.operator,
-    this.spvarea,
-    this.foundedAt,
-    this.createdAt,
-    this.updatedAt,
-  );
+  Outlet({
+    required this.id,
+    required this.code,
+    required this.name,
+    required this.franchisees,
+    required this.spvAreas,
+    required this.operators,
+    required this.isActive,
+    required this.imgUrl,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.foundedAt,
+    required this.address,
+  });
 
-  Outlet.fromJson(Map<String, dynamic> json)
-    : id = json['_id'] as String,
-      code = json['code'] as String,
-      name = json['name'] as String,
-      isActive = json['isActive'] as bool,
-      imgUrl = json['imgUrl'] as String,
-      address = {
-        'street': json['address']['street'] as String,
-        'village': json['address']['village'] as String,
-        'district': json['address']['district'] as String,
-        'regency': json['address']['regency'] as String,
-        'province': json['address']['province'] as String,
-      },
-      owner = json['owner'] as List,
-      operator = json['operator'] as List,
-      spvarea = json['spvarea'] as List,
-      foundedAt = MakeLocalDateTime(json['foundedAt']),
-      createdAt = MakeLocalDateTime(json['createdAt']),
-      updatedAt = MakeLocalDateTime(json['updatedAt']);
-
-  String getCreateTime() {
-    return "${createdAt.day} ${DateFormat(DateFormat.MONTH).format(createdAt)} ${createdAt.year} ${createdAt.hour}:${createdAt.minute.isLowerThan(10) ? '0${createdAt.minute}' : createdAt.minute} WIB";
+  factory Outlet.fromJson(Map<String, dynamic> json) {
+    return Outlet(
+      id: json['id'],
+      code: json['code'],
+      name: json['name'],
+      franchisees: json['franchisees'] ?? [],
+      spvAreas: json['spvAreas'] ?? [],
+      operators: json['operators'] ?? [],
+      isActive: json['isActive'],
+      imgUrl: json['imgUrl'],
+      address: Address.fromJson(json['address']),
+      createdAt: DateTime.parse(json['createdAt']),
+      updatedAt: DateTime.parse(json['updatedAt']),
+      foundedAt: json['foundedAt'] != null
+          ? DateTime.parse(json['foundedAt'])
+          : null,
+    );
   }
 
-  String getFoundedTime() {
-    return "${foundedAt.day} ${DateFormat(DateFormat.MONTH).format(foundedAt)} ${foundedAt.year} ${foundedAt.hour}:${foundedAt.minute.isLowerThan(10) ? '0${foundedAt.minute}' : foundedAt.minute} WIB";
-  }
-
-  String getUpdatedTime() {
-    return "${updatedAt.day} ${DateFormat(DateFormat.MONTH).format(updatedAt)} ${updatedAt.year} ${updatedAt.hour}:${updatedAt.minute.isLowerThan(10) ? '0${updatedAt.minute}' : updatedAt.minute} WIB";
-  }
-
-  String getFullAddress() {
-    return '${address['street']}, ${address['district']}, ${address['regency']}, ${address['province']}';
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'code': code,
+      'name': name,
+      'frafranchisees': franchisees,
+      'spvspvAreas': spvAreas,
+      'operators': operators,
+      'isActive': isActive,
+      'imgUrl': imgUrl,
+      'address': address.toJson(),
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': createdAt.toIso8601String(),
+      'foundedAt': createdAt.toIso8601String(),
+    };
   }
 }
