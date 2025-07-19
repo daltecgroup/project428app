@@ -55,6 +55,10 @@ abstract class Routes {
   static const SALE_INPUT = _Paths.SALE_INPUT;
   static const SELECT_MENU = _Paths.SELECT_MENU;
   static const SELECT_BUNDLE = _Paths.SELECT_BUNDLE;
+  static const OPERATOR_SALE_DETAIL = _Paths.OPERATOR_SALE_DETAIL;
+  static const OUTLET_SALE_LIST = _Paths.OUTLET_SALE_LIST;
+  static const OUTLET_INVENTORY = _Paths.OUTLET_INVENTORY;
+  static const OPERATOR_OUTLET_INVENTORY = _Paths.OPERATOR_OUTLET_INVENTORY;
 }
 
 abstract class _Paths {
@@ -111,4 +115,8 @@ abstract class _Paths {
   static const SALE_INPUT = '/sale-input';
   static const SELECT_MENU = '/select-menu';
   static const SELECT_BUNDLE = '/select-bundle';
+  static const OPERATOR_SALE_DETAIL = '/operator-sale-detail';
+  static const OUTLET_SALE_LIST = '/outlet-sale-list';
+  static const OUTLET_INVENTORY = '/outlet-inventory';
+  static const OPERATOR_OUTLET_INVENTORY = '/operator-outlet-inventory';
 }

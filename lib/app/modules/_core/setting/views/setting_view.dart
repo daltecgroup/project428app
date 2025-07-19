@@ -13,7 +13,7 @@ class SettingView extends GetView<SettingController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar('Pengaturan'),
-      drawer: customDrawer(context),
+      drawer: customDrawer(),
       body: Obx(
         () => ListView(
           padding: EdgeInsets.symmetric(

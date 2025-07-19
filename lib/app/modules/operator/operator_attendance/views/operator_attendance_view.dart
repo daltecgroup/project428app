@@ -12,12 +12,9 @@ class OperatorAttendanceView extends GetView<OperatorAttendanceController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar('Presensi'),
-      drawer: customDrawer(context),
+      drawer: customDrawer(),
       body: const Center(
-        child: Text(
-          'OperatorAttendanceView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+        child: Text('Kehadiran Kosong', style: TextStyle(fontSize: 20)),
       ),
     );
   }

@@ -12,12 +12,9 @@ class FranchiseeDashboardView extends GetView<FranchiseeDashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar('Franchisee'),
-      drawer: customDrawer(context),
+      drawer: customDrawer(),
       body: const Center(
-        child: Text(
-          'FranchiseeDashboardView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+        child: Text('Selamat datang!', style: TextStyle(fontSize: 20)),
       ),
     );
   }

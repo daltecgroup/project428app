@@ -10,7 +10,7 @@ import '../utils/constants/spvarea_nav_list.dart';
 import '../utils/constants/operator_nav_list.dart';
 import '../utils/constants/franchisee_nav_list.dart';
 
-Drawer customDrawer(BuildContext context) {
+Drawer customDrawer() {
   final setting = Get.find<SettingService>();
   final auth = Get.find<AuthService>();
 

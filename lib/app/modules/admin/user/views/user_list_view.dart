@@ -24,7 +24,7 @@ class UserListView extends GetView<UserListController> {
     final svg = Svg(AppConstants.PROFILE_PLACEHOLDER);
     return Scaffold(
       appBar: customAppBar(StringValue.USER),
-      drawer: customDrawer(context),
+      drawer: customDrawer(),
       body: Column(
         children: [
           Padding(

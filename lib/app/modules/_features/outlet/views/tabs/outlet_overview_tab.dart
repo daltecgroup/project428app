@@ -33,7 +33,9 @@ class OutletOverviewTab extends StatelessWidget {
           'icon': Icons.payment,
           'label': 'Penjualan',
           'indicator': null,
-          'onTap': () {},
+          'onTap': () {
+            Get.toNamed(Routes.OUTLET_SALE_LIST);
+          },
         },
         {
           'icon': Icons.shopping_bag,

@@ -1,12 +1,12 @@
-import 'package:abg_pos_app/app/shared/pages/order_list/controllers/order_list_controller.dart';
-import 'package:abg_pos_app/app/shared/buttons/custom_text_button.dart';
-import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
-import 'package:abg_pos_app/app/utils/constants/app_constants.dart';
-import 'package:abg_pos_app/app/utils/helpers/time_helper.dart';
-import 'package:abg_pos_app/app/utils/theme/custom_text.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:flutter/material.dart';
+import '../../../../shared/pages/empty_list_page.dart';
+import '../../../../shared/pages/order_list/controllers/order_list_controller.dart';
+import '../../../../shared/buttons/custom_text_button.dart';
+import '../../../../shared/vertical_sized_box.dart';
+import '../../../../utils/constants/app_constants.dart';
+import '../../../../utils/helpers/time_helper.dart';
+import '../../../../utils/theme/custom_text.dart';
 import '../widgets/active_order_item.dart';
 import '../widgets/order_history_item.dart';
 
@@ -20,6 +20,12 @@ class OrderList extends StatelessWidget {
     return Obx(() {
       final activeOrders = controller.activeOrder();
       final groupedHistory = controller.groupedOrders();
+
+      if (activeOrders.isEmpty && groupedHistory.isEmpty)
+        return EmptyListPage(
+          refresh: () => controller.data.syncData(refresh: true),
+          text: 'Pesanan Kosong',
+        );
 
       return RefreshIndicator(
         onRefresh: controller.refreshData,

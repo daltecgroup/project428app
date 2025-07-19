@@ -1,11 +1,13 @@
-import 'package:abg_pos_app/app/controllers/addon_data_controller.dart';
-import 'package:abg_pos_app/app/controllers/bundle_data_controller.dart';
-import 'package:abg_pos_app/app/controllers/menu_data_controller.dart';
-import 'package:abg_pos_app/app/controllers/promo_setting_data_controller.dart';
-import 'package:abg_pos_app/app/utils/services/sale_service.dart';
 import 'package:get/get.dart';
-
+import '../../../../controllers/addon_data_controller.dart';
+import '../../../../controllers/bundle_data_controller.dart';
+import '../../../../controllers/image_picker_controller.dart';
+import '../../../../controllers/menu_data_controller.dart';
+import '../../../../controllers/promo_setting_data_controller.dart';
+import '../../../../controllers/sale_data_controller.dart';
 import '../../../../controllers/menu_category_data_controller.dart';
+import '../../../../data/providers/sale_provider.dart';
+import '../../../../data/repositories/sale_repository.dart';
 import '../../../../data/providers/addon_provider.dart';
 import '../../../../data/providers/bundle_provider.dart';
 import '../../../../data/providers/menu_category_provider.dart';
@@ -16,6 +18,7 @@ import '../../../../data/repositories/bundle_repository.dart';
 import '../../../../data/repositories/menu_category_repository.dart';
 import '../../../../data/repositories/menu_repository.dart';
 import '../../../../data/repositories/promo_setting_repository.dart';
+import '../../../../utils/services/sale_service.dart';
 import '../controllers/sale_input_controller.dart';
 
 class SaleInputBinding extends Bindings {
@@ -28,6 +31,15 @@ class SaleInputBinding extends Bindings {
     );
     Get.lazyPut<BundleDataController>(
       () => BundleDataController(repository: Get.find<BundleRepository>()),
+    );
+
+    // sale data
+    Get.lazyPut<SaleProvider>(() => SaleProvider());
+    Get.lazyPut<SaleRepository>(
+      () => SaleRepository(provider: Get.find<SaleProvider>()),
+    );
+    Get.lazyPut<SaleDataController>(
+      () => SaleDataController(repository: Get.find<SaleRepository>()),
     );
 
     // menu category
@@ -70,6 +82,9 @@ class SaleInputBinding extends Bindings {
       ),
     );
 
+    // image picker controller
+    Get.lazyPut<ImagePickerController>(() => ImagePickerController());
+
     // ensure SaleService is registered
     SaleService service = Get.isRegistered<SaleService>()
         ? Get.find<SaleService>()
@@ -77,12 +92,14 @@ class SaleInputBinding extends Bindings {
 
     Get.lazyPut(
       () => SaleInputController(
+        service: service,
         bundleData: Get.find<BundleDataController>(),
         menuData: Get.find<MenuDataController>(),
         menuCategoryData: Get.find<MenuCategoryDataController>(),
         addonData: Get.find<AddonDataController>(),
         promoSettingData: Get.find<PromoSettingDataController>(),
-        service: service,
+        imagePickerController: Get.find<ImagePickerController>(),
+        saleData: Get.find<SaleDataController>(),
       ),
     );
   }

@@ -12,7 +12,7 @@ class SpvareaDashboardView extends GetView<SpvareaDashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar('SPV Area'),
-      drawer: customDrawer(context),
+      drawer: customDrawer(),
       body: const Center(
         child: Text(
           'Data Transaksi tidak ditemukan',

@@ -25,7 +25,7 @@ class OutletListView extends GetView<OutletListController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar('Gerai'),
-      drawer: customDrawer(context),
+      drawer: customDrawer(),
       body: RefreshIndicator(
         onRefresh: controller.refreshData,
         child: Padding(

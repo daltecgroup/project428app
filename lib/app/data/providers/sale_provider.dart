@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/data/models/Sale.dart';
 import 'package:get/get.dart';
 
 import '../../routes/app_pages.dart';
@@ -10,6 +11,85 @@ class SaleProvider extends GetConnect {
   @override
   void onInit() {
     _providerInit();
+  }
+
+  Future<Response<Map<String, dynamic>>> createSale(dynamic data) async {
+    Map<String, dynamic> body = {};
+    final Response response = await post(url, data);
+    body['message'] = response.body['message'] as String;
+    if (response.body['errors'] != null) {
+      body['errors'] = response.body['errors'];
+    }
+    if (response.body['sale'] != null) {
+      body['sale'] = Sale.fromJson(response.body['sale']);
+    }
+    return Response(
+      statusCode: response.statusCode,
+      statusText: response.statusText,
+      body: body,
+      headers: response.headers,
+      request: response.request,
+    );
+  }
+
+  Future<Response<List<Sale>>> getSales({String? query}) async {
+    final Response response = await get('$url$query');
+    if (response.isOk && response.body is List) {
+      final List<dynamic> jsonList = response.body;
+      final List<Sale> sales = jsonList
+          .map((json) => Sale.fromJson(json as Map<String, dynamic>))
+          .toList();
+      return Response(
+        statusCode: response.statusCode,
+        statusText: response.statusText,
+        body: sales,
+        headers: response.headers,
+        request: response.request,
+      );
+    } else {
+      return Response(
+        statusCode: response.statusCode,
+        statusText: response.statusText,
+        body: null,
+        headers: response.headers,
+        request: response.request,
+      );
+    }
+  }
+
+  Future<Response<Map<String, dynamic>>> updateSale(
+    String id,
+    dynamic data,
+  ) async {
+    Map<String, dynamic> body = {};
+    final Response response = await patch('$url/$id', data);
+    body['message'] = response.body['message'] as String;
+    if (response.isOk) {
+      body['sale'] = Sale.fromJson(response.body['sale']);
+    }
+    if (response.hasError && response.body['errors'] != null) {
+      body['errors'] = response.body['errors'];
+    }
+    return Response(
+      statusCode: response.statusCode,
+      statusText: response.statusText,
+      body: body,
+      headers: response.headers,
+      request: response.request,
+    );
+  }
+
+  Future<Response<Map<String, dynamic>>> deleteSale(String id) async {
+    Map<String, dynamic> body = {};
+    final Response response = await delete('$url/$id');
+    body['message'] = response.body['message'] as String;
+    return Response(
+      statusCode: response.statusCode,
+      statusText: response.statusText,
+      body: body,
+      headers: response.headers,
+      request: response.request,
+    );
   }
 
   void _providerInit() {

@@ -12,9 +12,9 @@ class AdminDashboardView extends GetView<AdminDashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar('Admin'),
-      drawer: customDrawer(context),
+      drawer: customDrawer(),
       body: Center(
-        child: Text(controller.currentRole, style: TextStyle(fontSize: 20)),
+        child: Text('Selamat datang!', style: TextStyle(fontSize: 20)),
       ),
     );
   }

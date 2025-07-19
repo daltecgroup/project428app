@@ -1,4 +1,4 @@
-import 'package:abg_pos_app/app/shared/custom_alert.dart';
+import '../../shared/custom_alert.dart';
 import 'package:get/get.dart';
 
 class PendingSaleItemSingleAddon {
@@ -9,8 +9,8 @@ class PendingSaleItemSingleAddon {
 
 class PendingSaleItemSingle {
   String menuId;
-  String? notes;
   int qty;
+  String? notes;
   List<PendingSaleItemSingleAddon> addons = [];
 
   PendingSaleItemSingle({required this.menuId, required this.qty, this.notes});
@@ -82,9 +82,9 @@ class PendingSaleItemBundle {
 }
 
 class PendingSaleItemPromo {
-  String menuId;
+  String menuId, promoType;
 
-  PendingSaleItemPromo({required this.menuId});
+  PendingSaleItemPromo({required this.menuId, required this.promoType});
 }
 
 class PendingSale {
@@ -107,14 +107,18 @@ class PendingSale {
     });
   }
 
+  bool get isAnyItemBundleEmpty {
+    if (itemBundle.isEmpty) return false;
+    return itemBundle.any((bundle) => bundle.isAnyItemEmpty);
+  }
+
   int get itemCount {
     final singleCount = itemSingle.fold<int>(0, (sum, e) => sum + e.qty);
     final bundleCount = itemBundle.fold(0, (sum, e) {
       final filledSlots = e.items.where((slot) => !slot.isEmpty).length;
       return sum + (filledSlots * e.qty);
     });
-    final promoCount = itemPromo.length;
-    return singleCount + bundleCount + promoCount;
+    return singleCount + bundleCount;
   }
 
   void addSingleItem(PendingSaleItemSingle item) {
@@ -126,6 +130,13 @@ class PendingSale {
   }
 
   void addPromoItem(PendingSaleItemPromo item) {
-    itemPromo.add(item);
+    if (itemPromo.isEmpty) {
+      itemPromo.add(item);
+      return;
+    }
+    if (itemPromo.length > 1) {
+      itemPromo.clear();
+      itemPromo.add(item);
+    }
   }
 }

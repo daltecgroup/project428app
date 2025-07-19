@@ -10,14 +10,13 @@ class AppLogoTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 50),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               fit: BoxFit.contain,
-              AppConstants.IMG_LOGO,
-              width: Get.width * 0.5,
+              AppConstants.IMG_LOGO_BW,
+              width: Get.width * 0.3,
             ),
           ],
         ),

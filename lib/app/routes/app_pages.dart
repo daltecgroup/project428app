@@ -1,3 +1,5 @@
+import 'package:abg_pos_app/app/modules/operator/operator_outlet_inventory/bindings/operator_outlet_inventory_binding.dart';
+import 'package:abg_pos_app/app/modules/operator/operator_outlet_inventory/views/operator_outlet_inventory_view.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
@@ -31,10 +33,14 @@ import '../modules/_features/outlet/views/outlet_input_view.dart';
 import '../modules/_features/outlet/views/outlet_list_view.dart';
 import '../modules/_features/outlet_order_list/bindings/outlet_order_list_binding.dart';
 import '../modules/_features/outlet_order_list/views/outlet_order_list_view.dart';
+import '../modules/_features/outlet_sale_list/bindings/outlet_sale_list_binding.dart';
+import '../modules/_features/outlet_sale_list/views/outlet_sale_list_view.dart';
 import '../modules/_features/report/bindings/report_binding.dart';
 import '../modules/_features/report/views/report_view.dart';
 import '../modules/_features/sale_input/bindings/sale_input_binding.dart';
 import '../modules/_features/sale_input/views/sale_input_view.dart';
+import '../modules/_features/select_bundle/bindings/select_bundle_binding.dart';
+import '../modules/_features/select_bundle/views/select_bundle_view.dart';
 import '../modules/_features/select_menu/bindings/select_menu_binding.dart';
 import '../modules/_features/select_menu/views/select_menu_view.dart';
 import '../modules/_features/select_sale_item/bindings/select_sale_item_binding.dart';
@@ -85,10 +91,12 @@ import '../modules/operator/operator_order_list/bindings/operator_order_list_bin
 import '../modules/operator/operator_order_list/views/operator_order_list_view.dart';
 import '../modules/operator/operator_sale/bindings/operator_sale_binding.dart';
 import '../modules/operator/operator_sale/views/operator_sale_view.dart';
+import '../modules/operator/operator_sale_detail/bindings/operator_sale_detail_binding.dart';
+import '../modules/operator/operator_sale_detail/views/operator_sale_detail_view.dart';
 import '../modules/operator/sale/bindings/sale_binding.dart';
 import '../modules/operator/sale/views/sale_view.dart';
-import '../modules/_features/select_bundle/bindings/select_bundle_binding.dart';
-import '../modules/_features/select_bundle/views/select_bundle_view.dart';
+import '../modules/_features/outlet_inventory/bindings/outlet_inventory_binding.dart';
+import '../modules/_features/outlet_inventory/views/outlet_inventory_view.dart';
 import '../modules/spvarea/spvarea_dashboard/bindings/spvarea_dashboard_binding.dart';
 import '../modules/spvarea/spvarea_dashboard/views/spvarea_dashboard_view.dart';
 
@@ -371,6 +379,26 @@ class AppPages {
       name: _Paths.SELECT_BUNDLE,
       page: () => const SelectBundleView(),
       binding: SelectBundleBinding(),
+    ),
+    GetPage(
+      name: _Paths.OPERATOR_SALE_DETAIL,
+      page: () => const OperatorSaleDetailView(),
+      binding: OperatorSaleDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.OUTLET_SALE_LIST,
+      page: () => const OutletSaleListView(),
+      binding: OutletSaleListBinding(),
+    ),
+    GetPage(
+      name: _Paths.OUTLET_INVENTORY,
+      page: () => const OutletInventoryView(),
+      binding: OutletInventoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.OPERATOR_OUTLET_INVENTORY,
+      page: () => const OperatorOutletInventoryView(),
+      binding: OperatorOutletInventoryBinding(),
     ),
   ];
 }

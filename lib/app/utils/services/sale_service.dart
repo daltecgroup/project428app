@@ -1,5 +1,5 @@
-import 'package:abg_pos_app/app/data/models/PendingSale.dart';
 import 'package:get/get.dart';
+import '../../data/models/PendingSale.dart';
 
 class SaleService extends GetxService {
   RxList<PendingSale> pendingSales = <PendingSale>[].obs;

@@ -328,4 +328,8 @@ class UserDataController extends GetxController {
 
     return source.where((user) => idList.contains(user.id)).toList();
   }
+
+  User? getUser(String id) {
+    return users.firstWhereOrNull((e) => e.id == id);
+  }
 }

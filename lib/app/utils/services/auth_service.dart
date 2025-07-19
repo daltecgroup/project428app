@@ -145,9 +145,7 @@ class AuthService extends GetxService {
           );
           break;
         case 404:
-          customAlertDialog(
-            'Akun sedang dinonaktifkan: ${response.bodyString}',
-          );
+          customAlertDialog('Akun sedang dinonaktifkan');
           break;
         case 401:
           customAlertDialog('PIN salah');

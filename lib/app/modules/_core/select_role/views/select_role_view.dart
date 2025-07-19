@@ -4,10 +4,9 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../controllers/select_role_controller.dart';
 import '../../../../modules/_core/select_role/widgets/select_role_button.dart';
-import '../../../../shared/app_logo_title.dart';
+// import '../../../../shared/app_logo_title.dart';
 import '../../../../shared/custom_card.dart';
 import '../../../../utils/constants/app_constants.dart';
-import '../../../../utils/theme/app_colors.dart';
 import '../../../../utils/theme/custom_text.dart';
 
 class SelectRoleView extends GetView<SelectRoleController> {
@@ -15,10 +14,10 @@ class SelectRoleView extends GetView<SelectRoleController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryYellow,
+      backgroundColor: Colors.grey[200],
       body: Stack(
         children: [
-          AppLogoTitle(),
+          // AppLogoTitle(),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

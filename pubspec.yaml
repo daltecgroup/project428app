@@ -2,7 +2,7 @@ name: abg_pos_app
 description: "A point of sale system for Aroma business group."
 publish_to: 'none'
 
-version: 1.0.0+5
+version: 1.0.0+6
 
 environment:
   sdk: ^3.8.1
@@ -24,6 +24,10 @@ dependencies:
   flutter_svg_provider: ^1.0.7
   collection: ^1.19.1
   dotted_border: ^3.1.0
+  toggle_switch: ^2.3.0
+  image_picker: ^1.1.2
+  mime: ^2.0.0
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
@@ -37,6 +41,7 @@ flutter:
 
   assets:
     - assets/images/logo_small.png
+    - assets/images/batmanpos_bw.png
     - assets/png/profile-placeholder.png
     - assets/svg/img-placeholder.svg
     - assets/svg/profile-placeholder.svg

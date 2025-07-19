@@ -17,10 +17,8 @@ class OperatorDashboardView extends GetView<OperatorDashboardController> {
       if (currentOutlet == null) FailedPagePlaceholder();
       return Scaffold(
         appBar: customAppBar(normalizeName(currentOutlet!.name)),
-        drawer: customDrawer(context),
-        body: Center(
-          child: Text(controller.currentRole, style: TextStyle(fontSize: 20)),
-        ),
+        drawer: customDrawer(),
+        body: Center(child: Text('Selamat datang!')),
       );
     });
   }

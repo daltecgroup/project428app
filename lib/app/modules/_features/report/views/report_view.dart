@@ -12,9 +12,9 @@ class ReportView extends GetView<ReportController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar('Laporan'),
-      drawer: customDrawer(context),
+      drawer: customDrawer(),
       body: const Center(
-        child: Text('ReportView is working', style: TextStyle(fontSize: 20)),
+        child: Text('Laporan Kosong', style: TextStyle(fontSize: 20)),
       ),
     );
   }

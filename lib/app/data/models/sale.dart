@@ -173,6 +173,15 @@ class SaleItemSingle {
       'addons': addons.map((e) => e.toJson()).toList(),
     };
   }
+
+  double get getDiscount {
+    if (discount == 0) return 0;
+    return discount / 100 * price;
+  }
+
+  double get getTotalDiscount {
+    return getDiscount * qty;
+  }
 }
 
 class SaleBundleMenuItem {
@@ -342,5 +351,15 @@ class Sale {
   // get total change
   double get totalChange {
     return totalPaid - totalPrice;
+  }
+
+  double get totalDiscount {
+    return itemSingle.fold(0, (prev, item) => prev + item.getTotalDiscount);
+  }
+
+  int get itemCount {
+    return itemSingle.fold(0, (value, item) => value + item.qty.toInt()) +
+        itemBundle.fold(0, (value, item) => value + item.items.length).toInt() +
+        itemPromo.length;
   }
 }

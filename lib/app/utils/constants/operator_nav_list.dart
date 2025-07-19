@@ -22,6 +22,12 @@ List<DrawerItem> get operatorNav {
       // indicator: 2,
     ),
     DrawerItem(
+      title: 'Stok',
+      route: Routes.OPERATOR_OUTLET_INVENTORY,
+      icon: Icons.inventory_2,
+      // indicator: 2,
+    ),
+    DrawerItem(
       title: 'Presensi',
       route: Routes.OPERATOR_ATTENDANCE,
       icon: Icons.list_alt_outlined,

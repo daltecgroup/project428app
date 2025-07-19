@@ -1,5 +1,4 @@
 import 'package:abg_pos_app/app/shared/horizontal_sized_box.dart';
-import 'package:abg_pos_app/app/utils/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomSmallTextButton extends StatelessWidget {

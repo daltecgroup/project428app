@@ -13,7 +13,7 @@ class SplashView extends GetView<SplashController> {
       body: Center(
         child: Image.asset(
           width: Get.width * 0.5,
-          AppConstants.IMG_LOGO, // Adjust size as needed
+          AppConstants.IMG_LOGO_BW, // Adjust size as needed
           fit: BoxFit.contain,
         ),
       ),

@@ -19,6 +19,7 @@ class CustomNavItem extends StatelessWidget {
     this.marginBottom,
     this.isProfileImage,
     this.isThreeLine,
+    this.disablePaddingRight,
   });
 
   final String? title;
@@ -34,6 +35,7 @@ class CustomNavItem extends StatelessWidget {
   final bool? marginBottom;
   final bool? isProfileImage;
   final bool? isThreeLine;
+  final bool? disablePaddingRight;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class CustomNavItem extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.only(
           left: AppConstants.DEFAULT_PADDING,
-          right: AppConstants.DEFAULT_PADDING,
+          right: disablePaddingRight == null ? AppConstants.DEFAULT_PADDING : 0,
         ),
         isThreeLine: isThreeLine,
         shape: RoundedRectangleBorder(

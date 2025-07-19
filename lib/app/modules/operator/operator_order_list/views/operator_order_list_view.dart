@@ -15,7 +15,7 @@ class OperatorOrderListView extends GetView<OperatorOrderListController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar('Pesanan'),
-      drawer: customDrawer(context),
+      drawer: customDrawer(),
       body: OrderList(controller: controller.listController),
       floatingActionButton: FloatingAddButton(
         onPressed: () {

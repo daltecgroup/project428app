@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/controllers/sale_data_controller.dart';
 import 'package:abg_pos_app/app/utils/services/sale_service.dart';
 import 'package:get/get.dart';
 
@@ -5,8 +6,9 @@ import '../../../../routes/app_pages.dart';
 import '../../../_features/select_sale_item/controllers/select_sale_item_controller.dart';
 
 class OperatorSaleController extends GetxController {
-  OperatorSaleController({required this.service});
+  OperatorSaleController({required this.service, required this.data});
   final SaleService service;
+  final SaleDataController data;
 
   @override
   void onInit() {

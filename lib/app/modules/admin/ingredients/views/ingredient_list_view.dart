@@ -82,8 +82,8 @@ class IngredientsListView extends GetView<IngredientListController> {
                     return SizedBox();
                   },
                 ),
-              VerticalSizedBox(),
 
+              // VerticalSizedBox(),
               if (controller.data.latestSync.value != null)
                 customFooterText(
                   textAlign: TextAlign.center,

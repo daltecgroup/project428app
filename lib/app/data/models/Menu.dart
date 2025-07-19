@@ -1,5 +1,3 @@
-import 'package:get/get_utils/src/extensions/num_extensions.dart';
-
 import './RawRecipe.dart';
 
 class Menu {

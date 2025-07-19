@@ -6,13 +6,28 @@ import '../utils/theme/custom_text.dart';
 PreferredSizeWidget customAppBarLite({
   BuildContext? context,
   required String title,
+  String? subtitle,
   List<Widget>? actions,
   String? backRoute,
   dynamic result,
   bool enableLeading = true,
 }) {
   return AppBar(
-    title: customTitleText(text: title),
+    title: Column(
+      children: [
+        customTitleText(
+          text: title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        if (subtitle != null)
+          customSmallLabelText(
+            text: subtitle,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+      ],
+    ),
     centerTitle: true,
     automaticallyImplyLeading: false,
     leading: enableLeading

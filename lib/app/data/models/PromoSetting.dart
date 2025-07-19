@@ -30,6 +30,7 @@ class PromoSetting {
       updatedAt: DateTime.parse(json['updatedAt'] as String),
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

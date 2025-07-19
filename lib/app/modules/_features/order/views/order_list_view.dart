@@ -18,7 +18,7 @@ class OrderListView extends GetView<OrderListController> {
     box.removeValue(AppConstants.KEY_CURRENT_OUTLET);
     return Scaffold(
       appBar: customAppBar('Pesanan'),
-      drawer: customDrawer(context),
+      drawer: customDrawer(),
       body: OrderList(controller: controller),
       floatingActionButton: FloatingAddButton(
         onPressed: () {

@@ -6,7 +6,6 @@ import '../../../../shared/app_logo_title.dart';
 import '../../../../shared/custom_card.dart';
 import '../../../../shared/custom_input_with_error.dart';
 import '../../../../utils/constants/app_constants.dart';
-import '../../../../utils/theme/app_colors.dart';
 import '../../../../utils/theme/custom_text.dart';
 import '../../../../utils/theme/button_style.dart';
 
@@ -15,10 +14,9 @@ class AuthView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryYellow,
+      backgroundColor: Colors.grey[200],
       body: Stack(
         children: [
-          AppLogoTitle(),
           Obx(
             () => Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -34,10 +32,11 @@ class AuthView extends GetView<AuthController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [customTitleText(text: 'Login')],
-                            ),
+                            AppLogoTitle(),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [customTitleText(text: 'Login')],
+                            // ),
                             CustomInputWithError(
                               controller: controller.idC,
                               title: 'User ID',
@@ -81,9 +80,9 @@ class AuthView extends GetView<AuthController> {
                             Row(
                               children: [
                                 Checkbox(
-                                  checkColor: Colors.amber[900],
+                                  checkColor: Colors.grey[900],
                                   fillColor: WidgetStatePropertyAll(
-                                    Colors.amber[200]!,
+                                    Colors.blueGrey[200]!,
                                   ),
                                   side: BorderSide(color: Colors.amber[200]!),
                                   value: controller.rememberMe.value,
@@ -108,7 +107,7 @@ class AuthView extends GetView<AuthController> {
                                         controller.submit();
                                       },
                                       style: primaryButtonStyle(
-                                        Colors.amber[700]!,
+                                        Colors.grey[700]!,
                                       ),
                                       child: customButtonText(text: 'Masuk'),
                                     ),

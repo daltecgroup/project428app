@@ -13,7 +13,7 @@ class ProductView extends GetView<ProductController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar('Produk'),
-      drawer: customDrawer(context),
+      drawer: customDrawer(),
       body: Obx(
         () => RefreshIndicator(
           child: ListView(

@@ -30,7 +30,6 @@ class BottomNavButton extends StatelessWidget {
         children: [
           Expanded(
             child: TextButton(
-              style: backButtonStyle(),
               onPressed: backCb ?? () => Get.back(),
               child: Text(
                 backBtn ?? StringValue.BACK,
