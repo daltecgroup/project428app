@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 
+import '../../../../data/models/User.dart';
+import '../../../../utils/services/auth_service.dart';
+
 class SpvareaDashboardController extends GetxController {
-  final count = 0.obs;
+  final auth = Get.find<AuthService>();
   @override
   void onInit() {
     super.onInit();
@@ -17,5 +20,7 @@ class SpvareaDashboardController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  User? get currentUser {
+    return auth.currentUser.value;
+  }
 }

@@ -2,6 +2,7 @@ import 'package:abg_pos_app/app/shared/custom_appbar_lite.dart';
 import 'package:abg_pos_app/app/shared/custom_nav_item.dart';
 import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
 import 'package:abg_pos_app/app/utils/constants/app_constants.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/number_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
@@ -51,9 +52,7 @@ class AddonListView extends GetView<AddonListController> {
             );
           }
           return ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppConstants.DEFAULT_PADDING,
-            ),
+            padding: horizontalPadding,
             children: [
               VerticalSizedBox(height: 2),
               if (activeAddons.isNotEmpty)

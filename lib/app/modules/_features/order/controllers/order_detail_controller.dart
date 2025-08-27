@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:abg_pos_app/app/controllers/outlet_data_controller.dart';
+import 'package:abg_pos_app/app/controllers/user_data_controller.dart';
 import 'package:abg_pos_app/app/data/models/OrderItem.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,8 +11,14 @@ import '../../../../utils/helpers/number_helper.dart';
 import '../../../../utils/helpers/text_helper.dart';
 
 class OrderDetailController extends GetxController {
-  OrderDetailController({required this.data});
+  OrderDetailController({
+    required this.data,
+    required this.outletData,
+    required this.userData,
+  });
   final OrderDataController data;
+  final OutletDataController outletData;
+  final UserDataController userData;
   final String backRoute = Get.previousRoute;
 
   @override

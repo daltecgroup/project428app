@@ -16,8 +16,6 @@ class OutletDataController extends GetxController {
   OutletDataController({required this.repository});
   final OutletRepository repository;
 
-  BoxHelper box = BoxHelper();
-
   final RxList<Outlet> outlets = <Outlet>[].obs;
   final Rx<Outlet?> selectedOutlet = Rx<Outlet?>(null);
   final Rx<DateTime?> latestSync = (null as DateTime?).obs;
@@ -87,7 +85,9 @@ class OutletDataController extends GetxController {
       // if (await file.exists() && refresh != null && refresh == true)
       //   await file.delete();
       if (await file.exists() && (refresh == null || refresh == false)) {
-        LoggerHelper.logInfo('Set initial outlet from local data');
+        LoggerHelper.logInfo(
+          'OUTLET DATA CONT: Set initial outlet from local data',
+        );
         final List<Outlet> outletList =
             (json.decode(await file.readAsString()) as List<dynamic>)
                 .map((json) => Outlet.fromJson(json as Map<String, dynamic>))
@@ -95,7 +95,9 @@ class OutletDataController extends GetxController {
         outletList.sort((a, b) => b.createdAt.compareTo(a.createdAt));
         outlets.assignAll(outletList);
       } else {
-        LoggerHelper.logInfo('Set initial outlets from server');
+        LoggerHelper.logInfo(
+          'OUTLET DATA CONT: Set initial outlets from server',
+        );
 
         final List<Outlet> fetchedOutlets = await repository.getOutlets();
         if (fetchedOutlets.isNotEmpty) {
@@ -239,5 +241,10 @@ class OutletDataController extends GetxController {
       return null;
     }
     return getOutletById(box.getValue(AppConstants.KEY_CURRENT_OUTLET));
+  }
+
+  String get currentOutletName {
+    if (currentOutlet == null) return '';
+    return currentOutlet!.name;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:abg_pos_app/app/utils/helpers/get_storage_helper.dart';
+import 'package:abg_pos_app/app/utils/helpers/text_helper.dart';
 
 import '../../../../data/models/Outlet.dart';
 import '../../../../modules/_features/order/controllers/order_input_controller.dart';
@@ -16,8 +17,6 @@ class OurderInputOutletSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BoxHelper box = BoxHelper();
-
     String? outletName;
     if (!box.isNull(AppConstants.KEY_CURRENT_OUTLET)) {
       final outlet = c.outletData.getOutletById(
@@ -40,6 +39,7 @@ class OurderInputOutletSelection extends StatelessWidget {
               AppConstants.DEFAULT_BORDER_RADIUS,
             ),
             child: DropdownButtonFormField<Outlet>(
+              initialValue: c.selectedOutlet.value,
               decoration: InputDecoration(
                 isDense: true,
                 filled: true,
@@ -60,16 +60,15 @@ class OurderInputOutletSelection extends StatelessWidget {
                   ),
                 ),
               ),
-              value: c.selectedOutlet.value,
               items: c.outletData
                   .filteredOutlet(status: true, keyword: outletName)
                   .map(
                     (e) => DropdownMenuItem<Outlet>(
                       value: e,
                       child: SizedBox(
-                        width: Get.width - (AppConstants.DEFAULT_PADDING * 7),
+                        width: Get.width - (AppConstants.DEFAULT_PADDING * 8),
                         child: Text(
-                          e.name,
+                          normalizeName(e.name),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

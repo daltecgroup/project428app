@@ -1,3 +1,5 @@
+import 'package:abg_pos_app/app/shared/horizontal_sized_box.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/constants/string_value.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,9 +14,7 @@ Future<dynamic> customAlertDialog(String content) {
     title: 'Peringatan',
     titleStyle: AppTextStyle.dialogTitle,
     radius: AppConstants.DEFAULT_BORDER_RADIUS,
-    contentPadding: EdgeInsets.symmetric(
-      horizontal: AppConstants.DEFAULT_PADDING,
-    ),
+    contentPadding: horizontalPadding,
     content: Text(
       content,
       textAlign: TextAlign.center,
@@ -136,9 +136,7 @@ Future<dynamic> customConfirmationDialog(
     title: StringValue.CONFIRMATION,
     titleStyle: AppTextStyle.dialogTitle,
     radius: AppConstants.DEFAULT_BORDER_RADIUS,
-    contentPadding: EdgeInsets.symmetric(
-      horizontal: AppConstants.DEFAULT_PADDING,
-    ),
+    contentPadding: horizontalPadding,
     content: Text(
       content,
       textAlign: TextAlign.center,
@@ -274,4 +272,42 @@ Future<String?> customTextInputDialog({
       child: Text(StringValue.SAVE),
     ),
   );
+}
+
+Future<String> customOutletStockAction() async {
+  final result = await Get.defaultDialog(
+    title: 'Pilihan',
+    titleStyle: AppTextStyle.dialogTitle,
+    radius: AppConstants.DEFAULT_BORDER_RADIUS,
+    content: Column(
+      children: [
+        ElevatedButton(
+          onPressed: () {},
+          style: primaryButtonStyle(Colors.white),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Adjustment', style: TextStyle(color: Colors.black)),
+              HorizontalSizedBox(),
+              Icon(Icons.edit_note_rounded, color: Colors.black),
+            ],
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {},
+          style: primaryButtonStyle(Colors.white),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Buang Stok', style: TextStyle(color: Colors.red)),
+              HorizontalSizedBox(),
+              Icon(Icons.delete, color: Colors.red),
+            ],
+          ),
+        ),
+      ],
+    ),
+    contentPadding: EdgeInsets.all(AppConstants.DEFAULT_PADDING),
+  );
+  return result is String ? result : '';
 }

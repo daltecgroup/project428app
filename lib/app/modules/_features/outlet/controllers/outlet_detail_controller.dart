@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:abg_pos_app/app/controllers/order_data_controller.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 
 import '../../../../controllers/outlet_data_controller.dart';
 import '../../../../controllers/user_data_controller.dart';
@@ -124,9 +125,7 @@ class OutletDetailController extends GetxController {
                     Flexible(
                       child: ListView.builder(
                         shrinkWrap: true,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppConstants.DEFAULT_PADDING,
-                        ),
+                        padding: horizontalPadding,
                         itemCount: users.length,
                         itemBuilder: (_, index) {
                           final user = users[index];

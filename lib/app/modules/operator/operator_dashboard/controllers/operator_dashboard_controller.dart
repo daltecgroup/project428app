@@ -3,10 +3,13 @@ import 'package:abg_pos_app/app/utils/constants/app_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/get_storage_helper.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/models/User.dart';
+import '../../../../utils/services/auth_service.dart';
+
 class OperatorDashboardController extends GetxController {
   OperatorDashboardController({required this.outletData});
   final OutletDataController outletData;
-  BoxHelper box = BoxHelper();
+  final auth = Get.find<AuthService>();
 
   @override
   void onInit() {
@@ -25,5 +28,9 @@ class OperatorDashboardController extends GetxController {
 
   String get currentRole {
     return box.getValue(AppConstants.KEY_CURRENT_ROLE);
+  }
+
+  User? get currentUser {
+    return auth.currentUser.value;
   }
 }

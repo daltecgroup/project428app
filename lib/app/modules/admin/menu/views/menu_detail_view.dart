@@ -1,5 +1,6 @@
 import 'package:abg_pos_app/app/modules/admin/menu/controllers/menu_detail_controller.dart';
 import 'package:abg_pos_app/app/modules/admin/menu/widgets/menu_detail_info_panel.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -45,9 +46,7 @@ class MenuDetailView extends GetView<MenuDetailController> {
         return RefreshIndicator(
           onRefresh: () => controller.data.syncData(refresh: true),
           child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppConstants.DEFAULT_PADDING,
-            ),
+            padding: horizontalPadding,
             child: Column(
               children: [
                 VerticalSizedBox(height: 2),

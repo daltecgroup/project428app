@@ -93,7 +93,6 @@ class MenuProvider extends GetConnect {
     httpClient.baseUrl = AppConstants.CURRENT_BASE_API_URL;
     httpClient.timeout = const Duration(seconds: 5);
     httpClient.addRequestModifier<dynamic>((request) {
-      BoxHelper box = BoxHelper();
       request.headers['Authorization'] =
           'Bearer ${box.getValue(AppConstants.KEY_USER_TOKEN) ?? ''}';
       return request;

@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared/pages/empty_list_page.dart';
@@ -12,7 +13,6 @@ import '../widgets/order_history_item.dart';
 
 class OrderList extends StatelessWidget {
   const OrderList({super.key, required this.controller});
-
   final OrderListController controller;
 
   @override
@@ -30,9 +30,7 @@ class OrderList extends StatelessWidget {
       return RefreshIndicator(
         onRefresh: controller.refreshData,
         child: ListView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppConstants.DEFAULT_PADDING,
-          ),
+          padding: horizontalPadding,
           children: [
             if (activeOrders.isNotEmpty)
               _buildSection(

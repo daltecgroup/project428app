@@ -1,3 +1,6 @@
+import 'package:abg_pos_app/app/shared/pages/empty_list_page.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
+
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/buttons/floating_add_button.dart';
 import '../../../../shared/custom_appbar_lite.dart';
@@ -23,11 +26,14 @@ class IngredientsListView extends GetView<IngredientListController> {
         backRoute: Routes.PRODUCT,
       ),
       body: RefreshIndicator(
-        child: Obx(
-          () => ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppConstants.DEFAULT_PADDING,
-            ),
+        child: Obx(() {
+          if (controller.filteredIngredients().isEmpty)
+            return EmptyListPage(
+              refresh: () => controller.data.syncData(refresh: true),
+              text: 'Bahan Baku Kosong',
+            );
+          return ListView(
+            padding: horizontalPadding,
             children: [
               VerticalSizedBox(height: 2),
               ...List.generate(controller.filteredIngredients().length, (
@@ -92,8 +98,8 @@ class IngredientsListView extends GetView<IngredientListController> {
                 ),
               VerticalSizedBox(height: 5),
             ],
-          ),
-        ),
+          );
+        }),
         onRefresh: () => controller.refreshIngredients(),
       ),
       floatingActionButton: FloatingAddButton(

@@ -1,5 +1,6 @@
 import 'package:abg_pos_app/app/shared/custom_appbar_lite.dart';
 import 'package:abg_pos_app/app/shared/pages/empty_list_page.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/number_helper.dart';
 import 'package:abg_pos_app/app/utils/helpers/text_helper.dart';
 import 'package:flutter/material.dart';
@@ -41,10 +42,14 @@ class MenuListView extends GetView<MenuListController> {
               text: 'Menu Kosong',
             );
           }
+
+          if (controller.data.menus.isEmpty)
+            return EmptyListPage(
+              refresh: () => controller.data.syncData(refresh: true),
+              text: 'Menu Kosong',
+            );
           return ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppConstants.DEFAULT_PADDING,
-            ),
+            padding: horizontalPadding,
             children: [
               const VerticalSizedBox(height: 2),
               Column(

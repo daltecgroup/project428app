@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/number_helper.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +28,7 @@ class PromoView extends GetView<PromoController> {
           AppConstants.PROMO_SETTING_SPEND_GET,
         );
         return ListView(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppConstants.DEFAULT_PADDING,
-          ),
+          padding: horizontalPadding,
           children: [
             const VerticalSizedBox(height: 2),
             CustomNavItem(

@@ -14,9 +14,8 @@ import '../utils/helpers/logger_helper.dart';
 import '../utils/helpers/text_helper.dart';
 
 class MenuCategoryDataController extends GetxController {
-  MenuCategoryDataController({required this.repository});
+  MenuCategoryDataController({required this.repository, this.isRefresh});
   final MenuCategoryRepository repository;
-  BoxHelper box = BoxHelper();
 
   final RxList<MenuCategory> categories = <MenuCategory>[].obs;
   final Rx<MenuCategory?> selectedMenuCategory = Rx<MenuCategory?>(null);
@@ -24,6 +23,7 @@ class MenuCategoryDataController extends GetxController {
   final RxBool isLoading = false.obs;
 
   Timer? _syncTimer;
+  bool? isRefresh;
 
   @override
   void onInit() {
@@ -33,7 +33,7 @@ class MenuCategoryDataController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    syncData();
+    syncData(refresh: isRefresh);
     setLatestSync();
     _startAutoSync();
   }

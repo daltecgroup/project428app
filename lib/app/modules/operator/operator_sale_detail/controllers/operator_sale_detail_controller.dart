@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:abg_pos_app/app/controllers/printer_controller.dart';
 import 'package:abg_pos_app/app/controllers/sale_data_controller.dart';
 import 'package:abg_pos_app/app/controllers/user_data_controller.dart';
 import 'package:abg_pos_app/app/shared/custom_alert.dart';
@@ -10,6 +11,11 @@ class OperatorSaleDetailController extends GetxController {
   OperatorSaleDetailController({required this.data, required this.userData});
   final SaleDataController data;
   final UserDataController userData;
+  final backRoute = Get.previousRoute;
+
+  final PrinterController printer = Get.isRegistered<PrinterController>()
+      ? Get.find<PrinterController>()
+      : Get.put(PrinterController());
 
   RxBool showPrintHistory = true.obs;
 
@@ -30,12 +36,13 @@ class OperatorSaleDetailController extends GetxController {
 
   Future<void> printInvoice(String id) async {
     if (data.selectedSale.value != null) {
-      await data.updateSale(
-        id: id,
-        data: json.encode({"addInvoicePrintHistory": true}),
-      );
-      data.sales.refresh();
-      data.selectedSale.refresh();
+      await printer.startPrinting(data.selectedSale.value!, data: data, id: id);
+      // await data.updateSale(
+      //   id: id,
+      //   data: json.encode({"addInvoicePrintHistory": true}),
+      // );
+      // data.sales.refresh();
+      // data.selectedSale.refresh();
     } else {
       customAlertDialog('Data Penjualan tidak ditemukan');
     }

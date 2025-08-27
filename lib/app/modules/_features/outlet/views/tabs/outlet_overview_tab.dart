@@ -4,9 +4,11 @@ import 'package:abg_pos_app/app/shared/custom_card.dart';
 import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
 import 'package:abg_pos_app/app/utils/constants/app_constants.dart';
 import 'package:abg_pos_app/app/utils/constants/order_constants.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/theme/custom_text.dart';
 import 'package:get/get.dart';
 
+import '../../../../../utils/helpers/get_storage_helper.dart';
 import '../../controllers/outlet_detail_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +27,7 @@ class OutletOverviewTab extends StatelessWidget {
           OrderConstants.PROCESSED,
           OrderConstants.ON_THE_WAY,
         ],
-        outletId: [c.orderData.box.getValue(AppConstants.KEY_CURRENT_OUTLET)],
+        outletId: [box.getValue(AppConstants.KEY_CURRENT_OUTLET)],
       );
 
       final menuItems = [
@@ -41,7 +43,9 @@ class OutletOverviewTab extends StatelessWidget {
           'icon': Icons.shopping_bag,
           'label': 'Stok',
           'indicator': null,
-          'onTap': () {},
+          'onTap': () {
+            Get.toNamed(Routes.OUTLET_INVENTORY_LIST);
+          },
         },
         {
           'icon': Icons.shopping_cart,
@@ -69,18 +73,42 @@ class OutletOverviewTab extends StatelessWidget {
           'indicator': null,
           'onTap': () {},
         },
+        {
+          'icon': Icons.fastfood,
+          'label': 'Menu',
+          'indicator': null,
+          'onTap': () {},
+        },
       ];
       return ListView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppConstants.DEFAULT_PADDING,
-        ),
+        padding: horizontalPadding,
         children: [
           const VerticalSizedBox(height: 2),
           CustomCard(
             content: Column(
               children: [
-                Row(children: [customTitleText(text: 'IDR 450.000')]),
-                Row(children: [customSmallLabelText(text: 'Omzet hari ini')]),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: customTitleText(maxLines: 1, text: '450.000'),
+                    ),
+                    Expanded(
+                      child: customTitleText(
+                        textAlign: TextAlign.right,
+                        maxLines: 1,
+                        text: '12.450.000',
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    customSmallLabelText(text: 'Omzet hari ini'),
+                    customSmallLabelText(text: 'Omzet bulan ini'),
+                  ],
+                ),
                 const VerticalSizedBox(height: 0.7),
                 Container(
                   alignment: Alignment.center,
@@ -90,11 +118,6 @@ class OutletOverviewTab extends StatelessWidget {
                     children: [
                       IndicatorOderDoneWidget(
                         position: 'left',
-                        title: 'Order Pending',
-                        number: '12',
-                      ),
-                      IndicatorOderDoneWidget(
-                        position: 'middle',
                         title: 'Order Selesai',
                         number: '12',
                       ),

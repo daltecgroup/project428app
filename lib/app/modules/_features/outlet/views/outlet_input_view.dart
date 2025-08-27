@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,9 +35,7 @@ class OutletInputView extends GetView<OutletInputController> {
           Obx(() {
             final outlet = controller.data.selectedOutlet.value;
             return ListView(
-              padding: EdgeInsetsGeometry.symmetric(
-                horizontal: AppConstants.DEFAULT_PADDING,
-              ),
+              padding: horizontalPadding,
               children: [
                 const VerticalSizedBox(height: 2),
 

@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
+import '../../../../controllers/outlet_inventory_data_controller.dart';
 
 class OutletInventoryController extends GetxController {
-  //TODO: Implement OutletInventoryController
+  OutletInventoryController({required this.data});
+  final OutletInventoryDataController data;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +19,4 @@ class OutletInventoryController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

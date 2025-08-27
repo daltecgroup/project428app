@@ -1,3 +1,5 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
+
 import '../controllers/spend_get_promo_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +28,7 @@ class SpendGetPromoView extends GetView<SpendGetPromoController> {
         return RefreshIndicator(
           onRefresh: () => controller.refreshData(),
           child: ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppConstants.DEFAULT_PADDING,
-            ),
+            padding: horizontalPadding,
             children: [
               const VerticalSizedBox(height: 2),
 

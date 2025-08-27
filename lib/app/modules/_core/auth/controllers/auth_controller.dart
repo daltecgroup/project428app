@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   final AuthService _authS = Get.find<AuthService>();
-  BoxHelper box = BoxHelper();
+
   late TextEditingController idC;
   late TextEditingController passwordC;
 

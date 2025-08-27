@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../routes/app_pages.dart';
@@ -46,9 +47,7 @@ class IngredientDetailView extends GetView<IngredientDetailController> {
             ? FailedPagePlaceholder()
             : RefreshIndicator(
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppConstants.DEFAULT_PADDING,
-                  ),
+                  padding: horizontalPadding,
                   child: Column(
                     children: [
                       VerticalSizedBox(height: 2),

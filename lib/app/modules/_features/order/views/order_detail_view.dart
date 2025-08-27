@@ -1,4 +1,6 @@
 import 'package:abg_pos_app/app/modules/_features/order/widgets/order_item_widget.dart';
+import 'package:abg_pos_app/app/shared/custom_alert.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared/custom_card.dart';
@@ -9,6 +11,7 @@ import '../../../../shared/pages/failed_page_placeholder.dart';
 import '../../../../utils/helpers/number_helper.dart';
 import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/constants/string_value.dart';
+import '../../../../utils/helpers/user_helper.dart';
 import '../../../../utils/theme/custom_text.dart';
 import '../controllers/order_detail_controller.dart';
 
@@ -20,6 +23,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
     return Obx(() {
       final order = controller.data.selectedOrder.value;
       if (order == null) return FailedPagePlaceholder();
+
       return Scaffold(
         appBar: customAppBarLite(
           title: order.code,
@@ -29,16 +33,26 @@ class OrderDetailView extends GetView<OrderDetailController> {
               color: Colors.white,
               icon: Icon(Icons.more_vert),
               itemBuilder: (context) => <PopupMenuEntry>[
-                PopupMenuItem(
-                  onTap: () {
-                    c.updateOrder();
-                  },
-                  child: Text('Ubah Status'),
-                ),
-                PopupMenuItem(
-                  onTap: () {},
-                  child: Text('Hapus', style: TextStyle(color: Colors.red)),
-                ),
+                if (!isOperator)
+                  PopupMenuItem(
+                    onTap: () {
+                      c.updateOrder();
+                    },
+                    child: Text('Ubah Status'),
+                  ),
+                if (!isOperator)
+                  PopupMenuItem(
+                    onTap: () {},
+                    child: Text('Hapus', style: TextStyle(color: Colors.red)),
+                  ),
+                if (isOperator)
+                  PopupMenuItem(
+                    onTap: () {},
+                    child: Text(
+                      'Minta Hapus',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
               ],
             ),
           ],
@@ -46,9 +60,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
         body: RefreshIndicator(
           onRefresh: () => c.refreshData(),
           child: ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppConstants.DEFAULT_PADDING,
-            ),
+            padding: horizontalPadding,
             children: [
               const VerticalSizedBox(height: 2),
 
@@ -119,7 +131,13 @@ class OrderDetailView extends GetView<OrderDetailController> {
                             item: item,
                             onTap: () {
                               if (item.isAccepted) {
-                                c.unacceptOrderItem(item);
+                                if (!isOperator) {
+                                  c.unacceptOrderItem(item);
+                                } else {
+                                  customAlertDialog(
+                                    'Operator tidak bisa membatalkan status pesanan.',
+                                  );
+                                }
                               } else {
                                 c.acceptOrderItem(item);
                               }

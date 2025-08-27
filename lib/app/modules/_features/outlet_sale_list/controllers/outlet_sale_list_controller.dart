@@ -1,6 +1,5 @@
 import 'package:abg_pos_app/app/controllers/outlet_data_controller.dart';
 import 'package:abg_pos_app/app/controllers/sale_data_controller.dart';
-import 'package:abg_pos_app/app/utils/helpers/get_storage_helper.dart';
 import 'package:get/get.dart';
 
 class OutletSaleListController extends GetxController {
@@ -8,7 +7,7 @@ class OutletSaleListController extends GetxController {
   final OutletDataController outletData;
   final SaleDataController data;
 
-  BoxHelper box = BoxHelper();
+  final backRoute = Get.previousRoute;
 
   @override
   void onInit() {

@@ -15,10 +15,8 @@ import '../utils/helpers/logger_helper.dart';
 import '../utils/helpers/text_helper.dart';
 
 class BundleDataController extends GetxController {
-  BundleDataController({required this.repository});
+  BundleDataController({required this.repository, this.isRefresh});
   final BundleRepository repository;
-
-  BoxHelper box = BoxHelper();
 
   final RxList<Bundle> bundles = <Bundle>[].obs;
   final Rx<Bundle?> selectedBundle = Rx<Bundle?>(null);
@@ -26,11 +24,12 @@ class BundleDataController extends GetxController {
   final RxBool isLoading = false.obs;
 
   Timer? _syncTimer;
+  bool? isRefresh;
 
   @override
   void onInit() {
     super.onInit();
-    syncData();
+    syncData(refresh: isRefresh);
   }
 
   @override

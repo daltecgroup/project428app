@@ -21,7 +21,6 @@ class SelectRoleController extends GetxController {
   final OutletDataController outletData;
   final SettingService setting;
   RxList roles = [].obs;
-  BoxHelper box = BoxHelper();
 
   @override
   void onInit() {
@@ -75,6 +74,7 @@ class SelectRoleController extends GetxController {
       AppConstants.ROLE_OPERATOR,
     );
     await box.setValue(AppConstants.KEY_CURRENT_OUTLET, outlet.id);
+
     LoggerHelper.logInfo('Operator login ke gerai ${outlet.name}');
   }
 }

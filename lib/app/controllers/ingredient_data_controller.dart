@@ -18,7 +18,6 @@ import '../utils/helpers/logger_helper.dart';
 class IngredientDataController extends GetxController {
   IngredientDataController({required this.repository});
   final IngredientRepository repository;
-  BoxHelper box = BoxHelper();
 
   final RxList<Ingredient> ingredients = <Ingredient>[].obs;
   final Rx<Ingredient?> selectedIngredient = Rx<Ingredient?>(null);
@@ -128,6 +127,8 @@ class IngredientDataController extends GetxController {
             .getIngredients();
         if (fetchedIngredients.isNotEmpty) {
           ingredients.assignAll(fetchedIngredients);
+        } else {
+          ingredients.clear();
         }
 
         await file.writeAsString(

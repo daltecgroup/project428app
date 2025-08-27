@@ -1,5 +1,6 @@
 import 'package:abg_pos_app/app/modules/admin/user/controllers/edit_user_controller.dart';
 import 'package:abg_pos_app/app/shared/custom_appbar_lite.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,9 +25,7 @@ class EditUserView extends GetView<EditUserController> {
       body: Stack(
         children: [
           ListView(
-            padding: EdgeInsetsGeometry.symmetric(
-              horizontal: AppConstants.DEFAULT_PADDING,
-            ),
+            padding: horizontalPadding,
             children: [
               VerticalSizedBox(),
               Material(

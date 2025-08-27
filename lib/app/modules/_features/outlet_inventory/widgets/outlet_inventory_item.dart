@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/shared/custom_alert.dart';
 import 'package:abg_pos_app/app/shared/custom_nav_item.dart';
 import 'package:abg_pos_app/app/shared/stock_inventory_status.dart';
 import 'package:abg_pos_app/app/utils/helpers/number_helper.dart';
@@ -36,7 +37,9 @@ class OutletInventoryItem extends StatelessWidget {
       // Simplified subTitle by extracting the logic into a private method
       subTitle: _formatQuantity(qty),
       disableTrailing: true,
-      onTap: () {},
+      onTap: () {
+        // customOutletStockAction();
+      },
     );
   }
 }

@@ -46,3 +46,5 @@ class BoxHelper {
     await _storage.erase();
   }
 }
+
+BoxHelper box = BoxHelper();

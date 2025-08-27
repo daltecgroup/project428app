@@ -1,5 +1,6 @@
 import 'package:abg_pos_app/app/modules/operator/operator_sale_detail/widgets/custom_card_header.dart';
 import 'package:abg_pos_app/app/routes/app_pages.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared/custom_appbar_lite.dart';
@@ -25,7 +26,9 @@ class OperatorSaleDetailView extends GetView<OperatorSaleDetailController> {
       return Scaffold(
         appBar: customAppBarLite(
           title: sale.code,
-          backRoute: Routes.OPERATOR_SALE,
+          backRoute: controller.backRoute == Routes.SALE_INPUT
+              ? Routes.OPERATOR_SALE
+              : controller.backRoute,
           actions: [
             PopupMenuButton(
               color: Colors.white,
@@ -54,9 +57,7 @@ class OperatorSaleDetailView extends GetView<OperatorSaleDetailController> {
           ],
         ),
         body: ListView(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppConstants.DEFAULT_PADDING,
-          ),
+          padding: horizontalPadding,
           children: [
             const VerticalSizedBox(height: 2),
             const CustomCardHeader(title: 'Ikhtisar'),
@@ -358,7 +359,7 @@ class OperatorSaleDetailView extends GetView<OperatorSaleDetailController> {
                                     AppConstants.DEFAULT_PADDING * 2,
                                   ),
                                   child: Image.network(
-                                    AppConstants.BASE_API_URL_DEV_IMAGE +
+                                    AppConstants.CURRENT_BASE_API_URL_IMAGE +
                                         sale.payment.evidenceUrl!,
                                     fit: BoxFit.contain,
                                   ),
@@ -388,7 +389,7 @@ class OperatorSaleDetailView extends GetView<OperatorSaleDetailController> {
                             image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                AppConstants.BASE_API_URL_DEV_IMAGE +
+                                AppConstants.CURRENT_BASE_API_URL_IMAGE +
                                     sale.payment.evidenceUrl!,
                               ),
                             ),

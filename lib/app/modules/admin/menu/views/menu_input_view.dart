@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,16 +22,18 @@ class MenuInputView extends GetView<MenuInputController> {
   const MenuInputView({super.key});
   @override
   Widget build(BuildContext context) {
-    if (!controller.isEdit)
-      Future.delayed(
-        Duration(milliseconds: 200),
-        () => controller.clearField(),
-      );
-    if (controller.isEdit)
-      Future.delayed(
-        Duration(milliseconds: 200),
-        () => controller.setEditData(),
-      );
+    if (Get.isRegistered<MenuInputController>()) {
+      if (!controller.isEdit)
+        Future.delayed(
+          Duration(milliseconds: 200),
+          () => controller.clearField(),
+        );
+      if (controller.isEdit)
+        Future.delayed(
+          Duration(milliseconds: 200),
+          () => controller.setEditData(),
+        );
+    }
     return Scaffold(
       appBar: customAppBarLite(
         context: context,
@@ -43,9 +46,7 @@ class MenuInputView extends GetView<MenuInputController> {
           Obx(() {
             final menu = controller.data.selectedMenu.value;
             return ListView(
-              padding: EdgeInsetsGeometry.symmetric(
-                horizontal: AppConstants.DEFAULT_PADDING,
-              ),
+              padding: horizontalPadding,
               children: [
                 const VerticalSizedBox(height: 2),
 

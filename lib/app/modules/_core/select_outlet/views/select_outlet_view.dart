@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
@@ -19,9 +20,7 @@ class SelectOutletView extends GetView<SelectOutletController> {
       body: RefreshIndicator(
         onRefresh: controller.refreshData,
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppConstants.DEFAULT_PADDING,
-          ),
+          padding: horizontalPadding,
           child: Column(
             children: [
               const VerticalSizedBox(height: 2),

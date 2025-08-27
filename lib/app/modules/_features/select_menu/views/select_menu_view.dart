@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -24,9 +25,7 @@ class SelectMenuView extends GetView<SelectMenuController> {
           children: [
             // online bundle switch
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppConstants.DEFAULT_PADDING,
-              ),
+              padding: horizontalPadding,
               child: CustomCard(
                 padding: 8,
                 content: Row(
@@ -57,9 +56,7 @@ class SelectMenuView extends GetView<SelectMenuController> {
             // menu list
             Expanded(
               child: ListView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppConstants.DEFAULT_PADDING,
-                ),
+                padding: horizontalPadding,
                 children: [
                   const VerticalSizedBox(height: 2),
 

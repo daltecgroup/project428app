@@ -13,8 +13,6 @@ class PromoSettingDataController extends GetxController {
   PromoSettingDataController({required this.repository});
   final PromoSettingRepository repository;
 
-  BoxHelper box = BoxHelper();
-
   final RxList<PromoSetting> settings = <PromoSetting>[].obs;
   final Rx<DateTime?> latestSync = (null as DateTime?).obs;
   final RxBool isLoading = false.obs;

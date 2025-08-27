@@ -1,5 +1,6 @@
 import 'package:abg_pos_app/app/modules/admin/user/widgets/custom_check_box.dart';
 import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +25,7 @@ class AddUserView extends GetView<AddUserController> {
             children: [
               VerticalSizedBox(height: 2),
               Padding(
-                padding: EdgeInsetsGeometry.symmetric(
-                  horizontal: AppConstants.DEFAULT_PADDING,
-                ),
+                padding: horizontalPadding,
                 child: CustomCard(
                   content: Obx(
                     () => Column(

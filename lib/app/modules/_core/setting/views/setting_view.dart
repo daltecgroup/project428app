@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared/custom_appbar.dart';
@@ -5,7 +6,6 @@ import '../../../../shared/custom_drawer.dart';
 import '../controllers/setting_controller.dart';
 import '../../../../shared/custom_nav_item.dart';
 import '../../../../shared/vertical_sized_box.dart';
-import '../../../../utils/constants/app_constants.dart';
 
 class SettingView extends GetView<SettingController> {
   const SettingView({super.key});
@@ -16,9 +16,7 @@ class SettingView extends GetView<SettingController> {
       drawer: customDrawer(),
       body: Obx(
         () => ListView(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppConstants.DEFAULT_PADDING,
-          ),
+          padding: horizontalPadding,
           children: [
             VerticalSizedBox(height: 2),
             CustomNavItem(

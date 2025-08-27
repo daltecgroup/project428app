@@ -3,20 +3,17 @@ import '../../../../controllers/menu_category_data_controller.dart';
 import '../../../../controllers/menu_data_controller.dart';
 import '../../../../data/models/Menu.dart';
 import '../../../../data/models/MenuCategory.dart';
-import '../../../../utils/helpers/get_storage_helper.dart';
 
 class MenuListController extends GetxController {
   MenuListController({required this.data, required this.categoryData});
   MenuDataController data;
   MenuCategoryDataController categoryData;
 
-  late BoxHelper box;
   final String backRoute = Get.previousRoute;
 
   @override
   Future<void> onInit() async {
     super.onInit();
-    box = BoxHelper();
     await refreshData();
   }
 

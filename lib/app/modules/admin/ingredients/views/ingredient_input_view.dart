@@ -3,6 +3,7 @@ import 'package:abg_pos_app/app/routes/app_pages.dart';
 import 'package:abg_pos_app/app/shared/buttons/bottom_nav_button.dart';
 import 'package:abg_pos_app/app/shared/custom_appbar_lite.dart';
 import 'package:abg_pos_app/app/shared/custom_card.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,9 +36,7 @@ class IngredientInputView extends GetView<IngredientInputController> {
           Obx(() {
             Ingredient? ingredient = controller.data.selectedIngredient.value;
             return ListView(
-              padding: EdgeInsetsGeometry.symmetric(
-                horizontal: AppConstants.DEFAULT_PADDING,
-              ),
+              padding: horizontalPadding,
               children: [
                 VerticalSizedBox(height: 2),
                 if (controller.isEdit)

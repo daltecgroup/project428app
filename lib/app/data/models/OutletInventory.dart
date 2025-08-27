@@ -34,8 +34,8 @@ class OutletInventoryIngredient {
       ingredientId: json['ingredientId'] as String,
       name: json['name'] as String,
       unit: json['unit'] as String,
-      currentQty: double.parse(json['currentQty']),
-      price: double.parse(json['price']),
+      currentQty: double.parse(json['currentQty'].toString()),
+      price: double.parse(json['price'].toString()),
       lastQuantityUpdated: DateTime.parse(
         json['lastQuantityUpdated'] as String,
       ),
@@ -80,5 +80,16 @@ class OutletInventory {
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       lastSyncedAt: DateTime.parse(json['lastSyncedAt'] as String),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'lastSyncedBy': lastSyncedBy,
+      'ingredients': ingredients.map((e) => e.toJson()).toList(),
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
+      'lastSyncedAt': lastSyncedAt.toIso8601String()
+    };
   }
 }

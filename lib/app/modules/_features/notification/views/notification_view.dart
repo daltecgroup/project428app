@@ -11,10 +11,7 @@ class NotificationView extends GetView<NotificationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBarLite(
-        context: context,
-        title: StringValue.NOTIFICATION,
-      ),
+      appBar: customAppBarLite(title: StringValue.NOTIFICATION),
       body: const Center(
         child: Text(
           'NotificationView is working',

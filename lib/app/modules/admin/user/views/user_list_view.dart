@@ -1,6 +1,7 @@
 import 'package:abg_pos_app/app/shared/buttons/floating_add_button.dart';
 import 'package:abg_pos_app/app/shared/custom_card.dart';
 import 'package:abg_pos_app/app/shared/custom_nav_item.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,7 @@ class UserListView extends GetView<UserListController> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.DEFAULT_PADDING,
-            ),
+            padding: horizontalPadding,
             child: CustomInputWithError(
               controller: controller.searchC,
               hint: StringValue.SEARCH_USER,
@@ -82,9 +81,7 @@ class UserListView extends GetView<UserListController> {
                     : ListView.builder(
                         keyboardDismissBehavior:
                             ScrollViewKeyboardDismissBehavior.onDrag,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppConstants.DEFAULT_PADDING,
-                        ),
+                        padding: horizontalPadding,
                         itemCount: users.length,
                         itemBuilder: (_, index) {
                           final user = users[index];
@@ -150,7 +147,7 @@ class UserListView extends GetView<UserListController> {
               ],
             ),
           ),
-          SizedBox(height: 10),
+          const VerticalSizedBox(),
           FloatingAddButton(
             route: Routes.ADD_USER,
             tooltip: StringValue.ADD_USER,
@@ -162,9 +159,7 @@ class UserListView extends GetView<UserListController> {
 
   Widget _buildStatCard(int total, int active, int inactive) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.DEFAULT_PADDING,
-      ),
+      padding: horizontalPadding,
       child: CustomCard(
         padding: 10,
         content: Row(

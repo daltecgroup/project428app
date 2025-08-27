@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/constants/app_constants.dart';
@@ -36,9 +37,7 @@ class FilterBadgeRow extends StatelessWidget {
       children: [
         const SizedBox(height: 10),
         Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppConstants.DEFAULT_PADDING,
-          ),
+          padding: horizontalPadding,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../routes/app_pages.dart';
@@ -49,9 +50,7 @@ class MenuCategoryListView extends GetView<MenuCategoryListController> {
           }
 
           return ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppConstants.DEFAULT_PADDING,
-            ),
+            padding: horizontalPadding,
             children: [
               VerticalSizedBox(height: 2),
               if (activeCategories.isNotEmpty)

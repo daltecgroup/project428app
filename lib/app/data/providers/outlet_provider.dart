@@ -32,6 +32,7 @@ class OutletProvider extends GetConnect {
     final Response response = await get(url);
     if (response.isOk && response.body is List) {
       final List<dynamic> jsonList = response.body;
+
       final List<Outlet> outlets = jsonList
           .map((json) => Outlet.fromJson(json as Map<String, dynamic>))
           .toList();
@@ -92,7 +93,6 @@ class OutletProvider extends GetConnect {
     httpClient.baseUrl = AppConstants.CURRENT_BASE_API_URL;
     httpClient.timeout = const Duration(seconds: 5);
     httpClient.addRequestModifier<dynamic>((request) {
-      BoxHelper box = BoxHelper();
       request.headers['Authorization'] =
           'Bearer ${box.getValue(AppConstants.KEY_USER_TOKEN) ?? ''}';
       return request;

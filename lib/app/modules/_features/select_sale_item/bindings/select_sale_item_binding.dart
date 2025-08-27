@@ -22,6 +22,7 @@ class SelectSaleItemBinding extends Bindings {
     Get.lazyPut<MenuCategoryDataController>(
       () => MenuCategoryDataController(
         repository: Get.find<MenuCategoryRepository>(),
+        isRefresh: true,
       ),
     );
 
@@ -31,7 +32,10 @@ class SelectSaleItemBinding extends Bindings {
       () => MenuRepository(provider: Get.find<MenuProvider>()),
     );
     Get.lazyPut<MenuDataController>(
-      () => MenuDataController(repository: Get.find<MenuRepository>()),
+      () => MenuDataController(
+        repository: Get.find<MenuRepository>(),
+        isRefresh: true,
+      ),
     );
 
     // bundle data
@@ -40,7 +44,10 @@ class SelectSaleItemBinding extends Bindings {
       () => BundleRepository(provider: Get.find<BundleProvider>()),
     );
     Get.lazyPut<BundleDataController>(
-      () => BundleDataController(repository: Get.find<BundleRepository>()),
+      () => BundleDataController(
+        repository: Get.find<BundleRepository>(),
+        isRefresh: true,
+      ),
     );
 
     // ensure SaleService is registered

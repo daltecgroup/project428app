@@ -1,9 +1,9 @@
+import 'package:abg_pos_app/app/controllers/outlet_data_controller.dart';
 import 'package:get/get.dart';
 
 class OperatorOutletInventoryController extends GetxController {
-  //TODO: Implement OperatorOutletInventoryController
-
-  final count = 0.obs;
+  OperatorOutletInventoryController({required this.outletData});
+  final OutletDataController outletData;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +19,7 @@ class OperatorOutletInventoryController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  String get currentOutletName {
+    return outletData.currentOutletName;
+  }
 }

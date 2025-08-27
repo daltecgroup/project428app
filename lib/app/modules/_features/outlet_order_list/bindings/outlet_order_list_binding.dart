@@ -12,7 +12,6 @@ import '../../../../utils/constants/app_constants.dart';
 import '../controllers/outlet_order_list_controller.dart';
 
 class OutletOrderListBinding extends Bindings {
-  BoxHelper box = BoxHelper();
   @override
   void dependencies() {
     final String? currentOutlet = box.getValue(AppConstants.KEY_CURRENT_OUTLET);

@@ -2,6 +2,7 @@ import 'package:abg_pos_app/app/data/models/MenuCategory.dart';
 import 'package:abg_pos_app/app/modules/admin/menu_category/controllers/menu_category_input_controller.dart';
 import 'package:abg_pos_app/app/shared/custom_card.dart';
 import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/text_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,9 +44,7 @@ class MenuCategoryInputView extends GetView<MenuCategoryInputController> {
             MenuCategory? category = controller.data.selectedMenuCategory.value;
 
             return ListView(
-              padding: EdgeInsetsGeometry.symmetric(
-                horizontal: AppConstants.DEFAULT_PADDING,
-              ),
+              padding: horizontalPadding,
               children: [
                 VerticalSizedBox(height: 2),
                 if (controller.isEdit)

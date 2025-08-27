@@ -9,7 +9,6 @@ import '../../../../utils/helpers/get_storage_helper.dart';
 import '../controllers/operator_order_list_controller.dart';
 
 class OperatorOrderListBinding extends Bindings {
-  BoxHelper box = BoxHelper();
   @override
   void dependencies() {
     final String? currentOutlet = box.getValue(AppConstants.KEY_CURRENT_OUTLET);

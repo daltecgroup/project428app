@@ -7,6 +7,7 @@ import '../../../../shared/order_status.dart';
 import '../../../../shared/vertical_sized_box.dart';
 import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/helpers/number_helper.dart';
+import '../../../../utils/helpers/text_helper.dart';
 import '../../../../utils/helpers/time_helper.dart';
 import '../../../../utils/theme/custom_text.dart';
 import '../../../../utils/theme/text_style.dart';
@@ -68,7 +69,7 @@ class ActiveOrderItem extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${order.outlet.name} / ${order.items.length} ${order.items.length.isGreaterThan(1) ? 'items' : 'item'}',
+                              '${normalizeName(order.outlet.name)} / ${order.items.length} ${order.items.length.isGreaterThan(1) ? 'items' : 'item'}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: AppTextStyle.inputLabel,

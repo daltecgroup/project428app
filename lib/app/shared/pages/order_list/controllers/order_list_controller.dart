@@ -2,14 +2,12 @@ import 'package:get/get.dart';
 import '../../../../controllers/order_data_controller.dart';
 import '../../../../data/models/Order.dart';
 import '../../../../utils/constants/order_constants.dart';
-import '../../../../utils/helpers/get_storage_helper.dart';
 
 class OrderListController extends GetxController {
   OrderListController({required this.data, this.outletId});
   final OrderDataController data;
   final List<String>? outletId;
 
-  late BoxHelper box;
   final String backRoute = Get.previousRoute;
 
   RxBool openActive = true.obs;

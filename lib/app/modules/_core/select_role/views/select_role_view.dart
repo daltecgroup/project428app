@@ -1,10 +1,11 @@
 import 'package:abg_pos_app/app/routes/app_pages.dart';
 import 'package:abg_pos_app/app/shared/custom_circle_avatar_image.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import '../../../../utils/helpers/get_storage_helper.dart';
 import '../controllers/select_role_controller.dart';
 import '../../../../modules/_core/select_role/widgets/select_role_button.dart';
-// import '../../../../shared/app_logo_title.dart';
 import '../../../../shared/custom_card.dart';
 import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/theme/custom_text.dart';
@@ -22,9 +23,7 @@ class SelectRoleView extends GetView<SelectRoleController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.DEFAULT_PADDING,
-                ),
+                padding: horizontalPadding,
                 child: Hero(
                   tag: AppConstants.HERO_AUTH_CARD,
                   child: CustomCard(
@@ -77,7 +76,7 @@ class SelectRoleView extends GetView<SelectRoleController> {
                                     color: Colors.blueAccent,
                                     onPressed: () {
                                       Get.toNamed(Routes.ADMIN_DASHBOARD);
-                                      controller.box.setValue(
+                                      box.setValue(
                                         AppConstants.KEY_CURRENT_ROLE,
                                         AppConstants.ROLE_ADMIN,
                                       );
@@ -94,7 +93,7 @@ class SelectRoleView extends GetView<SelectRoleController> {
                                     color: Colors.amber[800]!,
                                     onPressed: () {
                                       Get.toNamed(Routes.FRANCHISEE_DASHBOARD);
-                                      controller.box.setValue(
+                                      box.setValue(
                                         AppConstants.KEY_CURRENT_ROLE,
                                         AppConstants.ROLE_FRANCHISEE,
                                       );
@@ -109,7 +108,7 @@ class SelectRoleView extends GetView<SelectRoleController> {
                                     color: Colors.green,
                                     onPressed: () {
                                       Get.toNamed(Routes.SPVAREA_DASHBOARD);
-                                      controller.box.setValue(
+                                      box.setValue(
                                         AppConstants.KEY_CURRENT_ROLE,
                                         AppConstants.ROLE_SPVAREA,
                                       );

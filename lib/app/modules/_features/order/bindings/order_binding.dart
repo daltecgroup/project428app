@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
 import '../../../../controllers/order_data_controller.dart';
+import '../../../../controllers/user_data_controller.dart';
 import '../../../../data/providers/order_provider.dart';
+import '../../../../data/providers/user_provider.dart';
 import '../../../../data/repositories/order_repository.dart';
 import '../../../../controllers/outlet_data_controller.dart';
 import '../../../../data/providers/outlet_provider.dart';
 import '../../../../data/repositories/outlet_repository.dart';
+import '../../../../data/repositories/user_repository.dart';
 import '../controllers/order_detail_controller.dart';
 import '../controllers/order_input_controller.dart';
 import '../../../../shared/pages/order_list/controllers/order_list_controller.dart';
@@ -22,7 +25,6 @@ class OrderBinding extends Bindings {
     );
 
     // outlet data
-    // outlet data
     Get.lazyPut<OutletProvider>(() => OutletProvider());
     Get.lazyPut<OutletRepository>(
       () => OutletRepository(provider: Get.find<OutletProvider>()),
@@ -31,9 +33,22 @@ class OrderBinding extends Bindings {
       () => OutletDataController(repository: Get.find<OutletRepository>()),
     );
 
+    // user data
+    Get.lazyPut<UserProvider>(() => UserProvider());
+    Get.lazyPut<UserRepository>(
+      () => UserRepository(userProvider: Get.find<UserProvider>()),
+    );
+    Get.lazyPut<UserDataController>(
+      () => UserDataController(userRepository: Get.find<UserRepository>()),
+    );
+
     // page controller
     Get.lazyPut<OrderDetailController>(
-      () => OrderDetailController(data: Get.find<OrderDataController>()),
+      () => OrderDetailController(
+        data: Get.find<OrderDataController>(),
+        outletData: Get.find<OutletDataController>(),
+        userData: Get.find<UserDataController>(),
+      ),
     );
     Get.lazyPut<OrderInputController>(
       () => OrderInputController(

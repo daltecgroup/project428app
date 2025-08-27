@@ -14,7 +14,6 @@ class OrderListView extends GetView<OrderListController> {
   const OrderListView({super.key});
   @override
   Widget build(BuildContext context) {
-    final BoxHelper box = BoxHelper();
     box.removeValue(AppConstants.KEY_CURRENT_OUTLET);
     return Scaffold(
       appBar: customAppBar('Pesanan'),

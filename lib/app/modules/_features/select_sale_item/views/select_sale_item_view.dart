@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../widgets/select_menu_bundle_item.dart';
@@ -33,9 +34,7 @@ class SelectSaleItemView extends GetView<SelectSaleItemController> {
         final groupedMenus = controller.menuData.groupedMenuByCategory;
 
         return ListView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppConstants.DEFAULT_PADDING,
-          ),
+          padding: horizontalPadding,
           children: [
             CustomCard(
               padding: 8,

@@ -1,4 +1,5 @@
 import 'package:abg_pos_app/app/shared/buttons/custom_text_button.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/time_helper.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
@@ -50,9 +51,7 @@ class SaleInputView extends GetView<SaleInputController> {
           children: [
             // sale indicator
             ListView(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppConstants.DEFAULT_PADDING,
-              ),
+              padding: horizontalPadding,
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               children: [
                 const VerticalSizedBox(height: 6),
@@ -419,9 +418,7 @@ class SaleInputView extends GetView<SaleInputController> {
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppConstants.DEFAULT_PADDING,
-                  ),
+                  padding: horizontalPadding,
                   child: SaleIndicator(controller: controller),
                 ),
               ],

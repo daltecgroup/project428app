@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:abg_pos_app/app/utils/helpers/outlet_inventory_helper.dart';
 import 'package:get/get.dart';
 import '../data/models/Order.dart';
 import '../data/repositories/order_repository.dart';
@@ -15,8 +16,6 @@ import '../utils/helpers/text_helper.dart';
 class OrderDataController extends GetxController {
   OrderDataController({required this.repository});
   final OrderRepository repository;
-
-  BoxHelper box = BoxHelper();
 
   final RxList<Order> orders = <Order>[].obs;
   final Rx<Order?> selectedOrder = Rx<Order?>(null);
@@ -186,6 +185,7 @@ class OrderDataController extends GetxController {
       switch (response['statusCode']) {
         case 200:
           await syncData(refresh: true);
+          await refreshOutletInventoryData();
           selectedOrder.value = response['order'];
           selectedOrder.refresh();
           if (backRoute != null) Get.toNamed(backRoute);

@@ -6,6 +6,7 @@ import 'package:abg_pos_app/app/shared/pages/empty_list_page.dart';
 import 'package:abg_pos_app/app/shared/status_sign.dart';
 import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
 import 'package:abg_pos_app/app/utils/constants/app_constants.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/text_helper.dart';
 import 'package:flutter/material.dart';
 
@@ -31,9 +32,7 @@ class BundleListView extends GetView<BundleListController> {
               text: 'Paket Menu Kosong',
             );
           return ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppConstants.DEFAULT_PADDING,
-            ),
+            padding: horizontalPadding,
             children: [
               const VerticalSizedBox(height: 2),
               ...bundles.map((bundle) {

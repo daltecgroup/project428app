@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../routes/app_pages.dart';
@@ -37,19 +38,19 @@ Drawer customDrawer() {
         ...navList.map(
           (item) => DrawerListItem(item: item, indicator: item.indicator),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppConstants.DEFAULT_PADDING,
-          ),
-          child: Divider(height: 0.2),
-        ),
+        Padding(padding: horizontalPadding, child: Divider(height: 0.2)),
         _drawerTile(
           Icons.settings,
           'Pengaturan',
           () => Get.toNamed(Routes.SETTING),
           Get.currentRoute == Routes.SETTING,
         ),
-        _drawerTile(Icons.logout_outlined, 'Logout', auth.logout, false),
+        _drawerTile(
+          Icons.logout_outlined,
+          'Logout',
+          () => auth.logout(),
+          false,
+        ),
       ],
     ),
   );

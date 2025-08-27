@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:abg_pos_app/app/controllers/order_data_controller.dart';
 import 'package:abg_pos_app/app/controllers/outlet_data_controller.dart';
 import 'package:abg_pos_app/app/shared/custom_alert.dart';
+import 'package:abg_pos_app/app/utils/constants/app_constants.dart';
+import 'package:abg_pos_app/app/utils/helpers/get_storage_helper.dart';
 import 'package:get/get.dart';
 
 import '../../../../data/models/Outlet.dart';
@@ -22,6 +24,7 @@ class OrderInputController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _initOutletData();
   }
 
   @override
@@ -31,7 +34,16 @@ class OrderInputController extends GetxController {
 
   @override
   void onClose() {
+    selectedOutlet.value = null;
     super.onClose();
+  }
+
+  void _initOutletData() {
+    if (!box.isNull(AppConstants.KEY_CURRENT_OUTLET)) {
+      selectedOutlet.value = outletData.getOutletById(
+        box.getValue(AppConstants.KEY_CURRENT_OUTLET),
+      );
+    }
   }
 
   Future<List<Recipe>> selectIngredients() async {

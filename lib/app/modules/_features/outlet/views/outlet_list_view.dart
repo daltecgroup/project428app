@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/get_storage_helper.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,7 @@ class OutletListView extends GetView<OutletListController> {
       body: RefreshIndicator(
         onRefresh: controller.refreshData,
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppConstants.DEFAULT_PADDING,
-          ),
+          padding: horizontalPadding,
           child: Column(
             children: [
               Row(
@@ -77,14 +76,16 @@ class OutletListView extends GetView<OutletListController> {
       ),
       floatingActionButton: FloatingAddButton(
         tooltip: 'Tambah Gerai',
-        onPressed: () => Get.toNamed(Routes.OUTLET_INPUT),
+        onPressed: () {
+          controller.data.selectedOutlet.value = null;
+          Get.toNamed(Routes.OUTLET_INPUT);
+        },
       ),
     );
   }
 
   Widget _buildGroupedOutletList(Map<String, List<Outlet>> grouped) {
     final svg = Svg(AppConstants.IMG_PLACEHOLDER);
-    final BoxHelper box = BoxHelper();
     return ListView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       children: [

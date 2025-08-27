@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:abg_pos_app/app/data/models/Sale.dart';
 import 'package:abg_pos_app/app/data/repositories/sale_repository.dart';
+import 'package:abg_pos_app/app/utils/helpers/outlet_inventory_helper.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -18,8 +19,6 @@ import '../utils/helpers/text_helper.dart';
 class SaleDataController extends GetxController {
   SaleDataController({required this.repository});
   final SaleRepository repository;
-
-  BoxHelper box = BoxHelper();
 
   final RxList<Sale> sales = <Sale>[].obs;
   final Rx<Sale?> selectedSale = Rx<Sale?>(null);
@@ -111,7 +110,6 @@ class SaleDataController extends GetxController {
         String query =
             '$outletQuery${outletQuery.isEmpty ? '?' : '&'}dateFrom=${DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(Duration(days: startingDay.value)))}';
         LoggerHelper.logInfo('Set initial sales from server');
-        LoggerHelper.logInfo('Query: $query');
 
         final List<Sale> fetchedSales = await repository.getSales(query: query);
         if (fetchedSales.isNotEmpty) {
@@ -144,6 +142,7 @@ class SaleDataController extends GetxController {
         case 201:
           successSnackbar(response['message']);
           await syncData(refresh: true);
+          await refreshOutletInventoryData();
           selectedSale.value = response['sale'];
           selectedSale.refresh();
           Get.offNamed(Routes.OPERATOR_SALE_DETAIL);

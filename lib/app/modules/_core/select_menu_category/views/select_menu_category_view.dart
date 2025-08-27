@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared/custom_appbar_lite.dart';
@@ -42,9 +43,7 @@ class SelectMenuCategoryView extends GetView<SelectMenuCategoryController> {
             text: 'Daftar Kategori tidak ditemukan',
           );
         return ListView(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppConstants.DEFAULT_PADDING,
-          ),
+          padding: horizontalPadding,
           children: [
             const VerticalSizedBox(height: 2),
             ...categories.map((category) {

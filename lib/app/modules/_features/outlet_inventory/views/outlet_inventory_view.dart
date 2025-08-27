@@ -1,7 +1,12 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../shared/pages/empty_list_page.dart';
 import '../../../../shared/vertical_sized_box.dart';
-import '../../../../utils/constants/app_constants.dart';
+import '../../../../utils/constants/padding_constants.dart';
+import '../../../../utils/helpers/text_helper.dart';
+import '../../../../utils/helpers/time_helper.dart';
+import '../../../../utils/theme/custom_text.dart';
 import '../widgets/outlet_inventory_item.dart';
 import '../controllers/outlet_inventory_controller.dart';
 
@@ -10,15 +15,57 @@ class OutletInventoryView extends GetView<OutletInventoryController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: AppConstants.DEFAULT_PADDING),
-        children: [
-          const VerticalSizedBox(height: 2),
-          // stok list
-          OutletInventoryItem(title: 'bahan baku', qty: 1000),
-          OutletInventoryItem(title: 'bahan baku', qty: 600),
-          OutletInventoryItem(title: 'bahan baku', qty: 120),
-        ],
+      body: Obx(() {
+        final outletInventory = controller.data.selectedOutletInventory.value;
+        if (outletInventory == null)
+          return EmptyListPage(
+            refresh: () => controller.data.syncData(refresh: true),
+            text: 'Bahan Baku Kosong',
+          );
+
+        final ingredients = outletInventory.ingredients;
+        if (ingredients.isEmpty)
+          return EmptyListPage(
+            refresh: () => controller.data.syncData(refresh: true),
+            text: 'Bahan Baku Kosong',
+          );
+        return RefreshIndicator(
+          onRefresh: () => controller.data.syncData(refresh: true),
+          child: ListView(
+            padding: horizontalPadding,
+            children: [
+              const VerticalSizedBox(height: 2),
+              // stok list
+              ...ingredients.map((ingredient) {
+                return OutletInventoryItem(
+                  title: normalizeName(ingredient.name),
+                  qty: ingredient.currentQty,
+                );
+              }),
+
+              const VerticalSizedBox(),
+              if (controller.data.latestSync.value != null)
+                customFooterText(
+                  textAlign: TextAlign.center,
+                  text:
+                      'Diperbarui ${contextualLocalDateTimeFormat(controller.data.latestSync.value!)}',
+                ),
+            ],
+          ),
+        );
+      }),
+      floatingActionButton: SafeArea(
+        child: FloatingActionButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+          ),
+          tooltip: 'Adjustment',
+          heroTag: 'user_filter',
+          onPressed: () async {
+            Get.toNamed(Routes.OUTLET_INVENTORY_ADJUSTMENT);
+          },
+          child: const Icon(Icons.edit_note_rounded),
+        ),
       ),
     );
   }

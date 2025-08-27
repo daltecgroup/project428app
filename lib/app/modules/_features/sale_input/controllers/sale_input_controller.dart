@@ -32,7 +32,6 @@ class SaleInputController extends GetxController {
   });
 
   // box
-  BoxHelper box = BoxHelper();
 
   // data controllers
   final SaleService service;

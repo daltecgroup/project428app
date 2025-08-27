@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/theme/text_style.dart';
@@ -13,9 +14,7 @@ Future<dynamic> userFilterDialog() {
     titleStyle: AppTextStyle.dialogTitle,
     radius: AppConstants.DEFAULT_BORDER_RADIUS,
     content: Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.DEFAULT_PADDING,
-      ),
+      padding: horizontalPadding,
       child: Obx(
         () => SingleChildScrollView(
           child: Column(

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../helpers/get_storage_helper.dart';
-
 class SettingService extends GetxService {
-  BoxHelper box = BoxHelper();
   RxString currentRole = ''.obs;
 
   @override

@@ -2,6 +2,7 @@ import 'package:abg_pos_app/app/modules/_features/select_bundle/widgets/select_b
 import 'package:abg_pos_app/app/shared/custom_appbar_lite.dart';
 import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
 import 'package:abg_pos_app/app/utils/constants/app_constants.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -22,9 +23,7 @@ class SelectBundleView extends GetView<SelectBundleController> {
           children: [
             // online bundle switch
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppConstants.DEFAULT_PADDING,
-              ),
+              padding: horizontalPadding,
               child: CustomCard(
                 padding: 8,
                 content: Row(
@@ -55,9 +54,7 @@ class SelectBundleView extends GetView<SelectBundleController> {
             // bundle list
             Expanded(
               child: ListView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppConstants.DEFAULT_PADDING,
-                ),
+                padding: horizontalPadding,
                 children: [
                   const VerticalSizedBox(height: 2),
 

@@ -16,8 +16,6 @@ class AddonDataController extends GetxController {
   AddonDataController({required this.repository});
   final AddonRepository repository;
 
-  BoxHelper box = BoxHelper();
-
   final RxList<Addon> addons = <Addon>[].obs;
   final Rx<Addon?> selectedAddon = Rx<Addon?>(null);
   final Rx<DateTime?> latestSync = (null as DateTime?).obs;

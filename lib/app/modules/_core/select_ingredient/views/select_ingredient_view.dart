@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../data/models/Recipe.dart';
@@ -38,9 +39,7 @@ class SelectIngredientView extends GetView<SelectIngredientController> {
             // selected ingredients
             if (controller.selectedRecipe.isNotEmpty)
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.DEFAULT_PADDING,
-                ),
+                padding: horizontalPadding,
                 child: CustomCard(
                   content: Column(
                     children: [
@@ -105,9 +104,7 @@ class SelectIngredientView extends GetView<SelectIngredientController> {
             // ingredient listview
             Expanded(
               child: ListView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppConstants.DEFAULT_PADDING,
-                ),
+                padding: horizontalPadding,
                 children: [
                   VerticalSizedBox(),
                   if (controller.recipe.isNotEmpty)

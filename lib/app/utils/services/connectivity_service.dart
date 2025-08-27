@@ -11,7 +11,9 @@ class ConnectivityService extends GetxService {
   @override
   void onInit() {
     super.onInit();
+    LoggerHelper.logInfo('Setting up connectivity listener...');
     _connectionChecker.onStatusChange.listen((status) {
+      LoggerHelper.logInfo('Now checking the internet status...');
       if (status == InternetConnectionStatus.connected) {
         LoggerHelper.logInfo('Connected to the internet');
         _isConnected.value = true;

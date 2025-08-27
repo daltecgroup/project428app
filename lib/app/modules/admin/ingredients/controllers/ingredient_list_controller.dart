@@ -8,11 +8,9 @@ import '../../../../controllers/ingredient_data_controller.dart';
 class IngredientListController extends GetxController {
   IngredientListController({required this.data});
   IngredientDataController data;
-  late BoxHelper box;
   @override
   Future<void> onInit() async {
     super.onInit();
-    box = BoxHelper();
     await data.syncData();
   }
 

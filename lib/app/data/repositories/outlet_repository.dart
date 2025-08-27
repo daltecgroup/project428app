@@ -1,7 +1,7 @@
-import 'package:abg_pos_app/app/data/models/Outlet.dart';
-import 'package:abg_pos_app/app/data/providers/outlet_provider.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import '../../data/models/Outlet.dart';
+import '../../data/providers/outlet_provider.dart';
 import '../../shared/custom_alert.dart';
 
 class OutletRepository extends GetxController {

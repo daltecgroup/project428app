@@ -2,13 +2,11 @@ import 'package:abg_pos_app/app/controllers/outlet_data_controller.dart';
 import 'package:abg_pos_app/app/data/models/Outlet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../utils/helpers/get_storage_helper.dart';
 
 class OutletListController extends GetxController {
   OutletListController({required this.data});
   OutletDataController data;
 
-  late BoxHelper box;
   final String backRoute = Get.previousRoute;
 
   RxString groupedBy = 'regency'.obs;
@@ -20,7 +18,6 @@ class OutletListController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     searchC = TextEditingController();
-    box = BoxHelper();
     await refreshData();
   }
 

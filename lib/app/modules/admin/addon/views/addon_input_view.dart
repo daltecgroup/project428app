@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/number_helper.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
@@ -43,9 +44,7 @@ class AddonInputView extends GetView<AddonInputController> {
             Obx(() {
               Addon? addon = controller.data.selectedAddon.value;
               return ListView(
-                padding: EdgeInsetsGeometry.symmetric(
-                  horizontal: AppConstants.DEFAULT_PADDING,
-                ),
+                padding: horizontalPadding,
                 children: [
                   VerticalSizedBox(height: 2),
 

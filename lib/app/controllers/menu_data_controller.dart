@@ -13,10 +13,8 @@ import '../utils/helpers/logger_helper.dart';
 import '../utils/helpers/text_helper.dart';
 
 class MenuDataController extends GetxController {
-  MenuDataController({required this.repository});
+  MenuDataController({required this.repository, this.isRefresh});
   final MenuRepository repository;
-
-  BoxHelper box = BoxHelper();
 
   final RxList<Menu> menus = <Menu>[].obs;
   final Rx<Menu?> selectedMenu = Rx<Menu?>(null);
@@ -24,11 +22,12 @@ class MenuDataController extends GetxController {
   final RxBool isLoading = false.obs;
 
   Timer? _syncTimer;
+  bool? isRefresh;
 
   @override
   void onInit() {
     super.onInit();
-    syncData();
+    syncData(refresh: isRefresh);
   }
 
   @override

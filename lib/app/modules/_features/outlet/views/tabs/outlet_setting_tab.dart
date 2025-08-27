@@ -1,3 +1,5 @@
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
+
 import '../../controllers/outlet_detail_controller.dart';
 import '../../widgets/outlet_detail_info_panel.dart';
 import '../../../../../shared/buttons/custom_text_button.dart';
@@ -34,9 +36,7 @@ class OutletSettingTab extends StatelessWidget {
       return RefreshIndicator(
         onRefresh: () => c.refreshData(),
         child: ListView(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppConstants.DEFAULT_PADDING,
-          ),
+          padding: horizontalPadding,
           children: [
             const VerticalSizedBox(height: 2),
 

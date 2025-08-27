@@ -4,6 +4,7 @@ import '../../../../shared/pages/failed_page_placeholder.dart';
 import '../../../../shared/buttons/delete_icon_button.dart';
 import '../../../../shared/custom_appbar_lite.dart';
 import '../../../../utils/constants/string_value.dart';
+import '../../../../utils/helpers/text_helper.dart';
 import '../views/tabs/outlet_overview_tab.dart';
 import '../views/tabs/outlet_setting_tab.dart';
 import '../widgets/outlet_detail_bottom_nav_bar.dart';
@@ -19,7 +20,7 @@ class OutletDetailView extends GetView<OutletDetailController> {
       return Scaffold(
         appBar: customAppBarLite(
           context: context,
-          title: outlet.name,
+          title: normalizeName(outlet.name),
           backRoute: controller.backRoute,
           actions: [
             if (controller.selectedTab.value == 1)

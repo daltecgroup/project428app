@@ -1,4 +1,5 @@
 import 'package:abg_pos_app/app/data/models/OrderItem.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared/buttons/bottom_nav_button.dart';
@@ -10,7 +11,6 @@ import '../../../../shared/buttons/custom_text_button.dart';
 import '../../../../shared/custom_appbar_lite.dart';
 import '../../../../shared/custom_card.dart';
 import '../../../../shared/vertical_sized_box.dart';
-import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/theme/custom_text.dart';
 
 class OrderInputView extends GetView<OrderInputController> {
@@ -34,9 +34,7 @@ class OrderInputView extends GetView<OrderInputController> {
         return Stack(
           children: [
             ListView(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppConstants.DEFAULT_PADDING,
-              ),
+              padding: horizontalPadding,
               children: [
                 const VerticalSizedBox(height: 2),
                 OurderInputOutletSelection(c: c),

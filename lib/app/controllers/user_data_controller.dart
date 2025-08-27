@@ -19,7 +19,7 @@ class UserDataController extends GetxController {
   UserDataController({required this.userRepository});
   final UserRepository userRepository;
   final AuthService authService = Get.find<AuthService>();
-  BoxHelper box = BoxHelper();
+
   late File file;
 
   final RxList<User> users = <User>[].obs;
@@ -48,6 +48,7 @@ class UserDataController extends GetxController {
   }
 
   Future<void> syncData() async {
+    if (box.isNull(AppConstants.KEY_IS_LOGGED_IN)) return;
     isLoading.value = true;
     int? latestSyncTime = box.getValue(AppConstants.KEY_USER_DATA_LATEST);
     try {
@@ -95,6 +96,8 @@ class UserDataController extends GetxController {
       LoggerHelper.logInfo('User AutoSync stopped...');
     }
   }
+
+  void stopAutoSync() => _stopAutoSync();
 
   Future<void> _setUsersFromServerData(Map<String, List<User>> newData) async {
     DateTime latest = tenYearsAgo;

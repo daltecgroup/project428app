@@ -3,14 +3,12 @@ import 'package:abg_pos_app/app/data/models/Outlet.dart';
 import 'package:abg_pos_app/app/utils/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../utils/helpers/get_storage_helper.dart';
 
 class SelectOutletController extends GetxController {
   SelectOutletController({required this.data, required this.auth});
   OutletDataController data;
   AuthService auth;
 
-  late BoxHelper box;
   final String backRoute = Get.previousRoute;
 
   RxString groupedBy = 'village'.obs;
@@ -22,7 +20,6 @@ class SelectOutletController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     searchC = TextEditingController();
-    box = BoxHelper();
     await refreshData();
   }
 

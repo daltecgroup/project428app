@@ -7,6 +7,7 @@ import '../../../../data/repositories/user_repository.dart';
 class UserDetailBinding extends Bindings {
   @override
   void dependencies() {
+    // user data
     Get.lazyPut<UserProvider>(() => UserProvider());
     Get.lazyPut<UserRepository>(
       () => UserRepository(userProvider: Get.find<UserProvider>()),
@@ -14,6 +15,8 @@ class UserDetailBinding extends Bindings {
     Get.lazyPut<UserDataController>(
       () => UserDataController(userRepository: Get.find<UserRepository>()),
     );
+
+    // controller
     Get.lazyPut<UserDetailController>(
       () => UserDetailController(userData: Get.find<UserDataController>()),
     );
