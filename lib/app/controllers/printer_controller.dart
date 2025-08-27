@@ -4,6 +4,7 @@ import 'package:abg_pos_app/app/data/models/Sale.dart';
 import 'package:abg_pos_app/app/shared/custom_alert.dart';
 import 'package:abg_pos_app/app/utils/helpers/get_storage_helper.dart';
 import 'package:abg_pos_app/app/utils/helpers/logger_helper.dart';
+import 'package:abg_pos_app/app/utils/helpers/number_helper.dart';
 import 'package:abg_pos_app/app/utils/helpers/time_helper.dart';
 import 'package:bluetooth_print_plus/bluetooth_print_plus.dart';
 import 'package:flutter/material.dart' hide Alignment;
@@ -59,6 +60,19 @@ class PrinterController extends GetxController {
     );
     await escCommand.newline();
     await escCommand.text(
+      content: 'GERAI ${saleData.outlet.name.toUpperCase()}',
+      style: EscTextStyle.bold,
+      alignment: Alignment.center,
+    );
+    await escCommand.newline();
+    await escCommand.text(
+      content:
+          '${saleData.outlet.address.street.toUpperCase()}, ${saleData.outlet.address.district.toUpperCase()}, ${saleData.outlet.address.district.toUpperCase()} - ${saleData.outlet.address.province.toUpperCase()}',
+      style: EscTextStyle.bold,
+      alignment: Alignment.center,
+    );
+    await escCommand.newline();
+    await escCommand.text(
       content: "--------------------------------",
       style: EscTextStyle.default_,
     );
@@ -101,11 +115,36 @@ class PrinterController extends GetxController {
       style: EscTextStyle.boldAndUnderline,
     );
 
+    for (var bundle in saleData.itemBundle) {
+      await escCommand.newline();
+      await escCommand.text(
+        content:
+            '${bundle.name.toUpperCase().padRight(21, ' ')}${'${bundle.qty.round()}'.padRight(3)}${'${(bundle.price * bundle.qty).round()}'.padLeft(8, ' ')}',
+        style: EscTextStyle.default_,
+      );
+      for (var bundleItem in bundle.items) {
+        await escCommand.newline();
+        await escCommand.text(
+          content: '  ${bundleItem.name.toUpperCase()}',
+          style: EscTextStyle.default_,
+        );
+      }
+    }
+
     for (var single in saleData.itemSingle) {
       await escCommand.newline();
       await escCommand.text(
         content:
-            '${single.name.padRight(21, ' ')}${'${single.qty.round()}'.padRight(3)}${'${(single.price * single.qty).round()}'.padLeft(8, ' ')}',
+            '${single.name.toUpperCase().padRight(21, ' ')}${'${single.qty.round()}'.padRight(3)}${'${(single.price * single.qty).round()}'.padLeft(8, ' ')}',
+        style: EscTextStyle.default_,
+      );
+    }
+
+    for (var promo in saleData.itemPromo) {
+      await escCommand.newline();
+      await escCommand.newline();
+      await escCommand.text(
+        content: 'PROMO: ${promo.name.toUpperCase()}',
         style: EscTextStyle.default_,
       );
     }
@@ -113,11 +152,23 @@ class PrinterController extends GetxController {
     await escCommand.newline();
     await escCommand.newline();
     await escCommand.newline();
-    await escCommand.text(content: 'TOTAL HARGA: ${saleData.totalPrice}');
+    await escCommand.text(
+      content: 'TOTAL HARGA: ${inRupiah(saleData.totalPrice)}',
+    );
+    if (saleData.totalDiscount > 0) {
+      await escCommand.newline();
+      await escCommand.text(
+        content: 'PROMO: ${inRupiah(saleData.totalDiscount)}',
+      );
+    }
     await escCommand.newline();
-    await escCommand.text(content: 'JUMLAH BAYAR: ${saleData.totalPaid}');
+    await escCommand.text(
+      content: 'JUMLAH BAYAR: ${inRupiah(saleData.totalPaid)}',
+    );
     await escCommand.newline();
-    await escCommand.text(content: 'KEMBALIAN: ${saleData.totalChange}');
+    await escCommand.text(
+      content: 'KEMBALIAN: ${inRupiah(saleData.totalChange)}',
+    );
 
     await escCommand.newline();
     await escCommand.newline();
