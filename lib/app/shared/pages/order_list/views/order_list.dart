@@ -5,7 +5,6 @@ import '../../../../shared/pages/empty_list_page.dart';
 import '../../../../shared/pages/order_list/controllers/order_list_controller.dart';
 import '../../../../shared/buttons/custom_text_button.dart';
 import '../../../../shared/vertical_sized_box.dart';
-import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/helpers/time_helper.dart';
 import '../../../../utils/theme/custom_text.dart';
 import '../widgets/active_order_item.dart';
@@ -21,11 +20,16 @@ class OrderList extends StatelessWidget {
       final activeOrders = controller.activeOrder();
       final groupedHistory = controller.groupedOrders();
 
-      if (activeOrders.isEmpty && groupedHistory.isEmpty)
+      if (controller.data.isLoading.value) {
+        return Center(child: CircularProgressIndicator());
+      }
+
+      if (activeOrders.isEmpty && groupedHistory.isEmpty) {
         return EmptyListPage(
           refresh: () => controller.data.syncData(refresh: true),
           text: 'Pesanan Kosong',
         );
+      }
 
       return RefreshIndicator(
         onRefresh: controller.refreshData,

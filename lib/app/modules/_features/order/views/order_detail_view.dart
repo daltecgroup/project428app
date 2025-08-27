@@ -9,7 +9,6 @@ import '../../../../shared/vertical_sized_box.dart';
 import '../../../../shared/custom_appbar_lite.dart';
 import '../../../../shared/pages/failed_page_placeholder.dart';
 import '../../../../utils/helpers/number_helper.dart';
-import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/constants/string_value.dart';
 import '../../../../utils/helpers/user_helper.dart';
 import '../../../../utils/theme/custom_text.dart';

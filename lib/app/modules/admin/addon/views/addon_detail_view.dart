@@ -10,7 +10,6 @@ import '../../../../shared/vertical_sized_box.dart';
 import '../../../../shared/buttons/delete_icon_button.dart';
 import '../../../../shared/custom_appbar_lite.dart';
 import '../../../../shared/pages/failed_page_placeholder.dart';
-import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/constants/string_value.dart';
 import '../../../../utils/helpers/time_helper.dart';
 import '../../../../utils/theme/custom_text.dart';

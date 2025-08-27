@@ -6,7 +6,6 @@ import '../../../../shared/buttons/floating_add_button.dart';
 import '../../../../shared/custom_appbar_lite.dart';
 import '../../../../shared/custom_nav_item.dart';
 import '../../../../shared/vertical_sized_box.dart';
-import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/helpers/time_helper.dart';
 import '../../../../utils/theme/custom_text.dart';
 import 'package:flutter/material.dart';

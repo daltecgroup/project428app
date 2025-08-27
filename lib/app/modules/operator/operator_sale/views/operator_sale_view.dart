@@ -41,12 +41,17 @@ class SaleListView extends StatelessWidget {
     return Obx(() {
       String? currentOutlet = box.getValue(AppConstants.KEY_CURRENT_OUTLET);
 
+      if (controller.data.isLoading.value) {
+        return Center(child: CircularProgressIndicator());
+      }
+
       if (controller.service.pendingSales.isEmpty &&
-          controller.data.groupedSales(outletId: currentOutlet).isEmpty)
+          controller.data.groupedSales(outletId: currentOutlet).isEmpty) {
         return EmptyListPage(
           refresh: () => controller.data.syncData(refresh: true),
           text: 'Penjualan Kosong',
         );
+      }
       return RefreshIndicator(
         onRefresh: () => controller.data.syncData(refresh: true),
         child: ListView(

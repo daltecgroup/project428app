@@ -12,7 +12,6 @@ import '../../../../shared/pages/failed_page_placeholder.dart';
 import '../../../../shared/panels/detail_image_panel.dart';
 import '../../../../shared/panels/recipe_list_panel.dart';
 import '../../../../shared/vertical_sized_box.dart';
-import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/constants/string_value.dart';
 import '../../../../utils/helpers/time_helper.dart';
 import '../../../../utils/theme/custom_text.dart';

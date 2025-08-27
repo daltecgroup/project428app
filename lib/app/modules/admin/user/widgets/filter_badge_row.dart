@@ -1,7 +1,5 @@
 import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/constants/string_value.dart';
 import '../models/user_filter.dart';
 

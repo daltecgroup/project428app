@@ -1,9 +1,6 @@
 import 'package:get/get.dart';
 
 class IngredientPurchaseInputController extends GetxController {
-  //TODO: Implement IngredientPurchaseInputController
-
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +15,4 @@ class IngredientPurchaseInputController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

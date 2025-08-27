@@ -17,18 +17,25 @@ class OutletInventoryView extends GetView<OutletInventoryController> {
     return Scaffold(
       body: Obx(() {
         final outletInventory = controller.data.selectedOutletInventory.value;
-        if (outletInventory == null)
+
+        if (controller.data.isLoading.value) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        if (outletInventory == null) {
           return EmptyListPage(
             refresh: () => controller.data.syncData(refresh: true),
             text: 'Bahan Baku Kosong',
           );
+        }
 
         final ingredients = outletInventory.ingredients;
-        if (ingredients.isEmpty)
+        if (ingredients.isEmpty) {
           return EmptyListPage(
             refresh: () => controller.data.syncData(refresh: true),
             text: 'Bahan Baku Kosong',
           );
+        }
         return RefreshIndicator(
           onRefresh: () => controller.data.syncData(refresh: true),
           child: ListView(

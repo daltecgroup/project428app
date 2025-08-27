@@ -2,7 +2,6 @@ import 'package:abg_pos_app/app/modules/_features/outlet_inventory/views/outlet_
 import 'package:abg_pos_app/app/routes/app_pages.dart';
 import 'package:abg_pos_app/app/shared/custom_appbar.dart';
 import 'package:abg_pos_app/app/shared/custom_drawer.dart';
-import 'package:abg_pos_app/app/utils/helpers/outlet_helper.dart';
 import 'package:abg_pos_app/app/utils/helpers/text_helper.dart';
 import 'package:flutter/material.dart';
 
