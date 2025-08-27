@@ -52,15 +52,10 @@ class PrinterController extends GetxController {
 
   Future<Uint8List?> escTemplateCmd(Sale saleData) async {
     await escCommand.cleanCommand();
+
     await escCommand.newline();
     await escCommand.text(
-      content: 'LEKER LONDO',
-      style: EscTextStyle.bold,
-      alignment: Alignment.center,
-    );
-    await escCommand.newline();
-    await escCommand.text(
-      content: 'GERAI ${saleData.outlet.name.toUpperCase()}',
+      content: 'LEKER LONDO GERAI ${saleData.outlet.name.toUpperCase()}',
       style: EscTextStyle.bold,
       alignment: Alignment.center,
     );
