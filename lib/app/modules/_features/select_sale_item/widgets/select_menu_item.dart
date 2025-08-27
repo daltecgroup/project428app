@@ -90,7 +90,7 @@ class SelectMenuItem extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: CustomCard(
                   flatTop: true,
                   padding: 8,

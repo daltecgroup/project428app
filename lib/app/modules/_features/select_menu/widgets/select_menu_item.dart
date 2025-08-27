@@ -89,10 +89,10 @@ class SelectMenuItem extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 3,
               child: CustomCard(
                 flatTop: true,
-                padding: 8,
+                padding: 6,
                 content: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -104,7 +104,7 @@ class SelectMenuItem extends StatelessWidget {
                             maxLines: 2,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: 11),
                           ),
                         ),
                       ],
