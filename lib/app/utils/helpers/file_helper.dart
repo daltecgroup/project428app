@@ -13,11 +13,11 @@ Future<File> getLocalFile(String fileName) async {
   return File('$path/$fileName');
 }
 
-Future<double> fileSize(XFile file) async {
+Future<double> fileSize(File file) async {
   return await file.length() / 1024;
 }
 
-Future<XFile?> resizeImage(File file) async {
+Future<File?> resizeImage(File file) async {
   final result = await FlutterImageCompress.compressAndGetFile(
     file.absolute.path,
     '${file.parent.path}/img-600x600-${DateTime.now().millisecondsSinceEpoch}.jpg',
@@ -25,5 +25,9 @@ Future<XFile?> resizeImage(File file) async {
     minWidth: 600,
     minHeight: 600,
   );
-  return result;
+  if (result != null) {
+    return File(result.path);
+  } else {
+    return null;
+  }
 }

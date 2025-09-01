@@ -35,7 +35,7 @@ class UserDetailController extends GetxController {
     await imagePicker.pickImage(ImageSource.gallery);
     if (imagePicker.selectedImage.value != null) {
       print(
-        'Size before: ${await fileSize(XFile(imagePicker.selectedImage.value!.path))}',
+        'Size before: ${await fileSize(File(imagePicker.selectedImage.value!.path))}',
       );
       final resized = await resizeImage(imagePicker.selectedImage.value!);
       print('Size after: ${await fileSize(resized!)}');
