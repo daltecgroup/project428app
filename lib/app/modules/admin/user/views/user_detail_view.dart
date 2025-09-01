@@ -40,111 +40,99 @@ class UserDetailView extends GetView<UserDetailController> {
           ),
         ],
       ),
-      body: Obx(
-        () => controller.selectedUser == null
-            ? FailedPagePlaceholder()
-            : SingleChildScrollView(
-                padding: horizontalPadding,
-                child: Column(
+      body: Obx(() {
+        final data = controller.selectedUser;
+        if (data == null) return FailedPagePlaceholder();
+        return SingleChildScrollView(
+          padding: horizontalPadding,
+          child: Column(
+            children: [
+              VerticalSizedBox(height: 2),
+              UserImagePanel(c: controller, imgUrl: data.imgUrl),
+              VerticalSizedBox(),
+              UserRoles(
+                role: data.roles,
+                status: true,
+                alignment: MainAxisAlignment.center,
+              ),
+              VerticalSizedBox(),
+              customLabelText(text: StringValue.CREATED_AT),
+              customCaptionText(text: localDateTimeFormat(data.createdAt)),
+              VerticalSizedBox(),
+              CustomCard(
+                content: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    VerticalSizedBox(height: 2),
-                    UserImagePanel(),
-                    VerticalSizedBox(),
-                    UserRoles(
-                      role: controller.selectedUser!.roles,
-                      status: true,
-                      alignment: MainAxisAlignment.center,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        customLabelText(text: StringValue.USER_ID),
+                        customLabelText(text: StringValue.STATUS),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        customCaptionText(text: data.userId),
+                        StatusSign(
+                          status: data.isActive,
+                          size: AppConstants.DEFAULT_FONT_SIZE.toInt(),
+                        ),
+                      ],
                     ),
                     VerticalSizedBox(),
-                    customLabelText(text: StringValue.CREATED_AT),
-                    customCaptionText(
-                      text: localDateTimeFormat(
-                        controller.selectedUser!.createdAt,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        customLabelText(text: StringValue.NAME),
+                        customLabelText(text: StringValue.PHONE_NUMBER),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        customCaptionText(text: data.name),
+                        customCaptionText(text: data.phone ?? '-'),
+                      ],
                     ),
                     VerticalSizedBox(),
-                    CustomCard(
-                      content: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              customLabelText(text: StringValue.USER_ID),
-                              customLabelText(text: StringValue.STATUS),
-                            ],
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              Get.toNamed(Routes.EDIT_USER);
+                            },
+                            style: backButtonStyle(),
+                            child: Text(StringValue.EDIT_DATA),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              customCaptionText(
-                                text: controller.selectedUser!.userId,
-                              ),
-                              StatusSign(
-                                status: controller.selectedUser!.isActive,
-                                size: AppConstants.DEFAULT_FONT_SIZE.toInt(),
-                              ),
-                            ],
+                        ),
+                        SizedBox(width: AppConstants.DEFAULT_HORIZONTAL_MARGIN),
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              controller.userData.changeUserStatus();
+                            },
+                            style: data.isActive
+                                ? errorButtonStyle()
+                                : nextButtonStyle(),
+                            child: Text(
+                              data.isActive
+                                  ? StringValue.DEACTIVATE
+                                  : StringValue.ACTIVATE,
+                              style: AppTextStyle.buttonText,
+                            ),
                           ),
-                          VerticalSizedBox(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              customLabelText(text: StringValue.NAME),
-                              customLabelText(text: StringValue.PHONE_NUMBER),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              customCaptionText(
-                                text: controller.selectedUser!.name,
-                              ),
-                              customCaptionText(
-                                text: controller.selectedUser!.phone ?? '-',
-                              ),
-                            ],
-                          ),
-                          VerticalSizedBox(),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: TextButton(
-                                  onPressed: () {
-                                    Get.toNamed(Routes.EDIT_USER);
-                                  },
-                                  style: backButtonStyle(),
-                                  child: Text(StringValue.EDIT_DATA),
-                                ),
-                              ),
-                              SizedBox(
-                                width: AppConstants.DEFAULT_HORIZONTAL_MARGIN,
-                              ),
-                              Expanded(
-                                child: TextButton(
-                                  onPressed: () {
-                                    controller.userData.changeUserStatus();
-                                  },
-                                  style: controller.selectedUser!.isActive
-                                      ? errorButtonStyle()
-                                      : nextButtonStyle(),
-                                  child: Text(
-                                    controller.selectedUser!.isActive
-                                        ? StringValue.DEACTIVATE
-                                        : StringValue.ACTIVATE,
-                                    style: AppTextStyle.buttonText,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-      ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

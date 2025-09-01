@@ -82,3 +82,8 @@ String localTimeFormat(DateTime inputDate) {
   DateTime date = inputDate.toUtc();
   return "${DateFormat(DateFormat.HOUR24_MINUTE, 'id').format(date.toLocal())} $idTimeZone";
 }
+
+String get currentDateString {
+  DateTime now = DateTime.now();
+  return DateFormat('yyMMdd').format(now);
+}

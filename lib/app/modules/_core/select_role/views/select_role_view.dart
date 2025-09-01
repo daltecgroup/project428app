@@ -3,6 +3,7 @@ import 'package:abg_pos_app/app/shared/custom_circle_avatar_image.dart';
 import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import '../../../../utils/helpers/general_helper.dart';
 import '../../../../utils/helpers/get_storage_helper.dart';
 import '../controllers/select_role_controller.dart';
 import '../../../../modules/_core/select_role/widgets/select_role_button.dart';
@@ -143,14 +144,15 @@ class SelectRoleView extends GetView<SelectRoleController> {
               ),
             ],
           ),
-          Positioned(
-            bottom: AppConstants.DEFAULT_VERTICAL_MARGIN,
-            child: Container(
-              alignment: Alignment.center,
-              width: Get.width,
-              child: Text(AppConstants.APP_VERSION),
+          if (!isKeyboardVisible(context))
+            Positioned(
+              bottom: AppConstants.DEFAULT_VERTICAL_MARGIN,
+              child: Container(
+                alignment: Alignment.center,
+                width: Get.width,
+                child: Text(AppConstants.APP_VERSION),
+              ),
             ),
-          ),
         ],
       ),
     );

@@ -1,6 +1,9 @@
+import 'package:abg_pos_app/app/controllers/daily_outlet_sale_report_data_controller.dart';
 import 'package:abg_pos_app/app/controllers/outlet_data_controller.dart';
 import 'package:abg_pos_app/app/controllers/user_data_controller.dart';
+import 'package:abg_pos_app/app/data/providers/daily_outlet_sale_report_provider.dart';
 import 'package:abg_pos_app/app/data/providers/outlet_provider.dart';
+import 'package:abg_pos_app/app/data/repositories/daily_outlet_sale_report_repository.dart';
 import 'package:abg_pos_app/app/data/repositories/outlet_repository.dart';
 import 'package:get/get.dart';
 
@@ -44,6 +47,21 @@ class OutletBinding extends Bindings {
       () => OrderDataController(repository: Get.find<OrderRepository>()),
     );
 
+    // daily outlet sale report data
+    Get.lazyPut<DailyOutletSaleReportProvider>(
+      () => DailyOutletSaleReportProvider(),
+    );
+    Get.lazyPut<DailyOutletSaleReportRepository>(
+      () => DailyOutletSaleReportRepository(
+        provider: Get.find<DailyOutletSaleReportProvider>(),
+      ),
+    );
+    Get.lazyPut<DailyOutletSaleReportDataController>(
+      () => DailyOutletSaleReportDataController(
+        repository: Get.find<DailyOutletSaleReportRepository>(),
+      ),
+    );
+
     // page controlelrs
     Get.lazyPut<OutletInputController>(
       () => OutletInputController(data: Get.find<OutletDataController>()),
@@ -53,6 +71,7 @@ class OutletBinding extends Bindings {
         data: Get.find<OutletDataController>(),
         userData: Get.find<UserDataController>(),
         orderData: Get.find<OrderDataController>(),
+        reportData: Get.find<DailyOutletSaleReportDataController>(),
       ),
     );
     Get.lazyPut<OutletListController>(

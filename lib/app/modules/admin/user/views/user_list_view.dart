@@ -71,7 +71,8 @@ class UserListView extends GetView<UserListController> {
           VerticalSizedBox(),
           Expanded(
             child: RefreshIndicator(
-              onRefresh: () async => await controller.userData.syncData(),
+              onRefresh: () async =>
+                  await controller.userData.syncData(refresh: true),
               child: Obx(() {
                 final users = controller.filter.value.getFilteredUsers(
                   controller.userData.users,
@@ -86,7 +87,12 @@ class UserListView extends GetView<UserListController> {
                         itemBuilder: (_, index) {
                           final user = users[index];
                           return CustomNavItem(
-                            image: svg,
+                            image: user.imgUrl == null
+                                ? svg
+                                : NetworkImage(
+                                    AppConstants.CURRENT_BASE_API_URL_IMAGE +
+                                        user.imgUrl!,
+                                  ),
                             isProfileImage: true,
                             title: user.name,
                             subTitleWidget: SingleChildScrollView(

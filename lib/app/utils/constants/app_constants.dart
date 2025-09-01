@@ -2,7 +2,7 @@ class AppConstants {
   // --- Application Information ---
   static const String APP_NAME = 'BATMANPOS';
   static const String APP_TITLE = 'Batman POS';
-  static const String APP_VERSION = '1.0.6+21';
+  static const String APP_VERSION = '1.0.7';
   static const String APP_BUILD_NUMBER = '1';
   static const String APP_DESCRIPTION =
       'Aplikasi POS untuk Aroma Bisnis Group.';
@@ -12,7 +12,7 @@ class AppConstants {
   // --- Development/Production
   static const String DEV = 'development';
   static const String PROD = 'production';
-  static const String ENVIRONMENT_SETTING = PROD;
+  static const String ENVIRONMENT_SETTING = DEV;
 
   // --- API Configuration ---
   static const String BASE_API_URL_DEV = 'http://10.0.2.2:8000/api/v1';

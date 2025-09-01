@@ -23,3 +23,9 @@ String? get currentOutletName {
   if (outlet == null) return null;
   return normalizeName(outlet.name);
 }
+
+String? get currentOutletId {
+  final key = AppConstants.KEY_CURRENT_OUTLET;
+  if (box.isNull(key)) return null;
+  return box.getValue(key);
+}

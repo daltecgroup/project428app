@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/controllers/image_picker_controller.dart';
 import 'package:get/get.dart';
 import '../controllers/user_detail_controller.dart';
 import '../../../../data/providers/user_provider.dart';
@@ -16,9 +17,15 @@ class UserDetailBinding extends Bindings {
       () => UserDataController(userRepository: Get.find<UserRepository>()),
     );
 
+    // image picker controller
+    Get.lazyPut<ImagePickerController>(() => ImagePickerController());
+
     // controller
     Get.lazyPut<UserDetailController>(
-      () => UserDetailController(userData: Get.find<UserDataController>()),
+      () => UserDetailController(
+        userData: Get.find<UserDataController>(),
+        imagePicker: Get.find<ImagePickerController>(),
+      ),
     );
   }
 }

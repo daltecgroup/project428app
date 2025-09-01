@@ -108,7 +108,7 @@ class CustomNavItem extends StatelessWidget {
           borderRadius: circle
               ? null
               : BorderRadius.circular(AppConstants.DEFAULT_BORDER_RADIUS),
-          image: DecorationImage(image: image),
+          image: DecorationImage(image: image, fit: BoxFit.cover),
         ),
       );
     }

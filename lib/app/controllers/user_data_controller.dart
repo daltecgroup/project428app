@@ -47,12 +47,14 @@ class UserDataController extends GetxController {
     _stopAutoSync();
   }
 
-  Future<void> syncData() async {
+  Future<void> syncData({bool? refresh}) async {
     if (box.isNull(AppConstants.KEY_IS_LOGGED_IN)) return;
     isLoading.value = true;
     int? latestSyncTime = box.getValue(AppConstants.KEY_USER_DATA_LATEST);
     try {
-      if (latestSyncTime == null || await file.exists() == false) {
+      if (latestSyncTime == null ||
+          await file.exists() == false ||
+          (refresh != null && refresh == true)) {
         LoggerHelper.logInfo('Set initial user data from server');
         await _setInitialDataFromServer();
       } else {
@@ -195,6 +197,7 @@ class UserDataController extends GetxController {
       await file.writeAsString(
         users.map((user) => json.encode(user.toJson())).toList().toString(),
       );
+      print(users[0].toJson());
     } catch (e) {
       LoggerHelper.logError(e.toString());
     }

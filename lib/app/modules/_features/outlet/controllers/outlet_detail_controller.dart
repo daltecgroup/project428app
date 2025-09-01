@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:abg_pos_app/app/controllers/daily_outlet_sale_report_data_controller.dart';
 import 'package:abg_pos_app/app/controllers/order_data_controller.dart';
+import 'package:abg_pos_app/app/data/providers/daily_outlet_sale_report_provider.dart';
 import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
+import 'package:abg_pos_app/app/utils/helpers/sale_report_helper.dart';
 
 import '../../../../controllers/outlet_data_controller.dart';
 import '../../../../controllers/user_data_controller.dart';
@@ -20,10 +23,12 @@ class OutletDetailController extends GetxController {
     required this.data,
     required this.userData,
     required this.orderData,
+    required this.reportData,
   });
-  OutletDataController data;
-  UserDataController userData;
-  OrderDataController orderData;
+  final OutletDataController data;
+  final UserDataController userData;
+  final OrderDataController orderData;
+  final DailyOutletSaleReportDataController reportData;
   final String backRoute = Get.previousRoute;
 
   RxInt selectedTab = 0.obs;
@@ -40,6 +45,7 @@ class OutletDetailController extends GetxController {
 
   @override
   void onClose() {
+    clearCurrentDailyOutletSaleReport();
     super.onClose();
   }
 

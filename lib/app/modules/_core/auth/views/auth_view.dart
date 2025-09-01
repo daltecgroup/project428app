@@ -1,4 +1,5 @@
 import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
+import 'package:abg_pos_app/app/utils/helpers/general_helper.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -134,14 +135,15 @@ class AuthView extends GetView<AuthController> {
               ],
             ),
           ),
-          Positioned(
-            bottom: AppConstants.DEFAULT_VERTICAL_MARGIN,
-            child: Container(
-              alignment: Alignment.center,
-              width: Get.width,
-              child: Text(AppConstants.APP_VERSION),
+          if (!isKeyboardVisible(context))
+            Positioned(
+              bottom: AppConstants.DEFAULT_VERTICAL_MARGIN,
+              child: Container(
+                alignment: Alignment.center,
+                width: Get.width,
+                child: Text(AppConstants.APP_VERSION),
+              ),
             ),
-          ),
         ],
       ),
     );

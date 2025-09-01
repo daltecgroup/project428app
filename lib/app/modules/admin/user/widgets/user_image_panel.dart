@@ -1,11 +1,13 @@
+import 'package:abg_pos_app/app/modules/admin/user/controllers/user_detail_controller.dart';
 import 'package:abg_pos_app/app/utils/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UserImagePanel extends StatelessWidget {
-  const UserImagePanel({super.key, this.imgUrl});
+  const UserImagePanel({super.key, this.imgUrl, required this.c});
 
   final String? imgUrl;
+  final UserDetailController c;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,8 @@ class UserImagePanel extends StatelessWidget {
                           AppConstants.PROFILE_PLACEHOLDER_PNG,
                           fit: BoxFit.cover,
                         )
-                      : Image.asset(
-                          AppConstants.PROFILE_PLACEHOLDER_PNG,
+                      : Image.network(
+                          AppConstants.CURRENT_BASE_API_URL_IMAGE + imgUrl!,
                           fit: BoxFit.cover,
                         ),
                 ),
@@ -40,6 +42,7 @@ class UserImagePanel extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   // update user image function
+                  c.selectProfileImage();
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.blue[50],
