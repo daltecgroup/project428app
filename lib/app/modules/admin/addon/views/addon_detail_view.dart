@@ -44,7 +44,7 @@ class AddonDetailView extends GetView<AddonDetailController> {
                       VerticalSizedBox(height: 2),
 
                       // image panel
-                      DetailImagePanel(),
+                      DetailImagePanel(imagePicker: controller.imagePicker),
 
                       // data panel
                       AddonDetailInfoPanel(

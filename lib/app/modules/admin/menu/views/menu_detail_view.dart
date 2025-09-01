@@ -51,7 +51,11 @@ class MenuDetailView extends GetView<MenuDetailController> {
                 VerticalSizedBox(height: 2),
 
                 // image panel
-                DetailImagePanel(),
+                DetailImagePanel(
+                  imagePicker: controller.imagePicker,
+                  imgUrl: menu.imgUrl,
+                  selectImage: () => controller.selectImage(),
+                ),
 
                 // data panel
                 MenuDetailInfoPanel(

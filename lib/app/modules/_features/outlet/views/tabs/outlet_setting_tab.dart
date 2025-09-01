@@ -41,7 +41,7 @@ class OutletSettingTab extends StatelessWidget {
             const VerticalSizedBox(height: 2),
 
             // image panel
-            DetailImagePanel(),
+            DetailImagePanel(imagePicker: c.imagePicker),
 
             // outlet info
             OutletDetailInfoPanel(outlet: outlet, controller: c.data),

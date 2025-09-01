@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/controllers/image_picker_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../../controllers/addon_data_controller.dart';
@@ -7,9 +8,15 @@ import '../../../../routes/app_pages.dart';
 
 class AddonDetailController extends GetxController {
   AddonDetailController({required this.data, required this.ingredientData});
-  AddonDataController data;
-  IngredientDataController ingredientData;
+
+  final AddonDataController data;
+  final IngredientDataController ingredientData;
   final String backRoute = Get.previousRoute;
+
+  final ImagePickerController imagePicker = Get.put(
+    ImagePickerController(),
+    tag: 'addon-detail',
+  );
 
   RxList<Recipe> recipeList = <Recipe>[].obs;
 

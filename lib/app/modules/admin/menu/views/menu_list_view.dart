@@ -1,4 +1,5 @@
 import 'package:abg_pos_app/app/shared/custom_appbar_lite.dart';
+import 'package:abg_pos_app/app/shared/horizontal_sized_box.dart';
 import 'package:abg_pos_app/app/shared/pages/empty_list_page.dart';
 import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/number_helper.dart';
@@ -83,7 +84,23 @@ class MenuListView extends GetView<MenuListController> {
                           return CustomNavItem(
                             image: svg,
                             title: normalizeName(menu.name),
-                            subTitle: inRupiah(menu.price),
+                            // subTitle: inRupiah(menu.price),
+                            subTitleWidget: Row(
+                              children: [
+                                Text(inRupiah(menu.priceAfterDiscount)),
+                                if (menu.discount.isGreaterThan(0)) ...[
+                                  const HorizontalSizedBox(width: 0.5),
+                                  Badge(
+                                    backgroundColor: menu.isActive
+                                        ? null
+                                        : Colors.grey,
+                                    label: Text(
+                                      '${inLocalNumber(menu.discount)}%',
+                                    ),
+                                  ),
+                                ],
+                              ],
+                            ),
                             trailing: StatusSign(
                               status: menu.isActive,
                               size: (AppConstants.DEFAULT_ICON_SIZE / 1.5)
