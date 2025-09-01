@@ -275,6 +275,35 @@ class UserDataController extends GetxController {
     }
   }
 
+  Future<void> updateUserProfile({dynamic data, String? backRoute}) async {
+    isLoading.value = true;
+    try {
+      if (selectedUser.value != null) {
+        final response = await userRepository.updateUserProfile(
+          selectedUser.value!.id,
+          data,
+        );
+        switch (response['statusCode']) {
+          case 200:
+            await syncData();
+            selectedUser.value = User.fromJson(response['user']);
+            selectedUser.refresh();
+            if (backRoute != null) Get.offNamed(backRoute);
+            customSuccessAlertDialog(response['message']);
+            break;
+          default:
+            customAlertDialog(response['message']);
+        }
+      } else {
+        customAlertDialog('Data Pengguna gagal dimuat');
+      }
+    } catch (e) {
+      LoggerHelper.logError(e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   void deleteConfirmation() async {
     customDeleteAlertDialog('Yakin menghapus ${selectedUser.value!.name}?', () {
       softDeleteUser();

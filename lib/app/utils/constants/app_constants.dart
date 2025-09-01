@@ -2,8 +2,8 @@ class AppConstants {
   // --- Application Information ---
   static const String APP_NAME = 'BATMANPOS';
   static const String APP_TITLE = 'Batman POS';
-  static const String APP_VERSION = '1.0.7';
-  static const String APP_BUILD_NUMBER = '1';
+  static const String APP_VERSION = '1.0.7+23';
+  static const String APP_BUILD_NUMBER = '23';
   static const String APP_DESCRIPTION =
       'Aplikasi POS untuk Aroma Bisnis Group.';
   static const String SUPPORT_EMAIL = 'support@aromabisnisgroup.com';

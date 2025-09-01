@@ -59,6 +59,24 @@ class UserRepository extends GetxController {
     };
   }
 
+  Future<Map<String, dynamic>> updateUserProfile(
+    String id,
+    dynamic data,
+  ) async {
+    final Response response = await userProvider.updateUserProfile(id, data);
+    if (response.hasError) {
+      customAlertDialog(response.body['message']);
+      throw Exception(
+        'Failed to update user: ${response.statusCode} - ${response.statusText ?? ''}',
+      );
+    }
+    return {
+      'statusCode': response.statusCode,
+      'message': response.body['message'],
+      'user': response.body['user'],
+    };
+  }
+
   Future<Map<String, dynamic>> softDeleteUser(String id) async {
     final Response response = await userProvider.softDeleteUser(id);
     if (response.hasError) {

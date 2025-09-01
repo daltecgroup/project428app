@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:abg_pos_app/app/utils/services/auth_service.dart';
 import 'package:get/get.dart';
 import '../models/User.dart';
 import '../../utils/helpers/get_storage_helper.dart';

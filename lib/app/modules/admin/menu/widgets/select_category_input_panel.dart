@@ -52,7 +52,7 @@ class SelectCategoryInputPanel extends StatelessWidget {
                   onTap: () => controller.selectedCategory.value =
                       controller.categoryData.categories[index].id,
                   child: SizedBox(
-                    width: Get.width - (AppConstants.DEFAULT_PADDING * 7),
+                    width: Get.width - (AppConstants.DEFAULT_PADDING * 8),
 
                     child: Text(
                       maxLines: 1,

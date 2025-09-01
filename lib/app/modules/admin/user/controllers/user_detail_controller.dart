@@ -1,9 +1,12 @@
 import 'dart:io';
 
 import 'package:abg_pos_app/app/controllers/image_picker_controller.dart';
+import 'package:abg_pos_app/app/shared/custom_alert.dart';
 import 'package:abg_pos_app/app/utils/helpers/file_helper.dart';
+import 'package:abg_pos_app/app/utils/helpers/logger_helper.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 import '../../../../data/models/User.dart';
 import '../../../../shared/alert_snackbar.dart';
 import '../../../../controllers/user_data_controller.dart';
@@ -33,14 +36,27 @@ class UserDetailController extends GetxController {
 
   Future<void> selectProfileImage() async {
     await imagePicker.pickImage(ImageSource.gallery);
-    if (imagePicker.selectedImage.value != null) {
-      print(
-        'Size before: ${await fileSize(File(imagePicker.selectedImage.value!.path))}',
-      );
-      final resized = await resizeImage(imagePicker.selectedImage.value!);
-      print('Size after: ${await fileSize(resized!)}');
-    } else {
-      print(0);
-    }
+    final img = imagePicker.selectedImage.value;
+    if (img == null) return customAlertDialog('Tidak ada gambar yang dipilih!');
+
+    LoggerHelper.logInfo('Size before: ${await fileSize(File(img.path))}');
+    final resized = await resizeImage(img);
+
+    if (resized == null) return customAlertDialog('Gagal mengompres gambar!');
+    LoggerHelper.logInfo('Size after: ${await fileSize(resized)}');
+
+    if (_selectedUser.value == null)
+      return customAlertDialog('Pengguna tidak ditemukan!');
+    final mimeType = lookupMimeType(img.path)!;
+
+    final data = FormData({
+      'profileImage': MultipartFile(
+        resized,
+        filename: 'img-${_selectedUser.value!.id}.${img.path.split('.').last}',
+        contentType: mimeType,
+      ),
+    });
+
+    await userData.updateUserProfile(data: data);
   }
 }

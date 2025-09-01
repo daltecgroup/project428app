@@ -104,6 +104,7 @@ class MenuInputView extends GetView<MenuInputController> {
                             child: CustomInputWithError(
                               title: StringValue.PRICE,
                               hint: StringValue.INPUT_PRICE,
+                              maxLines: 1,
                               controller: controller.priceC,
                               error: controller.priceError.value,
                               errorText: controller.priceErrorText.value,
