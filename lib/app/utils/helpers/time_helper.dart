@@ -48,6 +48,26 @@ String localDateFormat(DateTime inputDate) {
   return dateString;
 }
 
+String localDayDateFormat(DateTime inputDate) {
+  DateTime date = inputDate.toUtc();
+  String dateString = DateFormat(
+    DateFormat.YEAR_MONTH_WEEKDAY_DAY,
+    'id',
+  ).format(date.toLocal());
+
+  return dateString;
+}
+
+String localMonthYearFormat(DateTime inputDate) {
+  DateTime date = inputDate.toUtc();
+  String dateString = DateFormat(
+    DateFormat.YEAR_MONTH,
+    'id',
+  ).format(date.toLocal());
+
+  return dateString;
+}
+
 String contextualLocalDateTimeFormat(DateTime inputDate) {
   DateTime date = inputDate.toUtc();
   String dateString = DateFormat(

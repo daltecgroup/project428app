@@ -79,7 +79,7 @@ class SelectSaleItemView extends GetView<SelectSaleItemController> {
                     .toList(),
                 customWidth: customWidth,
               ),
-              const VerticalSizedBox(height: 2),
+              const VerticalSizedBox(height: 1),
             ],
 
             // Single menu

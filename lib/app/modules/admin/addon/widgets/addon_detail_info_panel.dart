@@ -28,7 +28,7 @@ class AddonDetailInfoPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomCard(
-      flatTop: true,
+      flatTop: false,
       content: Column(
         children: [
           Row(

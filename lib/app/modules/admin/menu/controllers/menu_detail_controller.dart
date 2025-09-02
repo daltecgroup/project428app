@@ -5,6 +5,7 @@ import 'package:abg_pos_app/app/controllers/menu_category_data_controller.dart';
 import 'package:abg_pos_app/app/controllers/menu_data_controller.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 
 import '../../../../controllers/ingredient_data_controller.dart';
 import '../../../../data/models/Recipe.dart';
@@ -77,18 +78,18 @@ class MenuDetailController extends GetxController {
     if (resized == null) return customAlertDialog('Gagal mengompres gambar!');
     LoggerHelper.logInfo('Size after: ${await fileSize(resized)}');
 
-    // if (_selectedUser.value == null)
-    //   return customAlertDialog('Pengguna tidak ditemukan!');
-    // final mimeType = lookupMimeType(img.path)!;
+    final menu = data.selectedMenu.value;
+    if (menu == null) return customAlertDialog('Menu tidak ditemukan!');
+    final mimeType = lookupMimeType(img.path)!;
 
-    // final data = FormData({
-    //   'profileImage': MultipartFile(
-    //     resized,
-    //     filename: 'img-${_selectedUser.value!.id}.${img.path.split('.').last}',
-    //     contentType: mimeType,
-    //   ),
-    // });
+    final newData = FormData({
+      'menuImage': MultipartFile(
+        resized,
+        filename: 'menu-img-${menu.id}.${img.path.split('.').last}',
+        contentType: mimeType,
+      ),
+    });
 
-    // await userData.updateUserProfile(data: data);
+    await data.updateMenuImage(id: menu.id, data: newData);
   }
 }

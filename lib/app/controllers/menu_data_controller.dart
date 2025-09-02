@@ -166,6 +166,32 @@ class MenuDataController extends GetxController {
     }
   }
 
+  Future<void> updateMenuImage({
+    required String id,
+    dynamic data,
+    String? backRoute,
+  }) async {
+    isLoading.value = true;
+    try {
+      final response = await repository.updateMenuImage(id, data);
+      switch (response['statusCode']) {
+        case 200:
+          await syncData(refresh: true);
+          selectedMenu.value = response['menu'];
+          selectedMenu.refresh();
+          if (backRoute != null) Get.toNamed(backRoute);
+          customSuccessAlertDialog(response['message']);
+          break;
+        default:
+          customAlertDialog(response['message']);
+      }
+    } catch (e) {
+      LoggerHelper.logError(e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   Future<void> changeStatus(String id, bool targetStatus) async {
     isLoading.value = true;
     try {

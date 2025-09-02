@@ -28,7 +28,7 @@ class SelectMenuItem extends StatelessWidget {
           Column(
             children: [
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: Stack(
                   children: [
                     Container(
@@ -44,7 +44,12 @@ class SelectMenuItem extends StatelessWidget {
                         ),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: Svg(AppConstants.IMG_PLACEHOLDER),
+                          image: menu.image == null
+                              ? Svg(AppConstants.IMG_PLACEHOLDER)
+                              : NetworkImage(
+                                  AppConstants.CURRENT_BASE_API_URL_IMAGE +
+                                      menu.image!,
+                                ),
                         ),
                       ),
                     ),
@@ -54,7 +59,7 @@ class SelectMenuItem extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.all(2),
                           width: double.infinity,
-                          color: Colors.white38,
+                          color: Colors.white60,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -78,7 +83,10 @@ class SelectMenuItem extends StatelessWidget {
                                       : TextAlign.center,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 11),
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ],
@@ -135,7 +143,7 @@ class SelectMenuItem extends StatelessWidget {
                 onTap: () => controller.substractMenuQty(menu.id),
                 onLongPress: () => controller.resetMenuQty(menu.id),
                 child: Badge(
-                  padding: EdgeInsets.all(2),
+                  padding: EdgeInsets.all(4),
                   backgroundColor: Colors.redAccent[300],
                   label: Text(
                     controller.menuCount(menu.id).toString(),

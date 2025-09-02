@@ -1,12 +1,15 @@
 import 'package:abg_pos_app/app/modules/_features/outlet/widgets/outlet_overview_nav_item.dart';
 import 'package:abg_pos_app/app/routes/app_pages.dart';
 import 'package:abg_pos_app/app/shared/custom_card.dart';
+import 'package:abg_pos_app/app/shared/pages/failed_page_placeholder.dart';
+import 'package:abg_pos_app/app/shared/status_sign.dart';
 import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
 import 'package:abg_pos_app/app/utils/constants/app_constants.dart';
 import 'package:abg_pos_app/app/utils/constants/order_constants.dart';
 import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/number_helper.dart';
 import 'package:abg_pos_app/app/utils/helpers/sale_report_helper.dart';
+import 'package:abg_pos_app/app/utils/helpers/time_helper.dart';
 import 'package:abg_pos_app/app/utils/theme/custom_text.dart';
 import 'package:get/get.dart';
 
@@ -25,6 +28,9 @@ class OutletOverviewTab extends StatelessWidget {
 
     final customWidth = (Get.width - AppConstants.DEFAULT_PADDING * 4) / 5;
     return Obx(() {
+      final outlet = c.data.selectedOutlet.value;
+
+      if (outlet == null) return FailedPagePlaceholder();
       final activeOrder = c.orderData.filteredOrders(
         [
           OrderConstants.ORDERED,
@@ -79,9 +85,11 @@ class OutletOverviewTab extends StatelessWidget {
         },
         {
           'icon': Icons.fastfood,
-          'label': 'Menu',
+          'label': 'Harga Jual',
           'indicator': null,
-          'onTap': () {},
+          'onTap': () {
+            Get.toNamed(Routes.OUTLET_MENU_PRICING);
+          },
         },
       ];
 
@@ -92,7 +100,20 @@ class OutletOverviewTab extends StatelessWidget {
         child: ListView(
           padding: horizontalPadding,
           children: [
-            const VerticalSizedBox(height: 2),
+            const VerticalSizedBox(),
+            CustomCard(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  customLabelText(text: localDayDateFormat(DateTime.now())),
+                  StatusSign(
+                    status: outlet.isActive,
+                    size: AppConstants.DEFAULT_FONT_SIZE.round(),
+                  ),
+                ],
+              ),
+            ),
+            const VerticalSizedBox(),
             CustomCard(
               content: Column(
                 children: [
@@ -103,7 +124,7 @@ class OutletOverviewTab extends StatelessWidget {
                         child: customTitleText(
                           maxLines: 1,
                           text: report == null
-                              ? '-'
+                              ? 'Rp 0'
                               : inRupiah(report.totalSale),
                         ),
                       ),
@@ -111,7 +132,7 @@ class OutletOverviewTab extends StatelessWidget {
                         child: customTitleText(
                           textAlign: TextAlign.right,
                           maxLines: 1,
-                          text: '-',
+                          text: 'Rp 0',
                         ),
                       ),
                     ],
@@ -123,6 +144,7 @@ class OutletOverviewTab extends StatelessWidget {
                       customSmallLabelText(text: 'Omzet bulan ini'),
                     ],
                   ),
+
                   const VerticalSizedBox(height: 0.7),
                   Container(
                     alignment: Alignment.center,

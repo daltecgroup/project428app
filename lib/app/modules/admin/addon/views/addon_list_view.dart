@@ -20,7 +20,6 @@ class AddonListView extends GetView<AddonListController> {
   const AddonListView({super.key});
   @override
   Widget build(BuildContext context) {
-    var svg = Svg(AppConstants.IMG_PLACEHOLDER);
     return Scaffold(
       appBar: customAppBarLite(
         context: context,
@@ -61,7 +60,7 @@ class AddonListView extends GetView<AddonListController> {
                   children: List.generate(
                     activeAddons.length,
                     (index) => CustomNavItem(
-                      image: svg,
+                      leading: Icon(Icons.add_box),
                       title: activeAddons[index].name.capitalize!,
                       subTitle: inRupiah(activeAddons[index].price),
                       onTap: () {
@@ -82,7 +81,7 @@ class AddonListView extends GetView<AddonListController> {
                     ...List.generate(
                       deactiveAddons.length,
                       (index) => CustomNavItem(
-                        image: svg,
+                        leading: Icon(Icons.add_box),
                         title: deactiveAddons[index].name.capitalize!,
                         subTitle: inRupiah(deactiveAddons[index].price),
                         onTap: () {

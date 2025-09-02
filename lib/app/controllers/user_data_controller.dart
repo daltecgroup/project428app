@@ -197,7 +197,6 @@ class UserDataController extends GetxController {
       await file.writeAsString(
         users.map((user) => json.encode(user.toJson())).toList().toString(),
       );
-      print(users[0].toJson());
     } catch (e) {
       LoggerHelper.logError(e.toString());
     }

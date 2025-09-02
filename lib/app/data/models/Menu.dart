@@ -3,7 +3,7 @@ import './RawRecipe.dart';
 class Menu {
   final String id, code, name, menuCategoryId, description;
   final double price, discount;
-  final String? imgUrl;
+  final String? image;
   final bool isActive;
   final DateTime createdAt, updatedAt;
 
@@ -17,7 +17,7 @@ class Menu {
     required this.description,
     required this.price,
     required this.discount,
-    required this.imgUrl,
+    required this.image,
     required this.isActive,
     required this.createdAt,
     required this.updatedAt,
@@ -33,7 +33,7 @@ class Menu {
       description: json['description'],
       price: double.parse(json['price'].toString()),
       discount: double.parse(json['discount'].toString()),
-      imgUrl: json['imgUrl'],
+      image: json['image'],
       isActive: json['isActive'],
       recipe: (json['recipe'] as List)
           .map((e) => RawRecipe.fromJson(e))
@@ -52,7 +52,7 @@ class Menu {
       'description': description,
       'price': price,
       'discount': discount,
-      'imgUrl': imgUrl,
+      'image': image,
       'isActive': isActive,
       'recipe': recipe
           .map((e) => {'ingredientId': e.ingredientId, 'qty': e.qty})
@@ -84,7 +84,7 @@ class Menu {
       description: description ?? this.description,
       price: price ?? this.price,
       discount: discount ?? this.discount,
-      imgUrl: imgUrl ?? this.imgUrl,
+      image: image ?? image,
       isActive: isActive ?? this.isActive,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,

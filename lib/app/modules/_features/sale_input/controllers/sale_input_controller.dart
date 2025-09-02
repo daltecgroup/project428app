@@ -436,8 +436,6 @@ class SaleInputController extends GetxController {
           formData.fields.add(MapEntry('itemPromo[$i][qty]', 1.toString()));
         }
       }
-
-      // print(formData.files.first.value.filename);
       await saleData.createSale(formData);
       service.pendingSales.removeWhere(
         (e) => e.id == service.selectedPendingSale.value!.id,

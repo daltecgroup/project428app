@@ -53,7 +53,7 @@ class MenuDetailView extends GetView<MenuDetailController> {
                 // image panel
                 DetailImagePanel(
                   imagePicker: controller.imagePicker,
-                  imgUrl: menu.imgUrl,
+                  imgUrl: menu.image,
                   selectImage: () => controller.selectImage(),
                 ),
 

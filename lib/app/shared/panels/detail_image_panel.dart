@@ -34,7 +34,12 @@ class DetailImagePanel extends StatelessWidget {
             SizedBox(
               height: Get.width - AppConstants.DEFAULT_PADDING * 2,
               width: double.infinity,
-              child: SvgPicture.asset(AppConstants.IMG_PLACEHOLDER),
+              child: imgUrl == null
+                  ? SvgPicture.asset(AppConstants.IMG_PLACEHOLDER)
+                  : Image.network(
+                      AppConstants.CURRENT_BASE_API_URL_IMAGE + imgUrl!,
+                      fit: BoxFit.cover,
+                    ),
             ),
             Positioned(
               right: 5,

@@ -76,6 +76,28 @@ class MenuProvider extends GetConnect {
     );
   }
 
+  Future<Response<Map<String, dynamic>>> updateMenuImage(
+    String id,
+    dynamic data,
+  ) async {
+    Map<String, dynamic> body = {};
+    final Response response = await put('$url/$id/image', data);
+    body['message'] = response.body['message'] as String;
+    if (response.isOk) {
+      body['menu'] = Menu.fromJson(response.body['menu']);
+    }
+    if (response.hasError && response.body['errors'] != null) {
+      body['errors'] = response.body['errors'];
+    }
+    return Response(
+      statusCode: response.statusCode,
+      statusText: response.statusText,
+      body: body,
+      headers: response.headers,
+      request: response.request,
+    );
+  }
+
   Future<Response<Map<String, dynamic>>> deleteMenu(String id) async {
     Map<String, dynamic> body = {};
     final Response response = await delete('$url/$id');

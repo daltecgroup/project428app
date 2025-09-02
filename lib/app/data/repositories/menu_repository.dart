@@ -61,6 +61,21 @@ class MenuRepository extends GetxController {
     };
   }
 
+  Future<Map<String, dynamic>> updateMenuImage(String id, dynamic data) async {
+    final Response response = await provider.updateMenuImage(id, data);
+    if (response.hasError) {
+      customAlertDialog(response.body['message']);
+      throw Exception(
+        'Failed to update menu image: ${response.statusCode} - ${response.statusText ?? ''}',
+      );
+    }
+    return {
+      'statusCode': response.statusCode,
+      'message': response.body['message'],
+      'menu': response.body['menu'],
+    };
+  }
+
   Future<Map<String, dynamic>> deleteMenu(String id) async {
     final Response response = await provider.deleteMenu(id);
     if (response.hasError) {

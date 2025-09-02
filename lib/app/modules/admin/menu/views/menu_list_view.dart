@@ -82,7 +82,12 @@ class MenuListView extends GetView<MenuListController> {
                           }
 
                           return CustomNavItem(
-                            image: svg,
+                            image: menu.image == null
+                                ? svg
+                                : NetworkImage(
+                                    AppConstants.CURRENT_BASE_API_URL_IMAGE +
+                                        menu.image!,
+                                  ),
                             title: normalizeName(menu.name),
                             // subTitle: inRupiah(menu.price),
                             subTitleWidget: Row(
