@@ -1,23 +1,22 @@
-import 'package:abg_pos_app/app/shared/custom_appbar_lite.dart';
-import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
-import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
-import 'package:abg_pos_app/app/utils/helpers/text_helper.dart';
+import 'package:abg_pos_app/app/shared/buttons/custom_small_text_button.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-
-import 'package:get/get.dart';
-
-import '../../../../data/models/Menu.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../../shared/custom_appbar_lite.dart';
+import '../../../../shared/vertical_sized_box.dart';
 import '../../../../shared/custom_nav_item.dart';
 import '../../../../shared/horizontal_sized_box.dart';
 import '../../../../shared/pages/empty_list_page.dart';
 import '../../../../shared/pages/failed_page_placeholder.dart';
 import '../../../../shared/status_sign.dart';
+import '../../../../utils/constants/padding_constants.dart';
+import '../../../../utils/helpers/text_helper.dart';
 import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/helpers/number_helper.dart';
 import '../../../../utils/helpers/time_helper.dart';
 import '../../../../utils/theme/custom_text.dart';
+import '../../../../data/models/Menu.dart';
 import '../controllers/outlet_menu_pricing_controller.dart';
 
 class OutletMenuPricingView extends GetView<OutletMenuPricingController> {
@@ -56,8 +55,6 @@ class OutletMenuPricingView extends GetView<OutletMenuPricingController> {
             padding: horizontalPadding,
             children: [
               const VerticalSizedBox(height: 2),
-
-              // menu category
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(groupedMenu.keys.length, (index) {
@@ -87,39 +84,81 @@ class OutletMenuPricingView extends GetView<OutletMenuPricingController> {
                           }
 
                           return CustomNavItem(
+                            isThreeLine: true,
                             image: menu.image == null
                                 ? svg
                                 : NetworkImage(
                                     AppConstants.CURRENT_BASE_API_URL_IMAGE +
                                         menu.image!,
                                   ),
-                            title: normalizeName(menu.name),
-                            // subTitle: inRupiah(menu.price),
-                            subTitleWidget: Row(
+                            titleWidget: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(inRupiah(menu.priceAfterDiscount)),
-                                if (menu.discount.isGreaterThan(0)) ...[
-                                  const HorizontalSizedBox(width: 0.5),
-                                  Badge(
-                                    backgroundColor: menu.isActive
-                                        ? null
-                                        : Colors.grey,
-                                    label: Text(
-                                      '${inLocalNumber(menu.discount)}%',
-                                    ),
-                                  ),
-                                ],
+                                Text(normalizeName(menu.name)),
+                                StatusSign(
+                                  status: menu.isActive,
+                                  size: (AppConstants.DEFAULT_ICON_SIZE / 1.5)
+                                      .round(),
+                                ),
                               ],
                             ),
-                            trailing: StatusSign(
-                              status: menu.isActive,
-                              size: (AppConstants.DEFAULT_ICON_SIZE / 1.5)
-                                  .round(),
+                            subTitleWidget: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                VerticalSizedBox(height: 0.5),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    customSmallLabelText(text: 'Harga Awal'),
+                                    customSmallLabelText(text: 'Harga Gerai'),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(inRupiah(menu.priceAfterDiscount)),
+                                        if (menu.discount.isGreaterThan(0)) ...[
+                                          const HorizontalSizedBox(width: 0.5),
+                                          Badge(
+                                            backgroundColor: menu.isActive
+                                                ? null
+                                                : Colors.grey,
+                                            label: Text(
+                                              '${inLocalNumber(menu.discount)}%',
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(inRupiah(menu.priceAfterDiscount)),
+                                        if (menu.discount.isGreaterThan(0)) ...[
+                                          const HorizontalSizedBox(width: 0.5),
+                                          Badge(
+                                            backgroundColor: menu.isActive
+                                                ? null
+                                                : Colors.grey,
+                                            label: Text(
+                                              '${inLocalNumber(menu.discount)}%',
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                             onTap: () {
                               // controller.menuData.selectedMenu.value = menu;
-                              // Get.toNamed(Routes.MENU_DETAIL);
+                              Get.toNamed(Routes.OUTLET_MENU_PRICING_DETAIL);
                             },
+                            disableTrailing: true,
                           );
                         },
                       ),

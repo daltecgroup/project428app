@@ -19,6 +19,8 @@ import '../modules/_core/splash/bindings/splash_binding.dart';
 import '../modules/_core/splash/views/splash_view.dart';
 import '../modules/_features/attendance/bindings/attendance_binding.dart';
 import '../modules/_features/attendance/views/attendance_view.dart';
+import '../modules/_features/ingredient_purchase_input/bindings/ingredient_purchase_input_binding.dart';
+import '../modules/_features/ingredient_purchase_input/views/ingredient_purchase_input_view.dart';
 import '../modules/_features/notification/bindings/notification_binding.dart';
 import '../modules/_features/notification/views/notification_view.dart';
 import '../modules/_features/order/bindings/order_binding.dart';
@@ -37,6 +39,8 @@ import '../modules/_features/outlet_inventory_history/bindings/outlet_inventory_
 import '../modules/_features/outlet_inventory_history/views/outlet_inventory_history_view.dart';
 import '../modules/_features/outlet_inventory_list/bindings/outlet_inventory_list_binding.dart';
 import '../modules/_features/outlet_inventory_list/views/outlet_inventory_list_view.dart';
+import '../modules/_features/outlet_menu_pricing/bindings/outlet_menu_pricing_binding.dart';
+import '../modules/_features/outlet_menu_pricing/views/outlet_menu_pricing_view.dart';
 import '../modules/_features/outlet_order_list/bindings/outlet_order_list_binding.dart';
 import '../modules/_features/outlet_order_list/views/outlet_order_list_view.dart';
 import '../modules/_features/outlet_sale_list/bindings/outlet_sale_list_binding.dart';
@@ -89,8 +93,6 @@ import '../modules/admin/user/views/user_detail_view.dart';
 import '../modules/admin/user/views/user_list_view.dart';
 import '../modules/franchisee/franchisee_dashboard/bindings/franchisee_dashboard_binding.dart';
 import '../modules/franchisee/franchisee_dashboard/views/franchisee_dashboard_view.dart';
-import '../modules/_features/ingredient_purchase_input/bindings/ingredient_purchase_input_binding.dart';
-import '../modules/_features/ingredient_purchase_input/views/ingredient_purchase_input_view.dart';
 import '../modules/operator/operator_attendance/bindings/operator_attendance_binding.dart';
 import '../modules/operator/operator_attendance/views/operator_attendance_view.dart';
 import '../modules/operator/operator_dashboard/bindings/operator_dashboard_binding.dart';
@@ -105,8 +107,8 @@ import '../modules/operator/operator_sale_detail/bindings/operator_sale_detail_b
 import '../modules/operator/operator_sale_detail/views/operator_sale_detail_view.dart';
 import '../modules/operator/sale/bindings/sale_binding.dart';
 import '../modules/operator/sale/views/sale_view.dart';
-import '../modules/_features/outlet_menu_pricing/bindings/outlet_menu_pricing_binding.dart';
-import '../modules/_features/outlet_menu_pricing/views/outlet_menu_pricing_view.dart';
+import '../modules/_features/outlet_menu_pricing_detail/bindings/outlet_menu_pricing_detail_binding.dart';
+import '../modules/_features/outlet_menu_pricing_detail/views/outlet_menu_pricing_detail_view.dart';
 import '../modules/spvarea/spvarea_dashboard/bindings/spvarea_dashboard_binding.dart';
 import '../modules/spvarea/spvarea_dashboard/views/spvarea_dashboard_view.dart';
 
@@ -434,6 +436,11 @@ class AppPages {
       name: _Paths.OUTLET_MENU_PRICING,
       page: () => const OutletMenuPricingView(),
       binding: OutletMenuPricingBinding(),
+    ),
+    GetPage(
+      name: _Paths.OUTLET_MENU_PRICING_DETAIL,
+      page: () => const OutletMenuPricingDetailView(),
+      binding: OutletMenuPricingDetailBinding(),
     ),
   ];
 }

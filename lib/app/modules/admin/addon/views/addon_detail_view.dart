@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../modules/admin/addon/controllers/addon_detail_controller.dart';
 import '../../../../modules/admin/addon/widgets/addon_detail_info_panel.dart';
-import '../../../../shared/panels/detail_image_panel.dart';
 import '../../../../shared/panels/recipe_list_panel.dart';
 import '../../../../data/models/Addon.dart';
 import '../../../../shared/vertical_sized_box.dart';
