@@ -34,7 +34,6 @@ class MenuListView extends GetView<MenuListController> {
       body: RefreshIndicator(
         child: Obx(() {
           var groupedMenu = controller.groupMenusByCategory;
-
           if (groupedMenu.keys.toList().isEmpty) {
             return EmptyListPage(
               refresh: () {
@@ -43,7 +42,6 @@ class MenuListView extends GetView<MenuListController> {
               text: 'Menu Kosong',
             );
           }
-
           if (controller.data.menus.isEmpty)
             return EmptyListPage(
               refresh: () => controller.data.syncData(refresh: true),
