@@ -47,6 +47,9 @@ class SaleInputView extends GetView<SaleInputController> {
         );
         final promoSpendGetSetting = controller.promoSettingData
             .getPromoSetting(AppConstants.PROMO_SETTING_SPEND_GET);
+
+        final selectedImage =
+            controller.imagePickerController.selectedImage.value;
         return Stack(
           children: [
             // sale indicator
@@ -215,8 +218,8 @@ class SaleInputView extends GetView<SaleInputController> {
                                 .name,
                     ),
                   ),
-                  const VerticalSizedBox(height: 1),
                 ],
+                const VerticalSizedBox(height: 1),
 
                 // select evidence
                 CustomCard(
@@ -236,11 +239,7 @@ class SaleInputView extends GetView<SaleInputController> {
                           ),
                         ],
                       ),
-                      if (controller
-                              .imagePickerController
-                              .selectedImage
-                              .value !=
-                          null)
+                      if (selectedImage != null)
                         CustomNavItem(
                           disablePaddingRight: true,
                           marginBottom: false,
@@ -284,7 +283,14 @@ class SaleInputView extends GetView<SaleInputController> {
                               ),
                             );
                           },
-                          title: localDateTimeFormat(
+                          title: localDateFormat(
+                            controller
+                                .imagePickerController
+                                .selectedImage
+                                .value!
+                                .lastModifiedSync(),
+                          ),
+                          subTitle: localTimeFormat(
                             controller
                                 .imagePickerController
                                 .selectedImage
@@ -311,7 +317,7 @@ class SaleInputView extends GetView<SaleInputController> {
                     ],
                   ),
                 ),
-                const VerticalSizedBox(),
+                const VerticalSizedBox(height: 2),
 
                 // payment input
                 CustomCard(

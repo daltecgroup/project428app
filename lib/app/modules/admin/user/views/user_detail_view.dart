@@ -31,7 +31,7 @@ class UserDetailView extends GetView<UserDetailController> {
             color: Colors.white,
             icon: Icon(Icons.more_vert),
             itemBuilder: (context) => <PopupMenuEntry>[
-              PopupMenuItem(onTap: () {}, child: Text('Reset PIN')),
+              // PopupMenuItem(onTap: () {}, child: Text('Reset PIN')),
               PopupMenuItem(
                 onTap: () => controller.userData.deleteConfirmation(),
                 child: Text('Hapus', style: TextStyle(color: Colors.red)),

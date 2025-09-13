@@ -1,10 +1,10 @@
-import 'package:abg_pos_app/app/shared/buttons/floating_add_button.dart';
-import 'package:abg_pos_app/app/shared/custom_card.dart';
-import 'package:abg_pos_app/app/shared/custom_nav_item.dart';
-import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import '../../../../shared/buttons/floating_add_button.dart';
+import '../../../../shared/custom_card.dart';
+import '../../../../shared/custom_nav_item.dart';
+import '../../../../utils/constants/padding_constants.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/custom_appbar.dart';
 import '../../../../shared/custom_drawer.dart';

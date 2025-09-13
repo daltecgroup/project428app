@@ -15,7 +15,7 @@ class LoggerHelper {
   );
 
   static bool get _isDev {
-    return AppConstants.ENVIRONMENT_SETTING == AppConstants.DEV;
+    return AppConstants.ENVIRONMENT_SETTING == AppConstants.ENV_DEV;
   }
 
   static void logInfo(String message) {

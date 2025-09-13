@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import '../../../../data/models/Menu.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/buttons/floating_add_button.dart';
+import '../../../../shared/custom_input_with_error.dart';
 import '../../../../shared/custom_nav_item.dart';
 import '../../../../shared/status_sign.dart';
 import '../../../../shared/vertical_sized_box.dart';
@@ -33,7 +34,9 @@ class MenuListView extends GetView<MenuListController> {
       ),
       body: RefreshIndicator(
         child: Obx(() {
-          var groupedMenu = controller.groupMenusByCategory;
+          var groupedMenu = controller.groupMenusByCategory(
+            keyword: controller.keyword.value,
+          );
           if (groupedMenu.keys.toList().isEmpty) {
             return EmptyListPage(
               refresh: () {
@@ -50,7 +53,16 @@ class MenuListView extends GetView<MenuListController> {
           return ListView(
             padding: horizontalPadding,
             children: [
-              const VerticalSizedBox(height: 2),
+              CustomInputWithError(
+                controller: controller.searchC,
+                hint: 'Cari menu',
+                prefixIcon: Icon(
+                  Icons.search,
+                  size: AppConstants.DEFAULT_ICON_SIZE,
+                ),
+                onChanged: (_) => controller.searchKeyword(),
+              ),
+              const VerticalSizedBox(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(groupedMenu.keys.length, (index) {

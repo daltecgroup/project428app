@@ -17,23 +17,28 @@ class UserImagePanel extends StatelessWidget {
         width: Get.width * 0.2,
         child: Stack(
           children: [
-            Material(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-              elevation: 1,
-              child: ClipRRect(
+            GestureDetector(
+              onTap: () {
+                print('test');
+              },
+              child: Material(
                 borderRadius: BorderRadius.all(Radius.circular(50)),
-                child: SizedBox(
-                  height: Get.width * 0.2,
-                  width: Get.width * 0.2,
-                  child: imgUrl == null
-                      ? Image.asset(
-                          AppConstants.PROFILE_PLACEHOLDER_PNG,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.network(
-                          AppConstants.CURRENT_BASE_API_URL_IMAGE + imgUrl!,
-                          fit: BoxFit.cover,
-                        ),
+                elevation: 1,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  child: SizedBox(
+                    height: Get.width * 0.2,
+                    width: Get.width * 0.2,
+                    child: imgUrl == null
+                        ? Image.asset(
+                            AppConstants.PROFILE_PLACEHOLDER_PNG,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.network(
+                            AppConstants.CURRENT_BASE_API_URL_IMAGE + imgUrl!,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
                 ),
               ),
             ),
@@ -46,10 +51,10 @@ class UserImagePanel extends StatelessWidget {
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.blue[50],
-                  radius: AppConstants.DEFAULT_NAV_ICON_SIZE / 1.5,
+                  radius: AppConstants.DEFAULT_NAV_ICON_SIZE / 1.3,
                   child: Icon(
                     Icons.camera_alt,
-                    size: AppConstants.DEFAULT_NAV_ICON_SIZE / 1.5,
+                    size: AppConstants.DEFAULT_NAV_ICON_SIZE / 1.2,
                   ),
                 ),
               ),

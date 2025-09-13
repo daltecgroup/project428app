@@ -1,4 +1,3 @@
-import 'package:abg_pos_app/app/shared/buttons/custom_small_text_button.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
@@ -110,7 +109,7 @@ class OutletMenuPricingView extends GetView<OutletMenuPricingController> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    customSmallLabelText(text: 'Harga Awal'),
+                                    customSmallLabelText(text: 'Harga Global'),
                                     customSmallLabelText(text: 'Harga Gerai'),
                                   ],
                                 ),

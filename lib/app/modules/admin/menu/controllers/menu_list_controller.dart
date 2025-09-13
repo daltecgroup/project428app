@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../../../../controllers/menu_category_data_controller.dart';
 import '../../../../controllers/menu_data_controller.dart';
@@ -9,6 +10,9 @@ class MenuListController extends GetxController {
   MenuDataController data;
   MenuCategoryDataController categoryData;
 
+  final searchC = TextEditingController();
+  final keyword = ''.obs;
+
   final String backRoute = Get.previousRoute;
 
   @override
@@ -17,14 +21,26 @@ class MenuListController extends GetxController {
     await refreshData();
   }
 
+  @override
+  void onClose() {
+    super.onClose();
+    searchC.dispose();
+  }
+
   Future<void> refreshMenus() => data.syncData(refresh: true);
 
-  List<Menu> filteredMenus({bool? status}) {
-    List<Menu> list = data.menus;
-    if (status != null) {
-      list = data.menus.where((e) => e.isActive == status).toList();
-    }
-    return list;
+  void searchKeyword() {
+    keyword.value = searchC.text.toLowerCase().trim();
+  }
+
+  List<Menu> filteredMenus({String? keyword}) {
+    return data.menus
+        .where(
+          (e) =>
+              // e.isActive == status &&
+              (keyword != null && e.name.contains(keyword)),
+        )
+        .toList();
   }
 
   List<MenuCategory> filteredMenuCategory({bool? status}) {
@@ -37,13 +53,15 @@ class MenuListController extends GetxController {
     return list;
   }
 
-  Map<String, List<Menu>> get groupMenusByCategory {
-    final menus = filteredMenus();
+  Map<String, List<Menu>> groupMenusByCategory({String? keyword}) {
+    final menus = filteredMenus(keyword: keyword);
     final categories = filteredMenuCategory(status: true);
 
     // Group menus by categoryId
     final grouped = <String, List<Menu>>{};
     final nonCategory = <Menu>[];
+
+    print(menus.length);
 
     for (var menu in menus) {
       final categoryId = menu.menuCategoryId;

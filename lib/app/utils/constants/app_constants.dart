@@ -1,18 +1,22 @@
 class AppConstants {
+  // --- Development/Production
+  static const String ENV_DEV = 'development';
+  static const String ENV_PROD = 'production';
+  static const String ENVIRONMENT_SETTING = ENV_DEV;
+
   // --- Application Information ---
   static const String APP_NAME = 'BATMANPOS';
   static const String APP_TITLE = 'Batman POS';
-  static const String APP_VERSION = '1.0.7+23';
+  static const String APP_VERSION_PROD = '1.0.7';
+  static const String APP_VERSION_DEV = 'V1.0.7 build 23 | ClOSED TESTING';
   static const String APP_BUILD_NUMBER = '23';
+  static const String APP_VERSION = ENVIRONMENT_SETTING == ENV_PROD
+      ? APP_VERSION_PROD
+      : APP_VERSION_DEV;
   static const String APP_DESCRIPTION =
       'Aplikasi POS untuk Aroma Bisnis Group.';
   static const String SUPPORT_EMAIL = 'support@aromabisnisgroup.com';
   static const String WEBSITE_URL = 'https://www.aromabisnisgroup.com';
-
-  // --- Development/Production
-  static const String DEV = 'development';
-  static const String PROD = 'production';
-  static const String ENVIRONMENT_SETTING = DEV;
 
   // --- API Configuration ---
   static const String BASE_API_URL_DEV = 'http://10.0.2.2:8000/api/v1';
@@ -22,16 +26,19 @@ class AppConstants {
   static const String BASE_API_URL_PROD_IMAGE =
       'http://gg8ko0kg00oo00sscwoosk4w.46.202.163.60.sslip.io';
 
-  static const String CURRENT_BASE_API_URL = ENVIRONMENT_SETTING == PROD
+  static const String CURRENT_BASE_API_URL = ENVIRONMENT_SETTING == ENV_PROD
       ? BASE_API_URL_PROD
       : BASE_API_URL_DEV;
-  static const String CURRENT_BASE_API_URL_IMAGE = ENVIRONMENT_SETTING == PROD
+  static const String CURRENT_BASE_API_URL_IMAGE =
+      ENVIRONMENT_SETTING == ENV_PROD
       ? BASE_API_URL_PROD_IMAGE
       : BASE_API_URL_DEV_IMAGE;
 
   static const int API_TIMEOUT_SECONDS = 30; // Global API request timeout
   static const int SYNC_TIMER = 10;
-  static const bool RUN_SYNC_TIMER = ENVIRONMENT_SETTING == PROD ? true : false;
+  static const bool RUN_SYNC_TIMER = ENVIRONMENT_SETTING == ENV_PROD
+      ? true
+      : false;
 
   // --- Shared Preferences Keys ---
   static const String KEY_IS_LOGGED_IN = 'is_logged_in';
