@@ -26,6 +26,8 @@ class SaleDataController extends GetxController {
   final RxBool isLoading = false.obs;
 
   RxInt startingDay = 7.obs;
+  final startDate = DateTime.now().subtract(Duration(days: 7)).obs;
+  final endDate = DateTime.now().obs;
 
   Timer? _syncTimer;
 
@@ -100,15 +102,13 @@ class SaleDataController extends GetxController {
         if (await file.exists() && refresh != null && refresh == true)
           await file.delete();
         final currentOutlet = box.getValue(AppConstants.KEY_CURRENT_OUTLET);
-        final currentRole = box.getValue(AppConstants.KEY_CURRENT_ROLE);
         String outletQuery = '';
-        if (currentRole != null && currentRole == AppConstants.ROLE_OPERATOR) {
-          if (currentOutlet != null) {
-            outletQuery = '?outletId=$currentOutlet';
-          }
+        if (currentOutlet != null) {
+          outletQuery = '?outletId=$currentOutlet';
         }
+
         String query =
-            '$outletQuery${outletQuery.isEmpty ? '?' : '&'}dateFrom=${DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(Duration(days: startingDay.value)))}';
+            '$outletQuery${outletQuery.isEmpty ? '?' : '&'}dateFrom=${DateFormat('yyyy-MM-dd').format(startDate.value)}&dateTo=${DateFormat('yyyy-MM-dd').format(endDate.value)}';
         LoggerHelper.logInfo('Set initial sales from server');
 
         final List<Sale> fetchedSales = await repository.getSales(query: query);

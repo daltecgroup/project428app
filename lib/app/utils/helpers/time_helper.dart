@@ -107,3 +107,14 @@ String get currentDateString {
   DateTime now = DateTime.now();
   return DateFormat('yyMMdd').format(now);
 }
+
+/// Calculates the number of calendar days between two DateTime objects.
+int daysBetween(DateTime from, DateTime to) {
+  // 1. Normalize both dates to midnight to ignore the time component.
+  from = DateTime(from.year, from.month, from.day);
+  to = DateTime(to.year, to.month, to.day);
+
+  // 2. Calculate the difference and return it in days.
+  // The .inDays property gives the total number of full days.
+  return to.difference(from).inDays;
+}

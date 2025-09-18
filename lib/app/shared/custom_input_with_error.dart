@@ -1,4 +1,5 @@
 import 'package:abg_pos_app/app/shared/input_error_text.dart';
+import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,6 +10,7 @@ class CustomInputWithError extends StatelessWidget {
   const CustomInputWithError({
     super.key,
     required this.controller,
+    this.enable,
     this.title,
     this.error,
     this.errorText,
@@ -21,10 +23,12 @@ class CustomInputWithError extends StatelessWidget {
     this.obscure,
     this.autoFocus,
     this.onSubmitted,
+    this.onTap,
     this.maxLines,
   });
 
   final TextEditingController controller;
+  final bool? enable;
   final String? title;
   final bool? error;
   final String? errorText;
@@ -37,6 +41,7 @@ class CustomInputWithError extends StatelessWidget {
   final bool? obscure;
   final bool? autoFocus;
   final ValueChanged<String>? onSubmitted;
+  final VoidCallback? onTap;
   final int? maxLines;
 
   @override
@@ -45,11 +50,12 @@ class CustomInputWithError extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (title != null) customInputTitleText(text: title!),
-        SizedBox(height: 5),
+        const VerticalSizedBox(height: 0.6),
         Material(
           elevation: 1,
           borderRadius: BorderRadius.circular(8),
           child: TextField(
+            enabled: enable,
             maxLines: maxLines,
             controller: controller,
             inputFormatters: inputFormatter,
@@ -57,6 +63,7 @@ class CustomInputWithError extends StatelessWidget {
             obscureText: obscure ?? false,
             autofocus: autoFocus ?? false,
             onSubmitted: onSubmitted,
+            onTap: onTap,
             decoration: InputDecoration(
               isDense: true,
               filled: true,

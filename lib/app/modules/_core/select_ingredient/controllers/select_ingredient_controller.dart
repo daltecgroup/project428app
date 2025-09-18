@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/helpers/logger_helper.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared/custom_input_with_error.dart';
@@ -79,8 +80,12 @@ class SelectIngredientController extends GetxController {
         Get.arguments is List<Recipe> &&
         (Get.arguments as List).isNotEmpty) {
       selectedRecipeList.value = Get.arguments as List<Recipe>;
+      LoggerHelper.logInfo('Ingredient Input: Init and Argument is not emptly');
     }
-    if (data.ingredients.isEmpty) return;
+    if (data.ingredients.isEmpty) {
+      LoggerHelper.logInfo('Ingredient Input: Ingredient Data is empty');
+      return;
+    }
 
     final newList = data.ingredients
         .where((ingredient) => ingredient.isActive)

@@ -22,11 +22,13 @@ class SelectIngredientView extends GetView<SelectIngredientController> {
       appBar: customAppBarLite(
         context: context,
         title: 'Pilih Bahan Baku',
-        result: <Recipe>[],
+        result: controller.selectedRecipeList.isNotEmpty
+            ? controller.selectedRecipeList.toList()
+            : <Recipe>[],
         actions: [
           IconButton(
             onPressed: () {
-              Get.back(result: controller.selectedRecipeList);
+              Get.back(result: controller.selectedRecipeList.toList());
             },
             icon: Icon(Icons.check, size: AppConstants.DEFAULT_ICON_SIZE + 4),
           ),

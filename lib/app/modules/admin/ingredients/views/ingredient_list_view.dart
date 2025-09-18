@@ -4,8 +4,10 @@ import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/buttons/floating_add_button.dart';
 import '../../../../shared/custom_appbar_lite.dart';
+import '../../../../shared/custom_input_with_error.dart';
 import '../../../../shared/custom_nav_item.dart';
 import '../../../../shared/vertical_sized_box.dart';
+import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/helpers/time_helper.dart';
 import '../../../../utils/theme/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -34,29 +36,41 @@ class IngredientsListView extends GetView<IngredientListController> {
           return ListView(
             padding: horizontalPadding,
             children: [
-              VerticalSizedBox(height: 2),
-              ...List.generate(controller.filteredIngredients().length, (
-                index,
-              ) {
-                if (controller.filteredIngredients()[index].isActive) {
-                  return CustomNavItem(
-                    leading: Icon(Icons.inventory_2),
-                    title: controller
-                        .filteredIngredients()[index]
-                        .name
-                        .capitalize!,
-                    subTitle:
-                        'Rp ${controller.filteredIngredients()[index].priceString}/gr',
-                    onTap: () async {
-                      controller.data.selectedIngredient.value = controller
-                          .filteredIngredients()[index];
-                      await controller.data.fetchIngredientHistory();
-                      Get.toNamed(Routes.INGREDIENT_DETAIL);
-                    },
-                  );
-                }
-                return SizedBox();
-              }),
+              CustomInputWithError(
+                controller: controller.searchC,
+                hint: 'Cari bahan baku',
+                prefixIcon: Icon(
+                  Icons.search,
+                  size: AppConstants.DEFAULT_ICON_SIZE,
+                ),
+                onChanged: (_) => controller.searchKeyword(),
+              ),
+              const VerticalSizedBox(height: 2),
+              ...List.generate(
+                controller
+                    .filteredIngredients(keyword: controller.keyword.value)
+                    .length,
+                (index) {
+                  if (controller.filteredIngredients()[index].isActive) {
+                    return CustomNavItem(
+                      leading: Icon(Icons.inventory_2),
+                      title: controller
+                          .filteredIngredients()[index]
+                          .name
+                          .capitalize!,
+                      subTitle:
+                          'Rp ${controller.filteredIngredients()[index].priceString}/gr',
+                      onTap: () async {
+                        controller.data.selectedIngredient.value = controller
+                            .filteredIngredients()[index];
+                        await controller.data.fetchIngredientHistory();
+                        Get.toNamed(Routes.INGREDIENT_DETAIL);
+                      },
+                    );
+                  }
+                  return SizedBox();
+                },
+              ),
               VerticalSizedBox(),
               if (controller.filteredIngredients(status: false).isNotEmpty)
                 customListHeaderText(text: 'Bahan Baku Nonaktif'),

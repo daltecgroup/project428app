@@ -38,6 +38,16 @@ class OrderInputController extends GetxController {
     super.onClose();
   }
 
+  Future<void> backConfirmation() async {
+    await customConfirmationDialog(
+      'Apakah anda yakin kembali dan hapus pesanan?',
+      () {
+        Get.back();
+        Get.back();
+      },
+    );
+  }
+
   void _initOutletData() {
     if (!box.isNull(AppConstants.KEY_CURRENT_OUTLET)) {
       selectedOutlet.value = outletData.getOutletById(

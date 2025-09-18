@@ -10,6 +10,7 @@ class CustomCard extends StatelessWidget {
     this.padding,
     this.color,
     this.customPadding,
+    this.enableShadow,
   });
 
   final Widget content;
@@ -17,6 +18,7 @@ class CustomCard extends StatelessWidget {
   final double? padding;
   final Color? color;
   final EdgeInsets? customPadding;
+  final bool? enableShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +31,11 @@ class CustomCard extends StatelessWidget {
           )
         : BorderRadius.circular(AppConstants.DEFAULT_BORDER_RADIUS);
 
+    final shadow = enableShadow ?? true;
+
     return Card(
       color: color ?? AppColors.surface,
-      elevation: 1,
+      elevation: shadow ? 1 : 0,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: borderRadius),
       child: Padding(

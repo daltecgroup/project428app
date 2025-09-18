@@ -23,8 +23,8 @@ class MenuListController extends GetxController {
 
   @override
   void onClose() {
-    super.onClose();
     searchC.dispose();
+    super.onClose();
   }
 
   Future<void> refreshMenus() => data.syncData(refresh: true);

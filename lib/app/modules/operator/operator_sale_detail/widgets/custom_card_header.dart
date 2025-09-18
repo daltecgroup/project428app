@@ -1,6 +1,7 @@
 import 'package:abg_pos_app/app/shared/horizontal_sized_box.dart';
 import 'package:abg_pos_app/app/utils/constants/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomCardHeader extends StatelessWidget {
   const CustomCardHeader({
@@ -19,7 +20,7 @@ class CustomCardHeader extends StatelessWidget {
     final open = isOpen ?? true;
     return Card(
       margin: EdgeInsets.all(0),
-      color: Colors.red[50],
+      color: Get.theme.primaryColorLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadiusGeometry.only(
           topLeft: Radius.circular(AppConstants.DEFAULT_BORDER_RADIUS),

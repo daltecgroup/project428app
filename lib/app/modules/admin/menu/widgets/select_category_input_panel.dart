@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import '../../../../shared/vertical_sized_box.dart';
 import '../controllers/menu_input_controller.dart';
 import '../../../../utils/theme/custom_text.dart';
 import '../../../../utils/helpers/text_helper.dart';
@@ -16,7 +17,7 @@ class SelectCategoryInputPanel extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         customInputTitleText(text: 'Kategori'),
-        SizedBox(height: 5),
+        const VerticalSizedBox(height: 0.6),
         Material(
           elevation: 1,
           borderRadius: BorderRadius.circular(

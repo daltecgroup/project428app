@@ -143,6 +143,7 @@ class MenuInputView extends GetView<MenuInputController> {
                       SelectCategoryInputPanel(controller: controller),
                       const VerticalSizedBox(),
                       CustomInputWithError(
+                        maxLines: 2,
                         title: StringValue.DESCRIPTION,
                         controller: controller.descriptionC,
                         error: controller.descriptionError.value,
@@ -156,7 +157,7 @@ class MenuInputView extends GetView<MenuInputController> {
                     ],
                   ),
                 ),
-                const VerticalSizedBox(),
+                const VerticalSizedBox(height: 2),
                 CustomCard(
                   content: Column(
                     children: [

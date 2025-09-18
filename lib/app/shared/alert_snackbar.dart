@@ -14,6 +14,7 @@ SnackbarController unauthorizedSnackbar() {
     ),
     backgroundColor: Colors.red,
     colorText: Colors.white,
+    boxShadows: customShadows,
   );
 }
 
@@ -29,6 +30,7 @@ SnackbarController expiredSnackbar() {
     ),
     backgroundColor: Colors.white,
     colorText: Colors.black,
+    boxShadows: customShadows,
   );
 }
 
@@ -44,6 +46,7 @@ SnackbarController successSnackbar(String content) {
     ),
     backgroundColor: Colors.white,
     colorText: Colors.black,
+    boxShadows: customShadows,
   );
 }
 
@@ -59,5 +62,17 @@ SnackbarController alertSnackbar(String content) {
     ),
     backgroundColor: Colors.white,
     colorText: Colors.black,
+    boxShadows: customShadows,
   );
+}
+
+List<BoxShadow> get customShadows {
+  return [
+    BoxShadow(
+      color: Colors.black.withOpacity(0.1), // Subtle, semi-transparent black
+      offset: Offset(0, 2), // Slightly below the element
+      blurRadius: 4, // Soft blur
+      spreadRadius: 0, // No spread
+    ),
+  ];
 }

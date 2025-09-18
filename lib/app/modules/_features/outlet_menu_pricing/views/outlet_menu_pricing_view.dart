@@ -82,76 +82,46 @@ class OutletMenuPricingView extends GetView<OutletMenuPricingController> {
                             return SizedBox();
                           }
 
+                          // menu pricing item
                           return CustomNavItem(
-                            isThreeLine: true,
                             image: menu.image == null
                                 ? svg
                                 : NetworkImage(
                                     AppConstants.CURRENT_BASE_API_URL_IMAGE +
                                         menu.image!,
                                   ),
-                            titleWidget: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            title: normalizeName(menu.name),
+                            subTitleWidget: Row(
                               children: [
-                                Text(normalizeName(menu.name)),
-                                StatusSign(
-                                  status: menu.isActive,
-                                  size: (AppConstants.DEFAULT_ICON_SIZE / 1.5)
-                                      .round(),
-                                ),
+                                Text(inRupiah(menu.priceAfterDiscount)),
+                                ...[
+                                  const HorizontalSizedBox(width: 0.5),
+                                  Badge(
+                                    backgroundColor: menu.isActive
+                                        ? Colors.blue
+                                        : Colors.grey,
+                                    label: Text(
+                                      '+${inLocalNumber(menu.price - menu.priceAfterDiscount)}',
+                                    ),
+                                  ),
+                                ],
+                                if (menu.discount.isGreaterThan(0)) ...[
+                                  const HorizontalSizedBox(width: 0.5),
+                                  Badge(
+                                    backgroundColor: menu.isActive
+                                        ? null
+                                        : Colors.grey,
+                                    label: Text(
+                                      '${inLocalNumber(menu.discount)}%',
+                                    ),
+                                  ),
+                                ],
                               ],
                             ),
-                            subTitleWidget: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                VerticalSizedBox(height: 0.5),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    customSmallLabelText(text: 'Harga Global'),
-                                    customSmallLabelText(text: 'Harga Gerai'),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(inRupiah(menu.priceAfterDiscount)),
-                                        if (menu.discount.isGreaterThan(0)) ...[
-                                          const HorizontalSizedBox(width: 0.5),
-                                          Badge(
-                                            backgroundColor: menu.isActive
-                                                ? null
-                                                : Colors.grey,
-                                            label: Text(
-                                              '${inLocalNumber(menu.discount)}%',
-                                            ),
-                                          ),
-                                        ],
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(inRupiah(menu.priceAfterDiscount)),
-                                        if (menu.discount.isGreaterThan(0)) ...[
-                                          const HorizontalSizedBox(width: 0.5),
-                                          Badge(
-                                            backgroundColor: menu.isActive
-                                                ? null
-                                                : Colors.grey,
-                                            label: Text(
-                                              '${inLocalNumber(menu.discount)}%',
-                                            ),
-                                          ),
-                                        ],
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            trailing: StatusSign(
+                              status: menu.isActive,
+                              size: (AppConstants.DEFAULT_ICON_SIZE / 1.5)
+                                  .round(),
                             ),
                             onTap: () {
                               // controller.menuData.selectedMenu.value = menu;

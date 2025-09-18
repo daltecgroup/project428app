@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:abg_pos_app/app/shared/alert_snackbar.dart';
 import 'package:get/get.dart';
 import 'package:collection/collection.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -230,6 +231,7 @@ class AuthService extends GetxService {
           } else {
             Get.offNamed(Routes.SELECT_ROLE);
           }
+          successSnackbar('Anda Berhasil Login');
           break;
         case 410:
           customAlertDialog(
