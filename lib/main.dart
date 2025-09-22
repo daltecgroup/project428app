@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/utils/helpers/logger_helper.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -6,9 +7,16 @@ import 'app/utils/services/setting_service.dart';
 import 'app/utils/services/connectivity_service.dart';
 import 'app/utils/helpers/get_storage_helper.dart';
 import 'app/utils/services/auth_service.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
+      .then((value) => LoggerHelper.logInfo('Firebase Initialized'))
+      .onError((error, stackTrace) {
+        LoggerHelper.logError('Firebase Error: ${error.toString()}');
+      });
   await BoxHelper().init();
   await Get.putAsync(() async => SettingService(), permanent: true);
   await Get.putAsync(() async => ConnectivityService(), permanent: true);

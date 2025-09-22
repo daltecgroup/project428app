@@ -1,9 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:abg_pos_app/app/shared/alert_snackbar.dart';
+import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
+import 'package:abg_pos_app/app/utils/theme/text_style.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:collection/collection.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../routes/app_pages.dart';
 import '../../controllers/outlet_data_controller.dart';
 import '../../utils/helpers/sync_helper.dart';
@@ -65,7 +72,102 @@ class AuthService extends GetxService {
     streamLoggedIn.cancel();
   }
 
+  Future<void> _checkVersion() async {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+
+    try {
+      // Ambil versi aplikasi saat ini
+      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      LoggerHelper.logInfo(packageInfo.version);
+      final String currentVersionStr = packageInfo.version;
+
+      await remoteConfig.setConfigSettings(
+        RemoteConfigSettings(
+          fetchTimeout: const Duration(minutes: 1),
+          minimumFetchInterval: Duration.zero, // <-- PENTING: Atur ke nol
+        ),
+      );
+
+      // Atur interval fetch agar tidak terlalu sering
+      await remoteConfig.fetch();
+      await remoteConfig.activate();
+
+      // Ambil versi minimum dari Remote Config
+      final String minVersionStr = remoteConfig.getString(
+        'minimum_required_version',
+      );
+      LoggerHelper.logInfo(minVersionStr);
+
+      // Bandingkan versi
+      if (_isUpdateRequired(currentVersionStr, minVersionStr)) {
+        // Jika perlu update, tampilkan dialog
+        _showUpdateDialog();
+        return;
+      }
+    } catch (e) {
+      // Jika terjadi error (misal, tidak ada internet), anggap saja tidak perlu update
+      // agar pengguna tetap bisa masuk.
+      LoggerHelper.logError("Gagal memeriksa versi: $e");
+    }
+  }
+
+  // Fungsi untuk membandingkan versi (misal: '1.0.5' vs '1.1.0')
+  bool _isUpdateRequired(String currentVersion, String minVersion) {
+    List<int> currentParts = currentVersion.split('.').map(int.parse).toList();
+    List<int> minParts = minVersion.split('.').map(int.parse).toList();
+
+    for (var i = 0; i < minParts.length; i++) {
+      if (i >= currentParts.length) return true; // misal: 1.0 vs 1.0.1
+      if (currentParts[i] < minParts[i]) return true;
+      if (currentParts[i] > minParts[i]) return false;
+    }
+    return false;
+  }
+
+  void _showUpdateDialog() {
+    _updateDialog();
+  }
+
+  Future<dynamic> _updateDialog() {
+    return Get.defaultDialog(
+      radius: AppConstants.DEFAULT_BORDER_RADIUS,
+      barrierDismissible: false, // Pengguna tidak bisa menutup dialog
+      title: 'Pembaruan Tersedia',
+      titleStyle: AppTextStyle.dialogTitle,
+      contentPadding: horizontalPadding,
+      content: Text(
+        'Versi baru aplikasi tersedia. Silakan perbarui untuk melanjutkan.',
+        textAlign: TextAlign.center,
+      ),
+      confirm: TextButton(
+        onPressed: () => _launchStoreUrl(),
+        child: Text('Perbarui'),
+      ),
+    );
+  }
+
+  void _launchStoreUrl() async {
+    // Ganti dengan ID aplikasi Anda
+    const String appIdAndroid = 'com.daltec.project428app';
+    const String appIdIos = 'id585027354'; // Contoh Apple Maps
+
+    final String urlString = Platform.isAndroid
+        ? 'market://details?id=$appIdAndroid'
+        : 'https://apps.apple.com/app/$appIdIos';
+
+    final Uri url = Uri.parse(urlString);
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      // Fallback jika gagal membuka app store
+      LoggerHelper.logError('Tidak bisa membuka URL: $urlString');
+    }
+  }
+
   void _initAuth() {
+    _checkVersion();
+
     if (!box.isNull(AppConstants.KEY_IS_LOGGED_IN) &&
         !box.isNull(AppConstants.KEY_CURRENT_USER_DATA) &&
         !box.isNull(AppConstants.KEY_USER_TOKEN)) {
