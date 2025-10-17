@@ -1,12 +1,19 @@
 import 'package:abg_pos_app/app/shared/custom_appbar.dart';
+import 'package:abg_pos_app/app/shared/custom_card.dart';
 import 'package:abg_pos_app/app/shared/custom_drawer.dart';
+import 'package:abg_pos_app/app/shared/horizontal_sized_box.dart';
+import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
 import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
+import 'package:abg_pos_app/app/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../shared/custom_circle_avatar_image.dart';
+import '../../../../utils/theme/custom_text.dart';
 import '../controllers/admin_dashboard_controller.dart';
+
+part '../widgets/user_indicator.dart';
 
 class AdminDashboardView extends GetView<AdminDashboardController> {
   const AdminDashboardView({super.key});
@@ -19,32 +26,62 @@ class AdminDashboardView extends GetView<AdminDashboardController> {
         padding: horizontalPadding,
         children: [
           if (controller.currentUser != null)
-            Material(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              elevation: 1,
-              child: ListTile(
-                selected: true,
-                selectedTileColor: Colors.grey[50],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                leading: CustomCircleAvatarImage(),
-                title: Text(
-                  controller.currentUser!.name,
-                  style: TextStyle(fontWeight: FontWeight.w500),
-                ),
-                subtitle: Text(
-                  'ID ${controller.currentUser!.userId}',
-                  style: TextStyle(fontSize: 14),
-                ),
-                trailing: IconButton(
-                  onPressed: () => controller.auth.logout(),
-                  icon: Icon(Icons.logout_rounded),
+            UserIndicator(controller: controller),
+
+          // user count
+          VerticalSizedBox(),
+          Row(
+            children: [
+              Expanded(
+                child: CustomCard(
+                  content: Column(
+                    children: [
+                      customTitleText(maxLines: 1, text: '12'),
+                      customSmallLabelText(text: 'Gerai Aktif'),
+                    ],
+                  ),
                 ),
               ),
-            ),
+              HorizontalSizedBox(),
+              Expanded(
+                child: CustomCard(
+                  content: Column(
+                    children: [
+                      customTitleText(maxLines: 1, text: '12'),
+                      customSmallLabelText(text: 'Gerai Aktif'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          VerticalSizedBox(),
+          Row(
+            children: [
+              Expanded(
+                child: CustomCard(
+                  content: Column(
+                    children: [
+                      customTitleText(maxLines: 1, text: '12'),
+                      customSmallLabelText(text: 'Gerai Aktif'),
+                    ],
+                  ),
+                ),
+              ),
+              HorizontalSizedBox(),
+              Expanded(
+                child: CustomCard(
+                  content: Column(
+                    children: [
+                      customTitleText(maxLines: 1, text: '12'),
+                      customSmallLabelText(text: 'Gerai Aktif'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

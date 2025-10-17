@@ -27,7 +27,7 @@ class ProductView extends GetView<ProductController> {
                 onTap: () => Get.toNamed(Routes.MENU_LIST),
               ),
               CustomNavItem(
-                title: 'Kategori',
+                title: 'Kategori Menu',
                 subTitle: '${controller.menuCategoryCount} item',
                 onTap: () => Get.toNamed(Routes.MENU_CATEGORY_LIST),
               ),

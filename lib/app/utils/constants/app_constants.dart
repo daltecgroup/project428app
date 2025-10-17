@@ -7,9 +7,9 @@ class AppConstants {
   // --- Application Information ---
   static const String APP_NAME = 'BATMANPOS';
   static const String APP_TITLE = 'Batman POS';
-  static const String APP_VERSION_PROD = '1.0.8';
-  static const String APP_VERSION_DEV = 'V1.0.8 build 25 | ClOSED TESTING';
-  static const String APP_BUILD_NUMBER = '25';
+  static const String APP_VERSION_PROD = '1.0.9';
+  static const String APP_VERSION_DEV = 'V1.0.9 build 25 | ClOSED TESTING';
+  static const String APP_BUILD_NUMBER = '26';
   static const String APP_VERSION = ENVIRONMENT_SETTING == ENV_PROD
       ? APP_VERSION_PROD
       : APP_VERSION_DEV;

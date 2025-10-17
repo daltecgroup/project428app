@@ -18,40 +18,42 @@ class BottomNavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.bottomCenter,
-      padding: const EdgeInsets.only(
-        bottom: AppConstants.DEFAULT_PADDING,
-        left: AppConstants.DEFAULT_PADDING,
-        right: AppConstants.DEFAULT_PADDING,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: TextButton(
-              onPressed: backCb ?? () => Get.back(),
-              child: Text(
-                backBtn ?? StringValue.BACK,
-                style: TextStyle(fontSize: AppConstants.DEFAULT_FONT_SIZE),
-              ),
-            ),
-          ),
-          SizedBox(width: AppConstants.DEFAULT_PADDING),
-          Expanded(
-            child: ElevatedButton(
-              style: nextButtonStyle(),
-              onPressed: nextCb ?? () {},
-              child: Text(
-                nextBtn ?? StringValue.SUBMIT,
-                style: TextStyle(
-                  fontSize: AppConstants.DEFAULT_FONT_SIZE,
-                  color: Colors.white,
+    return SafeArea(
+      child: Container(
+        alignment: Alignment.bottomCenter,
+        padding: const EdgeInsets.only(
+          bottom: AppConstants.DEFAULT_PADDING,
+          left: AppConstants.DEFAULT_PADDING,
+          right: AppConstants.DEFAULT_PADDING,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: TextButton(
+                onPressed: backCb ?? () => Get.back(),
+                child: Text(
+                  backBtn ?? StringValue.BACK,
+                  style: TextStyle(fontSize: AppConstants.DEFAULT_FONT_SIZE),
                 ),
               ),
             ),
-          ),
-        ],
+            SizedBox(width: AppConstants.DEFAULT_PADDING),
+            Expanded(
+              child: ElevatedButton(
+                style: nextButtonStyle(),
+                onPressed: nextCb ?? () {},
+                child: Text(
+                  nextBtn ?? StringValue.SUBMIT,
+                  style: TextStyle(
+                    fontSize: AppConstants.DEFAULT_FONT_SIZE,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -196,7 +196,9 @@ class OutletOverviewTab extends StatelessWidget {
                               SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent: customWidth,
                                 mainAxisExtent:
-                                    customWidth + AppConstants.DEFAULT_PADDING,
+                                    customWidth +
+                                    AppConstants.DEFAULT_PADDING +
+                                    6,
                                 mainAxisSpacing: AppConstants.DEFAULT_PADDING,
                                 crossAxisSpacing: AppConstants.DEFAULT_PADDING,
                               ),
