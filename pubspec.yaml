@@ -2,7 +2,7 @@ name: abg_pos_app
 description: "A point of sale system for Aroma business group."
 publish_to: 'none'
 
-version: 1.0.9+26
+version: 1.0.9+27
 
 environment:
   sdk: ^3.8.1
