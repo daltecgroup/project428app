@@ -35,7 +35,7 @@ class AppConstants {
       : BASE_API_URL_DEV_IMAGE;
 
   static const int API_TIMEOUT_SECONDS = 30; // Global API request timeout
-  static const int SYNC_TIMER = 10;
+  static const int SYNC_TIMER = 300;
   static const bool RUN_SYNC_TIMER = ENVIRONMENT_SETTING == ENV_PROD
       ? true
       : false;

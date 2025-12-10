@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/routes/app_pages.dart';
 import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class BuyGetPromoView extends GetView<BuyGetPromoController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBarLite(title: 'Beli N Gratis N'),
+      appBar: customAppBarLite(title: 'Beli N Gratis N', backRoute: Routes.PROMO),
       body: Obx(() {
         final setting = controller.data.getPromoSetting(
           AppConstants.PROMO_SETTING_BUY_GET,

@@ -1,3 +1,4 @@
+import 'package:abg_pos_app/app/routes/app_pages.dart';
 import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 
 import '../controllers/spend_get_promo_controller.dart';
@@ -15,7 +16,7 @@ class SpendGetPromoView extends GetView<SpendGetPromoController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBarLite(title: 'Belanja N Gratis N'),
+      appBar: customAppBarLite(title: 'Belanja N Gratis N', backRoute: Routes.PROMO),
       body: Obx(() {
         final setting = controller.data.getPromoSetting(
           AppConstants.PROMO_SETTING_SPEND_GET,
