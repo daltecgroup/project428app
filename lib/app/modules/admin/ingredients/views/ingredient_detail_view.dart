@@ -96,7 +96,7 @@ class IngredientDetailView extends GetView<IngredientDetailController> {
                                 ),
                               ],
                             ),
-                            VerticalSizedBox(),
+                            VerticalSizedBox(height: 2,),
                             Row(
                               children: [
                                 Expanded(

@@ -23,6 +23,8 @@ import '../modules/_features/ingredient_purchase_input/bindings/ingredient_purch
 import '../modules/_features/ingredient_purchase_input/views/ingredient_purchase_input_view.dart';
 import '../modules/_features/notification/bindings/notification_binding.dart';
 import '../modules/_features/notification/views/notification_view.dart';
+import '../modules/_features/notification_detail/bindings/notification_detail_binding.dart';
+import '../modules/_features/notification_detail/views/notification_detail_view.dart';
 import '../modules/_features/order/bindings/order_binding.dart';
 import '../modules/_features/order/views/order_detail_view.dart';
 import '../modules/_features/order/views/order_input_view.dart';
@@ -41,6 +43,8 @@ import '../modules/_features/outlet_inventory_list/bindings/outlet_inventory_lis
 import '../modules/_features/outlet_inventory_list/views/outlet_inventory_list_view.dart';
 import '../modules/_features/outlet_menu_pricing/bindings/outlet_menu_pricing_binding.dart';
 import '../modules/_features/outlet_menu_pricing/views/outlet_menu_pricing_view.dart';
+import '../modules/_features/outlet_menu_pricing_detail/bindings/outlet_menu_pricing_detail_binding.dart';
+import '../modules/_features/outlet_menu_pricing_detail/views/outlet_menu_pricing_detail_view.dart';
 import '../modules/_features/outlet_order_list/bindings/outlet_order_list_binding.dart';
 import '../modules/_features/outlet_order_list/views/outlet_order_list_view.dart';
 import '../modules/_features/outlet_sale_list/bindings/outlet_sale_list_binding.dart';
@@ -83,6 +87,10 @@ import '../modules/admin/promo/views/bundle_list_view.dart';
 import '../modules/admin/promo/views/buy_get_promo_view.dart';
 import '../modules/admin/promo/views/promo_view.dart';
 import '../modules/admin/promo/views/spend_get_promo_view.dart';
+import '../modules/admin/request/bindings/request_binding.dart';
+import '../modules/admin/request/views/request_view.dart';
+import '../modules/_features/request_detail/bindings/request_detail_binding.dart';
+import '../modules/_features/request_detail/views/request_detail_view.dart';
 import '../modules/admin/user/bindings/add_user_binding.dart';
 import '../modules/admin/user/bindings/edit_user_binding.dart';
 import '../modules/admin/user/bindings/user_detail_binding.dart';
@@ -107,8 +115,8 @@ import '../modules/operator/operator_sale_detail/bindings/operator_sale_detail_b
 import '../modules/operator/operator_sale_detail/views/operator_sale_detail_view.dart';
 import '../modules/operator/sale/bindings/sale_binding.dart';
 import '../modules/operator/sale/views/sale_view.dart';
-import '../modules/_features/outlet_menu_pricing_detail/bindings/outlet_menu_pricing_detail_binding.dart';
-import '../modules/_features/outlet_menu_pricing_detail/views/outlet_menu_pricing_detail_view.dart';
+import '../modules/operator/operator_request/bindings/operator_request_binding.dart';
+import '../modules/operator/operator_request/views/operator_request_view.dart';
 import '../modules/spvarea/spvarea_dashboard/bindings/spvarea_dashboard_binding.dart';
 import '../modules/spvarea/spvarea_dashboard/views/spvarea_dashboard_view.dart';
 
@@ -441,6 +449,26 @@ class AppPages {
       name: _Paths.OUTLET_MENU_PRICING_DETAIL,
       page: () => const OutletMenuPricingDetailView(),
       binding: OutletMenuPricingDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION_DETAIL,
+      page: () => const NotificationDetailView(),
+      binding: NotificationDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.REQUEST,
+      page: () => const RequestView(),
+      binding: RequestBinding(),
+    ),
+    GetPage(
+      name: _Paths.REQUEST_DETAIL,
+      page: () => const RequestDetailView(),
+      binding: RequestDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.OPERATOR_REQUEST,
+      page: () => const OperatorRequestView(),
+      binding: OperatorRequestBinding(),
     ),
   ];
 }

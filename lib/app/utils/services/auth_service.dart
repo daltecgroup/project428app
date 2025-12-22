@@ -333,7 +333,7 @@ class AuthService extends GetxService {
           } else {
             Get.offNamed(Routes.SELECT_ROLE);
           }
-          successSnackbar('Anda Berhasil Login');
+          // successSnackbar('Anda Berhasil Login');
           break;
         case 410:
           customAlertDialog(

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 class SettingService extends GetxService {
   RxString currentRole = ''.obs;
+  RxList<String> navigationHistory = <String>[].obs;
 
   @override
   void onInit() {
@@ -18,6 +19,10 @@ class SettingService extends GetxService {
   void onClose() {
     super.onClose();
   }
+
+  // get current route in navigationHistory
+  String get currentRoute => navigationHistory.isNotEmpty ? navigationHistory.last : '/';
+  
 
   ThemeData get currentTheme {
     var selectedColor = Colors.lightBlueAccent;

@@ -1,6 +1,7 @@
 import 'package:abg_pos_app/app/shared/custom_appbar.dart';
 import 'package:abg_pos_app/app/shared/custom_drawer.dart';
 import 'package:abg_pos_app/app/shared/pages/order_list/views/order_list.dart';
+import 'package:abg_pos_app/app/utils/helpers/outlet_helper.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -14,7 +15,7 @@ class OperatorOrderListView extends GetView<OperatorOrderListController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar('Pesanan'),
+      appBar: customAppBar('Pesanan', subtitle: currentOutletName),
       drawer: customDrawer(),
       body: OrderList(controller: controller.listController),
       floatingActionButton: FloatingAddButton(

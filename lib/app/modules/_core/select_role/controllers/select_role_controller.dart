@@ -55,9 +55,15 @@ class SelectRoleController extends GetxController {
       return customAlertDialog('Anda belum ditugaskan di Gerai manapun');
     }
 
-    final Outlet? selectedOutlet = outlets.length == 1
-        ? outlets.first
-        : await Get.toNamed(Routes.SELECT_OUTLET) as Outlet?;
+
+
+    final Outlet? selectedOutlet;
+    
+    if(outlets.length == 1) {
+      selectedOutlet = outlets.first;
+    } else {
+      selectedOutlet = await Get.toNamed(Routes.SELECT_OUTLET) as Outlet?;
+    }
 
     if (selectedOutlet == null) {
       return;

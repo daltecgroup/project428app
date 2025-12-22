@@ -5,18 +5,19 @@ import '../utils/theme/custom_text.dart';
 
 PreferredSizeWidget customAppBarLite({
   BuildContext? context,
-  required String title,
+  String? title,
   String? subtitle,
   List<Widget>? actions,
   String? backRoute,
   dynamic result,
   bool enableLeading = true,
+  Widget? titleWidget
 }) {
   return AppBar(
-    title: Column(
+    title: titleWidget ?? Column(
       children: [
         customTitleText(
-          text: title,
+          text: title??'',
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),

@@ -16,7 +16,7 @@ class SelectOutletView extends GetView<SelectOutletController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBarLite(title: 'Pilih Gerai'),
+      appBar: customAppBarLite(title: 'Pilih Gerai', backRoute: Get.previousRoute),
       body: RefreshIndicator(
         onRefresh: controller.refreshData,
         child: Padding(
@@ -58,10 +58,7 @@ class SelectOutletView extends GetView<SelectOutletController> {
                   text: outlet.address.street,
                 ),
                 image: svg,
-                onTap: () {
-                  // on tap
-                  Get.back(result: outlet);
-                },
+                onTap: () => Get.back(result: outlet, closeOverlays: true),
               ),
             ),
           ],

@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:abg_pos_app/app/controllers/outlet_data_controller.dart';
+import 'package:abg_pos_app/app/controllers/request_data_controller.dart';
 import 'package:abg_pos_app/app/controllers/user_data_controller.dart';
 import 'package:abg_pos_app/app/data/models/OrderItem.dart';
+import 'package:abg_pos_app/app/utils/constants/string_value.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../controllers/order_data_controller.dart';
@@ -15,10 +17,12 @@ class OrderDetailController extends GetxController {
     required this.data,
     required this.outletData,
     required this.userData,
+    required this.requestData,
   });
   final OrderDataController data;
   final OutletDataController outletData;
   final UserDataController userData;
+  final RequestDataController requestData;
   final String backRoute = Get.previousRoute;
 
   @override
@@ -38,20 +42,20 @@ class OrderDetailController extends GetxController {
 
   Future<void> refreshData() async => await data.syncData(refresh: true);
 
-  void acceptOrderItem(OrderItem item) {
+  Future<void> acceptOrderItem(OrderItem item) async {
     final updateData = {};
     updateData['items'] = [
       {'ingredientId': item.ingredientId, 'isAccepted': true},
     ];
-    customConfirmationDialog(
+    await customConfirmationDialog(
       'Apakah yakin jumlah \'${normalizeName(item.name)}\' yang diterima sebesar ${inLocalNumber(item.qty / 1000)} Kg ?',
       () async {
-        Get.back();
-        Future.delayed(Durations.short1);
+        await Future.delayed(Durations.short1);
         await data.updateOrder(
           id: data.selectedOrder.value!.id,
           data: json.encode(updateData),
         );
+        Get.back();
       },
     );
   }
@@ -95,5 +99,20 @@ class OrderDetailController extends GetxController {
         data: json.encode({'status': status}),
       );
     }
+  }
+
+  Future<void> createDeleteRequest() async {
+    final selectedOrder = data.selectedOrder.value;
+
+    if (selectedOrder == null) {
+      await customAlertDialog('Tidak ada pesanan yang dipilih');
+      return;
+    }
+    
+    requestData.createRequest(
+      selectedOrder.outlet.outletId,
+      StringValue.DEL_ORDER,
+      selectedOrder.id,
+    );
   }
 }

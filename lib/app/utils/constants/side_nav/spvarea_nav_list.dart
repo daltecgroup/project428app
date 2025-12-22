@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../routes/app_pages.dart';
-import '../../shared/custom_drawer.dart';
+import '../../../routes/app_pages.dart';
+import '../../../shared/custom_drawer.dart';
 
 List<DrawerItem> get spvareaNav {
   return [

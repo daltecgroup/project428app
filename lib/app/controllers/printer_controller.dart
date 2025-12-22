@@ -133,6 +133,16 @@ class PrinterController extends GetxController {
             '${single.name.toUpperCase().padRight(21, ' ')}${'${single.qty.round()}'.padRight(3)}${'${(single.price * single.qty).round()}'.padLeft(8, ' ')}',
         style: EscTextStyle.default_,
       );
+      if (single.addons.isNotEmpty) {
+        for (var addon in single.addons) {
+          await escCommand.newline();
+          await escCommand.text(
+            content:
+                '  + ${addon.name.toUpperCase().padRight(14, ' ')} (${inLocalNumber(addon.price)})',
+            style: EscTextStyle.default_,
+          );
+        }
+      }
     }
 
     for (var promo in saleData.itemPromo) {

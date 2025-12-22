@@ -65,6 +65,10 @@ abstract class Routes {
   static const OUTLET_INVENTORY_HISTORY = _Paths.OUTLET_INVENTORY_HISTORY;
   static const OUTLET_MENU_PRICING = _Paths.OUTLET_MENU_PRICING;
   static const OUTLET_MENU_PRICING_DETAIL = _Paths.OUTLET_MENU_PRICING_DETAIL;
+  static const NOTIFICATION_DETAIL = _Paths.NOTIFICATION_DETAIL;
+  static const REQUEST = _Paths.REQUEST;
+  static const REQUEST_DETAIL = _Paths.REQUEST_DETAIL;
+  static const OPERATOR_REQUEST = _Paths.OPERATOR_REQUEST;
 }
 
 abstract class _Paths {
@@ -131,4 +135,8 @@ abstract class _Paths {
   static const OUTLET_INVENTORY_HISTORY = '/outlet-inventory-history';
   static const OUTLET_MENU_PRICING = '/outlet-menu-pricing';
   static const OUTLET_MENU_PRICING_DETAIL = '/outlet-menu-pricing-detail';
+  static const NOTIFICATION_DETAIL = '/notification-detail';
+  static const REQUEST = '/request';
+  static const REQUEST_DETAIL = '/request-detail';
+  static const OPERATOR_REQUEST = '/operator-request';
 }

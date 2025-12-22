@@ -19,3 +19,5 @@ bool get isOperator {
   return box.getValue(AppConstants.KEY_CURRENT_ROLE) ==
       AppConstants.ROLE_OPERATOR;
 }
+
+String? get getCurrentRole => box.getValue(AppConstants.KEY_CURRENT_ROLE);

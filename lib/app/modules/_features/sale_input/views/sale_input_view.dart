@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:abg_pos_app/app/shared/buttons/custom_text_button.dart';
 import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/time_helper.dart';
@@ -45,6 +47,11 @@ class SaleInputView extends GetView<SaleInputController> {
         final promoBuyGetSetting = controller.promoSettingData.getPromoSetting(
           AppConstants.PROMO_SETTING_BUY_GET,
         );
+        final paymentEvidenceImg =
+            controller.currentPendingSale!.paymentEvidenceImg;
+
+        final currentSale = controller.currentPendingSale!;
+
         final promoSpendGetSetting = controller.promoSettingData
             .getPromoSetting(AppConstants.PROMO_SETTING_SPEND_GET);
 
@@ -231,89 +238,23 @@ class SaleInputView extends GetView<SaleInputController> {
                           customInputTitleText(text: 'Bukti Transaksi'),
                           CustomTextButton(
                             title: 'Unggah Bukti',
-                            onPressed: () {
-                              controller.imagePickerController.pickImage(
+                            onPressed: () async {
+                              currentSale.addPaymentEvidenceImgPath(await controller.imagePickerController.pickImage(
                                 ImageSource.camera,
-                              );
+                              )); 
+                              // await controller.imagePickerController.pickImage(
+                              //  ImageSource.camera,
+                              // );
                             },
                           ),
                         ],
                       ),
-                      if (selectedImage != null)
-                        CustomNavItem(
-                          disablePaddingRight: true,
-                          marginBottom: false,
-                          trailing: IconButton(
-                            onPressed: () {
-                              controller
-                                      .imagePickerController
-                                      .selectedImage
-                                      .value =
-                                  null;
-                            },
-                            icon: Icon(Icons.close),
-                          ),
-                          onTap: () {
-                            Get.dialog(
-                              Stack(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(
-                                      AppConstants.DEFAULT_PADDING * 2,
-                                    ),
-                                    child: Image.file(
-                                      controller
-                                          .imagePickerController
-                                          .selectedImage
-                                          .value!,
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                      icon: Icon(Icons.close),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          title: localDateFormat(
-                            controller
-                                .imagePickerController
-                                .selectedImage
-                                .value!
-                                .lastModifiedSync(),
-                          ),
-                          subTitle: localTimeFormat(
-                            controller
-                                .imagePickerController
-                                .selectedImage
-                                .value!
-                                .lastModifiedSync(),
-                          ),
-                          leading: SizedBox(
-                            width: 36,
-                            height: 36,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                AppConstants.DEFAULT_BORDER_RADIUS - 2,
-                              ),
-                              child: Image.file(
-                                fit: BoxFit.cover,
-                                controller
-                                    .imagePickerController
-                                    .selectedImage
-                                    .value!,
-                              ),
-                            ),
-                          ),
-                        ),
+                      // if (selectedImage != null) ...[
+                      //   EvidenceImgFromMemory(controller: controller),
+                      // ],
+                      // const VerticalSizedBox(height: 1),
+                      if (paymentEvidenceImg != '')
+                        EvidenceImgFromStorage(controller: controller),
                     ],
                   ),
                 ),
@@ -432,6 +373,129 @@ class SaleInputView extends GetView<SaleInputController> {
           ],
         );
       }),
+    );
+  }
+}
+
+class EvidenceImgFromMemory extends StatelessWidget {
+  const EvidenceImgFromMemory({super.key, required this.controller});
+
+  final SaleInputController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomNavItem(
+      disablePaddingRight: true,
+      marginBottom: false,
+      trailing: IconButton(
+        onPressed: () {
+          controller.imagePickerController.selectedImage.value = null;
+        },
+        icon: Icon(Icons.close),
+      ),
+      onTap: () {
+        Get.dialog(
+          Stack(
+            children: [
+              Container(
+                padding: EdgeInsets.all(AppConstants.DEFAULT_PADDING * 2),
+                child: Image.file(
+                  controller.imagePickerController.selectedImage.value!,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(Icons.close),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      title: localDateFormat(
+        controller.imagePickerController.selectedImage.value!
+            .lastModifiedSync(),
+      ),
+      subTitle: localTimeFormat(
+        controller.imagePickerController.selectedImage.value!
+            .lastModifiedSync(),
+      ),
+      leading: SizedBox(
+        width: 36,
+        height: 36,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(
+            AppConstants.DEFAULT_BORDER_RADIUS - 2,
+          ),
+          child: Image.file(
+            fit: BoxFit.cover,
+            controller.imagePickerController.selectedImage.value!,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class EvidenceImgFromStorage extends StatelessWidget {
+  const EvidenceImgFromStorage({super.key, required this.controller});
+
+  final SaleInputController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final evidence = controller.currentPendingSale!.paymentEvidenceImg;
+    return CustomNavItem(
+      disablePaddingRight: true,
+      marginBottom: false,
+      trailing: IconButton(
+        onPressed: () {
+          controller.service.selectedPendingSale.value!
+              .removePaymentEvidenceImgPath();
+              controller.service.selectedPendingSale.refresh();
+        },
+        icon: Icon(Icons.close),
+      ),
+      onTap: () {
+        Get.dialog(
+          Stack(
+            children: [
+              Container(
+                padding: EdgeInsets.all(AppConstants.DEFAULT_PADDING * 2),
+                child: Image.file(File(evidence), fit: BoxFit.contain),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(Icons.close),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      title: localDateFormat(File(evidence).lastModifiedSync()),
+      subTitle: localTimeFormat(File(evidence).lastModifiedSync()),
+      leading: SizedBox(
+        width: 36,
+        height: 36,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(
+            AppConstants.DEFAULT_BORDER_RADIUS - 2,
+          ),
+          child: Image.file(fit: BoxFit.cover, File(evidence)),
+        ),
+      ),
     );
   }
 }

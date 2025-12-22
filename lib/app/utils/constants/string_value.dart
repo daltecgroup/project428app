@@ -5,6 +5,7 @@ class StringValue {
   static const String USER_DETAIL = 'Detail Pengguna';
   static const String NOTIFICATION = 'Notifikasi';
   static const String CONFIRMATION = 'Konfirmasi';
+  static const String REQUEST = 'Permintaan';
 
   // --- button text ---
   static const String BACK = 'Kembali';
@@ -105,4 +106,17 @@ class StringValue {
 
   // --- error text ---
   static const String ROLE_MUST_NOT_EMPTY = 'Peran tidak boleh kosong';
+
+  // --- request types ---
+  static const String DEL_ORDER = 'delete_order';
+  static const String DEL_SALE = 'delete_sale';
+
+  // --- request response ---
+  static const String REQ_APPROVE = 'approve';
+  static const String REQ_REJECT = 'reject';
+
+  // --- request status ---
+  static const String STATUS_PENDING = 'pending';
+  static const String STATUS_APPROVED = 'approved';
+  static const String STATUS_REJECTED = 'rejected';
 }

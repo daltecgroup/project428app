@@ -95,7 +95,7 @@ class UserDetailView extends GetView<UserDetailController> {
                         customCaptionText(text: data.phone ?? '-'),
                       ],
                     ),
-                    VerticalSizedBox(),
+                    const VerticalSizedBox(),
                     Row(
                       children: [
                         Expanded(
@@ -107,7 +107,7 @@ class UserDetailView extends GetView<UserDetailController> {
                             child: Text(StringValue.EDIT_DATA),
                           ),
                         ),
-                        SizedBox(width: AppConstants.DEFAULT_HORIZONTAL_MARGIN),
+                        const SizedBox(width: AppConstants.DEFAULT_HORIZONTAL_MARGIN),
                         Expanded(
                           child: TextButton(
                             onPressed: () {

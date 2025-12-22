@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../routes/app_pages.dart';
-import '../../shared/custom_drawer.dart';
+import '../../../routes/app_pages.dart';
+import '../../../shared/custom_drawer.dart';
 
 List<DrawerItem> get operatorNav {
   return [
@@ -31,6 +31,11 @@ List<DrawerItem> get operatorNav {
       title: 'Presensi',
       route: Routes.OPERATOR_ATTENDANCE,
       icon: Icons.list_alt_outlined,
+    ),
+    DrawerItem(
+      title: 'Permintaan',
+      route: Routes.OPERATOR_REQUEST,
+      icon: Icons.request_quote_outlined,
     ),
   ];
 }

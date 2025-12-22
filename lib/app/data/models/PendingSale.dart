@@ -93,6 +93,8 @@ class PendingSale {
   final List<PendingSaleItemBundle> itemBundle = [];
   final List<PendingSaleItemPromo> itemPromo = [];
 
+  String paymentEvidenceImg = '';
+
   Future<void> removeItemSingle(int index) async {
     await customDeleteAlertDialog('Yakin menghapus item?', () {
       Get.back();
@@ -138,5 +140,13 @@ class PendingSale {
       itemPromo.clear();
       itemPromo.add(item);
     }
+  }
+
+  void addPaymentEvidenceImgPath(String path){
+    paymentEvidenceImg = path;
+  }
+
+  void removePaymentEvidenceImgPath(){
+    paymentEvidenceImg = '';
   }
 }

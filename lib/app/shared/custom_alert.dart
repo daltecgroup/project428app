@@ -261,7 +261,7 @@ Future<String?> customTextInputDialog({
     ),
     cancel: TextButton(
       onPressed: () {
-        Get.back();
+        Get.back(result: null);
       },
       child: Text(StringValue.CANCEL),
     ),

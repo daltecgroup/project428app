@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:abg_pos_app/app/controllers/image_picker_controller.dart';
 import 'package:abg_pos_app/app/controllers/sale_data_controller.dart';
 import 'package:abg_pos_app/app/utils/helpers/get_storage_helper.dart';
@@ -169,7 +171,7 @@ class SaleInputController extends GetxController {
       contentPadding: EdgeInsets.all(AppConstants.DEFAULT_PADDING),
       content: Container(
         constraints: BoxConstraints(
-          maxHeight: Get.height - 200,
+          maxHeight: Get.height - 300,
           maxWidth: Get.width - 40,
         ),
         child: SingleChildScrollView(
@@ -182,6 +184,7 @@ class SaleInputController extends GetxController {
                   onTap: () {
                     Get.back(result: addon.id);
                   },
+                  
                 ),
               ),
             ],
@@ -352,6 +355,7 @@ class SaleInputController extends GetxController {
           paymentMethods[selectedPaymentMethod.value],
         ),
       );
+
       final imageFile = imagePickerController.selectedImage.value;
 
       if (imageFile != null) {
@@ -367,6 +371,22 @@ class SaleInputController extends GetxController {
             ),
           ),
         );
+      } else {
+        if(service.selectedPendingSale.value!.paymentEvidenceImg != ''){
+          final localImgFile = File(service.selectedPendingSale.value!.paymentEvidenceImg);
+          final mimeType = lookupMimeType(localImgFile.path)!;
+          formData.files.add(
+            MapEntry(
+            'paymentEvidence',
+            MultipartFile(
+              File(service.selectedPendingSale.value!.paymentEvidenceImg),
+              filename:
+                  'img-${currentPendingSale!.id}.${localImgFile.path.split('.').last}',
+              contentType: mimeType,
+            ),
+          ),
+          );
+        }
       }
 
       final itemSingle = currentPendingSale!.itemSingle;

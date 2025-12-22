@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'app/routes/app_pages.dart';
+import 'app/utils/services/notification_service.dart';
 import 'app/utils/services/setting_service.dart';
 import 'app/utils/services/connectivity_service.dart';
 import 'app/utils/helpers/get_storage_helper.dart';
@@ -21,6 +22,11 @@ Future<void> main() async {
   await Get.putAsync(() async => SettingService(), permanent: true);
   await Get.putAsync(() async => ConnectivityService(), permanent: true);
   await Get.putAsync(() async => AuthService(), permanent: true);
+
+  // Inisialisasi Service Notifikasi
+  final notificationService = NotificationService();
+  await notificationService.init();
+  Get.put(notificationService); // Masukkan ke memori GetX
   runApp(const MyApp());
 }
 

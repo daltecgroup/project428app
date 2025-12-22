@@ -7,9 +7,9 @@ class AppConstants {
   // --- Application Information ---
   static const String APP_NAME = 'BATMANPOS';
   static const String APP_TITLE = 'Batman POS';
-  static const String APP_VERSION_PROD = '1.0.9';
-  static const String APP_VERSION_DEV = 'V1.0.9 build 25 | ClOSED TESTING';
-  static const String APP_BUILD_NUMBER = '26';
+  static const String APP_VERSION_PROD = '1.0.12';
+  static const String APP_VERSION_DEV = 'V1.0.12 build 31 | ClOSED TESTING';
+  static const String APP_BUILD_NUMBER = '31';
   static const String APP_VERSION = ENVIRONMENT_SETTING == ENV_PROD
       ? APP_VERSION_PROD
       : APP_VERSION_DEV;
@@ -35,7 +35,7 @@ class AppConstants {
       : BASE_API_URL_DEV_IMAGE;
 
   static const int API_TIMEOUT_SECONDS = 30; // Global API request timeout
-  static const int SYNC_TIMER = 300;
+  static const int SYNC_TIMER = 3600;
   static const bool RUN_SYNC_TIMER = ENVIRONMENT_SETTING == ENV_PROD
       ? true
       : false;
@@ -56,6 +56,7 @@ class AppConstants {
       'ingredient_data_latest_update';
   static const String KEY_MENU_CATEOGORY_LATEST = 'menu_category_latest_update';
   static const String KEY_ADDON_LATEST = 'addon_latest_update';
+  static const String KEY_REQUEST_LATEST = 'request_latest_update';
   static const String KEY_SALE_LATEST = 'sale_latest_update';
   static const String KEY_OIT_LATEST = 'oit_latest_update';
   static const String KEY_MENU_LATEST = 'menu_latest_update';
@@ -65,6 +66,7 @@ class AppConstants {
   static const String KEY_PROMO_SETTING_LATEST = 'promo_setting_latest_update';
   static const String KEY_ORDER_LATEST = 'order_latest_update';
   static const String KEY_BUNDLE_LATEST = 'bundle_latest_update';
+  static const String KEY_ADMIN_NOTIFICATION_LATEST = 'admin_notification_latest_update';
 
   // --- File name ---
   static const String FILENAME_USER_DATA = 'abg_pos_local_user_data.json';
@@ -73,6 +75,7 @@ class AppConstants {
   static const String FILENAME_MENU_CATEGORY_DATA =
       'abg_pos_local_menu_category_data.json';
   static const String FILENAME_ADDON_DATA = 'abg_pos_local_addon_data.json';
+  static const String FILENAME_REQUEST_DATA = 'abg_pos_local_request_data.json';
   static const String FILENAME_SALE_DATA = 'abg_pos_local_sale_data.json';
   static const String FILENAME_MENU_DATA = 'abg_pos_local_menu_data.json';
   static const String FILENAME_OUTLET_DATA = 'abg_pos_local_outlet_data.json';
@@ -84,6 +87,7 @@ class AppConstants {
       'abg_pos_local_promo_setting_data.json';
   static const String FILENAME_ORDER_DATA = 'abg_pos_local_order_data.json';
   static const String FILENAME_BUNDLE_DATA = 'abg_pos_local_bundle_data.json';
+  static const String FILENAME_ADMIN_NOTIFICATION_DATA = 'abg_pos_local_admin_notification_data.json';
   static const String FILENAME_USER_OUTLET_DATA =
       'abg_pos_local_user_outlet_data.json';
 

@@ -47,6 +47,17 @@ class SettingView extends GetView<SettingController> {
               onTap: () => controller.deleteLocalFiles(),
               trailing: SizedBox(),
             ),
+            CustomNavItem(
+              leading: Icon(Icons.notifications_active),
+              title: 'Tes Notifikasi',
+              onTap: () {
+                controller.notifService.showInstantNotification(
+                  "Tes Langsung",
+                  "Ini muncul detik ini juga!",
+                );
+              },
+              trailing: SizedBox(),
+            ),
           ],
         ),
       ),

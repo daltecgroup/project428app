@@ -41,12 +41,7 @@ class OperatorSaleDetailView extends GetView<OperatorSaleDetailController> {
                   child: Text('Cetak Nota'),
                 ),
                 PopupMenuItem(
-                  onTap: () {
-                    controller.deleteRequest(
-                      saleCode: sale.code,
-                      saleId: sale.id,
-                    );
-                  },
+                  onTap: () => controller.createDeleteRequest(),
                   child: Text(
                     'Minta Hapus',
                     style: TextStyle(color: Colors.red),

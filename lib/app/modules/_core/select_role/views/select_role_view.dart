@@ -124,8 +124,8 @@ class SelectRoleView extends GetView<SelectRoleController> {
                                 ? SelectRoleButton(
                                     title: 'Operator',
                                     color: Colors.redAccent,
-                                    onPressed: () {
-                                      controller.loginAsOperator();
+                                    onPressed: () async {
+                                      await controller.loginAsOperator();
                                     },
                                   )
                                 : SizedBox(),

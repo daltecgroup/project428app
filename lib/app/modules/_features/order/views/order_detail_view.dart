@@ -46,7 +46,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                   ),
                 if (isOperator)
                   PopupMenuItem(
-                    onTap: () {},
+                    onTap: () => controller.createDeleteRequest(),
                     child: Text(
                       'Minta Hapus',
                       style: TextStyle(color: Colors.red),

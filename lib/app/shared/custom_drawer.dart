@@ -6,10 +6,10 @@ import '../utils/theme/custom_text.dart';
 import '../utils/services/auth_service.dart';
 import '../utils/constants/app_constants.dart';
 import '../utils/services/setting_service.dart';
-import '../utils/constants/admin_nav_list.dart';
-import '../utils/constants/spvarea_nav_list.dart';
-import '../utils/constants/operator_nav_list.dart';
-import '../utils/constants/franchisee_nav_list.dart';
+import '../utils/constants/side_nav/admin_nav_list.dart';
+import '../utils/constants/side_nav/spvarea_nav_list.dart';
+import '../utils/constants/side_nav/operator_nav_list.dart';
+import '../utils/constants/side_nav/franchisee_nav_list.dart';
 
 Drawer customDrawer() {
   final setting = Get.find<SettingService>();
@@ -90,7 +90,12 @@ class DrawerListItem extends StatelessWidget {
       selectedTileColor: setting.currentTheme.highlightColor,
       trailing: indicator == null
           ? null
-          : Badge(label: Text(indicator.toString())),
+          : Badge(
+              label: Text(
+                indicator.toString(),
+                style: TextStyle(fontSize: AppConstants.DEFAULT_FONT_SIZE),
+              ),
+            ),
       onTap: () {
         // Handle item tap
         Get.toNamed(item.route);

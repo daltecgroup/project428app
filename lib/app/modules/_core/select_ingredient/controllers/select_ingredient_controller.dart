@@ -19,9 +19,9 @@ class SelectIngredientController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    super.onInit();
     await data.syncData(refresh: true);
     setRecipe(init: true);
+    super.onInit();
   }
 
   @override
@@ -51,7 +51,7 @@ class SelectIngredientController extends GetxController {
       ),
       cancel: TextButton(
         onPressed: () {
-          Get.back(result: currentQty ?? 0.0);
+          Get.back(result: currentQty ?? 0.0,);
           qtyC.clear();
         },
         child: Text(StringValue.CANCEL),
@@ -70,7 +70,7 @@ class SelectIngredientController extends GetxController {
       Get.back(result: double.parse(qtyC.text));
       qtyC.clear();
     } else {
-      Get.back(result: currentQty ?? 0.0);
+      Get.back(result: currentQty ?? 0.0,);
       qtyC.clear();
     }
   }

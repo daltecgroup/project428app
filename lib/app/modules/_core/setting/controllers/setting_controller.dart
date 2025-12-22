@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:abg_pos_app/app/modules/admin/product/controllers/product_controller.dart';
 import 'package:abg_pos_app/app/shared/custom_alert.dart';
 import 'package:abg_pos_app/app/utils/helpers/logger_helper.dart';
+import 'package:abg_pos_app/app/utils/services/notification_service.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/constants/app_constants.dart';
@@ -14,12 +15,16 @@ class SettingController extends GetxController {
 
   ProductController productController;
 
+  final NotificationService notifService = Get.find<NotificationService>();
+
   RxBool syncStatus = true.obs;
 
   @override
   Future<void> onInit() async {
     super.onInit();
     userDataFile = await getLocalFile(AppConstants.FILENAME_USER_DATA);
+    notifService.requestPermissions();
+
   }
 
   Future<void> deleteLocalFiles() async {

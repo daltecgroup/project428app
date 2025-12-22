@@ -15,8 +15,8 @@ class IngredientInputController extends GetxController {
   final String backRoute = Get.previousRoute;
 
   // text controllers
-  late TextEditingController nameC;
-  late TextEditingController priceC;
+  final TextEditingController nameC = TextEditingController();
+  final TextEditingController priceC =TextEditingController();
 
   // error boolean
   RxBool nameError = false.obs;
@@ -29,8 +29,6 @@ class IngredientInputController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    nameC = TextEditingController();
-    priceC = TextEditingController();
   }
 
   @override
