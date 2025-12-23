@@ -4,6 +4,9 @@ class NotificationDetailController extends GetxController {
 
    RxString title = 'Detail Notifikasi'.obs;
    RxString detail = '-'.obs;
+   RxString outlet = '-'.obs;
+   Rx<DateTime> createdAt = DateTime.now().obs;
+   RxString status = 'Baru'.obs;
   
   @override
   void onInit() {
@@ -26,6 +29,9 @@ class NotificationDetailController extends GetxController {
     if(argData == null) return;
     title.value = argData['title'] ?? title.value;
     detail.value = argData['detail'] ?? detail.value;
+    status.value = argData['status'] ?? status.value;
+    createdAt.value = DateTime.parse(argData['createdAt'] ?? createdAt.value.toString());
+    outlet.value = argData['outlet'] ?? outlet.value;
   
   }
 }

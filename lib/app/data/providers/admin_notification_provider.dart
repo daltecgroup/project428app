@@ -16,8 +16,8 @@ class AdminNotificationProvider extends GetConnect {
 
   Future<Response<List<AdminNotification>>> getAllNotifications() async {
     final Response response = await get(url);
-    if (response.isOk && response.body is List) {
-      final List<dynamic> jsonList = response.body;
+    if (response.isOk) {
+      final List<dynamic> jsonList = response.body['data']['notifications'];
       final List<AdminNotification> adminNotifications = jsonList
           .map((json) => AdminNotification.fromJson(json as Map<String, dynamic>))
           .toList();

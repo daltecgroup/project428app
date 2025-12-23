@@ -81,6 +81,21 @@ class PendingSaleItemBundle {
   }
 }
 
+class PendingSaleItemAddon {
+  String addonId;
+  int qty = 1;
+
+  PendingSaleItemAddon({required this.addonId});
+
+  void addQty() {
+    qty++;
+  }
+
+  void removeQty() {
+    qty = qty > 0 ? qty - 1 : 0;
+  }
+}
+
 class PendingSaleItemPromo {
   String menuId, promoType;
 
@@ -91,6 +106,7 @@ class PendingSale {
   final String id = DateTime.now().millisecondsSinceEpoch.toString();
   final List<PendingSaleItemSingle> itemSingle = [];
   final List<PendingSaleItemBundle> itemBundle = [];
+  final List<PendingSaleItemAddon> itemAddon = [];
   final List<PendingSaleItemPromo> itemPromo = [];
 
   String paymentEvidenceImg = '';
@@ -106,6 +122,13 @@ class PendingSale {
     await customDeleteAlertDialog('Yakin menghapus paket?', () {
       Get.back();
       itemBundle.removeAt(index);
+    });
+  }
+
+  Future<void> removeItemAddon(int index) async {
+    await customDeleteAlertDialog('Yakin menghapus AddOn?', () {
+      Get.back();
+      itemAddon.removeAt(index);
     });
   }
 
@@ -129,6 +152,10 @@ class PendingSale {
 
   void addBundleItem(PendingSaleItemBundle item) {
     itemBundle.add(item);
+  }
+
+  void addAddonItem(PendingSaleItemAddon item) {
+    itemAddon.add(item);
   }
 
   void addPromoItem(PendingSaleItemPromo item) {

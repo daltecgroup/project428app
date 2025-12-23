@@ -1,5 +1,6 @@
 import 'package:abg_pos_app/app/modules/operator/operator_request/widgets/operator_request_item.dart';
 import 'package:abg_pos_app/app/utils/helpers/outlet_helper.dart';
+import 'package:abg_pos_app/app/utils/theme/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../shared/custom_appbar.dart';
@@ -31,13 +32,28 @@ class OperatorRequestView extends GetView<OperatorRequestController> {
             padding: horizontalPadding,
             children: [
               const VerticalSizedBox(height: 2),
-              ...List.generate(
-                controller.data.requests.length,
-                (index) => OperatorRequestItem(
-                  request: controller.data.requests[index],
-                  controller: controller,
+              if (controller.data.pendingRequestCount > 0) ...[
+                customListHeaderText(text: 'Pending'),
+                VerticalSizedBox(height: 0.7),
+                ...controller.data.pendingRequests.map(
+                  (request) => OperatorRequestItem(
+                    request: request,
+                    controller: controller,
+                  ),
                 ),
-              ),
+                VerticalSizedBox(),
+              ],
+              if (controller.data.notPendingRequests.isNotEmpty) ...[
+                customListHeaderText(text: 'Riwayat Permintaan'),
+                VerticalSizedBox(height: 0.7),
+                ...controller.data.notPendingRequests.map(
+                  (request) => OperatorRequestItem(
+                    request: request,
+                    controller: controller,
+                  ),
+                ),
+                VerticalSizedBox(),
+              ],
             ],
           );
         }),

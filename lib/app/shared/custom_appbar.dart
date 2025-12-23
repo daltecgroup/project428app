@@ -1,5 +1,7 @@
 import 'package:abg_pos_app/app/routes/app_pages.dart';
 import 'package:abg_pos_app/app/utils/constants/app_constants.dart';
+import 'package:abg_pos_app/app/utils/helpers/user_helper.dart';
+import 'package:abg_pos_app/app/utils/services/notification_service.dart';
 import 'package:abg_pos_app/app/utils/theme/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,8 @@ PreferredSizeWidget customAppBar(
   String? subtitle,
   IconButton? actionButton,
 }) {
+
+  
   return AppBar(
     title: Column(
       children: [
@@ -43,7 +47,7 @@ PreferredSizeWidget customAppBar(
             icon: Stack(
               children: <Widget>[
                 Icon(Icons.notifications),
-                Positioned(top: 0.0, right: 0.0, child: Badge(label: Text("1"))),
+                NotificationIndicatorBadge(),
               ],
             ),
             onPressed: () {
@@ -53,4 +57,23 @@ PreferredSizeWidget customAppBar(
       SizedBox(width: AppConstants.DEFAULT_PADDING),
     ],
   );
+}
+
+class NotificationIndicatorBadge extends StatelessWidget {
+  NotificationIndicatorBadge({
+    super.key,
+  });
+
+  final NotificationService notifService = Get.find<NotificationService>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+    () {
+      int count = notifService.unreadNotificationCount;
+        if(isAdmin) return count>0? Positioned(top: 0.0, right: 0.0, child: Badge(label: Text(count.toString()))): const SizedBox.shrink();
+        return notifService.currentNotificationCount.value > 0 ? Positioned(top: 0.0, right: 0.0, child: Badge(label: Text(notifService.currentNotificationCount.value.toString()))) : const SizedBox.shrink();
+      }
+    );
+  }
 }

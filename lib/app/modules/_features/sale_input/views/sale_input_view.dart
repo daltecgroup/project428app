@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:abg_pos_app/app/modules/_features/sale_input/widgets/sale_addon_item.dart';
 import 'package:abg_pos_app/app/shared/buttons/custom_text_button.dart';
 import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
 import 'package:abg_pos_app/app/utils/helpers/time_helper.dart';
@@ -44,6 +45,8 @@ class SaleInputView extends GetView<SaleInputController> {
             controller.service.selectedPendingSale.value!.itemBundle;
         final singles =
             controller.service.selectedPendingSale.value!.itemSingle;
+
+        final addons = controller.service.selectedPendingSale.value!.itemAddon;
         final promoBuyGetSetting = controller.promoSettingData.getPromoSetting(
           AppConstants.PROMO_SETTING_BUY_GET,
         );
@@ -55,8 +58,9 @@ class SaleInputView extends GetView<SaleInputController> {
         final promoSpendGetSetting = controller.promoSettingData
             .getPromoSetting(AppConstants.PROMO_SETTING_SPEND_GET);
 
-        final selectedImage =
-            controller.imagePickerController.selectedImage.value;
+        // final selectedImage =
+        //     controller.imagePickerController.selectedImage.value;
+
         return Stack(
           children: [
             // sale indicator
@@ -97,6 +101,8 @@ class SaleInputView extends GetView<SaleInputController> {
                     const VerticalSizedBox(height: 1),
                   ],
                 ],
+
+
                 if (controller.showBundles.value) ...[
                   CustomElevatedButton(
                     text: '+ Tambah Paket',
@@ -104,7 +110,7 @@ class SaleInputView extends GetView<SaleInputController> {
                       controller.addNewBundleMenu();
                     },
                   ),
-                  const VerticalSizedBox(height: 1),
+                  const VerticalSizedBox(height: 2),
                 ],
 
                 // single item
@@ -138,6 +144,7 @@ class SaleInputView extends GetView<SaleInputController> {
                     const VerticalSizedBox(height: 1),
                   ],
                 ],
+
                 if (controller.showSingles.value) ...[
                   CustomElevatedButton(
                     text: '+ Tambah Menu',
@@ -145,7 +152,46 @@ class SaleInputView extends GetView<SaleInputController> {
                       controller.addNewSingleMenu();
                     },
                   ),
+                const VerticalSizedBox(height: 2),
                 ],
+
+
+                // item addon
+                if (addons.isNotEmpty) ...[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      customListHeaderText(text: 'Addon (${addons.length})'),
+                      CustomSmallTextButton(
+                        title: controller.showAddons.value ? 'Tutup' : 'Buka',
+                        icon: Icon(
+                          controller.showAddons.value
+                              ? Icons.expand_less_rounded
+                              : Icons.expand_more_rounded,
+                        ),
+                        onPressed: () {
+                          controller.showAddons.toggle();
+                        },
+                      ),
+                    ],
+                  ),
+                  if(controller.showAddons.value)
+                  ...List.generate(addons.length, (index) {
+                    return SaleAddonItem(
+                      controller: controller,
+                      item: addons[index],
+                      index: index,
+                    );
+                  }),
+                ],
+
+                if(controller.showAddons.value) CustomElevatedButton(
+                  text: '+ Tambah AddOn',
+                  onPressed: () {
+                    controller.addNewAddon();
+                  },
+                ),
+
                 const VerticalSizedBox(height: 2),
 
                 // promo item
@@ -239,9 +285,10 @@ class SaleInputView extends GetView<SaleInputController> {
                           CustomTextButton(
                             title: 'Unggah Bukti',
                             onPressed: () async {
-                              currentSale.addPaymentEvidenceImgPath(await controller.imagePickerController.pickImage(
-                                ImageSource.camera,
-                              )); 
+                              currentSale.addPaymentEvidenceImgPath(
+                                await controller.imagePickerController
+                                    .pickImage(ImageSource.camera),
+                              );
                               // await controller.imagePickerController.pickImage(
                               //  ImageSource.camera,
                               // );
@@ -458,7 +505,7 @@ class EvidenceImgFromStorage extends StatelessWidget {
         onPressed: () {
           controller.service.selectedPendingSale.value!
               .removePaymentEvidenceImgPath();
-              controller.service.selectedPendingSale.refresh();
+          controller.service.selectedPendingSale.refresh();
         },
         icon: Icon(Icons.close),
       ),

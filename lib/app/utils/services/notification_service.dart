@@ -1,10 +1,29 @@
 import 'dart:io';
+import 'package:abg_pos_app/app/controllers/admin_notification_data_controller.dart';
+import 'package:abg_pos_app/app/data/providers/admin_notification_provider.dart';
+import 'package:abg_pos_app/app/data/repositories/admin_notification_repository.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
 class NotificationService extends GetxService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
+  final AdminNotificationDataController adminNotifData =
+      Get.isRegistered<AdminNotificationDataController>()
+      ? Get.find<AdminNotificationDataController>()
+      : Get.put(
+          AdminNotificationDataController(
+            repository: Get.put(
+              AdminNotificationRepository(
+                provider: Get.put(AdminNotificationProvider()),
+              ),
+            ),
+          ),
+        );
+  
+  RxInt currentNotificationCount = 0.obs;
+  
 
   // Inisialisasi
   Future<void> init() async {
@@ -15,15 +34,16 @@ class NotificationService extends GetxService {
     // Setting untuk iOS
     const DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings(
-      requestAlertPermission: false, // Kita request manual nanti
-      requestBadgePermission: false,
-      requestSoundPermission: false,
-    );
+          requestAlertPermission: false, // Kita request manual nanti
+          requestBadgePermission: false,
+          requestSoundPermission: false,
+        );
 
-    final InitializationSettings initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsDarwin,
-    );
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+          android: initializationSettingsAndroid,
+          iOS: initializationSettingsDarwin,
+        );
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
@@ -33,16 +53,15 @@ class NotificationService extends GetxService {
     if (Platform.isIOS) {
       await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-              IOSFlutterLocalNotificationsPlugin>()
-          ?.requestPermissions(
-            alert: true,
-            badge: true,
-            sound: true,
-          );
+            IOSFlutterLocalNotificationsPlugin
+          >()
+          ?.requestPermissions(alert: true, badge: true, sound: true);
     } else if (Platform.isAndroid) {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
-          flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>();
+          flutterLocalNotificationsPlugin
+              .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin
+              >();
 
       await androidImplementation?.requestNotificationsPermission();
     }
@@ -52,14 +71,13 @@ class NotificationService extends GetxService {
   NotificationDetails _notificationDetails() {
     return const NotificationDetails(
       android: AndroidNotificationDetails(
-        'channel_id_1', 
+        'channel_id_1',
         'Nama Channel',
         channelDescription: 'Deskripsi Channel',
         importance: Importance.max,
         priority: Priority.max,
         ticker: 'ticker',
-        icon: 
-        '@mipmap/ic_launcher',
+        icon: '@mipmap/ic_launcher',
       ),
       iOS: DarwinNotificationDetails(),
     );
@@ -91,4 +109,10 @@ class NotificationService extends GetxService {
   Future<void> cancelAll() async {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
+
+  // get admin notification unread message
+  int get unreadNotificationCount {
+    return adminNotifData.unreadNotificationCount;
+  }
+  
 }

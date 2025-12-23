@@ -145,6 +145,15 @@ class PrinterController extends GetxController {
       }
     }
 
+    for (var addon in saleData.itemAddon) {
+      await escCommand.newline();
+      await escCommand.text(
+        content:
+            '${addon.name.toUpperCase().padRight(21, ' ')}${'${addon.qty.round()}'.padRight(3)}${'${(addon.price * addon.qty).round()}'.padLeft(8, ' ')}',
+        style: EscTextStyle.default_,
+      );
+    }
+
     for (var promo in saleData.itemPromo) {
       await escCommand.newline();
       await escCommand.newline();

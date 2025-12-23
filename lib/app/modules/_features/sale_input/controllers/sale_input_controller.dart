@@ -52,6 +52,7 @@ class SaleInputController extends GetxController {
   // boolean
   RxBool showBundles = true.obs;
   RxBool showSingles = true.obs;
+  RxBool showAddons = true.obs;
   RxBool paidError = false.obs;
 
   // String text
@@ -80,6 +81,10 @@ class SaleInputController extends GetxController {
 
   PendingSale? get currentPendingSale {
     return service.selectedPendingSale.value;
+  }
+
+  void refreshPendingSale() {
+    service.selectedPendingSale.refresh();
   }
 
   bool get promoBuyGetEligibility {
@@ -144,6 +149,16 @@ class SaleInputController extends GetxController {
       }
     }
 
+    // hitung addon
+    if (currentPendingSale!.itemAddon.isNotEmpty) {
+      for (var item in currentPendingSale!.itemAddon) {
+        final addon = addonData.getAddon(item.addonId);
+        if (addon != null) {
+          total = total + (item.qty.toDouble() * addon.price);
+        }
+      }
+    }
+
     return total;
   }
 
@@ -194,6 +209,8 @@ class SaleInputController extends GetxController {
     );
   }
 
+  
+
   Future<void> addNotes(PendingSaleItemSingle item) async {
     inputC.text = item.notes ?? '';
     final notes = await customTextInputDialog(
@@ -243,6 +260,42 @@ class SaleInputController extends GetxController {
       );
       service.selectedPendingSale.refresh();
     }
+  }
+
+  Future<void> addNewAddon() async {
+    return await Get.defaultDialog(
+      title: 'Pilih Addon',
+      titleStyle: AppTextStyle.dialogTitle,
+      radius: AppConstants.DEFAULT_BORDER_RADIUS,
+      contentPadding: EdgeInsets.all(AppConstants.DEFAULT_PADDING),
+      content: Container(
+        constraints: BoxConstraints(
+          maxHeight: Get.height - 300,
+          maxWidth: Get.width - 40,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ...addonData.addons.map(
+                (addon) => CustomNavItem(
+                  title: addon.name,
+                  subTitle: inRupiah(addon.price),
+                  onTap: () {
+                    currentPendingSale!.addAddonItem(
+                      PendingSaleItemAddon(addonId: addon.id),
+                    );
+                    refreshPendingSale();
+
+                    Get.back();
+                  },
+                  
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Future<void> addNewPromoItem(String promoType) async {
@@ -306,7 +359,8 @@ class SaleInputController extends GetxController {
     }
 
     if (currentPendingSale!.itemBundle.isEmpty &&
-        currentPendingSale!.itemSingle.isEmpty) {
+        currentPendingSale!.itemSingle.isEmpty &&
+        currentPendingSale!.itemAddon.isEmpty) {
       customAlertDialog('Tidak ada produk yang dipilih');
       return;
     }
@@ -420,7 +474,8 @@ class SaleInputController extends GetxController {
           }
         }
       }
-
+      
+      // hitung paket
       final itemBundle = currentPendingSale!.itemBundle;
       if (itemBundle.isNotEmpty) {
         for (var i = 0; i < itemBundle.length; i++) {
@@ -444,6 +499,19 @@ class SaleInputController extends GetxController {
               );
             }
           }
+        }
+      }
+
+      // hitung addon
+      final itemAddon = currentPendingSale!.itemAddon;
+      if (itemAddon.isNotEmpty) {
+        for (var i = 0; i < itemAddon.length; i++) {
+          formData.fields.add(
+            MapEntry('itemAddon[$i][addonId]', itemAddon[i].addonId),
+          );
+          formData.fields.add(
+            MapEntry('itemAddon[$i][qty]', 1.toString()),
+          );
         }
       }
 

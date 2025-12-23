@@ -245,6 +245,31 @@ class SaleItemBundle {
   }
 }
 
+class SaleAddonItem {
+  final String addonId, name;
+  final double qty, price;
+
+  SaleAddonItem({
+    required this.addonId,
+    required this.name,
+    required this.qty,
+    required this.price,
+  });
+
+  factory SaleAddonItem.fromJson(Map<String, dynamic> json) {
+    return SaleAddonItem(
+      addonId: json['addonId'],
+      name: json['name'],
+      qty: double.parse(json['qty'].toString()),
+      price: double.parse(json['price'].toString()),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'addonId': addonId, 'name': name, 'qty': qty, 'price': price};
+  }
+}
+
 class SalePromoItem {
   final String menuId, name;
   final double qty;
@@ -271,6 +296,7 @@ class Sale {
   final SaleOperator operator;
   final List<SaleItemSingle> itemSingle;
   final List<SaleItemBundle> itemBundle;
+  final List<SaleAddonItem> itemAddon;
   final List<SalePromoItem> itemPromo;
   final double totalPrice, totalPaid;
   final SalePayment payment;
@@ -286,6 +312,7 @@ class Sale {
     required this.operator,
     required this.itemSingle,
     required this.itemBundle,
+    required this.itemAddon,
     required this.itemPromo,
     required this.totalPrice,
     required this.totalPaid,
@@ -308,6 +335,9 @@ class Sale {
           .toList(),
       itemBundle: (json['itemBundle'] as List)
           .map((e) => SaleItemBundle.fromJson(e))
+          .toList(),
+      itemAddon: (json['itemAddon'] as List)
+          .map((e) => SaleAddonItem.fromJson(e))
           .toList(),
       itemPromo: (json['itemPromo'] as List)
           .map((e) => SalePromoItem.fromJson(e))
@@ -335,6 +365,7 @@ class Sale {
       'operator': operator.toJson(),
       'itemSingle': itemSingle.map((e) => e.toJson()).toList(),
       'itemBundle': itemBundle.map((e) => e.toJson()).toList(),
+      'itemAddon': itemAddon.map((e) => e.toJson()).toList(),
       'itemPromo': itemPromo.map((e) => e.toJson()).toList(),
       'totalPrice': totalPrice,
       'totalPaid': totalPaid,
@@ -360,6 +391,7 @@ class Sale {
   int get itemCount {
     return itemSingle.fold(0, (value, item) => value + item.qty.toInt()) +
         itemBundle.fold(0, (value, item) => value + item.items.length).toInt() +
+        itemAddon.length +
         itemPromo.length;
   }
 }

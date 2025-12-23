@@ -20,7 +20,7 @@ class NotificationDetailView extends GetView<NotificationDetailController> {
           padding: horizontalPadding,
           children: [
             Text(
-              localDateTimeFormat(DateTime.now()),
+              localDateTimeFormat(controller.createdAt.value),
               textAlign: TextAlign.center,
             ),
             VerticalSizedBox(height: 2),
@@ -37,8 +37,8 @@ class NotificationDetailView extends GetView<NotificationDetailController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            customLabelText(text: 'Pengirim'),
-                            Text('Operator 1', overflow: TextOverflow.clip),
+                            customLabelText(text: 'Gerai'),
+                            Text(controller.outlet.value, overflow: TextOverflow.clip),
                           ],
                         ),
                       ),
@@ -48,8 +48,10 @@ class NotificationDetailView extends GetView<NotificationDetailController> {
                           children: [
                             customLabelText(text: 'Status'),
                             Badge(
-                              backgroundColor: Colors.red.shade700,
-                              label: Text('Baru'),
+                              backgroundColor: controller.status.value == 'Dibaca'
+                                  ? Colors.grey.shade400
+                                  :Colors.red.shade700,
+                              label: Text(controller.status.value),
                               padding: EdgeInsets.symmetric(
                                 horizontal: 5,
                                 vertical: 1,

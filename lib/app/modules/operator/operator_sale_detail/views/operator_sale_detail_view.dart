@@ -262,6 +262,38 @@ class OperatorSaleDetailView extends GetView<OperatorSaleDetailController> {
                     }),
                   ],
 
+                  // item addon
+                  if(sale.itemAddon.isNotEmpty) ...[
+                    const VerticalSizedBox(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        customLabelText(text: StringValue.ITEM_ADDON),
+                        customLabelText(text: StringValue.PRICE),
+                        
+                        ],
+
+                    ),
+                    const VerticalSizedBox(height: 0.7),
+                    ...sale.itemAddon.map((item) {
+                      return CustomCard(
+                        padding: 8,
+                        content: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('${normalizeName(item.name)} X${item.qty.round()}'),
+                                Text(inRupiah(item.price*item.qty))
+                                ],
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+
+                  ],
+
                   // item promo
                   if (sale.itemPromo.isNotEmpty) ...[
                     const VerticalSizedBox(),

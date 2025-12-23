@@ -9,8 +9,8 @@ import '../utils/helpers/file_helper.dart';
 import '../utils/helpers/get_storage_helper.dart';
 import '../utils/helpers/logger_helper.dart';
 
-class AdminNotificationController extends GetxController {
-  AdminNotificationController({required this.repository});
+class AdminNotificationDataController extends GetxController {
+  AdminNotificationDataController({required this.repository});
   final AdminNotificationRepository repository;
 
   final RxList<AdminNotification> notifications = <AdminNotification>[].obs;
@@ -99,7 +99,6 @@ class AdminNotificationController extends GetxController {
         if (await file.exists() && refresh != null && refresh == true)
           await file.delete();
         LoggerHelper.logInfo('Set initial admin notifications from server');
-
         final List<AdminNotification> fetchedNotifications = await repository
             .getAllNotifications();
         if (fetchedNotifications.isNotEmpty) {

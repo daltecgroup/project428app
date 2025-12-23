@@ -64,6 +64,7 @@ class StringValue {
   static const String ITEM_QTY = 'Jumlah';
   static const String ITEM_SINGLE = 'Item Satuan';
   static const String ITEM_BUNDLE = 'Item Paket';
+  static const String ITEM_ADDON = 'Item Addon';
   static const String ITEM_PROMO = 'Item Promo';
   static const String ITEM = 'Item';
   static const String QTY = 'Jumlah';
