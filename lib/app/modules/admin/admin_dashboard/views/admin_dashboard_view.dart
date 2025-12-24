@@ -1,18 +1,17 @@
-import 'package:abg_pos_app/app/shared/custom_appbar.dart';
-import 'package:abg_pos_app/app/shared/custom_card.dart';
-import 'package:abg_pos_app/app/shared/custom_drawer.dart';
-import 'package:abg_pos_app/app/shared/horizontal_sized_box.dart';
-import 'package:abg_pos_app/app/shared/vertical_sized_box.dart';
-import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
-import 'package:abg_pos_app/app/utils/theme/app_colors.dart';
-import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import 'package:flutter/material.dart';
+import '../../../../shared/custom_appbar.dart';
+import '../../../../shared/custom_drawer.dart';
+import '../../../../shared/vertical_sized_box.dart';
 import '../../../../shared/custom_circle_avatar_image.dart';
-import '../../../../utils/theme/custom_text.dart';
+import '../../../../utils/constants/padding_constants.dart';
+import '../../../../utils/theme/app_colors.dart';
 import '../controllers/admin_dashboard_controller.dart';
-
+import '../widgets/current_date_panel.dart';
+import '../widgets/inventory_alert_panel.dart';
+import '../widgets/operations_panel.dart';
+import '../widgets/revenue_panel.dart';
+import '../widgets/top_products_panel.dart';
 part '../widgets/user_indicator.dart';
 
 class AdminDashboardView extends GetView<AdminDashboardController> {
@@ -22,67 +21,43 @@ class AdminDashboardView extends GetView<AdminDashboardController> {
     return Scaffold(
       appBar: customAppBar('Admin'),
       drawer: customDrawer(),
-      body: ListView(
-        padding: horizontalPadding,
-        children: [
-          if (controller.currentUser != null)
-            UserIndicator(controller: controller),
+      body: RefreshIndicator(
+        onRefresh: controller.refreshData,
+        child: Obx(() {
+          final data = controller.data.data.value;
+          if (data == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-          // user count
-          VerticalSizedBox(),
-          Row(
-            children: [
-              Expanded(
-                child: CustomCard(
-                  content: Column(
-                    children: [
-                      customTitleText(maxLines: 1, text: '12'),
-                      customSmallLabelText(text: 'Gerai Aktif'),
-                    ],
-                  ),
-                ),
-              ),
-              HorizontalSizedBox(),
-              Expanded(
-                child: CustomCard(
-                  content: Column(
-                    children: [
-                      customTitleText(maxLines: 1, text: '12'),
-                      customSmallLabelText(text: 'Gerai Aktif'),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+          final topProducts = data.thisMonth.topProducts
+            ..sort((a, b) => b.revenueContribution.compareTo(a.revenueContribution));
 
-          VerticalSizedBox(),
-          Row(
+          return ListView(
+            padding: horizontalPadding,
             children: [
-              Expanded(
-                child: CustomCard(
-                  content: Column(
-                    children: [
-                      customTitleText(maxLines: 1, text: '12'),
-                      customSmallLabelText(text: 'Gerai Aktif'),
-                    ],
-                  ),
-                ),
+              if (controller.currentUser != null)
+                UserIndicator(controller: controller),
+              const VerticalSizedBox(height: 0.7),
+              CurrentDatePanel(),
+              const VerticalSizedBox(),
+              OperationsPanel(thisMonthOperations: data.thisMonth.operations),
+              const VerticalSizedBox(),
+              RevenuePanel(
+                todayFinancials: data.today.financials,
+                thisMonthFinancials: data.thisMonth.financials,
               ),
-              HorizontalSizedBox(),
-              Expanded(
-                child: CustomCard(
-                  content: Column(
-                    children: [
-                      customTitleText(maxLines: 1, text: '12'),
-                      customSmallLabelText(text: 'Gerai Aktif'),
-                    ],
-                  ),
-                ),
-              ),
+              if (topProducts.isNotEmpty) ...[
+                const VerticalSizedBox(),
+                TopProductsPanel(thisMonthTopProducts: topProducts),
+              ],
+              if (data.inventoryAlerts.isNotEmpty) ...[
+                const VerticalSizedBox(),
+                InventoryAlertPanel(inventoryAlerts: data.inventoryAlerts),
+              ],
+              const VerticalSizedBox(height: 10),
             ],
-          ),
-        ],
+          );
+        }),
       ),
     );
   }

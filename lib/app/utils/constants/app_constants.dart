@@ -56,6 +56,7 @@ class AppConstants {
       'ingredient_data_latest_update';
   static const String KEY_MENU_CATEOGORY_LATEST = 'menu_category_latest_update';
   static const String KEY_ADDON_LATEST = 'addon_latest_update';
+  static const String KEY_DASHBOARD_LATEST = 'dashboard_latest_update';
   static const String KEY_REQUEST_LATEST = 'request_latest_update';
   static const String KEY_SALE_LATEST = 'sale_latest_update';
   static const String KEY_OIT_LATEST = 'oit_latest_update';
@@ -75,6 +76,7 @@ class AppConstants {
   static const String FILENAME_MENU_CATEGORY_DATA =
       'abg_pos_local_menu_category_data.json';
   static const String FILENAME_ADDON_DATA = 'abg_pos_local_addon_data.json';
+  static const String FILENAME_DASHBOARD_DATA = 'abg_pos_local_dashboard_data.json';
   static const String FILENAME_REQUEST_DATA = 'abg_pos_local_request_data.json';
   static const String FILENAME_SALE_DATA = 'abg_pos_local_sale_data.json';
   static const String FILENAME_MENU_DATA = 'abg_pos_local_menu_data.json';
