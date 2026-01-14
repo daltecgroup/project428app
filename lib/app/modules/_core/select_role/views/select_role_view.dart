@@ -75,9 +75,9 @@ class SelectRoleView extends GetView<SelectRoleController> {
                                 ? SelectRoleButton(
                                     title: 'Admin',
                                     color: Colors.blueAccent,
-                                    onPressed: () {
+                                    onPressed: () async {
                                       Get.toNamed(Routes.ADMIN_DASHBOARD);
-                                      box.setValue(
+                                      await box.setValue(
                                         AppConstants.KEY_CURRENT_ROLE,
                                         AppConstants.ROLE_ADMIN,
                                       );

@@ -39,6 +39,7 @@ class AuthMiddleware extends GetMiddleware {
     if (rolesRequiredForRoute != null) {
       if (!_authService.hasAnyRole(rolesRequiredForRoute)) {
         unauthorizedSnackbar();
+        print('Unauthorized access to route: $route');
         return const RouteSettings(name: Routes.AUTH);
       }
     }

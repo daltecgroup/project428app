@@ -296,7 +296,7 @@ class Sale {
   final SaleOperator operator;
   final List<SaleItemSingle> itemSingle;
   final List<SaleItemBundle> itemBundle;
-  final List<SaleAddonItem> itemAddon;
+  List<SaleAddonItem>? itemAddon = [];
   final List<SalePromoItem> itemPromo;
   final double totalPrice, totalPaid;
   final SalePayment payment;
@@ -312,7 +312,7 @@ class Sale {
     required this.operator,
     required this.itemSingle,
     required this.itemBundle,
-    required this.itemAddon,
+     this.itemAddon,
     required this.itemPromo,
     required this.totalPrice,
     required this.totalPaid,
@@ -365,7 +365,7 @@ class Sale {
       'operator': operator.toJson(),
       'itemSingle': itemSingle.map((e) => e.toJson()).toList(),
       'itemBundle': itemBundle.map((e) => e.toJson()).toList(),
-      'itemAddon': itemAddon.map((e) => e.toJson()).toList(),
+      'itemAddon': itemAddon !=null? itemAddon!.map((e) => e.toJson()).toList(): [],
       'itemPromo': itemPromo.map((e) => e.toJson()).toList(),
       'totalPrice': totalPrice,
       'totalPaid': totalPaid,
@@ -391,7 +391,7 @@ class Sale {
   int get itemCount {
     return itemSingle.fold(0, (value, item) => value + item.qty.toInt()) +
         itemBundle.fold(0, (value, item) => value + item.items.length).toInt() +
-        itemAddon.length +
+        itemAddon!.length +
         itemPromo.length;
   }
 }

@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:abg_pos_app/app/shared/alert_snackbar.dart';
-import 'package:abg_pos_app/app/utils/constants/padding_constants.dart';
-import 'package:abg_pos_app/app/utils/theme/text_style.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,14 +8,16 @@ import 'package:collection/collection.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../constants/padding_constants.dart';
+import '../theme/text_style.dart';
+import '../helpers/sync_helper.dart';
+import '../helpers/text_helper.dart';
+import '../services/setting_service.dart';
+import '../constants/app_constants.dart';
+import '../helpers/get_storage_helper.dart';
+import '../helpers/logger_helper.dart';
 import '../../routes/app_pages.dart';
 import '../../controllers/outlet_data_controller.dart';
-import '../../utils/helpers/sync_helper.dart';
-import '../../utils/helpers/text_helper.dart';
-import '../../utils/services/setting_service.dart';
-import '../../utils/constants/app_constants.dart';
-import '../../utils/helpers/get_storage_helper.dart';
-import '../../utils/helpers/logger_helper.dart';
 import '../../data/providers/outlet_provider.dart';
 import '../../data/repositories/outlet_repository.dart';
 import '../../data/models/Outlet.dart';
@@ -318,12 +317,14 @@ class AuthService extends GetxService {
   Future<void> login(String id, String password) async {
     try {
       Response response = await _authProvider.login(id, password);
+      
       switch (response.statusCode) {
         case 200:
           currentUser.value = User.fromJson(response.body['data']);
           isLoggedIn.value = true;
           box.setValue(AppConstants.KEY_IS_LOGGED_IN, true);
           box.setValue(AppConstants.KEY_USER_TOKEN, response.body['token']);
+          print(box.getValue(AppConstants.KEY_USER_TOKEN));
           box.setValue(
             AppConstants.KEY_CURRENT_USER_DATA,
             json.encode(currentUser.toJson()),
@@ -391,6 +392,7 @@ class AuthService extends GetxService {
 
   bool get isAuthenticate {
     if (!box.isNull(AppConstants.KEY_USER_TOKEN)) {
+      print(box.getValue(AppConstants.KEY_USER_TOKEN));
       return DateTime.fromMillisecondsSinceEpoch(
         JwtDecoder.decode(box.getValue(AppConstants.KEY_USER_TOKEN))['exp'] *
             1000,

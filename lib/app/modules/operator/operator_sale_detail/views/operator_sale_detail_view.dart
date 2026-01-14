@@ -263,7 +263,7 @@ class OperatorSaleDetailView extends GetView<OperatorSaleDetailController> {
                   ],
 
                   // item addon
-                  if(sale.itemAddon.isNotEmpty) ...[
+                  if(sale.itemAddon != null && sale.itemAddon!.isNotEmpty) ...[
                     const VerticalSizedBox(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -275,7 +275,7 @@ class OperatorSaleDetailView extends GetView<OperatorSaleDetailController> {
 
                     ),
                     const VerticalSizedBox(height: 0.7),
-                    ...sale.itemAddon.map((item) {
+                    ...sale.itemAddon!.map((item) {
                       return CustomCard(
                         padding: 8,
                         content: Column(
